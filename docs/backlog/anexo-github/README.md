@@ -41,8 +41,10 @@ Extra label per batch: `batch:<name>` (e.g. `batch:initial`), so the batch can b
 - **Never re-run a creation script.** After a partial success, list what exists (`gh issue list --label batch:<name>`) and create only what's missing. Replanning is done by editing milestones and fields, not by recreating.
 - **The local ID isn't the issue number.** Only the number recorded in `key-map.md` names branches and commits.
 - **Work done before the board** is created in Todo and moved to Done by hand with its evidence (PR, CI), never created as Done directly.
+- **Issue numbers are shared with pull requests.** GitHub counts issues and PRs together, and PRs #1 and #2 already exist, so `BRG-n` never equals the local number (`brg-05` is not `BRG-5`). Only `key-map.md` maps them.
+- **Sub-issues need the issue id, not the number.** The script reads it with `gh api repos/…/issues/<n> --jq .id` before linking.
 - **Public repo:** issue bodies and comments are public. No real client data, phones or emails in them (ADR D2.2).
 
 ## Files
 
-- `imports/<batch>.sh` + `imports/README.md`: each real batch script with its result (counts, returned numbers). Created when the first batch is loaded.
+- [`imports/`](imports/README.md): each batch script, its issue bodies and its result. The first batch is `initial`.

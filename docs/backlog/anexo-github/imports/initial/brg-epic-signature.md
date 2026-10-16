@@ -1,0 +1,1 @@
+Outcome and limits: The five page-level signature components (hero, checker, planner, before/after, living trail). The epic groups approved scope; each delivery requires a spec and tests in red before implementing.

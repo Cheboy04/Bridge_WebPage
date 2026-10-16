@@ -1,7 +1,7 @@
 # Current key map of GitHub Issues
 
 **Source of truth:** GitHub Issues, project `BRG` (tickets are referred to as `BRG-<n>`, where n is the issue number).
-**Last verification:** YYYY-MM-DD.
+**Last verification:** 2026-10-16 — the board is not loaded yet; every row below is pending.
 
 This map avoids confusing the backlog's local IDs (and the keys of earlier boards) with the current keys. GitHub Issues rules: if a row differs from the board, fix it here **after** fixing the board. Before creating a branch, the key is verified here or on the board, never deduced.
 

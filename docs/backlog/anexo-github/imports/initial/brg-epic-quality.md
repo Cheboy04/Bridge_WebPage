@@ -1,0 +1,1 @@
+Outcome and limits: Cross-cutting accessibility, performance and parity checks, and the owner's acceptance in every phase. The epic groups approved scope; each delivery requires a spec and tests in red before implementing.

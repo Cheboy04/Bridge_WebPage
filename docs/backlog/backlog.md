@@ -1,6 +1,6 @@
 # Official backlog
 
-**Status:** baseline draft since 2026-10-16, pending the owner's approval. An official ticket is not thereby Ready and does not commit to a delivery date.
+**Status:** official baseline since 2026-10-16 (approved by the owner; loaded as `BRG-4`…`BRG-57`, see `key-map.md`). An official ticket is not thereby Ready and does not commit to a delivery date.
 
 ## Authority and use
 

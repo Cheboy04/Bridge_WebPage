@@ -1,6 +1,6 @@
 # Phase 0 — Lock (Bridge Traducciones website)
 
-**Status:** deliverables done 2026-10-16; awaiting the owner's review to close. **Branch:** `docs/p0-lock` (no issue numbers: the board is loaded after P0, `CLAUDE.md` §5).
+**Status:** **closed 2026-10-16** (owner approved the brand book, contracts, timings and register). Ticket brg-47 / `BRG-57`, Done. **Branch:** `docs/p0-lock` (no issue numbers: the board is loaded after P0, `CLAUDE.md` §5).
 **Owns:** the plan, deliverables and close criteria of P0. **Referenced by:** `CLAUDE.md` §5, ADR D1.1, D3.8.
 
 ## Goal
@@ -15,7 +15,7 @@ Phase-based work, no story points (ADR 1.5 OPEN). P0 has no functional stories; 
 
 | # | Deliverable | Owner file | Done when | Status |
 | --- | --- | --- | --- | --- |
-| a | Brand book: tokens, 21 components with live previews and guidelines, logo and icon assets, cover | [Bridge Puente](https://claude.ai/artifact/JCunauKZ4Binpf7tXxQmuo) (Design System artifact) | Published; previews render in both modes; owner reviewed | Published 2026-10-16 (v4); 21 previews, 0 component axe violations in both modes. Awaiting owner review |
+| a | Brand book: tokens, 21 components with live previews and guidelines, logo and icon assets, cover | [Bridge Puente](https://claude.ai/artifact/JCunauKZ4Binpf7tXxQmuo) (Design System artifact) | Published; previews render in both modes; owner reviewed | Done 2026-10-16 (v4), approved by the owner |
 | b | Component contracts: props, data source, events and query params for every component | `brand/COMPONENT-CONTRACTS.md` | Every brand-book component has a section; query contracts listed | Done 2026-10-16. Seal stays provisional (stamp OPEN) |
 | c | Exact timings and easing from the shipped code | `brand/SIGNATURE-COMPONENTS.md` ("Shipped behaviour") | Every animation and debounce in `sig-*.js` / CSS has a row | Done 2026-10-16, read from the code. Fixed drift: the checker's "one side Spanish" rule |
 | d | Placeholder register | `docs/placeholder-register.md` | Merges ARCHITECTURE §12, DIRECTION §11, HANDOFF_v1 §8; each row has where it lives and what it blocks | Done 2026-10-16: 29 rows, all open |
@@ -55,4 +55,4 @@ All five deliverables done (the Seal excepted while the stamp is OPEN), no drift
 
 ## GitHub Issues sync executed
 
-- None: the board is loaded after P0.
+- `2026-10-16` — brg-47 created as `BRG-57` and moved to Done by the owner, evidence PR #2.

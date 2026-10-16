@@ -7,5 +7,5 @@ it('serves the placeholder home in Spanish', function () {
         ->assertOk()
         ->assertSee('<html lang="es"', false)
         ->assertSee('Bridge Traducciones')
-        ->assertSee('Traducción certificada e interpretación simultánea, desde Quito.');
+        ->assertSee('Traducción certificada e interpretación simultánea, desde Quito!');
 });

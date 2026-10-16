@@ -1,189 +1,164 @@
-# Metodología — SDD + TDD ({{PROYECTO}})
+# Methodology — SDD + TDD (Bridge Traducciones website)
 
-<!-- RELLENAR: este documento es casi todo sustancia reutilizable. Solo se rellenan los marcadores, la tabla de §0, el modo de roles de §2 y la tabla de herramientas de §6. No reescribas las compuertas C1-C5: son el núcleo del método. -->
+**Status:** official since 2026-10-16.
+**Owns:** how every task is worked (cycle, gates, roles). **Referenced by:** `CLAUDE.md`, specs, handoffs.
 
-Documento **global**: aplica igual a todas las capas o repos del proyecto. Define **cómo trabajamos con el agente**, no qué se construye. El "qué" vive en las historias de usuario ({{TRACKER}}) y en sus specs (`docs/specs/`). Las decisiones técnicas cerradas viven en el ADR (`docs/adr/decisiones-tecnicas.md`).
+This document is **global**: it applies to all work in the repo. It defines **how we work with the agent**, not what gets built. The "what" lives in the stories (GitHub Issues) and their specs (`docs/specs/`). Closed technical decisions live in the ADR (`docs/adr/decisiones-tecnicas.md`).
 
-**Léelo completo al inicio de cada sesión.**
-
----
-
-## 0. Fuentes de verdad (y quién manda sobre qué)
-
-Cada afirmación tiene un único dueño. Si dos documentos se contradicen, gana el dueño de esa materia:
-
-| Materia                                                          | Fuente de verdad                                                     |
-| ---------------------------------------------------------------- | -------------------------------------------------------------------- |
-| Qué se construye (historias, criterios de aceptación)            | **{{TRACKER}}**. Las specs lo referencian, no lo copian.             |
-| Decisiones técnicas cerradas (formato de error, auth, capas…)    | **ADR** (`docs/adr/decisiones-tecnicas.md`), por número: `D3.1`…     |
-| Contrato técnico y tests de una HU                               | **Spec de la HU** en `docs/specs/…` (ubicación según la topología, §3) |
-| Modelo de datos                                                  | **ERD** (`docs/erd/`)                                                |
-| Reglas de comportamiento del agente                              | `CLAUDE.md` (raíz, más el de cada capa si es monorepo)               |
-| Convenciones de nombres                                          | `nomenclatura.md` (uno por capa o uno en `docs/`)                    |
-| Reglas de git                                                    | `docs/global/reglas-git.md`                                          |
-| Planificación (releases, sprints, capacidad)                     | `docs/backlog/roadmap.md` y `docs/backlog/sprints/`                  |
-| Estado entre sesiones                                            | `docs/global/handoffs/HANDOFF_vN.md`                                 |
-
-<!-- SI TOPOLOGIA=multirepo -->
-**Multirepo:** los documentos globales (ADR, ERD, backlog, metodología, reglas de git) viven solo en el repo **{{REPO_DOCS}}**. Los demás repos los enlazan por URL y no los copian.
-<!-- /SI -->
-
-**Regla anti-drift:** un valor concreto (un código de error, el nombre de un claim, una versión, un criterio de aceptación) se escribe en **un solo archivo**. Los demás lo referencian. Duplicarlo es un bug esperando a que las dos copias se separen en silencio.
+**Read it in full at the start of every session.**
 
 ---
 
-## 1. El problema que este método ataca
+## 0. Sources of truth (and who owns what)
 
-No es "la IA programa rápido". Es esto:
+Every statement has a single owner. If two documents contradict each other, the owner of that subject wins:
 
-> **El agente produce código y pruebas correctos casi siempre, y cuando se equivoca lo hace con la suite en verde.**
+| Subject | Source of truth |
+| --- | --- |
+| What gets built (stories, acceptance criteria) | **GitHub Issues**. Specs reference them, they don't copy them. |
+| Closed technical decisions (stack, deploy, privacy, i18n…) | **ADR** (`docs/adr/decisiones-tecnicas.md`), by number: `D3.1`… |
+| Design (tokens, components, logo, voice) | **Brand docs**: `brand/DIRECTION.md`, `brand/SIGNATURE-COMPONENTS.md`, `brand/logo/LOGO.md`, the brand book (ADR D3.8) |
+| Technical contract and tests of a story | **The story's spec** in `docs/specs/HU-XX.md` |
+| Data model | **ERD** (`docs/erd/`) |
+| Agent behaviour rules | `CLAUDE.md` |
+| Naming conventions | `docs/nomenclatura.md` |
+| Git rules | `docs/global/reglas-git.md` |
+| Planning (phases, gates) | `docs/backlog/roadmap.md` and `docs/backlog/sprints/` (phase docs) |
+| What Bridge must supply | The placeholder register (P0, ADR §12) |
+| State between sessions | `docs/global/handoffs/HANDOFF_vN.md` |
 
-Un test que no puede fallar no prueba nada. Una spec que el código ya no cumple deja de ser fuente de verdad. Un valor inventado por el agente se propaga sin que nada se ponga rojo. Todo lo que sigue existe para forzar que la verificación **pueda fallar** y que la intención **quede escrita**, no recordada.
+**Anti-drift rule:** a concrete value (a colour, a timing, a version, an acceptance criterion) is written in **one file only**. The others reference it. Duplicating it is a bug waiting for the two copies to drift apart silently.
 
 ---
 
-## 2. Reparto de roles
+## 1. The problem this method attacks
 
-**Modo vigente: `{{MODO_ROLES}}`.** <!-- RELLENAR: A, B o C. Conserva solo la tabla del modo elegido y borra las otras dos. Cambiar de modo es una decisión del ADR (bloque 1), no de una sesión. -->
+It isn't "AI codes fast". It's this:
 
-### Modo A — El humano implementa (híbrido SDD)
+> **The agent produces correct code and tests almost always, and when it's wrong, it's wrong with the suite green.**
 
-Para cuando la autoría humana del código es un requisito (proyecto académico, formación, código crítico). El agente es socio de SDD/TDD y mentor, no implementador.
+A test that can't fail proves nothing. A spec the code no longer meets stops being a source of truth. A value the agent invented spreads without anything turning red. Everything below exists to force verification that **can fail** and intent that is **written down**, not remembered.
 
-| Paso del ciclo                                    | Quién                                        |
-| ------------------------------------------------- | -------------------------------------------- |
-| Redactar o actualizar la **spec**                 | **Agente** (el humano aprueba)               |
-| Escribir los **tests** que fallan (fase roja)     | **Agente**                                   |
-| Escribir el **código de aplicación** hasta verde  | **Humano**                                   |
-| **Ping-pong**: ajustar un test si el diseño lo justifica | **El humano propone, el agente revalida** |
-| **Review** del diff (§5)                          | **Agente** (el humano decide qué acepta)     |
-| **Commit / push / PR**                            | **Humano** (el agente entrega los comandos)  |
+---
 
-**Excepción explícita:** si el humano lo pide para una acción puntual ("hazlo tú esta vez"), el agente puede escribir ese código. La excepción vale para esa tarea, no es permanente.
+## 2. Roles
 
-### Modo B — El agente implementa, el humano revisa
+**Current mode: `B`** (ADR D1.2). Changing mode is an ADR decision (block 1), not a session decision.
 
-Para cuando la velocidad importa y la autoría no es un requisito. El humano aprueba la intención y el resultado.
+### Mode B — The agent implements, the human reviews
 
-| Paso del ciclo                                    | Quién                                                   |
-| ------------------------------------------------- | ------------------------------------------------------- |
-| Spec                                              | **Agente** (el humano aprueba **antes** de seguir)      |
-| Tests en rojo                                     | **Agente** (muestra el rojo)                            |
-| Código hasta verde                                | **Agente**                                              |
-| Review con C3 (§5)                                | **Agente** (autorrevisión), y después **el humano** lee el diff |
-| Commit / push / PR                                | <!-- RELLENAR: humano, o agente con permiso explícito en reglas-git.md --> |
+Speed matters and code authorship is not a requirement. The human approves the intent and the result.
 
-**Contrapeso obligatorio:** en este modo el agente no puede aprobar su propia spec ni dar por buena su propia C3 sin mostrar la evidencia (el rojo de cada mutación).
+| Cycle step | Who |
+| --- | --- |
+| Spec | **Agent** (the human approves it **before** anything else) |
+| Red tests | **Agent** (shows the red) |
+| Code until green | **Agent** |
+| Review with C3 (§5) | **Agent** (self-review), then **the human** reads the diff |
+| Commit / push / PR | **Human**. The agent hands over the filled-in commands and stops (`reglas-git.md` §1). |
 
-### Modo C — Mixto por tarea
+**Mandatory counterweight:** the agent can't approve its own spec or sign off its own C3 without showing the evidence (the red of each mutation).
 
-Cada ticket declara en su checklist quién implementa (`impl: humano` o `impl: agente`). Por defecto implementa el humano (modo A). El agente escribe código solo en tickets marcados `impl: agente`.
+**Parallel workers:** when work is split across subagents, each worker gets **strict file ownership** (named files, no overlap). Shared stubs are created before anyone starts, so the build never breaks mid-run. The orchestrating agent integrates and reviews; a worker's report is a claim, not evidence, until the orchestrator re-checks it.
 
-### Permisos comunes a los tres modos
+### Permissions
 
-**Lo que el agente SÍ puede ejecutar sin pedir permiso:** herramientas de solo lectura (leer, buscar, consultar el grafo del código, `git status/branch/log/diff`) y **escribir y correr archivos de test**.
+**What the agent MAY run without asking:** read-only tools (read, search, query the code graph, `git status/branch/log/diff`), writing and running test files, application code inside the approved spec's scope, and the quality chain (`CLAUDE.md` §7.2).
 
-**Lo que el agente NO ejecuta (salvo que el modo lo permita):** código de aplicación, configuración de infraestructura y comandos de escritura de git. Si cree que hace falta, lo **explica en pasos** y se detiene.
+**What the agent does NOT run:** git writes, infrastructure configuration (`CLAUDE.md` §0.6), and anything outside the approved spec. If it thinks one is needed, it **explains it in steps** and stops.
 
 ---
 
 ## 3. SDD — Spec-Driven Development (spec-anchored)
 
-La spec vive junto al código y evoluciona con él. Su objetivo es evitar el _intent drift_: que el agente (o el humano) se aleje de la intención acordada.
+The spec lives next to the code and evolves with it. Its job is to prevent *intent drift*: the agent (or the human) moving away from the agreed intent.
 
-**Qué es una "spec".** Un archivo por HU <!-- SI TOPOLOGIA=monorepo -->y por capa: `docs/specs/{capa}/HU-XX.md`<!-- /SI --><!-- SI TOPOLOGIA=solo-backend|solo-frontend|multirepo -->en `docs/specs/HU-XX.md` del repo que la implementa<!-- /SI -->. **No** reescribe la historia ni sus criterios de aceptación, que viven en {{TRACKER}}. Elabora, para su capa:
+**What a "spec" is.** One file per story in `docs/specs/HU-XX.md`. It does **not** rewrite the story or its acceptance criteria, which live in GitHub Issues. It elaborates:
 
-1. **Alcance** de la HU en esa capa, y lo que queda fuera o diferido, con motivo.
-2. **Contrato técnico**: endpoints, formas de request y response, tipos, componentes y estados, anclado al ADR por número y sin copiarlo.
-3. **Criterios de aceptación de la capa** traducidos a **tests concretos**: nombre del test, qué afirma y cómo se prueba que falla.
-4. **Dependencias**: qué HU, tareas o decisiones ABIERTAS del ADR bloquean esta.
-5. **Enlace a la contraparte** en la otra capa o repo, si la HU cruza.
+1. **Scope** of the story, and what stays out or is deferred, with the reason.
+2. **Technical contract**: routes, Blade components and props, models, validation, states, anchored to the ADR by number without copying it.
+3. **Acceptance criteria** translated into **concrete tests**: test name, what it asserts and how it is proven to fail.
+4. **Dependencies**: which stories, tasks or OPEN ADR decisions block this one.
 
-**Anclaje sin duplicación.** Una HU que cruza capas se describe en dos specs enlazadas. El criterio a nivel de historia ("un usuario sin rol recibe 403…") vive en {{TRACKER}}. Cada spec tiene **sus** criterios de capa (backend: forma del 403; frontend: qué pantalla muestra). Nada se repite entre las dos.
-
-**La spec se mantiene viva.** Si al implementar aparece algo que la spec no contemplaba (un caso borde, un cambio de contrato), el `.md` se actualiza **en la misma sesión**. Una spec desactualizada es peor que no tenerla. Regla operativa: **cuando cambia el acuerdo, cambia primero el documento.**
+**The spec stays alive.** If something the spec didn't foresee appears during implementation (an edge case, a contract change), the `.md` is updated **in the same session**. An outdated spec is worse than none. Operating rule: **when the agreement changes, the document changes first.**
 
 ---
 
-## 4. El ciclo por tarea
+## 4. The cycle per task
 
-El orden es fijo. Cada tarea de una HU recorre:
+The order is fixed. Each task of a story goes through:
 
-1. **Specify.** El agente lee la HU en {{TRACKER}}, sus criterios de aceptación, el ADR relevante y el código existente (buscando primero, §7). Redacta o actualiza la spec. El humano la aprueba.
-2. **Red.** El agente escribe los tests derivados de los criterios de aceptación. **Deben fallar** al correrlos, porque aún no hay implementación, y el agente muestra ese rojo.
-3. **Green.** Quien implementa según el modo (§2) escribe el código hasta que los tests pasan.
-4. **Ping-pong (si aplica).** Si un test choca con un diseño mejor, se dice y se justifica. El agente ajusta el test y confirma que sigue cubriendo el criterio de aceptación. Los tests no son intocables, pero no se relajan en silencio.
-5. **Review.** Con la suite en verde, el agente audita el diff (§5) y verifica que cada test **puede fallar**.
-6. **Commit.** Según `reglas-git.md`. Si el agente no tiene permiso de escritura en git, entrega el bloque de comandos y **se detiene**.
+1. **Specify.** The agent reads the story in GitHub Issues, its acceptance criteria, the relevant ADR and the existing code (searching first, §7). It writes or updates the spec. The human approves it.
+2. **Red.** The agent writes the tests derived from the acceptance criteria. **They must fail** when run, because there's no implementation yet, and the agent shows that red.
+3. **Green.** The agent writes the code until the tests pass.
+4. **Ping-pong (if needed).** If a test clashes with a better design, the agent says so and justifies it, adjusts the test and confirms it still covers the acceptance criterion. Tests aren't untouchable, but they're never relaxed silently.
+5. **Review.** With the suite green, the agent audits the diff (§5) and verifies that each test **can fail**.
+6. **Commit.** Per `reglas-git.md`: the agent hands over the command block and **stops**.
 
-Iteraciones pequeñas: un diff revisable cada vez y una tarea cada vez. No se tocan otras cosas "de paso".
-
----
-
-## 5. Las compuertas TDD (no negociables)
-
-**C1 — No hay tests sin spec aprobada.** Si falta la spec, se escribe primero (§3).
-
-**C2 — No hay implementación sin un test que ya falle.** El rojo se ve antes de escribir código de aplicación. Si un test nace verde sin implementación, está mal escrito (o es un guardarraíl declarado como tal en un comentario).
-
-**C3 — Todo test nuevo se prueba rompiéndolo.** Es la mitad que casi nadie hace y la razón de ser del método. En el **Review**, por cada test que afirme algo no trivial, se rompe a propósito lo que afirma (se revierte el arreglo o se muta el valor) y se comprueba que **se pone rojo**. Un test que sigue verde con el código roto se corrige o se borra. Se documenta en el reporte: _"probado en rojo revirtiendo X"_, con el recuento de mutaciones y cuántas sobrevivieron.
-
-**C4 — Cuando el contrato es externo, se prueba contra la frontera real.** Un test que simula la dependencia prueba nuestro código, no el contrato. Los tests unitarios simulan las interfaces externas, pero al menos un test de integración ejercita la frontera real (la base de datos real del CI, el token real del proveedor de identidad, el bucket real…).
-
-**C5 — Sin tests no hay tarea terminada.** Una tarea no está terminada sin tests que la cubran. "0 hallazgos" en el review es un resultado válido y se dice tal cual; no se inventa trabajo para parecer diligente.
-
-### Qué busca el Review (paso 5 de §4), acotado al diff de la tarea
-
-- **Código muerto o sobrante**: exports, props o constantes que nadie usa, y abstracciones de un solo uso.
-- **Lo mismo escrito dos veces**: el peor caso, porque las copias se separan sin ponerse rojas (anti-drift de §0).
-- **Bugs estáticos**: nulos sin cubrir, errores tragados, entrada sin validar en la frontera y trabajo en el cliente que debía hacer el servidor.
-- **Tests que no pueden fallar** (C3).
-- **Drift entre docs y código**: si la spec, el ADR o el handoff afirman algo que la implementación desmiente, se corrige en la misma pasada.
-
-El agente entrega la lista de hallazgos con `archivo:línea`. Cada uno queda **arreglado** o **justificado por escrito**.
+Small iterations: one reviewable diff at a time, one task at a time. Nothing else gets touched "while we're at it".
 
 ---
 
-## 6. Herramientas por capa
+## 5. The TDD gates (non-negotiable)
 
-El ciclo es el mismo; las herramientas cambian según dónde ocurre el trabajo. El `CLAUDE.md` de cada capa las detalla.
+**C1 — No tests without an approved spec.** If the spec is missing, it is written first (§3).
 
-<!-- RELLENAR: una columna por capa (monorepo) o por repo (multirepo); en solo-* deja una sola columna. Ejemplo (Track Studio): Pest / Larastan nivel 5 / Pint / composer install en backend; Vitest / tsc --noEmit / ESLint + Prettier / npm ci en frontend. -->
+**C2 — No implementation without a test that already fails.** The red is seen before writing application code. If a test is born green without implementation, it's badly written (or it's a guard rail declared as such in a comment).
 
-|                           | {{CAPA}} |
-| ------------------------- | -------- |
-| Runner de tests           |          |
-| Tipos / análisis estático |          |
-| Formato                   |          |
-| Test de flujo de usuario  |          |
-| Instalación en CI         |          |
+**C3 — Every new test is proven by breaking it.** This is the half almost nobody does, and the reason the method exists. In the **Review**, for each test that asserts something non-trivial, what it asserts is broken on purpose (revert the fix or mutate the value), and it must **turn red**. A test that stays green with the code broken gets fixed or deleted. The report says: _"proven red by reverting X"_, with the count of mutations and how many survived.
 
-Regla común: el pin real lo dan los lockfiles versionados, y el CI instala respetándolos (nunca un comando que los actualice).
+**C4 — When the contract is external, test against the real boundary.** A test that simulates the dependency tests our code, not the contract. Unit tests simulate external interfaces, but at least one integration test exercises the real boundary (the real MySQL in CI, a real mail render, the real private disk driver…).
 
----
+**C5 — No tests, no finished task.** A task isn't finished without tests that cover it. "0 findings" in review is a valid result and is said as is; no work is invented to look diligent.
 
-## 7. Buscar antes de escribir
+**Visual work** (Blade components, pages): the tests are the parity and a11y checks (0 axe violations, no overflow at 390 and 1440, the component's states from its contract), plus feature tests for the data each component renders. "Looks right" is evidence only after a fresh screenshot is compared with the prototype.
 
-Antes de escribir un test o de proponer una implementación, el agente consulta el código existente con `{{HERRAMIENTA_BUSQUEDA}}`. Sirve para **reutilizar en vez de reescribir** (¿ya existe este helper, este servicio, esta interfaz?) y para que los tests referencien símbolos reales, no inventados.
+### What the Review looks for (step 5 of §4), limited to the task's diff
 
-<!-- RELLENAR: si usas un grafo de conocimiento (graphify, codebase-memory…), indica sus comandos y cuándo se actualiza. Si no, borra la frase siguiente. -->
+- **Dead or surplus code**: exports, props or constants nobody uses, and one-use abstractions.
+- **The same thing written twice**: the worst case, because copies drift apart without turning red (anti-drift, §0).
+- **Static bugs**: unhandled nulls, swallowed errors, unvalidated input at the boundary, and client-side work that the server should do.
+- **Tests that can't fail** (C3).
+- **Drift between docs and code**: if the spec, the ADR or the handoff claims something the implementation contradicts, it's fixed in the same pass.
 
-Es memoria **del código**, no de la conversación. La memoria entre sesiones la cargan archivos versionados: las specs y el `HANDOFF_vN.md`.
+The agent delivers the list of findings with `file:line`. Each one is **fixed** or **justified in writing**.
 
 ---
 
-## 8. Lo que este método NO cambia
+## 6. Tools
 
-- **Las decisiones ABIERTAS del ADR siguen bloqueando.** Si una tarea toca un punto marcado `ABIERTO`, no se escriben todavía ni su spec de implementación ni sus tests: se señala la decisión pendiente. La lista viva está al final del ADR, no aquí; copiarla sería el drift que §0 prohíbe.
-- **Una decisión `ABIERTA` no siempre bloquea.** Si la implementación es compatible con **todas** las salidas posibles de la decisión, el punto se anota y se avanza. Lo que no vale es elegir en silencio una de las salidas y decir que "no bloquea".
-  > Ejemplo (Track Studio): el origen del `trace_id` seguía abierto. El backend genera un ULID por respuesta de error y, si mañana el frontend aporta el suyo, el manejador lo respeta sin reescribir nada.
-- **"Qué NO hacer todavía"** del `CLAUDE.md` manda por encima de este ciclo. Aunque el método permita escribir tests, no se escriben para módulos vetados ahí.
-- La **Definition of Done** del proyecto (ADR, bloque 1) sigue siendo el criterio de cierre. Este método es cómo se llega a ella, no un sustituto.
+| | `site/` |
+| --- | --- |
+| Test runner | Pest (`php artisan test`) |
+| Types / static analysis | Larastan (`vendor/bin/phpstan analyse`) |
+| Format | Pint (`vendor/bin/pint --test`) |
+| User-flow test | Browser run against the site: axe-core + overflow + interaction scripts (instrument OPEN, ADR 11.3; `prototype/check.mjs` is the current model) |
+| CI install | `composer install` + `npm ci` (lockfiles respected) |
+
+Common rule: the real pin comes from the versioned lockfiles, and CI installs respecting them (never a command that updates them).
 
 ---
 
-## 9. Definición de "Ready" y "Done" para el agente
+## 7. Search before writing
 
-**Ready (una tarea puede entrar al ciclo) si:** su HU tiene criterios de aceptación en {{TRACKER}}; las decisiones del ADR de las que depende están `DECIDIDO`; el slice del ERD que necesita está aprobado (si toca datos); y no cae en "Qué NO hacer todavía".
+Before writing a test or proposing an implementation, the agent queries the existing code with **codebase-memory-mcp**. It's for **reusing instead of rewriting** (does this helper, service or component already exist?) and so tests reference real symbols, not invented ones. Commands and when to re-index: `CLAUDE.md` §8. For the public UI, the prototype (`prototype/src/components/`) is searched too: it's the reference implementation.
 
-**Done (el agente puede entregar el bloque de commit) si:** la spec está escrita o actualizada; los tests están en verde; cada test se probó en rojo (C3); el review no tiene hallazgos abiertos; los AC de la capa están cubiertos; y los docs no tienen drift. Sin esto, la tarea no está entregada aunque "funcione".
+It is memory **of the code**, not of the conversation. Memory between sessions is carried by versioned files: the specs and `HANDOFF_vN.md`.
+
+---
+
+## 8. What this method does NOT change
+
+- **OPEN ADR decisions still block.** If a task touches a point marked `OPEN`, neither its implementation spec nor its tests are written yet: the pending decision is flagged. The live list is at the end of the ADR, not here; copying it would be the drift §0 forbids.
+- **An OPEN decision doesn't always block.** If the implementation is compatible with **every** possible outcome of the decision, the point is noted and work proceeds. What's not allowed is silently picking one outcome and saying it "doesn't block".
+  > Example: the attachment retention period is OPEN (ADR D7.1). The cleanup job reads the period from config, so it works with 90 days or any other value Bridge picks.
+- **"What NOT to do yet"** in `CLAUDE.md` §5 overrides this cycle. Even if the method allows writing tests, they aren't written for modules vetoed there.
+- The project's **Definition of Done** (ADR, block 1) is still the closing criterion. This method is how you get there, not a substitute.
+
+---
+
+## 9. "Ready" and "Done" for the agent
+
+**Ready (a task can enter the cycle) if:** its story has acceptance criteria in GitHub Issues; the ADR decisions it depends on are `DECIDED` (or compatible with every outcome, §8); the ERD slice it needs is approved (if it touches data); and it isn't under "What NOT to do yet".
+
+**Done (the agent can hand over the commit block) if:** the spec is written or updated; tests are green; each test was proven red (C3); the review has no open findings; the story's acceptance criteria are covered; and the docs have no drift. Without this, the task isn't delivered even if "it works".

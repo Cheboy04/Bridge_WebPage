@@ -1,40 +1,40 @@
-# Backlog oficial
+# Official backlog
 
-**Estado:** baseline oficial de alcance y trazabilidad desde AAAA-MM-DD. Que un ticket sea oficial no lo convierte en Ready ni compromete su fecha de entrega.
+**Status:** official baseline of scope and traceability since YYYY-MM-DD. An official ticket is not thereby Ready and does not commit to a delivery date.
 
-## Autoridad y uso
+## Authority and use
 
-Este backlog descompone [el roadmap](roadmap.md) y sigue el [formato común](backlog-format.md). Prevalecen el ADR, el `CLAUDE.md` y la [metodología](../global/metodologia-sdd-tdd.md). El alcance proviene de <!-- documento fuente -->.
+This backlog breaks down [the roadmap](roadmap.md) and follows the [common format](backlog-format.md). The ADR, `CLAUDE.md` and the [methodology](../global/metodologia-sdd-tdd.md) prevail. The scope comes from <!-- source document -->.
 
-Antes de cargar el backlog en {{TRACKER}}, este catálogo es su diseño. Después, {{TRACKER}} es la fuente de verdad y aquí solo se conserva el diseño; las claves reales están en [`key-map.md`](key-map.md).
+Before the backlog is loaded into GitHub Issues, this catalog is its design. After that, GitHub Issues is the source of truth and only the design is kept here; the real keys are in [`key-map.md`](key-map.md).
 
-## Catálogo de épicas
+## Epic catalog
 
-| ID local | Clave | Épica | Resultado y límites | Contenido | Ventana |
-| -------- | ----- | ----- | ------------------- | --------- | ------- |
-| `{{PREFIJO_LOCAL}}-epic-infra` | — | Infraestructura y entornos | Repositorio, CI/CD, modelo de datos, entornos y proveedores externos configurados por el equipo. | HU-01, … | S1-SN |
-| `{{PREFIJO_LOCAL}}-epic-quality` | — | Calidad y aceptación | Pruebas integrales, verificación de RNF y aceptación con el cliente. | … | S2-SN |
+| Local ID | Key | Epic | Outcome and limits | Content | Window |
+| -------- | --- | ---- | ------------------ | ------- | ------ |
+| `brg-epic-infra` | — | Infrastructure and environments | Repository, CI/CD, data model, environments and external providers configured by the team. | HU-01, … | P0-P7 |
+| `brg-epic-quality` | — | Quality and acceptance | Integral tests, RNF verification and acceptance with the client. | … | P1-P7 |
 |  |  |  |  |  |  |
 
-<!-- RELLENAR: una épica por módulo funcional (resultado acotado y límites claros), más las transversales de infraestructura, calidad y documentación. Toda Task de infraestructura cuelga de la épica de infraestructura, aunque bloquee a otra épica. -->
+<!-- RELLENAR: one epic per functional module (bounded outcome and clear limits), plus the cross-cutting ones for infrastructure, quality and documentation. Every infrastructure Task hangs from the infrastructure epic, even if it blocks another epic. -->
 
-## Historias
+## Stories
 
-| ID local | HU | Épica | Título | SP | Release | Sprint objetivo | Capa | Riesgo |
-| -------- | -- | ----- | ------ | -: | ------- | --------------- | ---- | ------ |
-| `{{PREFIJO_LOCAL}}-01` | HU-01 | | | | | | | |
+| Local ID | HU | Epic | Title | SP | Release | Target phase | Layer | Risk |
+| -------- | -- | ---- | ----- | -: | ------- | ------------ | ----- | ---- |
+| `brg-01` | HU-01 | | | | | | | |
 
 ## Tasks
 
-| ID local | Épica | Título | Bloquea a | Ventana |
-| -------- | ----- | ------ | --------- | ------- |
-|          |       |        |           |         |
+| Local ID | Epic | Title | Blocks | Window |
+| -------- | ---- | ----- | ------ | ------ |
+|          |      |       |        |        |
 
-## Cobertura del alcance aprobado
+## Coverage of the approved scope
 
-| Requerimiento | Épica principal | Cobertura complementaria |
-| ------------- | --------------- | ------------------------ |
-| RF-01 …       |                 |                          |
-| RNF-01 …      |                 |                          |
+| Requirement | Main epic | Complementary coverage |
+| ----------- | --------- | ---------------------- |
+| RF-01 …     |           |                        |
+| RNF-01 …    |           |                        |
 
-Cada RF y RNF tiene al menos una épica principal. Los elementos sin respaldo en RF quedan pendientes de decisión (ver roadmap) y no tienen ticket.
+Each RF and RNF has at least one main epic. Items with no RF behind them stay pending a decision (see roadmap) and have no ticket.

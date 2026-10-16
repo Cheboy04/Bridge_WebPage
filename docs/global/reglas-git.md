@@ -1,166 +1,147 @@
-# Reglas de Git ({{PROYECTO}})
+# Git rules (Bridge Traducciones website)
 
-<!-- RELLENAR: elige la variante de §1 según el modo de roles de metodologia-sdd-tdd.md §2, y los scopes de §3 según la topología. -->
+**Status:** official since 2026-10-16.
+**Owns:** the branch model, naming of branches and commits, and what the agent may do with git. **Referenced by:** `CLAUDE.md` §0.1, the methodology §2, the PR template.
 
-Documento **global**. Define el modelo de ramas y **qué puede y qué no puede hacer el agente** con el control de versiones.
-
-**Fuente de verdad del ID que nombra ramas y commits:** la clave de la historia o tarea en **{{TRACKER}}** (`{{PREFIJO_TICKET}}-<n>`). Este documento define el _formato_; el ID real sale del tablero.
-
----
-
-## 1. Qué hace el agente con git
-
-<!-- SI MODO_ROLES=A|C -->
-### Regla dura: el agente lee, no escribe
-
-El control de versiones lo ejerce **exclusivamente el equipo humano**. Cada commit es un punto en el que una persona leyó un diff y dijo que sí. Los commits frecuentes son además la red para revertir si algo se cuela, algo todavía más importante si el repo es **público**: un secreto que entra al historial no se borra con un commit más.
-
-| El agente **SÍ** (solo lectura)                               | El agente **NUNCA** (escritura)               |
-| ------------------------------------------------------------- | --------------------------------------------- |
-| `git status`, `git branch`, `git log`, `git diff`, `git show` | `git commit`, `git add`                       |
-| Leer la rama actual para rellenar los comandos de entrega     | `git push`                                    |
-| Inspeccionar el historial para guiar mejor                    | `git checkout` / `switch` / `checkout -b`     |
-|                                                               | `git merge`, `git rebase`, `git reset`        |
-|                                                               | `git tag`, `git branch -d/-D`, `git stash`    |
-
-Si el agente cree que hace falta una operación de escritura, **no la ejecuta**: entrega el bloque de comandos (§4) y se detiene.
-<!-- /SI -->
-<!-- SI MODO_ROLES=B -->
-### El agente escribe en ramas de trabajo, nunca en las protegidas
-
-| El agente **SÍ**                                                    | El agente **NUNCA**                                               |
-| ------------------------------------------------------------------- | ----------------------------------------------------------------- |
-| Leer (`status`, `log`, `diff`, `show`)                              | Push, merge, rebase o reset sobre `{{RAMA_PRINCIPAL}}` o `{{RAMA_INTEGRACION}}` |
-| Crear la rama `feature/…` de la tarea                               | `push --force`, `reset --hard`, borrar ramas remotas              |
-| `add` y `commit` en esa rama, con el formato de §3                  | Mergear su propia PR                                              |
-| `push` de esa rama y abrir la PR <!-- RELLENAR: borra esta fila si el push lo hace el humano --> | Commitear sin haber revisado el diff en busca de secretos |
-<!-- /SI -->
+**Source of truth for the ID that names branches and commits:** the issue number in **GitHub Issues** (`BRG-<n>`, where `<n>` is the issue number; ADR D2.4). This document defines the _format_; the real ID comes from the board.
 
 ---
 
-## 2. Modelo de ramas: git-flow simplificado
+## 1. What the agent does with git
 
-`feature/* → {{RAMA_INTEGRACION}} (staging) → {{RAMA_PRINCIPAL}} (producción, con aprobación manual)`.
+### Hard rule: the agent reads, it doesn't write
 
-| Rama                                       | Rol                                                         | Nace de                 | Vuelve a                                       |
-| ------------------------------------------ | ----------------------------------------------------------- | ----------------------- | ---------------------------------------------- |
-| `{{RAMA_PRINCIPAL}}`                       | Producción.                                                 | —                       | Solo por PR desde `{{RAMA_INTEGRACION}}`, con aprobación manual |
-| `{{RAMA_INTEGRACION}}`                     | Integración / staging. Un merge aquí despliega a staging.   | `{{RAMA_PRINCIPAL}}`    | —                                              |
-| `feature/{{PREFIJO_TICKET}}-<id>-<slug>`   | Una historia o tarea.                                       | `{{RAMA_INTEGRACION}}`  | `{{RAMA_INTEGRACION}}` por **Pull Request**    |
-| `fix/<slug>`                               | Corrección menor no atada a una historia.                   | `{{RAMA_INTEGRACION}}`  | `{{RAMA_INTEGRACION}}` por PR                  |
-| `hotfix/<slug>`                            | Urgencia en producción.                                     | `{{RAMA_PRINCIPAL}}`    | `{{RAMA_PRINCIPAL}}` **y** `{{RAMA_INTEGRACION}}` |
+Mode B (ADR D1.2) lets the agent write code, but version control belongs **only to the human**. Every commit is a point where a person read a diff and said yes. Frequent commits are also the safety net to revert if something slips through, which matters more in a **public** repo: a secret that enters the history isn't removed by one more commit.
 
-- **Nunca hay `push` directo a `{{RAMA_PRINCIPAL}}` ni a `{{RAMA_INTEGRACION}}`.** Todo entra por PR con al menos 1 review y el CI en verde. Ambas ramas tienen protección (rulesets) con esos requisitos.
+| The agent **DOES** (read only) | The agent **NEVER** does (writes) |
+| --- | --- |
+| `git status`, `git branch`, `git log`, `git diff`, `git show` | `git commit`, `git add` |
+| Read the current branch to fill in the hand-over commands | `git push` |
+| Inspect the history to guide better | `git checkout` / `switch` / `checkout -b` |
+| `gh` read commands (`gh issue view`, `gh pr view`, `gh repo view`) | `git merge`, `git rebase`, `git reset` |
+| | `git tag`, `git branch -d/-D`, `git stash` |
+| | `gh pr create/merge`, `gh issue create/edit` without the owner's approval for that batch |
 
-<!-- SI TOPOLOGIA=multirepo -->
-**Multirepo:** cada repo tiene su propio flujo con los mismos nombres de rama. Una historia que cruza repos usa **el mismo nombre de rama en cada repo** y una PR por repo. Cada PR enlaza a las otras en su descripción.
-<!-- /SI -->
+If the agent thinks a write is needed, it **doesn't run it**: it hands over the command block (§4) and stops.
 
 ---
 
-## 3. Convención de nombres
+## 2. Branch model: simplified git-flow
 
-**Ramas:** `feature/{{PREFIJO_TICKET}}-<id>-<slug>`, con `<slug>` corto en `kebab-case`.
+`feature/* → develop (staging) → main (production, with manual approval)`.
+
+| Branch | Role | Born from | Goes back to |
+| --- | --- | --- | --- |
+| `main` | Production. | — | Only by PR from `develop`, with manual approval |
+| `develop` | Integration / staging. A merge here deploys to staging (ADR 9.6). | `main` | — |
+| `feature/BRG-<n>-<slug>` | One story or task. | `develop` | `develop` by **Pull Request** |
+| `docs/<slug>` | Documentation-only work not tied to a single issue (e.g. the kit fill). | `develop` | `develop` by PR |
+| `fix/<slug>` | Minor fix not tied to a story. | `develop` | `develop` by PR |
+| `hotfix/<slug>` | Production emergency. | `main` | `main` **and** `develop` |
+
+- **Never a direct `push` to `main` or `develop`.** Everything goes in by PR with CI green. Both branches get protection (rulesets) once CI exists (P1). The owner is the only reviewer, so the review is the owner reading the diff.
+
+---
+
+## 3. Naming convention
+
+**Branches:** `feature/BRG-<n>-<slug>`, with a short `kebab-case` `<slug>`.
 
 **Commits:**
 
 ```
-<tipo>(<scope>): {{PREFIJO_TICKET}}-<id> <descripción imperativa breve>
+<type>(<scope>): BRG-<n> <short imperative description>
 ```
 
-- `<tipo>`: `feat` · `fix` · `test` · `docs` · `ci` · `chore`
-- `<scope>`: <!-- SI TOPOLOGIA=monorepo -->la capa (`backend` · `frontend` · …), o `docs` para cambios solo de documentación<!-- /SI --><!-- SI TOPOLOGIA=solo-backend|solo-frontend|multirepo -->el módulo funcional (p. ej. `auth`, `artists`), o se omite junto con los paréntesis<!-- /SI -->
-- `{{PREFIJO_TICKET}}-<id>`: clave de la historia o tarea en {{TRACKER}}
-- Idioma del mensaje: {{IDIOMA_DOCS}}. Se mantiene en todo el historial.
+- `<type>`: `feat` · `fix` · `test` · `docs` · `ci` · `chore`
+- `<scope>`: the functional module (`leads`, `services`, `admin`, `brand`, `prototype`, `deploy`…), or omit it along with the parentheses.
+- `BRG-<n>`: the issue number in GitHub Issues. Work with no issue (like the kit fill) omits it.
+- Message language: English. It stays that way across the history.
+- Trailer: commits end with the attribution line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>` when the agent wrote the change.
 
-> Ejemplo (Track Studio): `feat(backend): TS-34 responder 403 FORBIDDEN en formato D3.1`, en la rama `feature/TS-34-forbidden-formato-d3-1`.
+> Example: `feat(leads): BRG-23 store consent timestamp on quote submit`, on branch `feature/BRG-23-lead-consent`.
 
-Este es el **único sitio** donde vive la convención. La plantilla de PR y los `CLAUDE.md` la referencian, no la repiten.
+This is the **only place** where the convention lives. The PR template and `CLAUDE.md` reference it; they don't repeat it.
 
 ---
 
-## 4. Regla de entrega (obligatoria)
+## 4. Hand-over rule (mandatory)
 
-<!-- SI MODO_ROLES=A|C -->
-Como el agente no ejecuta git, **cada vez que arranca y cada vez que cierra una tarea entrega un bloque de comandos listo para copiar**, rellenado con la rama y el ID reales (leídos con `git branch` / `git status` y del tablero). Sin ese bloque, la tarea no está entregada.
-<!-- /SI -->
-<!-- SI MODO_ROLES=B -->
-El agente ejecuta los bloques siguientes él mismo y **pega la salida** en su reporte. Antes de cada commit muestra `git diff --stat` y confirma que no hay secretos.
-<!-- /SI -->
+Because the agent doesn't run git writes, **every time it starts and every time it closes a task it hands over a ready-to-copy command block**, filled in with the real branch and ID (read with `git branch` / `git status` and from the board). Without that block, the task isn't delivered.
 
-- **Antes de tocar nada:** informar en qué rama debe estar el trabajo y cómo crearla. Si la rama base no existe o **no se conoce el `{{PREFIJO_TICKET}}-<id>` real**, se dice y se **frena**: no se empieza en la rama equivocada ni se inventa el ID.
-- **Al terminar:** bloque de cierre (`add`, `commit` redactado según §3, `push` y apertura de la PR hacia `{{RAMA_INTEGRACION}}`).
+- **Before touching anything:** say which branch the work must be on and how to create it. If the base branch doesn't exist or **the real `BRG-<n>` isn't known**, say so and **stop**: don't start on the wrong branch and don't invent the ID.
+- **When done:** the closing block (`add`, the commit written per §3, `push`, and opening the PR to `develop`).
+- Before the closing block, the agent shows `git diff --stat` and confirms there are no secrets or real client data in the diff.
 
-### 4.1 Bloques de comandos
+### 4.1 Command blocks
 
-**Arrancar una tarea:**
+**Start a task:**
 
 ```bash
-git checkout {{RAMA_INTEGRACION}} && git pull
-git checkout -b feature/{{PREFIJO_TICKET}}-<id>-<slug>
+git switch develop && git pull
+git switch -c feature/BRG-<n>-<slug>
 ```
 
-**Cerrar una tarea:**
+**Close a task:**
 
 ```bash
 git add -A
-git commit -m "<tipo>(<scope>): {{PREFIJO_TICKET}}-<id> <descripción imperativa>"
-git push -u origin feature/{{PREFIJO_TICKET}}-<id>-<slug>
-# abrir la PR hacia {{RAMA_INTEGRACION}}
+git commit -m "<type>(<scope>): BRG-<n> <imperative description>"
+git push -u origin feature/BRG-<n>-<slug>
+gh pr create --base develop --fill
 ```
 
-**Empecé a trabajar sin rama** (los cambios sin commitear viajan con el `checkout -b`):
+**I started working without a branch** (uncommitted changes travel with `switch -c`):
 
 ```bash
-git status                                                # confirmar que NO hay commits, solo cambios sin stage
-git checkout -b feature/{{PREFIJO_TICKET}}-<id>-<slug>    # se lleva el trabajo consigo
+git status                                  # confirm there are NO commits, only unstaged changes
+git switch -c feature/BRG-<n>-<slug>        # takes the work with it
 ```
 
-**Guardar trabajo a medias para cambiar de contexto:**
+**Park half-done work to switch context:**
 
 ```bash
-git stash push -m "{{PREFIJO_TICKET}}-<id> wip"
+git stash push -m "BRG-<n> wip"
 git stash list
 git stash pop
 ```
 
-**Limpiar después de fusionar la PR:**
+**Clean up after the PR is merged:**
 
 ```bash
-git checkout {{RAMA_INTEGRACION}} && git pull
-git branch -d feature/{{PREFIJO_TICKET}}-<id>-<slug>
-git push origin --delete feature/{{PREFIJO_TICKET}}-<id>-<slug>
+git switch develop && git pull
+git branch -d feature/BRG-<n>-<slug>
+git push origin --delete feature/BRG-<n>-<slug>
 git remote prune origin
 ```
 
-**Arranque inicial del repo** (una sola vez):
+**Initial repo bootstrap** (once; done on 2026-10-16):
 
 ```bash
-git checkout {{RAMA_PRINCIPAL}} && git pull
-git checkout -b {{RAMA_INTEGRACION}}
-git push -u origin {{RAMA_INTEGRACION}}
+git switch main && git pull
+git switch -c develop
+git push -u origin develop
 ```
 
 ---
 
-## 5. Cuándo commitear y cuándo hacer push
+## 5. When to commit and when to push
 
-| Momento                                                                              | Acción                                                                |
-| ------------------------------------------------------------------------------------ | --------------------------------------------------------------------- |
-| Tests en rojo escritos y vistos fallar (fase Red)                                    | `commit` del rojo (`test(…)`): queda como evidencia de C2             |
-| Tests en verde y una unidad lógica terminada                                         | `commit` (uno por unidad coherente, no uno gigante al final)          |
-| Fin de la tarea, o se quiere respaldo o revisión remota                              | `push`                                                                |
-| Tarea completa, AC cubiertos, tests en verde y **probados en rojo** (C3)             | `push` y **PR hacia `{{RAMA_INTEGRACION}}`**                          |
-| Nunca                                                                                | `push` directo a `{{RAMA_PRINCIPAL}}` o `{{RAMA_INTEGRACION}}`        |
+| Moment | Action |
+| --- | --- |
+| Red tests written and seen failing (Red phase) | `commit` the red (`test(…)`): it stays as C2 evidence |
+| Tests green and one logical unit finished | `commit` (one per coherent unit, not one giant at the end) |
+| End of the task, or a remote backup or review is wanted | `push` |
+| Task complete, AC covered, tests green and **proven red** (C3) | `push` and **PR to `develop`** |
+| Never | Direct `push` to `main` or `develop` |
 
 ---
 
-## 6. Trampas registradas
+## 6. Recorded traps
 
-- **ID del tablero, no del archivo de importación.** Si el backlog se importa por CSV, el ID de la fila **no** es la clave que asigna el tablero. Nombrar ramas con el ID del CSV produce colisiones. Las claves vigentes están en [`docs/backlog/key-map.md`](../backlog/key-map.md) y se verifican antes de crear una rama.
-- **El CI puede no correr sin PR.** Si los workflows escuchan `pull_request` hacia las ramas protegidas, un push a una feature sin PR no deja evidencia. Para conservar el rojo en el CI, se abre la PR (en borrador) **antes** de empujar el commit rojo.
-- **Un commit que no compila por sí solo** (importa algo que llega en el commit siguiente) rompe `bisect`. Cuando un archivo mezcla cambios de dos commits, se usa `git add -p`.
-- **Repo {{VISIBILIDAD_REPO}}:** antes de cada PR se revisa que el diff no arrastre `.env`, secretos ni datos reales del cliente. `.env` siempre en `.gitignore`.
-- **Generadores de código** (CLIs de scaffolding y de componentes) pueden añadir dependencias o archivos de más. Después de cada uno, se revisa el diff de los manifiestos de dependencias.
-
-<!-- RELLENAR: añade aquí las trampas de git propias del proyecto según aparezcan en los handoffs. -->
+- **The board ID, not the import file ID.** If the backlog is loaded from a local list, the local ID (`brg-05`) is **not** the issue number GitHub assigns. Naming branches with the local ID causes collisions. Current keys are in [`docs/backlog/key-map.md`](../backlog/key-map.md) and are checked before creating a branch.
+- **CI may not run without a PR.** If workflows listen to `pull_request` on the protected branches, a push to a feature branch with no PR leaves no evidence. To keep the red in CI, open the PR (as a draft) **before** pushing the red commit.
+- **A commit that doesn't build on its own** (imports something that arrives in the next commit) breaks `bisect`. When a file mixes changes from two commits, use `git add -p`.
+- **Public repo:** before every PR, check the diff doesn't carry `.env`, secrets or real client data. `.env` always in `.gitignore`.
+- **Code generators** (`artisan make:*`, `filament:*`, scaffolding CLIs) can add dependencies or extra files. After each one, review the diff of the dependency manifests.
+- **The shell is zsh-compatible, not fish**, even though the environment reports fish (HANDOFF_v1 trap 2). Command blocks are written in POSIX syntax.

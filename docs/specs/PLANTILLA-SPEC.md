@@ -1,102 +1,92 @@
-# PLANTILLA — Spec de HU
+# TEMPLATE — HU spec
 
-Copia este archivo y rellénalo. **Dónde vive la spec:**
+Copy this file and fill it in. **Where the spec lives:**
 
-<!-- SI TOPOLOGIA=monorepo -->
-- **Por defecto, una sola spec en la carpeta de su capa:** `docs/specs/{capa}/HU-XX.md`. No es obligatorio crear una por capa.
-- **Solo si la HU cruza capas de verdad** (p. ej. autorización: política en el servidor y rutas protegidas en el cliente), crea una en cada carpeta y **enlázalas** entre sí.
-- **Si la spec es transversal** (no pertenece a una capa), va en `docs/specs/HU-XX.md`.
-<!-- /SI -->
-<!-- SI TOPOLOGIA=solo-backend|solo-frontend -->
-- `docs/specs/HU-XX.md`. Sin contraparte.
-<!-- /SI -->
-<!-- SI TOPOLOGIA=multirepo -->
-- `docs/specs/HU-XX.md` **en el repo que implementa esa capa**. Si la HU cruza repos, cada repo tiene la suya y la "Contraparte" es la URL de la spec en el otro repo.
-<!-- /SI -->
+- `docs/specs/HU-XX.md`. No counterpart.
 
-**Reglas al rellenar:**
+**Rules when filling it in:**
 
-- **No copies** los criterios de aceptación de la historia: viven en {{TRACKER}}. Aquí van los criterios **de esta capa**, traducidos a tests.
-- **Referencia el ADR por número** (`D3.1`…). No pegues su contenido.
-- Un valor concreto (código de error, versión, nombre de claim) se escribe en su dueño y aquí se referencia; no se duplica.
-- Borra los comentarios `<!-- … -->` de guía antes de dar la spec por lista.
-- Profundidad esperada: la suficiente para que quien implementa no tenga que inventar nada (rutas, campos, códigos de error, textos visibles) y para que cada test tenga una forma clara de fallar.
+- **Do not copy** the story's acceptance criteria: they live in GitHub Issues. Here go the criteria **of this layer**, turned into tests.
+- **Reference the ADR by number** (`D3.1`…). Do not paste its content.
+- A concrete value (error code, version, claim name) is written in its owner and referenced here; it is not duplicated.
+- Delete the `<!-- … -->` guidance comments before calling the spec ready.
+- Expected depth: enough that whoever implements does not have to invent anything (routes, fields, error codes, visible texts) and that each test has a clear way to fail.
 
 ---
 
-# HU-XX ({{CAPA}}) — <título corto de la historia>
+# HU-XX (site) — <short story title>
 
-> **{{TRACKER}}:** `{{PREFIJO_TICKET}}-XXX` · **Sprint:** N · **Cubre:** RF-0X, RNF-0X
-> **Contraparte:** [`../otra-capa/HU-XX.md`] | URL en otro repo | — (no cruza capas)
-> **Estado:** `[ ]` borrador · `[ ]` aprobada · `[ ]` implementada
+> **GitHub Issues:** `BRG-XXX` · **Phase:** N · **Covers:** RF-0X, RNF-0X
+> **Counterpart:** — (does not cross layers)
+> **Status:** `[ ]` draft · `[ ]` approved · `[ ]` implemented
 
-<!-- Una o dos frases: qué AC de la historia (resumidos, no copiados) traduce esta spec. -->
+<!-- One or two sentences: which AC of the story (summarized, not copied) this spec translates. -->
 
-## 1. Alcance en esta capa
+## 1. Scope in this layer
 
-**Dentro:**
+**In:**
 
 - …
 
-**Fuera / diferido (con motivo):**
+**Out / deferred (with reason):**
 
-- … → `{{PREFIJO_TICKET}}-YYY` (HU-YY) <!-- cada exclusión dice DÓNDE se hará o POR QUÉ no se hace: "depende de 8.4 del ADR, ABIERTO; esta API es compatible con cualquier decisión posterior" -->
+- … → `BRG-YYY` (HU-YY) <!-- each exclusion says WHERE it will be done or WHY it is not done: "depends on ADR 8.4, OPEN; this API is compatible with any later decision" -->
 
-## 2. Dependencias
+## 2. Dependencies
 
-- **{{TRACKER}}:** tickets que deben estar terminados.
-- **Modelo de datos:** sección del ERD que es fuente única de columnas y restricciones (si toca datos).
-- **Vetos:** si se levantó un veto de `CLAUDE.md` §5 para esta HU, cítalo con fecha.
-- **ADR (DECIDIDO):** `Dx.y`, …
-- **ABIERTOS que no bloquean:** `Dx.y` y por qué esta implementación es compatible con todas sus salidas.
-- **Externas:** dominio, tenant, bucket… o "ninguna".
+- **GitHub Issues:** tickets that must be finished.
+- **Data model:** the ERD section that is the single source of columns and constraints (if it touches data).
+- **Vetoes:** if a veto from `CLAUDE.md` §5 was lifted for this HU, cite it with the date.
+- **ADR (DECIDED):** `Dx.y`, …
+- **OPEN items that do not block:** `Dx.y` and why this implementation is compatible with every possible outcome.
+- **External:** domain, tenant, bucket… or "none".
 
-## 3. Contrato técnico
+## 3. Technical contract
 
-<!-- El "cómo" de esta capa, anclado al ADR. Usa las subsecciones que apliquen y borra el resto. -->
+<!-- The "how" of this layer, anchored to the ADR. Use the subsections that apply and delete the rest. -->
 
-<!-- Capa API / servidor:
-### 3.1 Rutas            método + ruta + quién puede + respuesta
-### 3.2 Autorización     política / permisos por rol (ref. matriz del ADR)
-### 3.3 Entrada          validación campo a campo
-### 3.4 Reglas de negocio
-### 3.5 Servicio         qué orquesta, transacciones, efectos
-### 3.6 Persistencia     tablas, relaciones (ref. ERD)
-### 3.7 Salida           forma exacta de la respuesta, por rol
-### 3.8 Errores          tabla estado → code → cuándo (ref. D3.1)
+<!-- API / server layer:
+### 3.1 Routes            method + path + who can + response
+### 3.2 Authorization     policy / permissions per role (ref. ADR matrix)
+### 3.3 Input             field-by-field validation
+### 3.4 Business rules
+### 3.5 Service           what it orchestrates, transactions, effects
+### 3.6 Persistence       tables, relations (ref. ERD)
+### 3.7 Output            exact response shape, per role
+### 3.8 Errors            table status → code → when (ref. D3.1)
 -->
 
-<!-- Capa UI / cliente:
-### 3.1 Rutas            ruta del navegador → página → guarda de rol
-### 3.2 Pantallas y textos   textos visibles exactos (los afirmarán los tests)
-### 3.3 Validación en el cliente   solo lo que adelanta al servidor
-### 3.4 Datos            consultas/mutaciones, claves de caché, invalidaciones
-### 3.5 Errores          code → qué ve el usuario (ref. D3.1)
+<!-- UI / client layer:
+### 3.1 Routes            browser route → page → role guard
+### 3.2 Screens and texts   exact visible texts (the tests will assert them)
+### 3.3 Client-side validation   only what runs ahead of the server
+### 3.4 Data              queries/mutations, cache keys, invalidations
+### 3.5 Errors            code → what the user sees (ref. D3.1)
 -->
 
-<!-- Capa de datos / job / CLI: entradas, salidas, idempotencia, reintentos, programación. -->
+<!-- Data / job / CLI layer: inputs, outputs, idempotency, retries, scheduling. -->
 
-## 4. Criterios de aceptación de esta capa → tests
+## 4. Acceptance criteria of this layer → tests
 
-<!-- Cada fila es un test que el agente escribirá en rojo. Antes de la tabla, una línea con el runner, la frontera real (C4) y los helpers que se reutilizan.
-"Cómo se prueba que FALLA" es obligatorio: es la compuerta C3. Describe la mutación concreta que lo pone rojo. -->
+<!-- Each row is a test the agent will write in red. Before the table, one line with the runner, the real boundary (C4) and the helpers that are reused.
+"How we prove it FAILS" is mandatory: it is gate C3. Describe the concrete mutation that turns it red. -->
 
-| #   | Test (archivo::caso) | Qué afirma | Cómo se prueba que FALLA (C3) |
-| --- | -------------------- | ---------- | ----------------------------- |
-| 1   | `…`                  | …          | …                             |
-| 2   | `…`                  | …          | …                             |
+| #   | Test (file::case) | What it asserts | How we prove it FAILS (C3) |
+| --- | ----------------- | --------------- | -------------------------- |
+| 1   | `…`               | …               | …                          |
+| 2   | `…`               | …               | …                          |
 
-## 5. Notas de implementación
+## 5. Implementation notes
 
-<!-- Pistas para la fase Green: qué helper reutilizar (encontrado al buscar en el código), qué orden seguir, qué trampa evitar (ver lecciones-transversales.md). NO es el código. -->
+<!-- Hints for the Green phase: which helper to reuse (found by searching the code), which order to follow, which trap to avoid (see lecciones-transversales.md). It is NOT the code. -->
 
-## 6. Registro de cambios de la spec
+## 6. Spec change log
 
-<!-- Lo más reciente arriba. Cada vez que la implementación revela algo no previsto, se anota aquí y se corrige la sección afectada en la misma sesión. Registra también los hitos del ciclo con su evidencia:
-- `AAAA-MM-DD` — review con C3: N mutaciones, M sobreviven; se endurece #X porque… 
-- `AAAA-MM-DD` — implementada: suite N en verde; linters limpios.
-- `AAAA-MM-DD` — aprobada por el humano. Tests en rojo: N casos fallan por <razón correcta>.
-- `AAAA-MM-DD` — borrador creado. Decisiones del humano: …
+<!-- Newest first. Each time the implementation reveals something unforeseen, note it here and fix the affected section in the same session. Also record the cycle milestones with their evidence:
+- `YYYY-MM-DD` — review with C3: N mutations, M survive; #X is hardened because… 
+- `YYYY-MM-DD` — implemented: suite N green; linters clean.
+- `YYYY-MM-DD` — approved by the human. Tests in red: N cases fail for <right reason>.
+- `YYYY-MM-DD` — draft created. Human decisions: …
 -->
 
-- `AAAA-MM-DD` — creada.
+- `YYYY-MM-DD` — created.

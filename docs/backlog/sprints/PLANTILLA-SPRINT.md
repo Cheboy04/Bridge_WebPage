@@ -1,109 +1,113 @@
-# Sprint N — <tema del sprint>
+# TEMPLATE — Phase document
 
-<!-- RELLENAR: copia a sprints/sprint-NN.md al planificar el sprint. Es el documento de planificación y de handoff del sprint; {{TRACKER}} manda sobre estado, checklist y criterios de aceptación. -->
+> This project runs phases (P0–P7), not fixed sprints. The kit calls this file `PLANTILLA-SPRINT.md`; here it is the template for one phase document.
 
-**Estado:** baseline aprobada y reconciliada con {{TRACKER}} el AAAA-MM-DD.
-**Ventana:** AAAA-MM-DD a AAAA-MM-DD. **Release:** RN — <nombre>.
-**Selección funcional:** `{{PREFIJO_TICKET}}-…` (NN SP). **Reserva transversal:** N SP equivalentes para …
-**Tasks:** `{{PREFIJO_TICKET}}-…`
-**Formato:** [campos y reglas](../backlog-format.md) · catálogo en [backlog.md](../backlog.md) · secuencia en [roadmap.md](../roadmap.md).
+# Phase N — <phase topic>
 
-## Objetivo
+<!-- RELLENAR: copy to sprints/phase-NN.md when planning the phase. It is the planning and handoff document of the phase; GitHub Issues rules over status, checklist and acceptance criteria. -->
 
-<!-- Un párrafo: qué demuestra el productor/usuario en staging al cerrar, y qué deja el sprint en paralelo (decisiones, infraestructura, evidencia). Las precondiciones satisfechas de sprints anteriores se dicen aquí. -->
+**Status:** baseline approved and reconciled with GitHub Issues on YYYY-MM-DD.
+**Window:** YYYY-MM-DD to YYYY-MM-DD. **Release:** RN — <name>.
+**Functional selection:** `BRG-…` (NN SP). **Cross-cutting reserve:** N equivalent SP for …
+**Tasks:** `BRG-…`
+**Format:** [fields and rules](../backlog-format.md) · catalog in [backlog.md](../backlog.md) · sequence in [roadmap.md](../roadmap.md).
 
-## Capacidad y compromiso
+## Goal
 
-| Tipo                  | Alcance | Capacidad |
-| --------------------- | ------- | --------: |
-| Historias funcionales |         |     NN SP |
-| Calidad transversal   |         | N SP equivalentes |
-| Tasks sin SP          |         | Consumen la misma capacidad del sprint |
-| **Objetivo total**    |         | **NN SP equivalentes** |
+<!-- One paragraph: what the producer/user demonstrates in staging at the close, and what the phase leaves in parallel (decisions, infrastructure, evidence). Satisfied preconditions from earlier phases are stated here. -->
 
-Las Tasks no se convierten artificialmente a SP. Si su esfuerzo real amenaza el objetivo, se registra el consumo y se escala capacidad o espera externa.
+## Capacity and commitment
 
-## Registros del sprint
+| Type                  | Scope | Capacity |
+| --------------------- | ----- | -------: |
+| Functional stories    |       |    NN SP |
+| Cross-cutting quality |       | N equivalent SP |
+| Tasks without SP      |       | Use the same phase capacity |
+| **Total target**      |       | **NN equivalent SP** |
 
-| Clave | ID local | Tipo | SP | Título | Dependencias de entrega |
-| ----- | -------- | ---- | -: | ------ | ----------------------- |
-|       |          |      |    |        |                         |
+Tasks are not artificially converted to SP. If their real effort threatens the goal, record the consumption and escalate capacity or external wait.
 
-## Secuencia de ejecución
+## Phase records
+
+| Key | Local ID | Type | SP | Title | Delivery dependencies |
+| --- | -------- | ---- | -: | ----- | --------------------- |
+|     |          |      |    |       |                       |
+
+## Execution sequence
 
 ```mermaid
 flowchart TD
-    A["{{PREFIJO_TICKET}}-X · HU-XX"] --> B["{{PREFIJO_TICKET}}-Y · HU-YY"]
-    Q["Calidad transversal"] -. acompaña .-> B
+    A["BRG-X · HU-XX"] --> B["BRG-Y · HU-YY"]
+    Q["Cross-cutting quality"] -. accompanies .-> B
 ```
 
-Orden recomendado:
+Recommended order:
 
 1. …
 
-## Condiciones de Ready
+## Ready conditions
 
-Una Story entra al ciclo cuando:
+A Story enters the cycle when:
 
-- sus criterios de aceptación están vigentes en {{TRACKER}};
-- no depende de un punto ABIERTO del ADR;
-- el slice del ERD que necesita está aprobado;
-- está fuera de los vetos vigentes de `CLAUDE.md` §5;
-- la spec se escribe y se aprueba antes de los tests (C1).
+- its acceptance criteria are current in GitHub Issues;
+- it does not depend on an OPEN ADR point;
+- the ERD slice it needs is approved;
+- it is outside the vetoes in force in `CLAUDE.md` §5;
+- the spec is written and approved before the tests (C1).
 
-## Desglose funcional
+## Functional breakdown
 
-Los criterios de aceptación no se copian aquí: {{TRACKER}} es su fuente de verdad. Las casillas preparan la ejecución y se reconcilian con la Description de cada ticket antes de empezar.
+Acceptance criteria are not copied here: GitHub Issues is their source of truth. The checkboxes prepare execution and are reconciled with each ticket's Description before starting.
 
-### {{PREFIJO_TICKET}}-X / {{PREFIJO_LOCAL}}-XX — HU-XX <título>
+### BRG-X / brg-XX — HU-XX <title>
 
-Alcance del sprint: <!-- qué entra y qué se excluye, con el ticket que lo cubre -->.
+Phase scope: <!-- what is in and what is excluded, with the ticket that covers it -->.
 
-- [ ] `{{PREFIJO_LOCAL}}-XX.01` Spec {{CAPA}}. Hecho cuando: … Orden interno: …
-- [ ] `{{PREFIJO_LOCAL}}-XX.02` Tests {{CAPA}} en rojo. Hecho cuando: …
-- [ ] `{{PREFIJO_LOCAL}}-XX.03` Código {{CAPA}} hasta verde. Hecho cuando: …
-- [ ] `{{PREFIJO_LOCAL}}-XX.04` Review {{CAPA}}. Hecho cuando: …
-- [ ] `{{PREFIJO_LOCAL}}-XX.NN` Integración y cierre. Hecho cuando: …
+- [ ] `brg-XX.01` Spec site. Done when: … Internal order: …
+- [ ] `brg-XX.02` Tests site in red. Done when: …
+- [ ] `brg-XX.03` Code site until green. Done when: …
+- [ ] `brg-XX.04` Review site. Done when: …
+- [ ] `brg-XX.NN` Integration and close. Done when: …
 
-## Tasks y línea transversal
+## Tasks and cross-cutting line
 
-### {{PREFIJO_TICKET}}-Y / {{PREFIJO_LOCAL}}-YY — <task>
+### BRG-Y / brg-YY — <task>
 
 - [ ] …
 
-## Gates de control
+## Control gates
 
-### Inicio
+### Start
 
-- Sprint y objetivo creados en {{TRACKER}}.
-- Tickets asignados o relacionados con el sprint.
-- Precondiciones de sprints anteriores verificadas.
+- Phase and goal created in GitHub Issues.
+- Tickets assigned or linked to the phase.
+- Preconditions from earlier phases verified.
 
-### Mitad del sprint
+### Mid-phase
 
-- <!-- qué debe estar integrado o decidido a mitad -->
-- La reserva transversal tiene evidencia; no se absorbió de forma informal.
+- <!-- what must be integrated or decided by the middle -->
+- The cross-cutting reserve has evidence; it was not absorbed informally.
 
-### Cierre
+### Close
 
-- Las Story seleccionadas cumplen la Definition of Done.
-- Las Tasks tienen evidencia o un bloqueo externo con responsable y fecha.
-- No quedan defectos críticos abiertos del alcance del sprint.
+- The selected Stories meet the Definition of Done.
+- Tasks have evidence or an external blocker with an owner and a date.
+- No critical defects remain open within the phase scope.
 
-## Definition of Done del sprint
+## Phase Definition of Done
 
-Una Story está Done cuando: specs aprobadas, tests vistos en rojo y luego en verde, C3 demostrada, review sin hallazgos abiertos, PR integrada en `{{RAMA_INTEGRACION}}`, CI en verde, AC y RNF aplicables verificados, documentación sin drift y handoff actualizado.
+A Story is Done when: specs approved, tests seen red and then green, C3 demonstrated, review with no open findings, PR merged into `develop`, CI green, applicable AC and RNF verified, documentation without drift and handoff updated.
 
-El sprint puede cerrar por calendario con trabajo pendiente, pero el objetivo no se declara cumplido ni se contabilizan SP si falta cualquiera de esas condiciones.
+The phase can close by calendar with pending work, but the goal is not declared met and no SP are counted if any of those conditions is missing.
 
-## Riesgos activos
+## Active risks
 
-| Riesgo | Señal | Respuesta |
-| ------ | ----- | --------- |
-|        |       |           |
+| Risk | Signal | Response |
+| ---- | ------ | -------- |
+|      |        |          |
 
-## Sincronización con {{TRACKER}} ejecutada
+## GitHub Issues sync executed
 
-<!-- Registro fechado de cada cambio aplicado al tablero (sprint creado, tickets movidos, dependencias enlazadas). Si una sesión no pudo escribir en el tablero, se anota aquí y en el handoff como pendiente humano. -->
+<!-- Dated record of each change applied to the board (phase created, tickets moved, dependencies linked). If a session could not write to the board, note it here and in the handoff as pending on the human side. -->
 
 - [ ] …

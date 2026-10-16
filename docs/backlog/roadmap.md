@@ -1,91 +1,91 @@
-# Roadmap de desarrollo
+# Development roadmap
 
-**Estado:** baseline <!-- borrador | oficial --> aprobada el AAAA-MM-DD.
+**Status:** baseline <!-- draft | official --> approved on YYYY-MM-DD.
 
-## Propósito y autoridad
+## Purpose and authority
 
-Este documento ordena el desarrollo de {{PROYECTO}} en {{NUM_SPRINTS}} sprints de {{DURACION_SPRINT}}, agrupados en releases, y gobierna su secuencia en {{TRACKER}}. No reemplaza al ADR, al `CLAUDE.md` ni a la metodología. Ante una contradicción, prevalecen esos documentos.
+This document orders the development of Bridge Traducciones (website) in 8 phases with no fixed length (phase-based), grouped into releases, and governs their sequence in GitHub Issues. It does not replace the ADR, `CLAUDE.md` or the methodology. In a contradiction, those documents prevail.
 
-El alcance proviene de <!-- RELLENAR: documento fuente (requisitos, tesis, contrato) -->: RF-01..RF-NN, RNF-01..RNF-NN y NN historias. Las historias y sus criterios de aceptación viven en {{TRACKER}}; este roadmap solo las asigna a una ventana objetivo.
+The scope comes from <!-- RELLENAR: source document (requirements, thesis, contract) -->: RF-01..RF-NN, RNF-01..RNF-NN and NN stories. Stories and their acceptance criteria live in GitHub Issues; this roadmap only assigns them to a target window.
 
-## Supuestos de planificación
+## Planning assumptions
 
-- Inicio: {{FECHA_INICIO}}. Fecha límite: <!-- AAAA-MM-DD -->. Zona horaria: <!-- … -->.
-- {{NUM_SPRINTS}} sprints de {{DURACION_SPRINT}}. Si un sprint cumple su objetivo antes, se continúa con el siguiente sin esperar al calendario (flujo continuo).
-- Estimación Fibonacci (1, 2, 3, 5) sin traducción directa a horas. Backlog: NN HU y NN SP.
-- Capacidad: <!-- personas × horas por sprint -->. Specs, tests, revisión, integración, correcciones, documentación e infraestructura humana consumen esa misma capacidad. No se contabilizan horas de agentes ni se asume un multiplicador.
-- Ciclo SDD/TDD en modo {{MODO_ROLES}} (metodología §2).
-- Cada sprint cierra con un incremento demostrable en staging (merge a `{{RAMA_INTEGRACION}}`). Solo el último release se despliega a producción.
+- Start: 2026-10-16. Deadline: <!-- YYYY-MM-DD -->. Time zone: <!-- … -->.
+- 8 phases with no fixed length (phase-based): P0 Lock, P1 Skeleton, P2 Data, P3 Admin, P4 Public site, P5 Leads, P6 Hardening, P7 Ship. If a phase meets its goal early, continue with the next one without waiting for the calendar (continuous flow).
+- Fibonacci estimation (1, 2, 3, 5) with no direct translation to hours. Backlog: NN HU and NN SP.
+- Capacity: <!-- people × hours per phase -->. Specs, tests, review, integration, fixes, documentation and human infrastructure consume that same capacity. Agent hours are not counted and no multiplier is assumed.
+- SDD/TDD cycle in mode B (methodology §2).
+- Each phase closes with a demonstrable increment in staging (merge to `develop`). Only the last release is deployed to production.
 
-## Hitos de avance
+## Progress milestones
 
-| Hito | Semana | Fecha límite | Condición |
-| ---- | -----: | ------------ | --------- |
-|      |        |              |           |
+| Milestone | Week | Deadline | Condition |
+| --------- | ---: | -------- | --------- |
+|           |      |          |           |
 
 ## Releases
 
-| Release | Sprints | Semanas | Resultado esperado | Ambiente |
-| ------- | ------- | ------- | ------------------ | -------- |
-| R1 —    |         |         |                    | Staging  |
+| Release | Phases | Weeks | Expected outcome | Environment |
+| ------- | ------ | ----- | ---------------- | ----------- |
+| R1 —    |        |       |                  | Staging     |
 
-Un release es liberable solo cuando todas sus historias cumplen la Definition of Done.
+A release can ship only when all its stories meet the Definition of Done.
 
-## Distribución de alcance y capacidad
+## Scope and capacity distribution
 
-| Sprint    | Ventana | HU principales | SP de HU | Reserva transversal | Capacidad objetivo |
-| --------- | ------- | -------------- | -------: | ------------------: | -----------------: |
-| S1        |         |                |          |                     |                    |
-| **Total** |         |                |          |                     |                    |
+| Phase     | Window | Main HU | HU SP | Cross-cutting reserve | Target capacity |
+| --------- | ------ | ------- | ----: | --------------------: | --------------: |
+| P0        |        |         |       |                       |                 |
+| **Total** |        |         |       |                       |                 |
 
-<!-- RELLENAR: si hay historias transversales de calidad (pruebas integrales, RNF, aceptación), reserva SP equivalentes en cada sprint y ciérralas en el último. Así QA no se concentra al final. Los SP se cuentan una sola vez. -->
+<!-- RELLENAR: if there are cross-cutting quality stories (integral tests, RNF, acceptance), reserve equivalent SP in each phase and close them in the last one. That way QA is not concentrated at the end. SP are counted only once. -->
 
-## Secuencia objetivo por sprint
+## Target sequence per phase
 
-| Sprint | Historias y trabajo transversal | Demostrable al cierre | Riesgo o dependencia principal |
-| ------ | ------------------------------- | --------------------- | ------------------------------ |
-|        |                                 |                       |                                |
+| Phase | Stories and cross-cutting work | Demonstrable at close | Main risk or dependency |
+| ----- | ------------------------------ | --------------------- | ----------------------- |
+|       |                                |                       |                         |
 
-### Cobertura de requerimientos
+### Requirements coverage
 
-| Requerimiento | Historias | Sprint(s) |
-| ------------- | --------- | --------- |
-|               |           |           |
+| Requirement | Stories | Phase(s) |
+| ----------- | ------- | -------- |
+|             |         |          |
 
-## Flujo continuo y control de capacidad
+## Continuous flow and capacity control
 
-- La ventana de cada sprint es un máximo. Si todas sus historias cumplen Done antes, se inicia el siguiente con historias Ready.
-- Nunca se adelanta una historia bloqueada por un punto ABIERTO del ADR o por infraestructura imprescindible.
-- En cada corte de mitad y fin de sprint se compara la velocidad real con la meta. Dos cortes consecutivos por debajo obligan a decidir entre aumentar capacidad, reducir esperas externas o renegociar la fecha. <!-- RELLENAR: ¿el alcance es una palanca autorizada? -->
-- Todo arrastre se registra con la capacidad reasignada y su efecto sobre los gates. No se absorbe de forma invisible.
+- The window of each phase is a maximum. If all its stories meet Done early, the next one starts with Ready stories.
+- A story blocked by an OPEN ADR point or by essential infrastructure is never pulled forward.
+- At each mid-phase and end-of-phase checkpoint, real velocity is compared with the target. Two consecutive checkpoints below it force a decision between increasing capacity, reducing external waits or renegotiating the date. <!-- RELLENAR: is scope an authorized lever? -->
+- Every carry-over is recorded with the reassigned capacity and its effect on the gates. It is not absorbed invisibly.
 
-## Reglas de alcance
+## Scope rules
 
-- Lo que no se recorta para cumplir la fecha: <!-- seguridad, pruebas, aceptación… -->
-- Fuera del alcance: <!-- lista explícita -->
-- Elementos de prototipos sin respaldo en RF: no entran al roadmap hasta una decisión formal.
+- What is not cut to meet the date: <!-- security, tests, acceptance… -->
+- Out of scope: <!-- explicit list -->
+- Prototype elements with no RF behind them: they do not enter the roadmap until a formal decision.
 
-## Track paralelo: ADR, infraestructura y documentación
+## Parallel track: ADR, infrastructure and documentation
 
-| Periodo | Entregable |
-| ------- | ---------- |
-|         |            |
+| Period | Deliverable |
+| ------ | ----------- |
+|        |             |
 
-## Gates y dependencias externas
+## Gates and external dependencies
 
-- **SN:** <!-- qué debe estar decidido o configurado antes de qué historia -->
-- {{SERVICIOS_EXTERNOS}} los configura el equipo humano. El agente documenta la dependencia y se detiene.
+- **PN:** <!-- what must be decided or configured before which story -->
+- Hostinger (hPanel, SSH, DNS, mail, cron), GitHub (repo settings, Actions secrets, deploy key), Google GA4 are configured by the human team. The agent documents the dependency and stops.
 
-## Discrepancias a reconciliar
+## Discrepancies to reconcile
 
-| Discrepancia | Dónde | Acción |
-| ------------ | ----- | ------ |
-|              |       |        |
+| Discrepancy | Where | Action |
+| ----------- | ----- | ------ |
+|             |       |        |
 
-## Gobierno en {{TRACKER}}
+## Governance in GitHub Issues
 
-{{TRACKER}} es la fuente de verdad operativa; el mapa vigente de claves está en [`key-map.md`](key-map.md). Una replanificación se aplica moviendo los tickets existentes, nunca reimportando un lote.
+GitHub Issues is the operational source of truth; the current key map is in [`key-map.md`](key-map.md). A replan is applied by moving the existing tickets, never by re-importing a batch.
 
-## Siguiente paso
+## Next step
 
 1. …

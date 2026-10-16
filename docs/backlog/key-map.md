@@ -1,26 +1,26 @@
-# Mapa vigente de claves de {{TRACKER}}
+# Current key map of GitHub Issues
 
-**Fuente de verdad:** {{TRACKER}}, proyecto `{{PREFIJO_TICKET}}`.
-**Última verificación:** AAAA-MM-DD.
+**Source of truth:** GitHub Issues, project `BRG` (tickets are referred to as `BRG-<n>`, where n is the issue number).
+**Last verification:** YYYY-MM-DD.
 
-Este mapa evita confundir los IDs locales del backlog (y las claves de tableros anteriores) con las claves actuales. {{TRACKER}} manda: si una fila difiere del tablero, se corrige aquí **después** de corregir el tablero. Antes de crear una rama, la clave se verifica aquí o en el tablero, nunca se deduce.
+This map avoids confusing the backlog's local IDs (and the keys of earlier boards) with the current keys. GitHub Issues rules: if a row differs from the board, fix it here **after** fixing the board. Before creating a branch, the key is verified here or on the board, never deduced.
 
-## Baseline cargada
+## Loaded baseline
 
-| Alcance           | ID local                                  | Clave actual                                   |
+| Scope             | Local ID                                  | Current key                                    |
 | ----------------- | ----------------------------------------- | ---------------------------------------------- |
-| Épicas            | `{{PREFIJO_LOCAL}}-epic-…`                | `{{PREFIJO_TICKET}}-1` … `{{PREFIJO_TICKET}}-N` |
-| HU-01 … HU-NN     | `{{PREFIJO_LOCAL}}-01` … `{{PREFIJO_LOCAL}}-NN` | …                                         |
-| Tasks del backlog | …                                         | …                                              |
+| Epics             | `brg-epic-…`                              | `BRG-1` … `BRG-N`                              |
+| HU-01 … HU-NN     | `brg-01` … `brg-NN`                       | …                                              |
+| Backlog Tasks     | …                                         | …                                              |
 
-<!-- Si la correspondencia dentro de cada rango es consecutiva, dilo con un ejemplo (HU-01 = X-12, HU-02 = X-13). Si no, una fila por ticket. -->
+<!-- If the correspondence within each range is consecutive, say so with an example (HU-01 = X-12, HU-02 = X-13). If not, one row per ticket. -->
 
-## Trabajo creado después de la carga
+## Work created after the load
 
-| Clave | Tipo | Título | Origen (sesión, handoff) |
-| ----- | ---- | ------ | ------------------------ |
-|       |      |        |                          |
+| Key | Type | Title | Origin (session, handoff) |
+| --- | ---- | ----- | ------------------------- |
+|     |      |       |                           |
 
-## Claves históricas que no se reutilizan
+## Historical keys that are not reused
 
-<!-- Claves de un tablero anterior que aparecen en commits o ramas antiguas. Quedan como historial y no se reescriben. -->
+<!-- Keys from an earlier board that appear in old commits or branches. They stay as history and are not rewritten. -->

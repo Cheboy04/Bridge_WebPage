@@ -1,84 +1,84 @@
-# Modelo de datos — {{PROYECTO}}
+# Data model — Bridge Traducciones (website)
 
-<!-- RELLENAR: copia a docs/erd/modelo-completo.md. Si el diseño se cierra por partes, cada sprint puede tener su delta (modelo-sprint-N.md) con su propia sección de aprobación; este documento resume esos deltas y manda sobre las entidades que aún no se han materializado.
-Borra todo el directorio erd/ si el repo no tiene persistencia propia (p. ej. solo-frontend contra una API ajena). -->
+<!-- RELLENAR: copy to docs/erd/modelo-completo.md. If the design is closed in parts, each phase can have its delta (modelo-fase-N.md) with its own approval section; this document summarizes those deltas and rules over the entities not yet materialized.
+Delete the whole erd/ directory if the repo has no persistence of its own. -->
 
-> **{{TRACKER}}:** `{{PREFIJO_TICKET}}-XX`
-> **Base:** <!-- documentos de slice previos, si existen -->
-> **Estado:** borrador · aprobado por el humano el AAAA-MM-DD
+> **GitHub Issues:** `BRG-XX`
+> **Base:** <!-- earlier slice documents, if any -->
+> **Status:** draft · approved by the human on YYYY-MM-DD
 
-## 1. Alcance y precedencia
+## 1. Scope and precedence
 
-Este documento fija el **diseño objetivo** de las entidades del sistema: `…`. Aprobarlo cierra el ERD (ADR, bloque 6, «Estado del ERD»).
+This document fixes the **target design** of the system entities: `…`. Approving it closes the ERD (ADR, block 6, "ERD status").
 
-Aprobar el diseño **no autoriza a migrar**. Cada tabla se crea en la historia que la consume, con su spec aprobada y sus tests en rojo (§7).
+Approving the design **does not authorize migrating**. Each table is created in the story that consumes it, with its spec approved and its tests in red (§7).
 
-Precedencia: <!-- qué documento manda sobre qué entidad. Cuando una historia materialice una entidad, su spec puede ajustar detalles, pero primero se actualiza este documento en la misma sesión. -->
+Precedence: <!-- which document rules over which entity. When a story materializes an entity, its spec may adjust details, but this document is updated first in the same session. -->
 
-Fuera del alcance (sin respaldo en RF): …
+Out of scope (no RF behind it): …
 
-## 2. Invariantes globales
+## 2. Global invariants
 
-Valen para todas las tablas salvo que la entidad diga otra cosa.
+They apply to every table unless the entity says otherwise.
 
-<!-- Ejemplos de invariantes que suelen merecer fila: tipo de PK; índice en cada FK; política de ON DELETE; zona horaria de los instantes; qué tablas tienen borrado lógico; cómo se guardan los enums; únicos parciales que ignoran borrados; no guardar datos derivados; convención de nombres. Cada una con su origen en el ADR. -->
+<!-- Examples of invariants that usually deserve a row: PK type; index on every FK; ON DELETE policy; time zone of timestamps; which tables have soft delete; how enums are stored; partial uniques that ignore deleted rows; do not store derived data; naming convention. Each with its origin in the ADR. -->
 
-| #   | Invariante | Origen |
-| --- | ---------- | ------ |
-| I1  |            | Dx.y   |
+| #   | Invariant | Origin |
+| --- | --------- | ------ |
+| I1  |           | Dx.y   |
 
-## 3. Entidades
+## 3. Entities
 
-### 3.1 `<tabla>`
+### 3.1 `<table>`
 
-**Propósito.** RF-0X: HU-XX (…). Sprint objetivo: SN.
+**Purpose.** RF-0X: HU-XX (…). Target phase: PN.
 
-**Diccionario.**
+**Dictionary.**
 
-| Columna | Tipo | Nulabilidad | Restricciones e índices | Propósito |
-| ------- | ---- | ----------- | ----------------------- | --------- |
-| `id`    |      | `NOT NULL`  | PK                      |           |
+| Column | Type | Nullability | Constraints and indexes | Purpose |
+| ------ | ---- | ----------- | ----------------------- | ------- |
+| `id`   |      | `NOT NULL`  | PK                      |         |
 
-**Relaciones.** `a` 1 — 0..N `b`.
+**Relations.** `a` 1 — 0..N `b`.
 
-**Reglas de negocio que el esquema no expresa** (las aplica el servicio): …
+**Business rules the schema does not express** (enforced by the service): …
 
-**Autorización.** Quién lee, crea, edita y borra (insumo de la matriz de permisos del ADR, 8.1).
+**Authorization.** Who reads, creates, edits and deletes (input to the ADR permission matrix, 8.1).
 
-## 4. Diagrama completo
+## 4. Full diagram
 
 ```mermaid
 erDiagram
-    A ||--o{ B : "tiene"
+    A ||--o{ B : "has"
 ```
 
-## 5. Trazabilidad RF/HU → entidad
+## 5. Traceability RF/HU → entity
 
-| RF | HU ({{TRACKER}}) | Entidades | ADR |
-| -- | ---------------- | --------- | --- |
-|    |                  |           |     |
+| RF | HU (GitHub Issues) | Entities | ADR |
+| -- | ------------------ | -------- | --- |
+|    |                    |          |     |
 
-## 6. Inventario de restricciones e índices
+## 6. Inventory of constraints and indexes
 
-| Tabla | Índices de FK | Únicos de negocio | `CHECK` / exclusión |
-| ----- | ------------- | ----------------- | ------------------- |
-|       |               |                   |                     |
+| Table | FK indexes | Business uniques | `CHECK` / exclusion |
+| ----- | ---------- | ---------------- | ------------------- |
+|       |            |                  |                     |
 
-Contención: no se añaden más índices que los anteriores hasta que una medición de rendimiento los justifique.
+Restraint: no indexes are added beyond the ones above until a performance measurement justifies them.
 
-## 7. Materialización por sprint
+## 7. Materialization by phase
 
-| Tabla | Migra en (ticket, sprint) | Estado |
-| ----- | ------------------------- | ------ |
-|       |                           | Diseño de este documento |
+| Table | Migrates in (ticket, phase) | Status |
+| ----- | --------------------------- | ------ |
+|       |                             | Design of this document |
 
-## 8. Verificación del diseño
+## 8. Design verification
 
-<!-- Cómo se comprobó que el DDL compila y que las restricciones rechazan y aceptan lo esperado SIN dejar rastro (p. ej. ejecutarlo dentro de BEGIN … ROLLBACK contra el motor real). Lista los rechazos y las aceptaciones probados. -->
+<!-- How we checked that the DDL compiles and that the constraints reject and accept what is expected WITHOUT leaving a trace (e.g. run it inside BEGIN … ROLLBACK against the real engine). List the rejections and acceptances tested. -->
 
-## 9. Aprobación
+## 9. Approval
 
-- **Propuesta:** AAAA-MM-DD.
-- **Aprobado por:** <!-- persona -->, AAAA-MM-DD.
+- **Proposed:** YYYY-MM-DD.
+- **Approved by:** <!-- person -->, YYYY-MM-DD.
 
-Al aprobarse, se actualizan en la misma rama: las decisiones afectadas del ADR, el «Estado del ERD», el documento del sprint y los tickets de {{TRACKER}} que dependían del diseño.
+On approval, the following are updated in the same branch: the affected ADR decisions, the "ERD status", the phase document and the GitHub Issues tickets that depended on the design.

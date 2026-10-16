@@ -1,174 +1,348 @@
-# {{PROYECTO}} — Registro de Decisiones Técnicas (ADR)
+# Bridge Traducciones (website) — Technical Decision Record (ADR)
 
-**Proyecto:** {{PROYECTO}}: <!-- RELLENAR: una línea de qué es --> para {{CLIENTE}}
-**Equipo:** {{EQUIPO}}
-**Product Owner:** <!-- RELLENAR -->
-**Última actualización:** AAAA-MM-DD
+**Project:** Bridge Traducciones (website): the public site and content CMS for Bridge Traducciones (Quito), a certified-translation and conference-interpreting company.
+**Team:** the owner (GitHub `@Cheboy04`) as PO and developer, plus agents (Opus plans, writes specs and reviews; Sonnet builds; Haiku does mechanical work). The Bridge team supplies content and approves claims.
+**Product Owner:** the owner (`@Cheboy04`).
+**Last updated:** 2026-10-16
 
-**Leyenda de estado:**
-`DECIDIDO` decisión cerrada · `ABIERTO` requiere definición · `PENDIENTE` depende de otro bloque · `PARCIAL` decisión tomada, pero con partes que dependen de otro punto todavía abierto
+**Status legend:**
+`DECIDED` closed decision · `OPEN` needs a definition · `PENDING` depends on another block · `PARTIAL` decided, but parts depend on a point that is still open
 
-<!-- RELLENAR — cómo se usa este documento:
-- Cada bloque arranca con una TABLA RESUMEN (# | Punto | Estado | Decisión). Los puntos que necesitan desarrollo se amplían debajo como `### Dx.y — Título (AAAA-MM-DD)`.
-- Formato de cada entrada Dx.y: la decisión en 1-3 párrafos, el porqué, las alternativas descartadas si fueron serias, y una línea final de trazabilidad:
-  → *Principio (SOLID/…). Atributo de calidad (ISO 25010). Cubre: RF-0X, RNF-0X.*
-- Una decisión no se reescribe: se AMPLÍA con una nota fechada (`> **Ampliación de AAAA-MM-DD (TICKET):** …`) o se marca SUPERADA por otra, enlazándola.
-- Un bloque entero se puede cerrar: añade "— **CERRADO** (AAAA-MM-DD)" a su título.
-- Un bloque que no aplica a la topología (p. ej. "Frontend" en solo-backend) se borra entero.
-- Arranque mínimo para poder trabajar: bloques 1, 2 y 3 con las decisiones que ya conoces; todo lo demás puede quedar ABIERTO. Lo ABIERTO bloquea solo lo que lo toca (metodología §8).
--->
+How this document works:
+- Each block opens with a summary table (`# | Point | Status | Decision`). Points that need detail get a `### Dx.y — Title (YYYY-MM-DD)` entry below it.
+- A decision is never rewritten. It is **extended** with a dated note (`> **Extension of YYYY-MM-DD (BRG-n):** …`) or marked **SUPERSEDED** with a link to the decision that replaces it.
+- An OPEN point blocks only the work that touches it (methodology §8).
+- Decisions 1–18 of `docs/global/handoffs/HANDOFF_v1.md` §3 were migrated here on 2026-10-16. The handoff keeps them only as history.
 
 ---
 
-## 1. Proceso y equipo
+## 1. Process and team
 
-| #   | Punto                  | Estado  | Decisión |
-| --- | ---------------------- | ------- | -------- |
-| 1.1 | Duración de sprint     | ABIERTO |          |
-| 1.2 | Roles                  | ABIERTO | PO · SM · Devs |
-| 1.3 | Cadencia de ceremonias | ABIERTO |          |
-| 1.4 | Reporte a interesados  | ABIERTO |          |
-| 1.5 | Historia ancla (estimación) | ABIERTO | HU-XX = N SP |
-| 1.6 | Definition of Ready    | ABIERTO | Ver abajo |
-| 1.7 | Modo de roles agente/humano | ABIERTO | A, B o C (metodología §2) |
+| #   | Point                            | Status  | Decision |
+| --- | -------------------------------- | ------- | -------- |
+| 1.1 | Cadence                          | DECIDED | Phase-based, no fixed sprints. See D1.1. |
+| 1.2 | Roles                            | DECIDED | Owner = PO + dev. Agents per D1.2. Bridge = content owner and approver of claims. |
+| 1.3 | Ceremonies                       | DECIDED | One phase review at the end of each phase (D1.1). No other ceremonies. |
+| 1.4 | Reporting to stakeholders        | OPEN    | Today: private claude.ai artifacts shared with Bridge (prototype, logo sheet). Not formalised. |
+| 1.5 | Anchor story (estimation)        | OPEN    | No story-point estimation agreed. Low priority under phase-based work. |
+| 1.6 | Definition of Ready              | PARTIAL | See below. |
+| 1.7 | Agent/human roles mode           | DECIDED | Mode **B**, the human runs every git write. See D1.2. |
 
-**Definition of Done (vigente):** código integrado en la rama de integración sin fallos de pipeline, pruebas pasando, criterios de aceptación cumplidos, RNF aplicables verificados y revisado en la Sprint Review.
+**Definition of Done (current):** merged into `develop` through a PR with CI green; tests passing and each non-trivial test proven red (C3); the story's acceptance criteria met; applicable RNF verified with their instrument (block 11); public UI at visual parity with the prototype (D3.8); accepted at the phase review.
 
-**Definition of Ready:** formato de historia; criterios de aceptación verificables; estimación contra la historia ancla; sin dependencias ABIERTAS en el ADR; entidades ya en el ERD; pantalla ya diseñada (si tiene UI); instrumento de medición definido (si evidencia un RNF). <!-- RELLENAR: si algún criterio no se puede aplicar todavía, marca 1.6 como PARCIAL y explica cuál y por qué. -->
+**Definition of Ready:** story format; verifiable acceptance criteria in GitHub Issues; no OPEN dependency in this ADR (or compatible with every outcome, methodology §8); entities already in the ERD slice; screen already designed (the prototype and the brand book cover every MVP page); measurement instrument defined if the story evidences an RNF. **Partial because** there is no estimation anchor (1.5), so "estimated against the anchor" doesn't apply yet.
+
+### D1.1 — Phase-based delivery (2026-10-16)
+
+The project runs eight phases in dependency order instead of sprints: **P0 Lock → P1 Skeleton → P2 Data → P3 Admin → P4 Public site → P5 Leads → P6 Hardening → P7 Ship**. A phase has no fixed length. It closes when its stories meet the DoD and the owner approves it at the phase review. The sequence, contents and gates live in `docs/backlog/roadmap.md`.
+
+Why: a single part-time developer with agents. A calendar cadence adds ceremony without adding control. The phase gate is where the owner approves.
+→ *Quality attribute: maintainability (modularity of delivery).*
+
+### D1.2 — Roles mode B, human-run git (2026-10-16)
+
+The agent writes the spec, the red tests and the application code. The owner approves every spec **before** tests are written and reads every diff. The agent **never** runs git writes (`add`, `commit`, `push`, `branch`, `checkout`, `merge`, `reset`, `tag`, `stash`). It hands over the filled-in commands and stops. Rules: `docs/global/reglas-git.md`.
+
+Agents: Opus plans, writes specs, integrates and reviews visually. Sonnet workers build in parallel with **strict file ownership**. Haiku does mechanical work (captures, renames, bulk checks).
+
+Why: speed matters and code authorship is not a requirement. Every commit is still a point where a human read the diff.
 
 ---
 
-## 2. Repositorio, ramas y convenciones
+## 2. Repository, branches and conventions
 
-| #   | Punto               | Estado  | Decisión |
+| #   | Point               | Status  | Decision |
 | --- | ------------------- | ------- | -------- |
-| 2.1 | Topología           | ABIERTO | {{TOPOLOGIA}} |
-| 2.2 | Visibilidad         | ABIERTO | {{VISIBILIDAD_REPO}} |
-| 2.3 | Modelo de ramas     | ABIERTO | Ver `docs/global/reglas-git.md` |
-| 2.4 | Versiones del stack | ABIERTO | Ver D2.1 |
+| 2.1 | Topology            | DECIDED | `solo-backend` variant: one Laravel monolith in `site/`. See D2.3. |
+| 2.2 | Visibility          | DECIDED | **Public**, with compensating controls. See D2.2. |
+| 2.3 | Branch model        | DECIDED | `feature/*` → `develop` (staging) → `main` (production). Rules: `docs/global/reglas-git.md`. |
+| 2.4 | Stack versions      | PARTIAL | Majors decided. Exact pins arrive with the lockfiles in P1. See D2.1. |
+| 2.5 | Tracker             | DECIDED | GitHub Issues + Projects on `Cheboy04/Bridge_WebPage`, prefix `BRG`. See D2.4. |
+| 2.6 | Languages           | DECIDED | Docs English · code English · UI Spanish (i18n-ready, D3.6). |
 
-### D2.1 — Versiones pinneadas del stack, linters y analizadores
+### D2.1 — Pinned stack versions, linters and analysers (2026-10-16)
 
-<!-- RELLENAR: tabla Componente | Versión verificada | Dónde se fija (lockfile). Fecha de verificación. Si un documento externo dice otra versión, anótalo como drift. -->
+| Component | Version | Where it is pinned | Note |
+| --- | --- | --- | --- |
+| PHP | 8.3 (selected in hPanel) | hPanel; `composer.json` `require.php` | Filament 5 needs ≥ 8.2. |
+| Laravel | 12.x | `site/composer.lock` | Filament 5 needs ≥ 11.28. |
+| Filament | 5.x | `site/composer.lock` | Verified on context7 on 2026-10-15. |
+| Livewire | the version Filament 5 requires | `site/composer.lock` | Not chosen separately. |
+| Tailwind CSS | 4.x (≥ 4.1) | `site/package-lock.json` | Filament 5 needs ≥ 4.1. |
+| MySQL | the version Hostinger provides | hPanel | **Not verified yet** (P7 hosting checks). |
+| Pest · Larastan · Pint | latest stable at install | `site/composer.lock` | Larastan level decided in P1. |
+| `spatie/laravel-translatable`, `spatie/laravel-sitemap` | latest compatible | `site/composer.lock` | The only extra packages (D3.7). |
 
-<!-- SI VISIBILIDAD_REPO=público -->
-### D2.2 — Repositorio público, con controles compensatorios obligatorios
+Exact versions are recorded here when P1 installs them. Until then the lockfile doesn't exist and nobody assumes a minor.
 
-<!-- RELLENAR: por qué es público y qué controles lo compensan (escaneo de secretos, `.env` ignorado, sin datos reales del cliente en seeds ni en el tablero, revisión del diff antes de cada PR). -->
-<!-- /SI -->
+### D2.2 — Public repository with compensating controls (2026-10-16)
 
----
+The repo `Cheboy04/Bridge_WebPage` is public. Controls that compensate:
+- `.env` is always git-ignored; `site/.env.example` is versioned with no real values.
+- No real client data (people, phones, addresses, documents, leads) in code, seeds, fixtures, tests, the tracker or the history. Seeds use invented data.
+- `.gitignore` keeps out client raw material (`Design_references/`), research captures (`audit/screens/`, `audit/reference/`, `audit/sites-*.json`, `audit/directions.html`) and anything with real contact data.
+- The booth photo in `prototype/src/assets/photo/cabina-*.webp` shows identifiable interpreters. **Bridge holds their consent** (confirmed by the owner on 2026-10-16). The consent record lives with Bridge, not in this repo.
+- Before every PR, the diff is reviewed for secrets and real data (git rules §6). GitHub secret scanning stays on.
 
-## 3. Arquitectura general
+Why public: owner's choice. Revisit if the repo ever needs real client material.
 
-| #   | Punto                  | Estado  | Decisión |
-| --- | ---------------------- | ------- | -------- |
-| 3.1 | Formato de error       | ABIERTO | Ver D3.1 |
-| 3.2 | Zona horaria y fechas  | ABIERTO | Ver D3.2 |
-| 3.3 | Versionado de API      | ABIERTO |          |
-| 3.4 | Paginación y filtros   | ABIERTO |          |
-| 3.5 | Tipo de clave primaria | ABIERTO |          |
+### D2.3 — Laravel monolith in `site/`; headless rejected for now (2026-10-16)
 
-### D3.1 — Formato estándar de error
+One Laravel 12 application serves the public site (Blade) and the admin (Filament 5 at `/admin`). It shares models, validation and the deploy. The Laravel app lives in `site/`, beside `brand/`, `prototype/` and `docs/`. CI uses `working-directory: site`.
 
-<!-- RELLENAR: forma exacta del cuerpo de error (p. ej. RFC 9457 Problem Details), catálogo de `code` por estado HTTP y qué ramifica el cliente (siempre por `code`, nunca por `message`). Es la decisión que más specs referencian. -->
+**Headless rejected (alternative considered on 2026-10-16):** a Laravel API plus a separate front end.
+- An SSR front end (Next/Nuxt) needs a Node process, which Hostinger Business doesn't usefully offer (D9.1).
+- A static front end built in CI (e.g. Astro) fits the host, but every CMS edit would need a webhook and a rebuild before it goes live. It would also mean two deploys, an API contract, duplicated i18n routing, sitemap and SEO, and cross-origin forms with uploads.
+- The front end is plain HTML, CSS and vanilla JS, which Blade outputs unchanged. Headless would buy no freedom here.
 
-### D3.2 — Zona horaria
+**Reopen if:** a second client app (mobile, partner portal) needs the content, or the public site needs a JS framework that Blade can't host. The escape hatch: content lives in Eloquent models, so adding `/api` resources later doesn't require a rewrite.
+→ *Principle: KISS / YAGNI. Quality attribute: maintainability, deployability.*
 
-<!-- RELLENAR: persistencia (UTC recomendado), serialización (ISO 8601 con offset) y presentación. -->
+### D2.4 — GitHub Issues as tracker (2026-10-16)
 
----
-
-## 4. Capa de servidor
-
-<!-- RELLENAR: validación de entrada, serialización de salida, capas (p. ej. Controller → Service), acceso a datos (ORM directo o repositorio), borrado lógico, enums, framework de pruebas y autorización (RBAC). Borra el bloque si TOPOLOGIA=solo-frontend. -->
-
-| #   | Punto | Estado | Decisión |
-| --- | ----- | ------ | -------- |
-|     |       |        |          |
-
----
-
-## 5. Capa de cliente
-
-<!-- RELLENAR: estado del servidor, estado global, formularios, cliente HTTP, rutas por rol, almacenamiento del token y componentes de UI. Borra el bloque si TOPOLOGIA=solo-backend. -->
-
-| #   | Punto | Estado | Decisión |
-| --- | ----- | ------ | -------- |
-|     |       |        |          |
+Stories, tasks and acceptance criteria live in GitHub Issues on `Cheboy04/Bridge_WebPage`, with a GitHub Project board for status. An issue is referred to as `BRG-<n>`, where `<n>` is the issue number. Branches and commits use that form (git rules §3). Mapping of the local backlog to issues: `docs/backlog/anexo-github/README.md`. Real keys: `docs/backlog/key-map.md`.
 
 ---
 
-## 6. Base de datos
+## 3. General architecture
 
-| #   | Punto                         | Estado  | Decisión |
-| --- | ----------------------------- | ------- | -------- |
-| 6.1 | Motor                         | ABIERTO |          |
-| 6.2 | Convenciones de nombres       | ABIERTO |          |
-| 6.3 | Estrategia de índices         | ABIERTO |          |
-| 6.4 | Seeders y factories           | ABIERTO |          |
-| 6.5 | Backups                       | ABIERTO |          |
+| #   | Point                      | Status  | Decision |
+| --- | -------------------------- | ------- | -------- |
+| 3.1 | Error format               | DECIDED | No public JSON API. Validation errors and error pages per D3.1. |
+| 3.2 | Time zone and dates        | OPEN    | Proposal in D3.2. Blocks P2. |
+| 3.3 | API versioning             | DECIDED | Not applicable: no public API (D2.3). |
+| 3.4 | Pagination and filters     | OPEN    | Blog listing only. Decide in P4. |
+| 3.5 | Primary key type           | OPEN    | Laravel default (auto-increment `bigint`) proposed. Blocks P2. |
+| 3.6 | i18n                       | DECIDED | Spanish-only MVP, ready for more locales. See D3.6. |
+| 3.7 | Public front end           | DECIDED | Blade + Tailwind 4, Livewire for forms, Alpine for small UI, vanilla JS for signature components. See D3.7. |
+| 3.8 | Design system and "locked" | DECIDED | Three layers: design, behavior, code. The prototype is the reference implementation. See D3.8. |
+| 3.9 | Deliberately deferred      | DECIDED | See D3.9. |
 
-### Estado del ERD — ABIERTO
+### D3.1 — Error handling for a server-rendered site (2026-10-16)
 
-<!-- RELLENAR: enlace a docs/erd/ y qué slices están aprobados. El ERD completo puede diferirse; cada historia de datos espera al slice que consume. -->
+There is no public JSON API, so there is no Problem Details catalogue.
+- **Form validation:** Laravel/Livewire validation errors render as an **error summary** at the top of the form (it receives focus on submit) plus inline messages linked by `aria-describedby`. This is the contract the prototype's quote forms already ship (`prototype/src/assets/js/quote-form.js`).
+- **Validation messages are in Spanish** via `lang/es/validation.php`. Logic branches on the field and rule, never on the message text.
+- **Error pages:** custom Spanish Blade views for 404, 419, 429 and 500, in Documento mode.
+- **Debug:** `APP_DEBUG=false` on staging and production.
+
+### D3.2 — Time zone (OPEN)
+
+Proposal, pending confirmation: persist in UTC (`config('app.timezone') = 'UTC'`), display in `America/Guayaquil` (UTC−5, no DST), and serialise ISO 8601 with offset in any machine output (sitemap, JSON-LD). Event dates in the interpreting quote form are local calendar dates, stored as `date` columns with no time zone.
+
+### D3.6 — Multilingual readiness, MVP = `es` (2026-10-15)
+
+- Every user-facing text column (titles, bodies, slugs, SEO fields) is a translatable JSON column through `spatie/laravel-translatable` from day one. Only `es` is filled at launch. Adding a locale is a data task, not a migration.
+- Spanish URLs live at the root with no prefix (`/traduccion/certificada`). Future locales get a prefix (`/en/...`). Spanish URLs never change.
+- Interface strings go through `__()` in `lang/es/*.php`. No hard-coded Spanish in Blade.
+- `<html lang>`, `hreflang` and sitemap alternates come from `config('site.locales')`. With one locale, no hreflang is printed.
+- The header picks the logo descriptor by locale (`brand/logo/lockup/`, 7 languages).
+
+Why: local clients search in Spanish (owner's choice after first saying "English MVP"), but the business name works in many languages.
+→ *Quality attribute: maintainability (modifiability).*
+
+### D3.7 — Public front end (2026-10-15)
+
+- **Blade components** mirror the prototype's include partials (`prototype/src/components/*.html`). Partial params become Blade props (the contracts are written in P0).
+- **Tailwind 4:** brand tokens live in one CSS file as `@theme` variables, shared by the site and the Filament theme. The token source of truth is the brand book (D3.8).
+- **Livewire** only for forms and file upload. **Alpine** for small UI (menu, WhatsApp button, accordions). **Signature components** stay vanilla JS. **No animation libraries.** Every component is complete at rest and has a reduced-motion fallback (`brand/SIGNATURE-COMPONENTS.md`).
+- **Packages kept minimal:** `spatie/laravel-translatable` and `spatie/laravel-sitemap`. Anything else needs a new ADR entry.
+- **Fonts:** Literata (display h1–h3) and Manrope (the rest), self-hosted WOFF2, Latin + Latin Extended at launch. Fraunces is rejected because it lacks Cyrillic and Greek (`brand/DIRECTION.md` §3).
+
+### D3.8 — Design system and what "locked" means (2026-10-16)
+
+A component is **locked** when it has all three layers:
+1. **Design:** tokens plus component anatomy and states, in the brand book (a claude.ai artifact of the "Design System" type).
+2. **Behavior:** exact timings, easing, a11y and rules, in `brand/SIGNATURE-COMPONENTS.md`.
+3. **Code:** a component contract (params → Blade props, data source, events and query params).
+
+Owners: `brand/DIRECTION.md` owns the brand system (modes, palette, contrast, type, shape, voice, motion). `brand/logo/LOGO.md` owns logo usage. The prototype (`prototype/`) is the **reference implementation**. Production Blade is written once, in Laravel, at visual parity with it.
+
+Brand decisions migrated from HANDOFF_v1 (owner documents, not repeated here): direction "Puente" with Documento and Cabina modes (#1); logo M1 + M5 (#2); naming with a localised descriptor (#4); palette and contrast rules (#5); type (#6); voice (#7, hero hook **accepted by default**, to be confirmed by Bridge); "less square" shape (#8); six signature components (#9); footer outline wordmark (#10). The certification stamp (#3) is OPEN (see the summary).
+
+### D3.9 — Deliberately deferred (2026-10-15)
+
+| Deferred | Add when |
+| --- | --- |
+| Filament translatable plugin (admin locale switcher) | The second locale is added. Check Filament 5 compatibility then. |
+| Media library package / responsive image sets | Image performance becomes a measured problem. |
+| Page builder (Filament Builder blocks) | Bridge needs to compose landing pages without a developer. |
+| Permission package (e.g. Shield) | More than two roles are needed. |
+| Blog categories and tags | More than about 20 posts. |
+| Online payment / price calculator | Bridge publishes fixed prices. |
+| Cloudflare Turnstile | Spam actually appears. |
+| Headless front end | The reopen condition of D2.3 is met. |
 
 ---
 
-## 7. Almacenamiento de archivos (si aplica)
+## 4. Server layer
 
-<!-- RELLENAR o borrar: subida, tamaño máximo, nombres de las claves, integridad, CORS y expiración de URLs firmadas. -->
+| #   | Point                       | Status  | Decision |
+| --- | --------------------------- | ------- | -------- |
+| 4.1 | Content model               | DECIDED | Filament resources per D4.1. Columns are fixed in the ERD (P2). |
+| 4.2 | Admin roles                 | DECIDED | Two roles, `admin` and `editor`, via a `role` column + policies. See D4.2. |
+| 4.3 | Input validation            | OPEN    | Livewire rules vs Form Request objects for the three lead forms. Decide in P5. |
+| 4.4 | Test framework              | DECIDED | Pest (11.1). |
+| 4.5 | Admin auth                  | DECIDED | Filament's built-in session login. No external identity provider. |
+| 4.6 | Settings storage            | DECIDED | One `Settings` row, editable in Filament (D4.1). |
+
+### D4.1 — Content model (2026-10-15)
+
+| Model | Purpose |
+| --- | --- |
+| `Service` | Drives the hubs, nav and quote-form options. Its `mode` (documento/cabina) sets both the URL prefix and the visual mode. |
+| `Language` | The "Idiomas que trabajamos" list and quote-form selects. |
+| `Post` | The blog. |
+| `Client` | Client logos, shown publicly **only** when `logo_permission` is true. |
+| `Testimonial` | Optional for the MVP; the schema is cheap. |
+| `Faq` | Global (`service_id` null) or per service. |
+| `Page` | Simple pages (privacy, about body). |
+| `Lead` | The inbound inbox: type, contact fields, request fields, files, `consent_at`, status (`LeadStatus`, shown as nuevo/contactado/cotizado/ganado/perdido; stored values per `docs/nomenclatura.md` §1), notes. |
+| `Settings` | Single row: phones, emails, WhatsApp number and default message, address, socials, founding year, verified stats, ATA text, hero copy. Placeholders get swapped without a deploy. |
+
+Field lists are a draft in `docs/ARCHITECTURE.md` §2. The ERD (`docs/erd/`) becomes the owner of columns and constraints when its P2 slices are approved.
+
+### D4.2 — Admin roles (2026-10-15)
+
+`admin` (the owner) can do everything. `editor` (the Bridge team) manages content and leads, but not Settings or users. This is a `role` column plus Laravel policies, with no permission package (D3.9).
 
 ---
 
-## 8. Seguridad y acceso
+## 6. Database
 
-| #   | Punto                          | Estado  | Decisión |
-| --- | ------------------------------ | ------- | -------- |
-| 8.1 | Matriz de permisos (rol × recurso × acción) | ABIERTO |  |
-| 8.2 | Proveedor de identidad         | ABIERTO |          |
-| 8.3 | CORS                           | ABIERTO |          |
-| 8.4 | Rate limiting                  | ABIERTO |          |
+| #   | Point                    | Status  | Decision |
+| --- | ------------------------ | ------- | -------- |
+| 6.1 | Engine                   | DECIDED | MySQL, included with Hostinger. CI runs against MySQL too (lessons: same engine as production). |
+| 6.2 | Naming conventions       | DECIDED | Laravel conventions: plural `snake_case` tables, `snake_case` columns, `<model>_id` foreign keys. Translatable columns are JSON. |
+| 6.3 | Index strategy           | OPEN    | Decide per ERD slice in P2. |
+| 6.4 | Seeders and factories    | DECIDED | Invented data only (D2.2). A `LanguageSeeder` may seed the real public language list. |
+| 6.5 | Backups                  | DECIDED | Hostinger daily backups, plus a weekly `mysqldump` and private uploads copied off-server. See D9.1. |
 
----
+### ERD status — OPEN
 
-## 9. CI/CD, ambientes y observabilidad
-
-| #   | Punto                     | Estado  | Decisión |
-| --- | ------------------------- | ------- | -------- |
-| 9.1 | Pipeline de CI            | ABIERTO |          |
-| 9.2 | Migraciones en el deploy  | ABIERTO | ¿Automáticas o manuales con aprobación? |
-| 9.3 | Observabilidad (errores, uptime) | ABIERTO |   |
-| 9.4 | Rollback                  | ABIERTO | Definir **antes** del primer incidente real |
+No ERD slice exists yet. Each P2 story waits for the slice it uses. The draft model lives in D4.1 and `docs/ARCHITECTURE.md` §2.
 
 ---
 
-## 10. Cuentas externas — arrancar por lead time
+## 7. File storage
 
-<!-- RELLENAR: lista de cuentas y servicios (dominio, correo transaccional, nube, identidad, hosting) en el orden en que hay que pedirlas: primero lo que tarda (DNS, verificación de dominio). Lo configura el humano; el agente lo registra como dependencia. -->
+### D7.1 — Lead attachments (2026-10-15)
+
+- Accepted types: PDF, JPG, PNG, DOCX. At most 20 MB per file and 5 files per lead (translation quote form only).
+- Stored on a **private disk** (`storage/app/private`), never `public/`. Downloadable only from Filament through a signed, time-limited URL.
+- **Never attached to emails.** The notification email links to the lead in Filament.
+- **Automatic deletion** by a daily scheduled job, **90 days** after the lead is created. The period is OPEN until Bridge confirms it (summary #2). It must be stated in `/privacidad`.
+
+Why: clients upload IDs, deeds and court documents. Ecuador's LOPDP applies.
+→ *Quality attribute: security (confidentiality).*
 
 ---
 
-## 11. Pruebas y evidencia de RNF
+## 8. Security and access
 
-| #    | Punto                          | Estado  | Decisión |
+| #   | Point                                     | Status  | Decision |
+| --- | ----------------------------------------- | ------- | -------- |
+| 8.1 | Permission matrix (role × resource × action) | PARTIAL | Roles decided (D4.2). The full matrix is written with the P3 admin stories. |
+| 8.2 | Identity provider                         | DECIDED | None external. Filament login (4.5). |
+| 8.3 | CORS                                      | DECIDED | Not applicable: same-origin monolith. |
+| 8.4 | Rate limiting and spam                    | DECIDED | Per-IP rate limit on every form, plus a honeypot field. Turnstile is deferred (D3.9). |
+| 8.5 | Privacy (LOPDP)                           | DECIDED | See D8.5. Legal text supplied by Bridge. |
+| 8.6 | Analytics                                 | DECIDED | GA4 loads **only** after cookie consent. The WhatsApp link sets no cookies. |
+
+### D8.5 — Personal data (2026-10-15)
+
+- Store only the fields and files needed to quote. IPs are used for rate limiting and are **not** saved on the lead.
+- Every form has an explicit privacy-consent checkbox, stored as `consent_at`.
+- `/privacidad` states the controller, the purpose, the retention period (D7.1) and how to request deletion. We provide a template; Bridge provides the legal text.
+
+---
+
+## 9. CI/CD, environments and observability
+
+| #   | Point                        | Status  | Decision |
+| --- | ---------------------------- | ------- | -------- |
+| 9.1 | CI pipeline and deploy       | DECIDED | Option A: CI builds the release and uploads it over SSH, then swaps a symlink. See D9.1. |
+| 9.2 | Migrations on deploy         | DECIDED | Automatic: `php artisan migrate --force` after the symlink swap (D9.1). |
+| 9.3 | Observability (errors, uptime) | OPEN  | Decide in P6. |
+| 9.4 | Rollback                     | PARTIAL | Code: point the symlink back to the previous release. Database: OPEN, define **before** P7. |
+| 9.5 | Queue and scheduler          | DECIDED | Database queue driven by cron (D9.1). |
+| 9.6 | Environments                 | DECIDED | Staging on a subdomain first (deployed from `develop`), then production (deployed from `main`). |
+
+### D9.1 — Hosting and deploy on Hostinger Business (2026-10-16)
+
+**Host:** Hostinger Business (shared). Researched on 2026-10-16:
+- SSH is restricted (no root).
+- hPanel's Git auto-deploy **only pulls code**. It doesn't run Composer, the build or migrations.
+- `npm` **can't run** over SSH. The plan's Node.js apps feature is irrelevant to us.
+- Approximate limits: 2 CPU, 3 GB RAM, 600k inodes, 360 s PHP execution. These are **to be verified in hPanel** (summary #3).
+
+**Deploy, option A (GitHub Actions):**
+1. Run the tests and quality chain.
+2. `composer install --no-dev --optimize-autoloader` and `npm ci && npm run build` (Vite) in CI.
+3. Upload the release folder over SSH into `releases/<timestamp>/`, with shared `storage/` and `.env` linked in.
+4. Swap the `current` symlink. The document root points at `current/public`.
+5. Run `php artisan migrate --force` and `php artisan optimize`.
+
+The server **never** runs `git pull` or `npm`.
+
+**Scheduler:** one hPanel cron entry, `* * * * * <php-path> artisan schedule:run`. The schedule runs `queue:work --stop-when-empty` every minute and the attachment cleanup (D7.1) daily. Form emails may arrive up to about a minute late; that is accepted. The exact PHP path and the minimum cron interval are verified in P7.
+
+**Backups:** Hostinger daily backups, plus a weekly `mysqldump` and private uploads copied off-server.
+
+**Known ceiling:** no persistent queue worker and limited CPU. If traffic or features grow, move to a Hostinger VPS: the app doesn't change, and the cron is replaced by a supervisor process.
+
+Alternatives rejected: hPanel Git auto-deploy (no build step), and building on the server (no `npm`).
+→ *Quality attribute: deployability, recoverability.*
+
+---
+
+## 10. External accounts, by lead time
+
+All configured by the owner; the agent records them as dependencies and stops (`CLAUDE.md` §0.6).
+
+1. **Canonical domain:** `bridgetraducciones.com` vs `bridge-traducciones.com` (OPEN, summary #4). DNS changes are slow, so decide first.
+2. **Hostinger:** enable SSH, select PHP 8.3, create the MySQL database, create the staging subdomain, create the cron entry (P7).
+3. **GitHub:** deploy key and Actions secrets (SSH host, user, key, paths); branch protection (rulesets) on `main` and `develop`.
+4. **Mail:** Hostinger mailbox SMTP or a transactional provider (OPEN, summary #7).
+5. **Google GA4:** property and measurement ID (P6).
+6. **WhatsApp:** the business number (placeholder register).
+
+---
+
+## 11. Testing and RNF evidence
+
+| #    | Point                          | Status  | Decision |
 | ---- | ------------------------------ | ------- | -------- |
-| 11.1 | Frameworks de pruebas por capa | ABIERTO |          |
-| 11.2 | Plan de medición por RNF       | ABIERTO | Un instrumento por RNF |
+| 11.1 | Test frameworks                | DECIDED | Pest (unit + feature), Larastan, Pint. CI against MySQL. |
+| 11.2 | One instrument per RNF         | PARTIAL | Accessibility: axe-core with 0 violations at 390 and 1440 px (as `prototype/check.mjs` does). Layout: no horizontal overflow at 390 and 1440. Performance: the budget in `docs/ARCHITECTURE.md` §4, instrument OPEN (Lighthouse proposed). |
+| 11.3 | Browser tests on the Laravel site | OPEN | Port `prototype/check.mjs` to run against the Laravel site, or Pest browser testing. Decide in P4. |
 
 ---
 
-## 12. Documentación y trazabilidad
+## 12. Documentation and traceability
 
-<!-- RELLENAR: qué documentos externos (tesis, contrato, manual) dependen de este ADR y cómo se arrastran las correcciones. -->
+- **This ADR** owns technical decisions. `docs/ARCHITECTURE.md` remains only as the site overview (sitemap, content model draft, lead form fields) and links here for every decision.
+- **Brand documents** own the design: `brand/DIRECTION.md`, `brand/SIGNATURE-COMPONENTS.md`, `brand/logo/LOGO.md`, and the brand book artifact once P0 publishes it.
+- **The placeholder register** (written in P0) owns everything Bridge must supply: contact data, claims, credentials, legal text, catalogue, planner rules, assets and approvals. It replaces the former open-items section of `docs/ARCHITECTURE.md`, `brand/DIRECTION.md` §11 and the seed list in HANDOFF_v1 §8.
+- **Published artifacts** (prototype, logo sheet) are review copies. Older ones (directions, logo options) show the pre-revision radius and amber-on-light trails. They are historical and are not updated.
 
 ---
 
-## Resumen de puntos abiertos priorizados
+## Summary of prioritised open points
 
-<!-- RELLENAR: la lista VIVA. Es el único sitio que la contiene; CLAUDE.md y la metodología la consultan, no la copian. Formato:
-1. ⚠️ **9.2 — Migraciones en el deploy.** Qué hay que decidir, por qué importa y qué bloquea.
-Lo que se cierra se tacha con fecha: ~~**9.3 Observabilidad**~~ — **cerrado AAAA-MM-DD** (D9.3).
--->
+This is the **only** live list. `CLAUDE.md` and the methodology consult it; they don't copy it.
 
-1. ⚠️ …
+1. ⚠️ **3.2 — Time zone.** Confirm UTC storage + `America/Guayaquil` display (D3.2). Blocks P2 (migrations).
+2. ⚠️ **7 — Attachment retention period.** 90 days proposed; Bridge must confirm. Blocks the cleanup job in P5 and the `/privacidad` text. The job can be built with the period in config, which is compatible with any answer.
+3. ⚠️ **9.1 — Hosting checks.** SSH enabled, `php -v; composer -V; which php`, plan limits in hPanel → Details, minimum cron interval, deploy key. Blocks P7.
+4. ⚠️ **10 — Canonical domain.** Blocks the 301 map, sitemap and canonical URLs (P7). Long lead time.
+5. **3.5 — Primary key type.** Laravel default proposed. Blocks P2.
+6. **Brand — Certification stamp.** Five options (S1–S5); the recommendation is S2 as the official seal and S3 as the working stamp. The prototype uses a provisional S1-based seal. Owner: `brand/explore/logo-options.html`. Blocks locking the seal component in P0; the rest of P0 proceeds.
+7. **10 — Mail provider.** Hostinger SMTP or transactional. Blocks P5 email delivery; code is the same with either (Laravel mailer config).
+8. **4.3 — Validation approach** for the lead forms. Decide in P5.
+9. **11.3 — Browser tests on Laravel.** Decide in P4.
+10. **11.2 — Performance instrument.** Decide in P6.
+11. **9.3 — Observability.** Decide in P6.
+12. **9.4 — Database rollback.** Define before P7.
+13. **3.4 — Blog pagination.** Decide in P4.
+14. **1.4 — Stakeholder reporting** and **1.5 — estimation anchor.** Low priority.

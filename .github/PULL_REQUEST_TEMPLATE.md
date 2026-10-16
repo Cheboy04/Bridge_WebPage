@@ -1,43 +1,43 @@
 <!--
-  Plantilla de PR de {{PROYECTO}}.
-  Título = mensaje de commit, según docs/global/reglas-git.md §3.
-  Rama: feature/{{PREFIJO_TICKET}}-<id>-<slug> (o fix/* / hotfix/*), hacia {{RAMA_INTEGRACION}}.
+  PR template for Bridge Traducciones (website).
+  Title = the commit message, per docs/global/reglas-git.md §3.
+  Branch: feature/BRG-<n>-<slug> (or docs/* / fix/* / hotfix/*), into develop.
 -->
 
-## Historia / tarea
+## Story / task
 
-- Ticket: {{PREFIJO_TICKET}}-
-- Spec: `docs/specs/…`
-<!-- SI TOPOLOGIA=multirepo -->
-- PR relacionadas en otros repos:
-<!-- /SI -->
+- Issue: Closes #
+- Spec: `docs/specs/HU-XX.md`
 
-## Qué cambia
+## What changes
 
-<!-- Qué se añadió, modificó o quitó, y por qué. Las decisiones nuevas deben estar ya en la spec o en el ADR. -->
+<!-- What was added, changed or removed, and why. New decisions must already be in the spec or the ADR. -->
 
-## Cómo se probó
+## How it was tested
 
-<!-- Qué tests cubren el cambio y cómo verificarlo a mano. Un criterio de aceptación que no se puede verificar no cuenta como probado. -->
+<!-- Which tests cover the change and how to verify it by hand. An acceptance criterion that can't be verified doesn't count as tested. -->
 
-- [ ] Tests añadidos o actualizados y vistos en rojo antes de la implementación (C2)
-- [ ] Cada test no trivial probado rompiéndolo (C3): N mutaciones, M sobrevivieron y quedaron justificadas en la spec
-- [ ] Verificado en local
+- [ ] Tests added or updated and seen red before the implementation (C2)
+- [ ] Each non-trivial test proven by breaking it (C3): N mutations, M survived and are justified in the spec
+- [ ] Verified locally
+- [ ] Public UI: 0 axe violations and no horizontal overflow at 390 and 1440 (if it changes something visible)
 
-## Checklist de review
+## Review checklist
 
-- [ ] La spec está actualizada y sin drift con el código
-- [ ] Sin secretos, `.env` ni datos reales del cliente en el diff
-- [ ] Lockfiles commiteados si cambiaron las dependencias
-- [ ] Nombres según la nomenclatura y el ADR
-- [ ] Handoff actualizado
+- [ ] The spec is up to date, with no drift from the code
+- [ ] No secrets, `.env` or real client data in the diff (public repo, ADR D2.2)
+- [ ] Lockfiles committed if dependencies changed (and the new package has an ADR entry)
+- [ ] Names follow `docs/nomenclatura.md` and the ADR
+- [ ] Handoff updated
 
-### Captura (si cambia algo visible)
+### Screenshot (if something visible changes)
+
+<!-- Fresh screenshot next to the prototype's equivalent at 390 and 1440. -->
 
 ## CI
 
-- [ ] Pipeline en verde
+- [ ] Pipeline green
 
-## Notas para quien revisa
+## Notes for the reviewer
 
-<!-- Contexto, decisiones de diseño, sitios donde quieres atención específica, soluciones temporales y qué ticket las sustituye. -->
+<!-- Context, design decisions, places that need specific attention, temporary workarounds and which issue replaces them. -->

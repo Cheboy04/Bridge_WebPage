@@ -1,44 +1,44 @@
-# Runbook — <procedimiento operativo>
+# Runbook — <operational procedure>
 
-<!-- RELLENAR: copia a docs/global/runbook-<tema>.md. Un runbook por procedimiento que un humano ejecuta a mano y que no puede improvisarse (ventana de mantenimiento, rollback, rotación de secretos, restauración de backup, alta de un entorno). Es una lista de pasos, no una explicación. -->
+<!-- RELLENAR: copy to docs/global/runbook-<topic>.md. One runbook per procedure that a human runs by hand and that cannot be improvised (maintenance window, rollback, secret rotation, backup restore, setting up an environment). It is a list of steps, not an explanation. -->
 
-> **Dueño de la decisión:** Dx.y. **Tarea:** `{{PREFIJO_TICKET}}-XX`.
-> **Alcance:** qué cubre este runbook.
-> **Fuera del alcance:** procedimientos relacionados que viven en otro sitio o siguen ABIERTOS en el ADR.
+> **Decision owner:** Dx.y. **Task:** `BRG-XX`.
+> **Scope:** what this runbook covers.
+> **Out of scope:** related procedures that live elsewhere or are still OPEN in the ADR.
 
 ---
 
-## 1. Estado actual
+## 1. Current state
 
-<!-- Tabla del sistema involucrado: recursos, URLs, intervalos, cuentas (nunca credenciales; di dónde están: "gestor de contraseñas del equipo"). Qué está verificado y en qué fecha. -->
+<!-- Table of the system involved: resources, URLs, intervals, accounts (never credentials; say where they are: "the team password manager"). What is verified and on what date. -->
 
-| Recurso | Tipo | Dónde | Nota |
-| ------- | ---- | ----- | ---- |
-|         |      |       |      |
+| Resource | Type | Where | Note |
+| -------- | ---- | ----- | ---- |
+|          |      |       |      |
 
-## 2. Procedimiento
+## 2. Procedure
 
-### 2.1 Antes (aviso y preparación)
+### 2.1 Before (notice and preparation)
 
-<!-- Con cuánta antelación, a quién y con qué texto (incluye la plantilla del mensaje). -->
-
-1. …
-
-### 2.2 Durante
+<!-- How far ahead, to whom and with what text (include the message template). -->
 
 1. …
 
-### 2.3 Al cerrar
+### 2.2 During
 
 1. …
-2. Verificación: <!-- cómo se confirma que todo volvió a su estado: URL, comando, captura -->
 
-### 2.4 Si algo sale mal
+### 2.3 On close
 
-<!-- Punto de no retorno, a quién escalar y cómo volver atrás. -->
+1. …
+2. Verification: <!-- how to confirm everything is back to its state: URL, command, screenshot -->
 
-## 3. Registro
+### 2.4 If something goes wrong
 
-| Fecha | Quién | Motivo | Duración | Resultado / evidencia |
-| ----- | ----- | ------ | -------- | --------------------- |
-|       |       |        |          |                       |
+<!-- Point of no return, who to escalate to and how to go back. -->
+
+## 3. Log
+
+| Date | Who | Reason | Duration | Result / evidence |
+| ---- | --- | ------ | -------- | ----------------- |
+|      |     |        |          |                   |

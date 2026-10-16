@@ -1,78 +1,78 @@
-# PLANTILLA — Handoff entre sesiones
+# TEMPLATE — Handoff between sessions
 
-Copia a `docs/global/handoffs/HANDOFF_vN.md` (N incremental; **el anterior no se sobrescribe**). Es **memoria entre sesiones**, no una spec. Las specs viven en `docs/specs/`; las decisiones cerradas, en el ADR.
+Copy to `docs/global/handoffs/HANDOFF_vN.md` (N increments; **the previous one is not overwritten**). It is **memory between sessions**, not a spec. Specs live in `docs/specs/`; closed decisions live in the ADR.
 
-**Por qué versionado y por qué detallado:** el contexto de un chat no persiste y una sesión de agente se reinicia. Todo lo que importa vive en archivos. Cada handoff anota no solo lo que se hizo, sino **la trampa que costó tiempo**, para que la siguiente sesión no la repita.
+**Why versioned and why detailed:** chat context does not persist and an agent session restarts. Everything that matters lives in files. Each handoff records not only what was done but **the trap that cost time**, so the next session does not repeat it.
 
-**Regla de consolidación:** cada 10 handoffs se crea `HANDOFF_v<a>-v<b>_consolidado.md`, que unifica los 10 previos y nada más (plantilla al final). Las trampas que siguen vigentes y no dependen del proyecto suben a `lecciones-transversales.md`.
-
----
-
-# Handoff vN — {{PROYECTO}}
-
-**Fecha:** AAAA-MM-DD · **Sprint:** N (AAAA-MM-DD → AAAA-MM-DD) · **Capa(s)/Repo(s):** …
-**Foco de la sesión:** <una frase: ticket, HU y en qué paso del ciclo quedó>
-
-> Continúa [`HANDOFF_v(N-1).md`](HANDOFF_v(N-1).md). Rama `feature/…`, cabeza `<hash>`. <!-- ¿Hay PR? ¿Todo commiteado? -->
-
-## 1. Estado ejecutivo
-
-<!-- 2-4 viñetas: dónde quedó el trabajo, qué está en verde, qué falta para cerrar, qué se probó a mano y quién lo probó. -->
-
-## 2. {{TRACKER}}
-
-<!-- Qué se escribió en el tablero en esta sesión. Si no se pudo (conector caído, sin permiso), qué queda pendiente del lado humano. -->
-
-## 3. Decisiones de la sesión
-
-<!-- Numeradas, cada una con su porqué. Si cierra o abre una decisión del ADR, dilo con su número (Dx.y). Si el acuerdo cambió, el documento dueño ya debió cambiar primero (regla anti-drift). Marca las soluciones temporales como tales y di qué ticket las sustituye. -->
-
-1. …
-
-## 4. Evidencia
-
-<!-- Recuento de la suite por capa, linters, C3 (N mutaciones, M sobrevivieron y qué se endureció), estado del CI. -->
-
-## 5. Archivos de la sesión
-
-<!-- Agrupados por capa y por autor (humano / agente). -->
-
-## 6. Trampas operativas
-
-<!-- El bug concreto, la causa real (reproducida, no supuesta) y cómo evitarla. Es el apartado que más ahorra a la siguiente sesión. Al final, una línea con las trampas de handoffs anteriores que siguen vigentes. -->
-
-1. …
-
-## 7. Drift detectado
-
-<!-- Contradicciones entre documentos, o entre documento y código: cuál es el dueño y qué hay que corregir. No se deja sin registrar. Omite la sección si no hay. -->
-
-## 8. Próximos pasos ordenados
-
-<!-- La primera cosa que haría la siguiente sesión, en orden de dependencia. Incluye los pendientes heredados que siguen abiertos. -->
-
-1. …
-
-## 9. Cómo retomar el entorno (solo si cambió)
-
-<!-- Solo si algo del setup cambió respecto al handoff anterior. Si no, borra la sección. -->
+**Consolidation rule:** every 10 handoffs, create `HANDOFF_v<a>-v<b>_consolidado.md`, which unifies the previous 10 and nothing else (template at the end). Traps that are still valid and do not depend on the project move up to `lecciones-transversales.md`.
 
 ---
 
-# PLANTILLA — Handoff consolidado
+# Handoff vN — Bridge Traducciones (website)
 
-# Handoff consolidado v<a>–v<b> — {{PROYECTO}}
+**Date:** YYYY-MM-DD · **Phase:** N (YYYY-MM-DD → YYYY-MM-DD) · **Layer:** site
+**Session focus:** <one sentence: ticket, HU and the step of the cycle where it stopped>
 
-**Cubre:** AAAA-MM-DD → AAAA-MM-DD · **Sustituye la lectura de:** `HANDOFF_v<a>.md` … `HANDOFF_v<b>.md` (se conservan como historial).
+> Continues [`HANDOFF_v(N-1).md`](HANDOFF_v(N-1).md). Branch `feature/…`, head `<hash>`. <!-- Is there a PR? Is everything committed? -->
 
-## 1. Resumen ejecutivo
-## 2. Qué se hizo (cronología)
-## 3. Decisiones vigentes (con su documento dueño)
-## 4. Trampas y hallazgos que siguen siendo útiles (agrupadas: tests, bibliotecas, entorno/CI, shell y git, gestión)
-## 5. Drift: estado al cerrar v<b>
-## 6. Bloqueos y pendientes al cerrar v<b>
-## 7. Próximos pasos (tal como quedaron en v<b>)
-## 8. Cómo retomar el entorno
-## 9. Regla
+## 1. Executive status
 
-Cada 10 handoffs se crea uno nuevo que unifica los 10 previos y nada más. **La próxima consolidación toca al cerrar v<b+10> y cubre v<b+1>–v<b+10>.**
+<!-- 2-4 bullets: where the work stands, what is green, what is missing to close, what was tested by hand and by whom. -->
+
+## 2. GitHub Issues
+
+<!-- What was written to the board in this session. If it could not be done (connector down, no permission), what remains pending on the human side. -->
+
+## 3. Decisions of the session
+
+<!-- Numbered, each with its reason. If it closes or opens an ADR decision, say so with its number (Dx.y). If the agreement changed, the owner document must have changed first (anti-drift rule). Mark temporary solutions as such and say which ticket replaces them. -->
+
+1. …
+
+## 4. Evidence
+
+<!-- Suite count per layer, linters, C3 (N mutations, M survived and what was hardened), CI status. -->
+
+## 5. Files of the session
+
+<!-- Grouped by layer and by author (human / agent). -->
+
+## 6. Operational traps
+
+<!-- The concrete bug, the real cause (reproduced, not assumed) and how to avoid it. This is the section that saves the most time for the next session. At the end, one line with the traps from earlier handoffs that are still valid. -->
+
+1. …
+
+## 7. Detected drift
+
+<!-- Contradictions between documents, or between a document and the code: which one is the owner and what must be fixed. Never leave it unrecorded. Omit the section if there is none. -->
+
+## 8. Ordered next steps
+
+<!-- The first thing the next session would do, in dependency order. Include inherited pending items that are still open. -->
+
+1. …
+
+## 9. How to resume the environment (only if it changed)
+
+<!-- Only if something in the setup changed since the previous handoff. If not, delete the section. -->
+
+---
+
+# TEMPLATE — Consolidated handoff
+
+# Consolidated handoff v<a>–v<b> — Bridge Traducciones (website)
+
+**Covers:** YYYY-MM-DD → YYYY-MM-DD · **Replaces reading:** `HANDOFF_v<a>.md` … `HANDOFF_v<b>.md` (kept as history).
+
+## 1. Executive summary
+## 2. What was done (chronology)
+## 3. Current decisions (with their owner document)
+## 4. Traps and findings that are still useful (grouped: tests, libraries, environment/CI, shell and git, management)
+## 5. Drift: status at the close of v<b>
+## 6. Blockers and pending items at the close of v<b>
+## 7. Next steps (as left in v<b>)
+## 8. How to resume the environment
+## 9. Rule
+
+Every 10 handoffs, a new one is created that unifies the previous 10 and nothing else. **The next consolidation is due when v<b+10> closes and covers v<b+1>–v<b+10>.**

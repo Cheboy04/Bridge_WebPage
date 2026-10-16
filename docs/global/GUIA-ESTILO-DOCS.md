@@ -1,69 +1,70 @@
-# Guía de estilo de los documentos
+# Documentation style guide
 
-Reglas comunes a todos los documentos del kit. Las aplica el agente al rellenar las plantillas y al escribir specs, handoffs o entradas del ADR.
+Rules shared by all kit documents. The agent applies them when filling templates and when writing specs, handoffs or ADR entries.
 
-## 1. Cabecera
+## 1. Header
 
-Todo documento vivo abre con un bloque que dice **qué es, en qué estado está y quién manda**:
+Every living document opens with a block that says **what it is, what state it is in and who has authority**:
 
 ```markdown
-# <Tipo> — <Tema> (<Proyecto>)
+# <Type> — <Topic> (<Project>)
 
-**Estado:** <borrador | aprobado | oficial | implementado> desde AAAA-MM-DD.
-**Dueño de:** <qué materia gobierna>. **Lo referencian:** <quién lo usa>.
+**Status:** <draft | approved | official | implemented> since YYYY-MM-DD.
+**Owns:** <what subject it governs>. **Referenced by:** <who uses it>.
 ```
 
-Las specs y los ERD usan una cita (`>`) con ticket, sprint, cobertura RF/RNF, contraparte y casillas de estado `[ ] borrador · [ ] aprobada · [ ] implementada`.
+Specs and ERDs use a quote block (`>`) with the ticket, phase, RF/RNF coverage, counterpart and status boxes `[ ] draft · [ ] approved · [ ] implemented`.
 
-## 2. Un dueño por dato (anti-drift)
+## 2. One owner per fact (anti-drift)
 
-- Cada valor concreto (código de error, versión, criterio de aceptación, veto, lista de puntos abiertos) se escribe en **un solo** documento. Los demás lo enlazan o lo citan por número (`D3.1`, `HU-05`, `§5`).
-- Si dos documentos se contradicen, se corrige el que **no** es dueño, y se anota el drift en el handoff.
-- Cuando cambia un acuerdo, **primero cambia el documento**, y después el código o el tablero.
-- Al referenciar en lugar de copiar, se dice dónde está: _"La lista vigente vive en el ADR, «Resumen de puntos abiertos»; no se copia aquí."_
+- Each concrete value (error code, version, acceptance criterion, veto, list of open points) is written in **one** document only. The others link to it or cite it by number (`D3.1`, `HU-05`, `§5`).
+- If two documents contradict each other, fix the one that is **not** the owner, and note the drift in the handoff.
+- When an agreement changes, **the document changes first**, then the code or the board.
+- When you reference instead of copy, say where it lives: _"The current list lives in the ADR, 'Summary of prioritized open points'; it is not copied here."_
 
-## 3. Fechas y tiempo
+## 3. Dates and time
 
-- Siempre fechas absolutas ISO: `2026-10-13`. Nunca "ayer", "la semana pasada" ni "el próximo sprint" sin fecha.
-- Los cambios de estado llevan fecha: `**Actualizado el AAAA-MM-DD:** …`, `cerrado AAAA-MM-DD`.
-- Las decisiones no se reescriben: se amplían con `> **Ampliación de AAAA-MM-DD (TICKET):** …` o se marcan como superadas, con un enlace a la que las sustituye.
-- Lo cerrado se tacha y conserva su rastro: `~~**9.3 Observabilidad**~~ — **cerrado AAAA-MM-DD** (D9.3)`.
+- Always absolute ISO dates: `2026-10-13`. Never "yesterday", "last week" or "next phase" without a date.
+- Status changes carry a date: `**Updated on YYYY-MM-DD:** …`, `closed YYYY-MM-DD`.
+- Decisions are not rewritten. They are extended with `> **Extension of YYYY-MM-DD (TICKET):** …` or marked as superseded, with a link to the one that replaces them.
+- Closed items are struck through and keep their trail: `~~**9.3 Observability**~~ — **closed YYYY-MM-DD** (D9.3)`.
 
-## 4. Alcance explícito
+## 4. Explicit scope
 
-- Toda lista de "dentro" va acompañada de una lista de **"Fuera / diferido (con motivo)"**, y cada exclusión dice dónde se hará (ticket o HU) o por qué no se hace (decisión ABIERTA, fuera del RF).
-- Lo que es temporal se dice: _"apaño temporal que HU-11 debe sustituir"_.
-- Lo que no se sabe se dice: _"sin investigar"_, _"supuesto, pendiente de confirmar"_. No se rellena con suposiciones.
+- Every "in" list comes with an **"Out / deferred (with reason)"** list. Each exclusion says where it will be done (ticket or HU) or why it is not done (OPEN decision, outside the RF).
+- Say what is temporary: _"temporary workaround that HU-11 must replace"_.
+- Say what is not known: _"not investigated"_, _"assumption, pending confirmation"_. Do not fill gaps with guesses.
 
-## 5. Tablas y listas
+## 5. Tables and lists
 
-- Se usan tablas cuando hay dos o más atributos por fila (decisiones, tickets, tests, riesgos, campos). Las columnas habituales son estas:
-  - Decisiones: `# | Punto | Estado | Decisión`.
-  - Tests: `# | Test (archivo::caso) | Qué afirma | Cómo se prueba que FALLA`.
-  - Riesgos: `Riesgo | Señal | Respuesta`.
-  - Casillas: `Casilla | Trabajo | Hecho cuando`.
-- Las listas numeradas se reservan para orden real (pasos, prioridad). El resto de listas va con viñetas.
-- Diagramas en `mermaid` dentro del markdown (secuencia de tickets, ERD), no como imágenes.
+- Use tables when each row has two or more attributes (decisions, tickets, tests, risks, fields). The usual columns are:
+  - Decisions: `# | Point | Status | Decision`.
+  - Tests: `# | Test (file::case) | What it asserts | How we prove it FAILS`.
+  - Risks: `Risk | Signal | Response`.
+  - Checklist items: `Item | Work | Done when`.
+- Numbered lists are reserved for real order (steps, priority). All other lists use bullets.
+- Diagrams are `mermaid` inside the markdown (ticket sequence, ERD), not images.
 
-## 6. Redacción
+## 6. Writing
 
-- Idioma: {{IDIOMA_DOCS}}. Los identificadores de código van entre comillas invertidas y en su idioma original.
-- Frases cortas y en voz activa. Primero la regla y después el porqué, en una frase: _"`.env` siempre en `.gitignore`: el repo es público."_
-- Se escribe en negrita la palabra que decide (**nunca**, **solo**, **primero**), no frases enteras.
-- Sin relleno ni promesas. "0 hallazgos" es un resultado válido y se dice tal cual.
-- Las trampas siguen el patrón **síntoma → causa real (reproducida) → qué hacer**.
+- Language: English. Code identifiers go in backticks and keep their original language.
+- Short sentences in active voice. Rule first, then the reason, in one sentence: _"`.env` always in `.gitignore`: the repo is public."_
+- Bold the word that decides (**never**, **only**, **first**), not whole sentences.
+- No filler and no promises. "0 findings" is a valid result and is stated as is.
+- Traps follow the pattern **symptom → real cause (reproduced) → what to do**.
 
-## 7. Comentarios de guía
+## 7. Guidance comments
 
-- Las plantillas usan `<!-- RELLENAR: … -->` para guiar y `<!-- SI VAR=valor -->…<!-- /SI -->` para variantes. Un documento no está listo mientras quede alguno.
-- Los ejemplos del proyecto de origen van como `> Ejemplo (Track Studio): …` y se borran o se sustituyen por uno propio.
+- Templates use `<!-- RELLENAR: … -->` as guidance (RELLENAR means "fill in"). A document is not ready while any remain.
+- Variant blocks in the templates are resolved when the kit is filled. A filled project has none left.
+- Examples from the origin project appear as `> Example (Track Studio): …`. Delete them or replace them with your own.
 
-## 8. Seguridad
+## 8. Security
 
-- Nunca secretos, tokens, credenciales ni datos reales del cliente o de sus usuarios, ni en los documentos ni en el tablero. Se dice **dónde** están ("gestor de contraseñas del equipo"), nunca **qué** son.
-- Las URLs de entornos y los correos de cuentas de servicio pueden figurar si el repo es privado; si es público, se valora caso por caso y se decide en el ADR.
+- Never secrets, tokens, credentials or real data of the client or its users, neither in documents nor on the board. Say **where** they are ("the team password manager"), never **what** they are.
+- Environment URLs and service-account emails may appear if the repo is private. If it is public, decide case by case and record the decision in the ADR.
 
-## 9. Registro de cambios
+## 9. Change log
 
-- Las specs y los ERD terminan con un **registro de cambios**, con lo más reciente arriba, una línea por hito, fecha y evidencia (recuento de la suite, mutaciones de C3, quién aprobó).
-- Los documentos de sprint terminan con **"Sincronización con el tablero ejecutada"**: una lista fechada de lo que se aplicó.
+- Specs and ERDs end with a **change log**: newest first, one line per milestone, with date and evidence (suite count, gate C3 mutations, who approved).
+- Phase documents end with **"Board sync executed"**: a dated list of what was applied.

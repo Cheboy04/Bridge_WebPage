@@ -3,7 +3,7 @@
 **Project:** Bridge Traducciones (website): the public site and content CMS for Bridge Traducciones (Quito), a certified-translation and conference-interpreting company.
 **Team:** the owner (GitHub `@Cheboy04`) as PO and developer, plus agents (Opus plans, writes specs and reviews; Sonnet builds; Haiku does mechanical work). The Bridge team supplies content and approves claims.
 **Product Owner:** the owner (`@Cheboy04`).
-**Last updated:** 2026-10-16
+**Last updated:** 2026-10-16 (session close: 3.2 and 3.5 decided; board loaded)
 
 **Status legend:**
 `DECIDED` closed decision · `OPEN` needs a definition · `PENDING` depends on another block · `PARTIAL` decided, but parts depend on a point that is still open
@@ -100,7 +100,9 @@ One Laravel 12 application serves the public site (Blade) and the admin (Filamen
 
 ### D2.4 — GitHub Issues as tracker (2026-10-16)
 
-Stories, tasks and acceptance criteria live in GitHub Issues on `Cheboy04/Bridge_WebPage`, with a GitHub Project board for status. An issue is referred to as `BRG-<n>`, where `<n>` is the issue number. Branches and commits use that form (git rules §3). Mapping of the local backlog to issues: `docs/backlog/anexo-github/README.md`. Real keys: `docs/backlog/key-map.md`.
+Stories, tasks and acceptance criteria live in GitHub Issues on `Cheboy04/Bridge_WebPage`, with a GitHub Project board for status.
+
+> **Extension of 2026-10-16:** the backlog was loaded as batch `initial`: 54 issues, `BRG-4` to `BRG-57` (#1–#3 are pull requests). An issue is referred to as `BRG-<n>`, where `<n>` is the issue number. Branches and commits use that form (git rules §3). Mapping of the local backlog to issues: `docs/backlog/anexo-github/README.md`. Real keys: `docs/backlog/key-map.md`.
 
 ---
 
@@ -109,10 +111,10 @@ Stories, tasks and acceptance criteria live in GitHub Issues on `Cheboy04/Bridge
 | #   | Point                      | Status  | Decision |
 | --- | -------------------------- | ------- | -------- |
 | 3.1 | Error format               | DECIDED | No public JSON API. Validation errors and error pages per D3.1. |
-| 3.2 | Time zone and dates        | OPEN    | Proposal in D3.2. Blocks P2. |
+| 3.2 | Time zone and dates        | DECIDED | Store UTC, display `America/Guayaquil`. See D3.2. |
 | 3.3 | API versioning             | DECIDED | Not applicable: no public API (D2.3). |
 | 3.4 | Pagination and filters     | OPEN    | Blog listing only. Decide in P4. |
-| 3.5 | Primary key type           | OPEN    | Laravel default (auto-increment `bigint`) proposed. Blocks P2. |
+| 3.5 | Primary key type           | DECIDED | Laravel's default auto-increment `bigint` `id`. See D3.5. |
 | 3.6 | i18n                       | DECIDED | Spanish-only MVP, ready for more locales. See D3.6. |
 | 3.7 | Public front end           | DECIDED | Blade + Tailwind 4, Livewire for forms, Alpine for small UI, vanilla JS for signature components. See D3.7. |
 | 3.8 | Design system and "locked" | DECIDED | Three layers: design, behavior, code. The prototype is the reference implementation. See D3.8. |
@@ -126,9 +128,14 @@ There is no public JSON API, so there is no Problem Details catalogue.
 - **Error pages:** custom Spanish Blade views for 404, 419, 429 and 500, in Documento mode.
 - **Debug:** `APP_DEBUG=false` on staging and production.
 
-### D3.2 — Time zone (OPEN)
+### D3.2 — Time zone (2026-10-16, brg-34)
 
-Proposal, pending confirmation: persist in UTC (`config('app.timezone') = 'UTC'`), display in `America/Guayaquil` (UTC−5, no DST), and serialise ISO 8601 with offset in any machine output (sitemap, JSON-LD). Event dates in the interpreting quote form are local calendar dates, stored as `date` columns with no time zone.
+Decided by the owner on 2026-10-16 (the proposal below, approved as written): persist in UTC (`config('app.timezone') = 'UTC'`), display in `America/Guayaquil` (UTC−5, no DST), and serialise ISO 8601 with offset in any machine output (sitemap, JSON-LD). Event dates in the interpreting quote form are local calendar dates, stored as `date` columns with no time zone.
+
+### D3.5 — Primary keys (2026-10-16, brg-34)
+
+Every table uses Laravel's default auto-increment unsigned `bigint` `id`, and foreign keys use `foreignId()`. No UUIDs or ULIDs: nothing exposes ids publicly in a way that needs them, and public URLs use slugs (D3.6).
+→ *Principle: KISS. Quality attribute: maintainability.*
 
 ### D3.6 — Multilingual readiness, MVP = `es` (2026-10-15)
 
@@ -332,11 +339,11 @@ All configured by the owner; the agent records them as dependencies and stops (`
 
 This is the **only** live list. `CLAUDE.md` and the methodology consult it; they don't copy it.
 
-1. ⚠️ **3.2 — Time zone.** Confirm UTC storage + `America/Guayaquil` display (D3.2). Blocks P2 (migrations).
+1. ~~**3.2 — Time zone.**~~ — **closed 2026-10-16** (D3.2).
 2. ⚠️ **7 — Attachment retention period.** 90 days proposed; Bridge must confirm. Blocks the cleanup job in P5 and the `/privacidad` text. The job can be built with the period in config, which is compatible with any answer.
-3. ⚠️ **9.1 — Hosting checks.** SSH enabled, `php -v; composer -V; which php`, plan limits in hPanel → Details, minimum cron interval, deploy key. Blocks P7.
+3. ⚠️ **9.1 — Hosting checks.** SSH enabled, `php -v; composer -V; which php`, plan limits in hPanel → Details, minimum cron interval, deploy key. Blocks brg-33 (staging deploy); work continues locally meanwhile (owner, 2026-10-16). Note: D9.1 deploys over SSH from GitHub Actions; hPanel's own "import from GitHub" is not needed.
 4. ⚠️ **10 — Canonical domain.** Blocks the 301 map, sitemap and canonical URLs (P7). Long lead time.
-5. **3.5 — Primary key type.** Laravel default proposed. Blocks P2.
+5. ~~**3.5 — Primary key type.**~~ — **closed 2026-10-16** (D3.5).
 6. **Brand — Certification stamp.** Five options (S1–S5); the recommendation is S2 as the official seal and S3 as the working stamp. The prototype uses a provisional S1-based seal. Owner: `brand/explore/logo-options.html`. Blocks locking the seal component in P0; the rest of P0 proceeds.
 7. **10 — Mail provider.** Hostinger SMTP or transactional. Blocks P5 email delivery; code is the same with either (Laravel mailer config).
 8. **4.3 — Validation approach** for the lead forms. Decide in P5.

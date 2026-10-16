@@ -1,8 +1,8 @@
 # brg-31 (site) — Scaffold Laravel 12 + Filament 5 with the quality chain and brand tokens
 
-> **GitHub Issues:** `BRG-<n>` (pending the board load; local `brg-31`) · **Phase:** P1 · **Covers:** RNF-06, RNF-07, RNF-09
+> **GitHub Issues:** `BRG-5` (local `brg-31`) · **Phase:** P1 · **Covers:** RNF-06, RNF-07, RNF-09
 > **Counterpart:** — (does not cross layers)
-> **Status:** `[x]` draft · `[ ]` approved · `[ ]` implemented
+> **Status:** `[x]` draft · `[x]` approved · `[ ]` implemented
 
 Turns the issue's acceptance criteria (quality chain passes, placeholder home and `/admin/login` respond, lockfiles and versions recorded) into the scaffold's contract and its smoke tests.
 
@@ -15,7 +15,7 @@ Turns the issue's acceptance criteria (quality chain passes, placeholder home an
 - Dev tooling: Pest, Larastan, Pint (`laravel` preset). Runtime packages: `spatie/laravel-translatable`, `spatie/laravel-sitemap` (ADR D3.7). Nothing else.
 - Tailwind 4 via Vite. `resources/css/app.css` carries the brand `@theme` block **copied from** `prototype/src/styles/app.css` (palette, fonts, type scale, spacing, radii, shadow, breakpoints, durations, easing) plus the `.mode-documento` / `.mode-cabina` roles.
 - Literata and Manrope self-hosted as WOFF2 in `public/fonts/`, Latin + Latin Extended (ADR D3.7, ARCHITECTURE §4).
-- `config/app.php`: `locale` and `fallback_locale` = `es`, `faker_locale` = `es_EC`. Time zone stays Laravel's default `UTC` until brg-34 decides (compatible with both outcomes: storage is UTC either way).
+- `config/app.php`: `locale` and `fallback_locale` = `es`, `faker_locale` = `es_EC`. `timezone` = `UTC` (ADR D3.2: store UTC; the `America/Guayaquil` display rule arrives with the first view that shows a date).
 - A placeholder home view at `/` (`home` route): the `<html lang="es">` shell, the tokens, "Bridge Traducciones" in Literata and one line in Manrope. No header, footer or Settings (those are HU-01 and HU-09).
 - `site/.env.example` with every key the app reads and **no real values** (ADR D2.2).
 - `phpunit.xml` pins `APP_LOCALE=es` and `APP_ENV=testing`, and uses MySQL through env vars, so CI (brg-32) runs against MySQL (lessons: same engine as production). Locally the suite may point at a local MySQL.
@@ -26,7 +26,7 @@ Turns the issue's acceptance criteria (quality chain passes, placeholder home an
 - Deploy → brg-33.
 - Any model, migration beyond Laravel's defaults (users, cache, jobs, sessions) → P2 (brg-35, brg-36).
 - Layout components → HU-01 (P4).
-- Time zone and PK decisions → brg-34. Laravel's defaults stay meanwhile.
+- The display-time-zone helper → the first story that shows a date (HU-14 blog).
 
 ## 2. Dependencies
 
@@ -34,7 +34,7 @@ Turns the issue's acceptance criteria (quality chain passes, placeholder home an
 - **Data model:** none.
 - **Vetoes:** `CLAUDE.md` §5 "No Laravel code" is lifted **for brg-31–brg-33 only**, when P1 starts.
 - **ADR (DECIDED):** D2.1, D2.2, D2.3, D3.6, D3.7, 4.5, D11.1.
-- **OPEN that don't block:** 3.2 time zone (UTC storage is the proposal and Laravel's default; the display rule arrives with brg-34), 3.5 PK type (no table of ours is created here).
+- **ADR decided since the draft:** D3.2 time zone, D3.5 primary keys (2026-10-16).
 - **External:** none (runs locally).
 
 ## 3. Technical contract
@@ -88,4 +88,5 @@ Not a Pest test, checked in review (step `.04`): `vendor/bin/pint --test` and `v
 
 ## 6. Spec change log
 
-- `2026-10-16` — draft created (kit Phase 6). Awaiting the owner's approval (C1).
+- `2026-10-16` — approved by the owner (C1). Updated for D3.2/D3.5 and the real key `BRG-5`.
+- `2026-10-16` — draft created (kit Phase 6).

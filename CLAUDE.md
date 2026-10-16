@@ -84,24 +84,21 @@ Before writing a spec or a test, or proposing an implementation:
 
 ---
 
-## 5. What NOT to do yet (scope of Phase 0, Lock)
+## 5. What NOT to do yet (scope of Phase 1, Skeleton)
 
-**Updated on 2026-10-16:** the project is in **P0 (Lock)** (ADR D1.1). Until P0 closes:
+**Updated on 2026-10-16:** P0 closed (owner approved the brand book); the project is in **P1 (Skeleton)** (ADR D1.1, `docs/backlog/sprints/phase-01.md`). The "no Laravel code" veto is lifted **only** for brg-31 (`BRG-5`), brg-32 (`BRG-42`) and brg-33 (`BRG-43`). Until P1 closes:
 
-- No Laravel code: `site/` doesn't exist and isn't scaffolded until P1.
-- No Composer or npm packages added anywhere, and no CI workflow.
-- No migrations, models or ERD slices (P2).
-- `prototype/` changes only for the P0 polish items listed in `docs/backlog/sprints/phase-00.md`, never for new features. It is the reference implementation.
-- No component is called "locked" without its three layers (ADR D3.8). The certification seal can't be locked while the stamp is OPEN.
-- No writes to GitHub Issues/Projects until the owner approves the backlog (kit Phase 4).
-- No real Bridge data (phones, emails, addresses, stats) in any file: they go to the placeholder register as unknowns.
-
----
+- No models, migrations of our own, ERD slices or factories (P2: brg-35–37).
+- No Filament resources, Blade components or pages beyond brg-31's placeholder home (P3, P4).
+- No packages beyond those in ADR D3.7 and the dev tooling in D2.1.
+- brg-33 (staging deploy) is **not a blocker**: the owner is still sorting out the Hostinger checks, so work continues locally. Don't stall P1 or P2 waiting for it.
+- `prototype/` is the reference implementation: no changes except to fix a drift the site's token tests reveal (recorded in the phase doc).
+- No real Bridge data in any file; it goes to `Settings` through the admin later (placeholder register).
 
 ## 6. Closed infrastructure decisions
 
 - **Repository:** `Cheboy04/Bridge_WebPage` on GitHub, **public** (D2.2). Branches `main` (production) and `develop` (staging).
-- **Board:** GitHub Issues + Projects, tickets `BRG-<n>` (D2.4).
+- **Board:** GitHub Issues + Projects, tickets `BRG-<n>` (D2.4). Loaded 2026-10-16: `BRG-4`…`BRG-57`; local ID ↔ key in `docs/backlog/key-map.md`.
 - **Hosting:** Hostinger Business, shared (D9.1). Canonical domain OPEN.
 - **Package managers:** Composer and npm, with lockfiles committed.
 - **Drift to carry:** older published artifacts (directions, logo options) show the pre-revision radius and amber-on-light trails. They are historical; say so if they are shown to anyone (ADR §12).
@@ -161,7 +158,7 @@ In the **same order as the CI job** (defined in P1). If CI changes, this list ch
 | Uploads | D7.1 | Private disk, signed URLs, never in emails, scheduled deletion (period OPEN). |
 | Privacy | D8.5, 8.6 | Store only what's needed to quote; `consent_at`; GA4 only after consent. |
 | Roles | D4.2 | `admin` / `editor` via `role` column + policies. No permission package. |
-| Time zone | 3.2 **OPEN** | Don't write date columns until it's decided (blocks P2). |
+| Time zone | D3.2 | Store UTC (`app.timezone = UTC`); display in `America/Guayaquil`; event dates are plain `date` columns. |
 | Deploy | D9.1 | The server never runs `git pull` or `npm`. CI builds the release. |
 
 ### 7.4 Language rules

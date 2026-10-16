@@ -1,6 +1,6 @@
 # Development roadmap
 
-**Status:** baseline draft since 2026-10-16, pending the owner's approval.
+**Status:** official baseline, approved by the owner on 2026-10-16.
 
 ## Purpose and authority
 
@@ -15,7 +15,7 @@ The scope comes from the requirements derived in [`backlog.md`](backlog.md) on 2
 - No story points (ADR 1.5 OPEN). Progress is measured as stories Done per phase.
 - Capacity: OPEN (the owner's hours per week aren't recorded). Specs, tests, review, integration, fixes, documentation and the owner's infrastructure work all draw on it. Agent hours are not counted.
 - SDD/TDD cycle in mode B (methodology §2). The owner approves every spec and reads every diff.
-- **Staging from P1 (proposed change):** the release deploy (brg-33) moves from P7 to P1, so every phase closes with a demo on staging and the shared-hosting constraints (D9.1) surface early. HANDOFF_v1 decision 15 had "Ship to staging" in P7. If the owner prefers the original order, P1–P6 demos run locally and brg-33 returns to P7.
+- **Staging from P1 (proposed change):** the release deploy (brg-33) moves from P7 to P1, so every phase closes with a demo on staging and the shared-hosting constraints (D9.1) surface early. HANDOFF_v1 decision 15 had "Ship to staging" in P7. **Approved 2026-10-16**, with one condition from the owner: brg-33 doesn't block anything. Until the Hostinger checks are done, phases demo locally and brg-33 stays open.
 - Only R2 deploys to production.
 
 ## Releases
@@ -97,7 +97,7 @@ Quality is not saved for the end: every UI story's checklist carries its own a11
 
 | Discrepancy | Where | Action |
 | --- | --- | --- |
-| Staging deploy in P1 vs P7 | HANDOFF_v1 decision 15 vs this roadmap | Owner approves the move (assumption above) or reverts it |
+| ~~Staging deploy in P1 vs P7~~ | HANDOFF_v1 decision 15 vs this roadmap | **Resolved 2026-10-16:** the owner approved P1, non-blocking |
 
 ## Governance in GitHub Issues
 
@@ -105,6 +105,6 @@ GitHub Issues is the operational source of truth; the current key map is in [`ke
 
 ## Next step
 
-1. The owner approves this roadmap and the backlog.
-2. Load the board with the batch script (`anexo-github/imports/`), sample first.
-3. Start P1 with brg-31 (spec: `docs/specs/brg-31.md`).
+1. ~~The owner approves this roadmap and the backlog.~~ Done 2026-10-16.
+2. ~~Load the board.~~ Done 2026-10-16 (`BRG-4`…`BRG-57`).
+3. Start P1 with brg-31 / `BRG-5` (spec approved: `docs/specs/brg-31.md`).

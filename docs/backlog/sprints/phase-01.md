@@ -1,6 +1,6 @@
 # Phase 1 — Skeleton (Bridge Traducciones website)
 
-**Status:** planned 2026-10-16; starts when the owner approves the backlog and P0 closes.
+**Status:** in progress since 2026-10-16 (backlog approved, P0 closed, board loaded).
 **Owns:** the plan, tickets and close criteria of P1. **Referenced by:** `CLAUDE.md` §5, `docs/backlog/roadmap.md`.
 
 ## Goal
@@ -15,19 +15,19 @@ No story points (ADR 1.5 OPEN). P1 has four Tasks and no Stories.
 
 | Key | Local ID | Type | Title | Delivery dependencies |
 | --- | --- | --- | --- | --- |
-| pending | `brg-31` | Task | Scaffold Laravel 12 + Filament 5 in `site/` with the quality chain and brand tokens | — |
-| pending | `brg-32` | Task | CI quality pipeline on GitHub Actions against MySQL | brg-31 |
-| pending | `brg-33` | Task | Release deploy to staging | brg-32; owner's hosting checks |
-| pending | `brg-34` | Task | Decide time zone and primary key type | owner's decision |
+| `BRG-5` | `brg-31` | Task | Scaffold Laravel 12 + Filament 5 in `site/` with the quality chain and brand tokens | — |
+| `BRG-42` | `brg-32` | Task | CI quality pipeline on GitHub Actions against MySQL | brg-31 |
+| `BRG-43` | `brg-33` | Task | Release deploy to staging | brg-32; owner's hosting checks |
+| `BRG-44` | `brg-34` | Task | Decide time zone and primary key type | owner's decision |
 
-Keys are filled from `key-map.md` after the board is loaded.
+brg-34 / `BRG-44` was decided by the owner on 2026-10-16 (ADR D3.2, D3.5); the issue can be closed.
 
 ## Execution sequence
 
-1. **brg-31** (spec [`docs/specs/brg-31.md`](../../specs/brg-31.md)): scaffold, packages, tokens, fonts, smoke tests. Branch `feature/BRG-<n>-scaffold`.
-2. **brg-34** in parallel: two short decisions the owner takes; they block P2 only.
+1. **brg-31** (spec [`docs/specs/brg-31.md`](../../specs/brg-31.md), approved): scaffold, packages, tokens, fonts, smoke tests. Branch `feature/BRG-5-scaffold`.
+2. ~~**brg-34**~~: decided 2026-10-16.
 3. **brg-32**: the CI workflow, once `site/` exists.
-4. **brg-33**: the deploy workflow, once CI is green **and** the owner has done the hosting checks.
+4. **brg-33**: the deploy workflow, once CI is green **and** the owner has done the hosting checks. **Non-blocking** (owner, 2026-10-16): if the checks aren't done when brg-31 and brg-32 close, P1 closes without it and brg-33 carries forward.
 
 ## Ready conditions
 
@@ -43,8 +43,8 @@ Each Task follows its checklist in the issue body. The cross-cutting quality lin
 
 ### Start
 
-- `CLAUDE.md` §5 updated with P1's scope (lifts the "no Laravel code" veto **only** for brg-31–brg-33).
-- The board is loaded and brg-31 has its real key.
+- ~~`CLAUDE.md` §5 updated with P1's scope.~~ Done 2026-10-16.
+- ~~The board is loaded and brg-31 has its real key.~~ Done (`BRG-5`).
 
 ### Close
 
@@ -66,4 +66,4 @@ The four Tasks are Done (or brg-33 is explicitly carried to the next phase becau
 
 ## GitHub Issues sync executed
 
-- None yet: the board is loaded after the owner approves the backlog.
+- `2026-10-16` — batch `initial` loaded by the owner; P1 tickets `BRG-5`, `BRG-42`, `BRG-43`, `BRG-44`.

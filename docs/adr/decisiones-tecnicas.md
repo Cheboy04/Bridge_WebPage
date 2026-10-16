@@ -132,6 +132,8 @@ There is no public JSON API, so there is no Problem Details catalogue.
 
 Decided by the owner on 2026-10-16 (the proposal below, approved as written): persist in UTC (`config('app.timezone') = 'UTC'`), display in `America/Guayaquil` (UTC−5, no DST), and serialise ISO 8601 with offset in any machine output (sitemap, JSON-LD). Event dates in the interpreting quote form are local calendar dates, stored as `date` columns with no time zone.
 
+Owner re-confirmed on 2026-10-16, after merging brg-31, that the earlier wording ("UTC storage should be America/Guayaquil") meant exactly this: store UTC, display `America/Guayaquil`.
+
 ### D3.5 — Primary keys (2026-10-16, brg-34)
 
 Every table uses Laravel's default auto-increment unsigned `bigint` `id`, and foreign keys use `foreignId()`. No UUIDs or ULIDs: nothing exposes ids publicly in a way that needs them, and public URLs use slugs (D3.6).

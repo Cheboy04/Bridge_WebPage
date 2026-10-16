@@ -24,6 +24,7 @@ Format: the trap, the symptom and what to do.
 - **CI must run against the same database engine as production.** If `.env.example` points to an in-memory engine, CI tests something else.
 - **Empty environment variables in CI** can break an external provider's SDK with a 500 that does not appear locally. Every test that uses the boundary configures its test environment explicitly. To reproduce it, run the suite with those variables empty.
 - **Tests read the local `.env`.** If the test configuration does not fix a value (language, time zone), the suite passes in CI and fails on one machine, or the other way round. Fix it in the test configuration.
+- **Tests read local build output too.** `@vite` throws without `public/build/manifest.json`, and CI builds after testing, so the suite passed locally and would have failed in CI (brg-32). The base `TestCase` calls `withoutVite()`. To reproduce, run the suite with `public/build` moved aside.
 - **Errors that depend on headers** (e.g. a 401 versus a redirect depending on `Accept`): "no credentials" tests also run without the header.
 
 ## Data and migrations

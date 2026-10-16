@@ -1,0 +1,10 @@
+<!-- params: open(1 = open list row, no box),icon, title, text, href, note(opt tooltip for stub links), meta(opt), linklabel(Ver servicio), state(opt) ; mode-aware via semantic vars -->
+<article class="svc {{open?|svc-open}} {{state|}}">
+  <svg class="icon text-muted mt-0.5" aria-hidden="true"><use href="#i-{{icon}}"/></svg>
+  <div>
+    <h3 class="t-h4"><a class="svc-link" href="{{href}}" {{note?|title="@"}}>{{title}}</a></h3>
+    <p class="mt-2 text-muted">{{text}}</p>
+    {{meta?|<p class="mt-3 t-small text-muted">@</p>}}
+    <span aria-hidden="true" class="mt-4 inline-flex items-center gap-2 t-small font-semibold text-link">{{linklabel|Ver servicio}}<svg class="icon icon-16 icon-go"><use href="#i-arrow-right"/></svg></span>
+  </div>
+</article>

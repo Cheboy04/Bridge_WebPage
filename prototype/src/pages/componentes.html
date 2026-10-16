@@ -1,0 +1,115 @@
+<!doctype html>
+<!-- PROTOTYPE, stage A: component gallery. PLACEHOLDER DATA: phone +593 2 000 0000, WhatsApp +593 99 000 0000, email contacto@bridge.example (domain undecided), "Quito, Ecuador". -->
+<html lang="es">
+<head>
+<!-- @include head title="Componentes | Bridge Traducciones (prototipo)" description="Galería de componentes del sistema Puente en modo Documento y modo Cabina." -->
+</head>
+<body>
+<a class="skip-link" href="#main">Saltar al contenido</a>
+<!-- @include icons -->
+<!-- @include header uid="m1" -->
+
+<main id="main">
+  <section class="bg-surface text-fg sec">
+    <div class="wrap">
+      <!-- @include breadcrumb parent="Prototipo" parent_href="index.html" current="Componentes" -->
+      <h1 class="mt-6">Componentes del sistema Puente</h1>
+      <p class="lead mt-6">Cada componente en sus dos modos, con estados de reposo, hover, foco, error y deshabilitado. Los estados se fuerzan con las clases <code>is-hover</code> e <code>is-focus</code> solo en esta galería.</p>
+      <ul class="mt-8 grid gap-1 t-small text-muted sm:grid-cols-2 lg:grid-cols-3">
+        <li><a class="link inline-flex min-h-11 items-center" href="#documento">Modo Documento</a></li>
+        <li><a class="link inline-flex min-h-11 items-center" href="#cabina">Modo Cabina</a></li>
+        <li><a class="link inline-flex min-h-11 items-center" href="#globales">Componentes globales</a></li>
+        <li><a class="link inline-flex min-h-11 items-center" href="#forma">Forma y radios</a></li>
+        <li><a class="link inline-flex min-h-11 items-center" href="#firma-hero">Hero Documento / Evento</a></li>
+        <li><a class="link inline-flex min-h-11 items-center" href="#firma-rastro">Rastro vivo</a></li>
+        <li><a class="link inline-flex min-h-11 items-center" href="#firma-pie">Pie multilingüe</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="documento" class="mode-documento sec" aria-labelledby="doc-title">
+    <div class="wrap">
+      <h2 id="doc-title" class="mb-12">Modo Documento</h2>
+      <!-- @include gallery-set p="d" -->
+      <div class="mt-16">
+        <h3 class="t-h4">Sello de certificación</h3>
+        <p class="mt-1 t-small text-muted">Provisional, basado en el boceto S1 (anillo punteado). Solo Documento; no apto para producción.</p>
+        <div class="mt-5"><!-- @include seal uid="gal" size="240" --></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cabina" class="mode-cabina sec" aria-labelledby="cab-title">
+    <div class="wrap">
+      <h2 id="cab-title" class="mb-12">Modo Cabina</h2>
+      <!-- @include gallery-set p="c" -->
+      <p class="mt-16 t-small text-muted">El sello de certificación no existe en Cabina. Los controles se apoyan en la superficie, no en la superficie elevada (el borde de control pierde contraste allí).</p>
+    </div>
+  </section>
+
+  <section id="globales" class="bg-surface text-fg sec" aria-labelledby="glob-title">
+    <div class="wrap">
+      <h2 id="glob-title">Componentes globales</h2>
+      <p class="lead mt-4">Encabezado (arriba en esta página, modo Documento), variante Cabina del encabezado y pie. El botón de WhatsApp flotante está en la esquina inferior derecha.</p>
+    </div>
+    <div class="mt-12"><!-- @include header uid="m2" mode="cabina" lockup="dark" navlabel="Principal, variante Cabina" active="interpretacion" --></div>
+  </section>
+  <section id="forma" class="bg-surface text-fg sec" aria-labelledby="forma-title">
+    <div class="wrap">
+      <h2 id="forma-title">Forma y radios</h2>
+      <p class="lead mt-4">El sistema se apoya en círculos. Cuatro radios y una regla: nunca dos radios en bordes anidados.</p>
+      <ul class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <li><div class="grid h-28 place-items-center bg-raised font-semibold" style="border-radius:var(--radius-sm)">sm · 8</div><p class="mt-3 t-small text-muted">Campos de formulario, etiquetas.</p></li>
+        <li><div class="grid h-28 place-items-center bg-raised font-semibold" style="border-radius:var(--radius-md)">md · 14</div><p class="mt-3 t-small text-muted">Tarjetas, fotos, diálogos.</p></li>
+        <li><div class="grid h-28 place-items-center bg-raised font-semibold" style="border-radius:var(--radius-lg)">lg · 24</div><p class="mt-3 t-small text-muted">Escenarios de componentes firma.</p></li>
+        <li><div class="grid h-28 place-items-center bg-raised font-semibold" style="border-radius:var(--radius-full)">full</div><p class="mt-3 t-small text-muted">Botones, chips, WhatsApp, control segmentado.</p></li>
+      </ul>
+      <h3 class="t-h4 mt-16">Lista abierta (alternativa a la tarjeta)</h3>
+      <p class="mt-1 t-small text-muted">Filas con divisores, sin fondo. Se usa en el inicio en lugar de rejillas de tarjetas.</p>
+      <div class="svc-list mt-5 max-w-2xl">
+        <!-- @include service-card open="1" icon="file-check" title="Traducción certificada" text="Su documento traducido y certificado por un traductor." href="#" meta="Plazo de entrega: [por confirmar]" -->
+        <!-- @include service-card open="1" icon="scale" title="Traducción legal" text="Contratos, sentencias y poderes." href="#" state="is-hover" -->
+      </div>
+    </div>
+  </section>
+
+  <section id="firma-hero" class="bg-surface text-fg sec" aria-labelledby="fh-title">
+    <div class="wrap grid gap-12 lg:grid-cols-12 lg:gap-x-8">
+      <div class="lg:col-span-5">
+        <h2 id="fh-title">Hero Documento / Evento</h2>
+        <p class="lead mt-4">Firma n.º 1 (inicio). Pestañas ARIA (flechas, Inicio, Fin), recuerda la última pestaña en la sesión, canal con <code>aria-pressed</code> y región en vivo solo ante cambios del usuario. Sin JavaScript o con movimiento reducido muestra el estado final.</p>
+      </div>
+      <div class="lg:col-span-7"><!-- @include sig-hero --></div>
+    </div>
+  </section>
+
+  <section id="firma-rastro" class="bg-surface text-fg sec" aria-labelledby="fr-title">
+    <div class="wrap">
+      <h2 id="fr-title">Rastro vivo</h2>
+      <p class="lead mt-4">Firma n.º 5 (todo el sitio). Con <code>animation-timeline: view()</code> el conector se dibuja punto a punto y los pasos pasan de contorno a sólido al avanzar el scroll. Base y movimiento reducido: dibujado completo, marcadores sólidos.</p>
+      <div class="mt-12 grid gap-12 lg:grid-cols-3">
+        <div><p class="label">Conector de sección (completo)</p><span class="trail-v target mt-4 mb-2 block" style="--n:2;animation:none" aria-hidden="true"></span></div>
+        <div><p class="label">Marcadores de paso</p>
+          <div class="mt-4 flex items-center gap-4"><span class="step-dot" aria-hidden="true"></span><span class="trail-h flex-1" style="animation:none" aria-hidden="true"></span><span class="step-dot target" aria-hidden="true"></span></div>
+          <p class="mt-3 t-small text-muted">Estado final: sólido, objetivo más grande.</p></div>
+        <div><p class="label">Estado inicial (contorno)</p>
+          <div class="mt-4 flex items-center gap-4"><span class="step-dot is-empty" aria-hidden="true"></span><span class="t-small text-muted">Marcador vacío antes de su rango</span></div>
+          </div>
+      </div>
+      <h3 class="t-h4 mt-16">Sobre Cabina</h3>
+      <div class="mode-cabina mt-5 rounded-lg p-8"><span class="trail-v target" style="--n:3;animation:none" aria-hidden="true"></span></div>
+    </div>
+  </section>
+
+  <section id="firma-pie" class="bg-surface text-fg sec" aria-labelledby="fp-title">
+    <div class="wrap">
+      <h2 id="fp-title">Pie multilingüe</h2>
+      <p class="lead mt-4">Firma n.º 6 (todo el sitio): el pie de esta página. Contorno de la marca a ancho completo y descriptor que rota entre siete idiomas cada 2,4 s; se pausa con el cursor, el foco o la pestaña oculta. Con movimiento reducido: una línea estática con los siete nombres.</p>
+    </div>
+  </section>
+</main>
+
+<!-- @include footer -->
+<!-- @include whatsapp message="Hola%2C%20quisiera%20cotizar%20un%20servicio" -->
+</body>
+</html>

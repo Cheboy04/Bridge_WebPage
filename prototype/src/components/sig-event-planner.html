@@ -1,0 +1,70 @@
+<!-- Signature #3 (SIGNATURE-COMPONENTS.md): event planner, Cabina. No params. Complete at rest: the server-rendered output is the default
+     (presencial, jornada completa, 1 idioma, 120 asistentes). JS (assets/js/sig-cabina.js) recomputes on input. Rules are EXAMPLE rules. Styles: styles/sig-cabina.css -->
+<div class="planner" data-planner>
+  <div class="planner-in">
+    <fieldset class="planner-set">
+      <legend class="planner-legend">Modalidad</legend>
+      <div class="seg" style="--cols:3">
+        <label><input class="sr-only" type="radio" name="modalidad" value="presencial" checked><span>Presencial</span></label>
+        <label><input class="sr-only" type="radio" name="modalidad" value="hibrido"><span>Híbrido</span></label>
+        <label><input class="sr-only" type="radio" name="modalidad" value="remoto"><span>Remoto</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="planner-set">
+      <legend class="planner-legend">Duración</legend>
+      <div class="seg" style="--cols:3">
+        <label><input class="sr-only" type="radio" name="duracion" value="medio"><span>Medio día</span></label>
+        <label><input class="sr-only" type="radio" name="duracion" value="jornada" checked><span>Jornada completa</span></label>
+        <label><input class="sr-only" type="radio" name="duracion" value="varios"><span>Varios días</span></label>
+      </div>
+      <p class="planner-hint">Medio día: hasta 6 horas. Jornada completa: unas 8 horas. [horas por confirmar]</p>
+      <div class="planner-days" data-days hidden>
+        <label class="field-label" for="plan-dias">Cantidad de días</label>
+        <input class="control planner-num" type="number" id="plan-dias" name="dias" min="2" max="30" step="1" value="2" inputmode="numeric">
+      </div>
+    </fieldset>
+
+    <div class="planner-pair">
+      <div class="planner-set" role="group" aria-labelledby="plan-idiomas-l" aria-describedby="plan-idiomas-h">
+        <p class="planner-legend" id="plan-idiomas-l">Idiomas además del español</p>
+        <div class="stepper">
+          <button type="button" class="stepper-btn" data-step="-1" aria-label="Menos idiomas" aria-controls="plan-idiomas"><svg class="icon icon-20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+          <input class="stepper-val" type="number" id="plan-idiomas" name="idiomas" min="1" max="4" step="1" value="1" inputmode="numeric" aria-labelledby="plan-idiomas-l">
+          <button type="button" class="stepper-btn" data-step="1" aria-label="Más idiomas" aria-controls="plan-idiomas"><svg class="icon icon-20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+        </div>
+        <p class="planner-hint" id="plan-idiomas-h">De 1 a 4. Cada idioma es un canal.</p>
+      </div>
+    </div>
+
+    <div class="planner-set">
+      <div class="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
+        <label class="planner-legend" for="plan-asistentes-r">Asistentes</label>
+        <div class="flex items-center gap-2">
+          <label class="sr-only" for="plan-asistentes">Cantidad de asistentes</label>
+          <input class="control planner-num" type="number" id="plan-asistentes" min="20" max="1000" step="1" value="120" inputmode="numeric">
+        </div>
+      </div>
+      <input class="rng" type="range" id="plan-asistentes-r" name="asistentes" min="20" max="1000" step="10" value="120" style="--p:10.2%" aria-valuetext="120 asistentes">
+      <div class="planner-scale" aria-hidden="true"><span>20</span><span>1000</span></div>
+    </div>
+  </div>
+
+  <div class="planner-out" aria-labelledby="plan-out-t">
+    <h3 id="plan-out-t" class="planner-out-t">Lo que su evento necesitaría</h3>
+    <p class="planner-sum" id="plan-resumen">Presencial · jornada completa · español y 1 idioma · 120 asistentes</p>
+    <ul class="plan-rows">
+      <li id="row-interpretes"><span class="plan-n num" id="o-interpretes">3</span><span><strong id="l-interpretes">intérpretes</strong><span class="plan-note" id="n-interpretes">2 por idioma, por turnos, más 50% por jornada larga</span></span></li>
+      <li id="row-cabinas"><span class="plan-n num" id="o-cabinas">1</span><span><strong id="l-cabinas">cabina</strong><span class="plan-note">Una por idioma, con consola</span></span></li>
+      <li id="row-receptores"><span class="plan-n num" id="o-receptores">132</span><span><strong>receptores</strong><span class="plan-note" id="n-receptores">120 asistentes y 10% de margen</span></span></li>
+      <li id="row-plataforma" hidden><span class="plan-n"><svg class="icon" aria-hidden="true"><use href="#i-radio"/></svg></span><span><strong>Plataforma con canales de idioma</strong><span class="plan-note">Quienes asisten en línea eligen su idioma</span></span></li>
+      <li id="row-tecnico"><span class="plan-n num" id="o-tecnico">1</span><span><strong>técnico en sala</strong><span class="plan-note">Uno por sala; este resumen supone una sala</span></span></li>
+    </ul>
+    <p class="plan-remote" id="plan-remoto" hidden>En modalidad remota no se instalan cabinas, receptores ni técnico en sala.</p>
+    <p class="planner-foot">[regla de ejemplo, validar con Bridge]</p>
+    <div class="planner-cta">
+      <a class="btn btn-primary" id="plan-cta" href="cotizacion-interpretacion.html?modalidad=presencial&amp;duracion=jornada&amp;dias=1&amp;idiomas=1&amp;asistentes=120">Usar este resumen en mi cotización<svg class="icon icon-20 icon-go" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+    </div>
+  </div>
+  <p class="sr-only" id="plan-live" role="status" aria-live="polite"></p>
+</div>

@@ -1,0 +1,29 @@
+# The GitHub repo is PUBLIC: no real client data in git (sdd-kit GUIA-ESTILO-DOCS §8).
+# Everything below stays on the local disk and remains available to every session.
+
+# Client raw material: real phones/addresses, flyers, event photos with identifiable people
+/Design_references/
+
+# Research captures: client site screenshots (real contact data), third-party site screenshots,
+# logo source export (contains the client's address and phones), inventory with real contact data
+/audit/screens/
+/audit/reference/
+/audit/logo-source.*
+/audit/inventory.md
+/audit/sites-capture.md
+/audit/sites-computed*.json
+
+# Generated pages that embed the booth photo (identifiable people) as base64
+/audit/directions.html
+
+# Prototype build output and local check artifacts
+/prototype/node_modules/
+/prototype/dist/
+/prototype/screens/
+/prototype/.lead-shot.mjs
+
+# Secrets and OS noise
+.env
+.env.*
+!.env.example
+.DS_Store

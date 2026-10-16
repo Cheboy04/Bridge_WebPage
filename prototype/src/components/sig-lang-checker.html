@@ -1,0 +1,33 @@
+<!-- Language-pair checker (signature #2). params: uid (unique per page), level (heading level, default 2), title (optional).
+     Complete at rest: static result es → en; selects are disabled until JS runs (removes `disabled`). Example data, see assets/data/languages.json. Needs assets/js/sig-documento.js (loaded below, idempotent). -->
+<div class="lc" data-lc role="group" aria-labelledby="lc-h-{{uid}}">
+  <h{{level|2}} id="lc-h-{{uid}}">{{title|¿De qué idioma a qué idioma?}}</h{{level|2}}>
+  <p class="lead mt-4">Elija el idioma del documento y el idioma al que debe traducirse. Le decimos al instante si trabajamos ese par.</p>
+  <div class="lc-pick">
+    <div class="field">
+      <label class="field-label" for="lc-origen-{{uid}}">Idioma del documento</label>
+      <div class="relative">
+        <select class="control" id="lc-origen-{{uid}}" data-lc-origen disabled><option value="es" selected>Español</option><option value="en">Inglés</option><option value="fr">Francés</option><option value="pt">Portugués</option><option value="de">Alemán</option><option value="it">Italiano</option><option value="zh">Chino</option><option value="ja">Japonés</option><option value="ru">Ruso</option><option value="ar">Árabe</option><option value="ko">Coreano</option><option value="nl">Neerlandés</option><option value="el">Griego</option><option value="qu">Kichwa</option></select>
+        <svg class="icon icon-20 pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+      </div>
+    </div>
+    <button type="button" class="lc-swap" data-lc-swap aria-label="Intercambiar idiomas" disabled><svg class="icon icon-20" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg></button>
+    <div class="field">
+      <label class="field-label" for="lc-destino-{{uid}}">Traducir a</label>
+      <div class="relative">
+        <select class="control" id="lc-destino-{{uid}}" data-lc-destino disabled><option value="es">Español</option><option value="en" selected>Inglés</option><option value="fr">Francés</option><option value="pt">Portugués</option><option value="de">Alemán</option><option value="it">Italiano</option><option value="zh">Chino</option><option value="ja">Japonés</option><option value="ru">Ruso</option><option value="ar">Árabe</option><option value="ko">Coreano</option><option value="nl">Neerlandés</option><option value="el">Griego</option><option value="qu">Kichwa</option></select>
+        <svg class="icon icon-20 pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+      </div>
+    </div>
+  </div>
+  <div class="lc-result" data-lc-result role="status" aria-live="polite" aria-atomic="true">
+    <p class="lc-title"><span class="lc-pair" aria-hidden="true">ES<i></i>EN</span><svg class="icon icon-20 lc-ok" aria-hidden="true"><use href="#i-check"/></svg><span>Sí, trabajamos español → inglés</span></p>
+    <p class="lc-sub">Servicios disponibles para este par</p>
+    <ul class="lc-chips"><li>Traducción certificada</li><li>Traducción legal</li><li>Traducción notariada</li></ul>
+    <p class="lc-meta">Plazo de entrega: [por confirmar]</p>
+    <p><a class="btn btn-primary lc-cta" data-lc-cta href="cotizacion-traduccion.html?origen=es&amp;destino=en">Cotizar este par<svg class="icon icon-20 icon-go" aria-hidden="true"><use href="#i-arrow-right"/></svg></a></p>
+  </div>
+  <p class="t-small text-muted lc-foot">Lista de ejemplo del prototipo [regla de ejemplo, validar con Bridge]. Bridge la administra desde el CMS.</p>
+  <script type="application/json" data-lc-data>{"languages":[{"code":"es","name":"Español","services":["certificada","legal","notariada"],"featured":true},{"code":"en","name":"Inglés","services":["certificada","legal","notariada"],"featured":true},{"code":"fr","name":"Francés","services":["certificada","legal","notariada"],"featured":true},{"code":"pt","name":"Portugués","services":["certificada","legal","notariada"],"featured":true},{"code":"de","name":"Alemán","services":["certificada","legal","notariada"],"featured":true},{"code":"it","name":"Italiano","services":["certificada","legal","notariada"],"featured":true},{"code":"zh","name":"Chino","services":["certificada","legal"],"featured":false},{"code":"ja","name":"Japonés","services":["certificada","legal"],"featured":false},{"code":"ru","name":"Ruso","services":["certificada","legal"],"featured":false},{"code":"ar","name":"Árabe","services":["certificada"],"featured":false},{"code":"ko","name":"Coreano","services":["certificada"],"featured":false},{"code":"nl","name":"Neerlandés","services":["certificada","legal"],"featured":false},{"code":"el","name":"Griego","services":["certificada"],"featured":false},{"code":"qu","name":"Kichwa","services":["certificada"],"featured":false}]}</script>
+  <script defer src="assets/js/sig-documento.js"></script>
+</div>

@@ -1,0 +1,53 @@
+<!-- Signature #1: hero stage "Documento / Evento". No params (one per page; ids are fixed: hero-*).
+     Without JS (or before it runs) both panels are visible stacked in their final state and the tablist is hidden.
+     With JS: ARIA tabs, tab remembered in sessionStorage, document replays on selection, channel buttons use aria-pressed.
+     Laravel: Blade component <x-hero-stage>; sentences come from config/CMS (ES/EN/FR/PT). -->
+<div class="hero-stage" id="hero-stage" data-hero>
+  <div class="hseg" role="tablist" aria-label="Ver el servicio en acción">
+    <button type="button" role="tab" id="hero-tab-doc" class="hseg-btn" aria-selected="true" aria-controls="hero-panel-doc" tabindex="0">Documento</button>
+    <button type="button" role="tab" id="hero-tab-evt" class="hseg-btn" aria-selected="false" aria-controls="hero-panel-evt" tabindex="-1">Evento</button>
+  </div>
+
+  <div class="hero-panels">
+    <!-- DOCUMENTO (light stage) -->
+    <div role="tabpanel" id="hero-panel-doc" aria-labelledby="hero-tab-doc" class="stage stage-doc mode-documento" data-panel="doc">
+      <div class="flex items-center justify-between gap-4">
+        <p class="label">Texto de muestra</p>
+        <button type="button" class="hero-replay link t-small inline-flex min-h-11 items-center font-semibold" hidden>Repetir</button>
+      </div>
+      <div class="doc">
+        <p class="doc-src t-small text-muted"><span class="font-semibold">Original, inglés</span><br><span lang="en">“The parties agree to the terms of this contract.”</span></p>
+        <span class="trail-v target doc-trail" style="--n:2" aria-hidden="true"></span>
+        <p class="doc-tr font-serif text-[length:var(--text-h3)] leading-snug" lang="es"><span class="t-small block font-sans font-semibold text-muted">Traducción, español</span>
+          <span class="ph" style="--i:0">Las partes</span> <span class="ph" style="--i:1">acuerdan</span> <span class="ph" style="--i:2">los términos</span> <span class="ph" style="--i:3">del presente contrato.</span></p>
+        <div class="doc-foot">
+          <div class="min-w-0 flex-1">
+            <div class="doc-sig" aria-hidden="true"></div>
+            <p class="num t-small mt-2 text-muted">Firma · Folio [N.º 0000] · Quito, [fecha]</p>
+          </div>
+          <span class="doc-seal"><!-- @include seal uid="hero" size="104" --></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EVENTO (Cabina stage) -->
+    <div role="tabpanel" id="hero-panel-evt" aria-labelledby="hero-tab-evt" class="stage stage-evt mode-cabina" data-panel="evt">
+      <div class="flex items-center justify-between gap-4">
+        <p class="inline-flex items-center gap-2 font-semibold"><svg class="icon icon-20 text-muted" aria-hidden="true"><use href="#i-mic"/></svg>Orador · Sala 2</p>
+        <span class="meter" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+      </div>
+      <div class="rcv-cap">
+        <p class="label" id="hero-cap-label">Canal 1 · Español</p>
+        <p class="rcv-text font-serif text-[length:var(--text-h3)] leading-snug" id="hero-caption" lang="es">Las partes acuerdan los términos del presente contrato.</p>
+      </div>
+      <div role="group" aria-label="Canal de idioma" class="rcv-ch">
+        <button type="button" class="chip" data-lang="es" aria-pressed="true"><span aria-hidden="true">ES</span><span class="sr-only">Español</span></button>
+        <button type="button" class="chip" data-lang="en" aria-pressed="false"><span aria-hidden="true">EN</span><span class="sr-only">Inglés</span></button>
+        <button type="button" class="chip" data-lang="fr" aria-pressed="false"><span aria-hidden="true">FR</span><span class="sr-only">Francés</span></button>
+        <button type="button" class="chip" data-lang="pt" aria-pressed="false"><span aria-hidden="true">PT</span><span class="sr-only">Portugués</span></button>
+      </div>
+    </div>
+  </div>
+  <p class="sr-only" role="status" aria-live="polite" id="hero-live"></p>
+</div>
+<script defer src="assets/js/sig-hero.js"></script>

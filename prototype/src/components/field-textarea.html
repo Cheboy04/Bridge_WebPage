@@ -1,0 +1,7 @@
+<!-- params: id, name, label, hint, error, required, disabled, value, placeholder, state -->
+<div class="field">
+  <label class="field-label" for="{{id}}">{{label}}{{required?|<span class="font-normal text-muted"> (obligatorio)</span>}}</label>
+  <textarea class="control {{state|}}" id="{{id}}" name="{{name}}" rows="4" placeholder="{{placeholder|}}" {{required?|required}} {{disabled?|disabled}} {{error?|aria-invalid="true"}} aria-describedby="{{id}}-hint {{id}}-err">{{value|}}</textarea>
+  <p id="{{id}}-hint" class="field-msg hint">{{hint|}}</p>
+  <p id="{{id}}-err" class="field-msg err">{{error?|<svg class="icon icon-20" aria-hidden="true"><use href="#i-circle-alert"/></svg><span>@</span>}}</p>
+</div>

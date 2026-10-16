@@ -1,0 +1,145 @@
+<!doctype html>
+<!-- PROTOTYPE, stage W3. Event (interpretación) quote form (Documento, always). PLACEHOLDER: contact data, response time, 90-day retention [plazo por confirmar]. Service options mock the CMS. Prefill from the event planner query string. Logic in assets/js/event-quote-form.js. Draft Spanish (usted). -->
+<html lang="es">
+<head>
+<!-- @include head title="Cotizar interpretación | Bridge Traducciones" description="Solicite una cotización de interpretación simultánea, consecutiva o de equipos y cabinas para su evento en Quito." -->
+</head>
+<body>
+<a class="skip-link" href="#main">Saltar al contenido</a>
+<!-- @include icons -->
+<!-- @include header -->
+
+<main id="main">
+  <section class="bg-surface text-fg" aria-labelledby="f-title">
+    <div class="wrap pb-16 pt-6 lg:pb-32 lg:pt-8">
+      <!-- @include breadcrumb parent="Solicitar cotización" parent_href="cotizacion.html" current="Interpretación" -->
+
+      <div class="mt-8 grid gap-y-12 lg:mt-12 lg:grid-cols-12 lg:gap-x-8">
+        <div class="lg:col-span-7">
+          <h1 id="f-title">Cotizar interpretación para su evento</h1>
+          <p class="lead mt-5">Cuéntenos cómo será su evento. Le respondemos con el alcance, los equipos y el valor.</p>
+
+          <p id="prefill-note" class="mt-6 flex items-start gap-2 t-small text-muted" hidden><svg class="icon icon-20 mt-0.5 shrink-0" aria-hidden="true"><use href="#i-info"/></svg><span>Completamos estos datos con el resumen de su evento. Revíselos y cámbielos si hace falta.</span></p>
+          <p id="estado-aviso" class="mt-6 flex items-start gap-2 rounded-[var(--radius-sm,8px)] bg-raised p-3 t-small" hidden><svg class="icon icon-20 mt-0.5 shrink-0" aria-hidden="true"><use href="#i-info"/></svg><span>Vista de revisión: errores de ejemplo, como los devolvería el servidor. Quite <code>?estado=errores</code> de la dirección para ver el formulario limpio.</span></p>
+
+          <div id="error-summary" tabindex="-1" aria-labelledby="error-summary-title" hidden class="mt-8 rounded-[var(--radius-md,14px)] border border-err p-5 sm:p-6">
+            <h2 id="error-summary-title" class="flex items-center gap-2 font-sans text-[length:var(--text-h4)] font-bold leading-tight text-err"></h2>
+            <p class="mt-2 t-small text-muted">Corrija estos datos y vuelva a enviar. Lo que ya escribió se conserva.</p>
+            <ul id="error-summary-list" class="mt-4 grid list-none gap-1 p-0 [&_a]:inline-flex [&_a]:min-h-11 [&_a]:items-center"></ul>
+          </div>
+
+          <form id="quote-form" class="mt-10 grid gap-12" action="cotizacion-gracias.html" method="post" novalidate>
+
+            <fieldset class="m-0 grid min-w-0 gap-6 border-0 p-0">
+              <legend class="mb-6 p-0 font-serif text-[length:var(--text-h3)] font-medium leading-tight">Sus datos</legend>
+              <!-- @include field-text id="nombre" name="nombre" label="Nombre y apellido" required="1" autocomplete="name" -->
+              <p class="-mb-2 t-small text-muted" id="contacto-nota">Necesitamos al menos un medio para responderle: correo o teléfono. Basta con uno.</p>
+              <div class="grid gap-6 sm:grid-cols-2">
+                <!-- @include field-text id="email" name="email" type="email" label="Correo electrónico" autocomplete="email" hint="Opcional si indica un teléfono." -->
+                <!-- @include field-text id="telefono" name="telefono" type="tel" label="Teléfono o WhatsApp" autocomplete="tel" hint="Opcional si indica un correo." placeholder="+593 99 000 0000" -->
+              </div>
+              <!-- @include field-text id="empresa" name="empresa" label="Empresa u organización (opcional)" autocomplete="organization" -->
+            </fieldset>
+
+            <hr class="m-0 border-0 border-t border-line">
+            <fieldset class="m-0 grid min-w-0 gap-6 border-0 p-0">
+              <legend class="mb-6 p-0 font-serif text-[length:var(--text-h3)] font-medium leading-tight">Su evento</legend>
+              <!-- @include field-select id="servicio" name="servicio" label="Servicio" required="1" options="<option value=''>Seleccione un servicio</option><option value='simultanea'>Interpretación simultánea</option><option value='consecutiva'>Interpretación consecutiva</option><option value='equipos'>Equipos y cabinas</option>" -->
+
+              <div class="grid gap-6 sm:grid-cols-2">
+                <!-- @include field-text id="fecha" name="fecha" type="date" label="Fecha del evento" hint="Si dura varios días, la de inicio. Déjela en blanco si aún no la define." -->
+                <!-- @include field-text id="fecha-fin" name="fecha_fin" type="date" label="Fecha de cierre (opcional)" hint="Solo si el evento dura varios días." -->
+              </div>
+              <!-- @include field-text id="lugar" name="lugar" label="Ciudad y lugar (opcional)" hint="Por ejemplo: Quito, Hotel o centro de convenciones. En remoto, la plataforma." autocomplete="off" -->
+
+              <div class="grid gap-6 sm:grid-cols-2">
+                <!-- @include field-select id="modalidad" name="modalidad" label="Modalidad" required="1" options="<option value=''>Seleccione</option><option value='presencial'>Presencial</option><option value='hibrido'>Híbrido (en sala y en línea)</option><option value='remoto'>Remoto</option>" -->
+                <!-- @include field-select id="duracion" name="duracion" label="Duración" required="1" options="<option value=''>Seleccione</option><option value='medio'>Medio día (hasta 6 horas)</option><option value='jornada'>Jornada completa</option><option value='varios'>Varios días</option>" -->
+              </div>
+              <div id="dias-wrap" hidden>
+                <!-- @include field-text id="dias" name="dias" type="number" label="Cantidad de días" hint="De 2 a 30 días." autocomplete="off" -->
+              </div>
+
+              <div class="grid gap-6 sm:grid-cols-2">
+                <!-- @include field-select id="idiomas" name="idiomas" label="Idiomas además del español" required="1" options="<option value=''>Seleccione</option><option value='1'>1 idioma</option><option value='2'>2 idiomas</option><option value='3'>3 idiomas</option><option value='4'>4 idiomas</option>" -->
+                <!-- @include field-text id="asistentes" name="asistentes" type="number" label="Cantidad de asistentes" required="1" hint="Aproximada. Entre 1 y 5000." autocomplete="off" -->
+              </div>
+
+              <fieldset class="m-0 min-w-0 border-0 p-0" aria-describedby="idi-hint">
+                <legend class="field-label mb-1 p-0">¿Cuáles idiomas? (opcional)</legend>
+                <p id="idi-hint" class="t-small text-muted">Marque los que ya conoce. Si falta alguno, indíquelo en el mensaje.</p>
+                <div class="mt-2 grid sm:grid-cols-2 sm:gap-x-6">
+                  <!-- @include field-check id="lang-en" name="lenguas[]" label="Inglés" -->
+                  <!-- @include field-check id="lang-fr" name="lenguas[]" label="Francés" -->
+                  <!-- @include field-check id="lang-pt" name="lenguas[]" label="Portugués" -->
+                  <!-- @include field-check id="lang-de" name="lenguas[]" label="Alemán" -->
+                  <!-- @include field-check id="lang-it" name="lenguas[]" label="Italiano" -->
+                  <!-- @include field-check id="lang-otro" name="lenguas[]" label="Otro" -->
+                </div>
+              </fieldset>
+            </fieldset>
+
+            <hr class="m-0 border-0 border-t border-line">
+            <fieldset class="m-0 grid min-w-0 gap-6 border-0 p-0">
+              <legend class="mb-6 p-0 font-serif text-[length:var(--text-h3)] font-medium leading-tight">Equipos</legend>
+              <fieldset class="m-0 min-w-0 border-0 p-0" aria-describedby="eq-hint">
+                <legend class="field-label mb-1 p-0">Qué necesita (opcional)</legend>
+                <p id="eq-hint" class="t-small text-muted">Si no está seguro, déjelo en blanco: se lo confirmamos al cotizar.</p>
+                <div class="mt-2 grid">
+                  <!-- @include field-check id="need-cabinas" name="necesita[]" label="Cabinas y consolas <span class='block t-small text-muted'>Para los intérpretes, con visión del orador.</span>" -->
+                  <!-- @include field-check id="need-receptores" name="necesita[]" label="Receptores con auriculares <span class='block t-small text-muted'>Para los asistentes en sala.</span>" -->
+                  <!-- @include field-check id="need-tecnico" name="necesita[]" label="Técnico en sala <span class='block t-small text-muted'>Instala, prueba y atiende los equipos.</span>" -->
+                  <!-- @include field-check id="need-plataforma" name="necesita[]" label="Plataforma con canales de idioma <span class='block t-small text-muted'>Para quienes asisten en línea.</span>" -->
+                </div>
+              </fieldset>
+              <!-- @include field-textarea id="mensaje" name="mensaje" label="Mensaje (opcional)" hint="Por ejemplo: tipo de evento, número de salas, programa o temas técnicos." -->
+            </fieldset>
+
+            <hr class="m-0 border-0 border-t border-line">
+            <div class="grid gap-6">
+              <!-- @include field-check id="consentimiento" name="consentimiento" required="1" label="Acepto la <a class='link' href='#' title='No incluido en el prototipo'>política de privacidad</a> (obligatorio). <span class='block t-small text-muted'>Sus datos y archivos se borran 90 días después de recibirlos [plazo por confirmar].</span>" -->
+
+              <div aria-hidden="true" class="sr-only"><label>No complete este campo <input type="text" id="web" name="web" tabindex="-1" autocomplete="off"></label></div>
+
+              <div class="flex flex-wrap items-center gap-4">
+                <button type="submit" id="enviar" class="btn btn-primary"><span>Enviar solicitud</span><svg class="icon icon-20 icon-go" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
+                <p id="submit-status" class="t-small text-muted" role="status"></p>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <section class="lg:col-span-4 lg:col-start-9" aria-labelledby="aside-title">
+          <div class="grid gap-10 border-t border-line pt-8 lg:sticky lg:top-6">
+            <div>
+              <h2 id="aside-title" class="font-sans text-[length:var(--text-h4)] font-bold leading-tight">Qué pasa después</h2>
+              <ol class="mt-5 grid list-none gap-5 p-0">
+                <li class="grid grid-cols-[auto_1fr] gap-4"><span class="num font-bold text-link" aria-hidden="true">1</span><span><strong>Revisamos su evento</strong>: fecha, idiomas, asistentes y lugar.</span></li>
+                <li class="grid grid-cols-[auto_1fr] gap-4"><span class="num font-bold text-link" aria-hidden="true">2</span><span><strong>Le enviamos la cotización</strong> con intérpretes, equipos y valor.</span></li>
+                <li class="grid grid-cols-[auto_1fr] gap-4"><span class="num font-bold text-link" aria-hidden="true">3</span><span><strong>Usted confirma</strong> y reservamos al equipo para su fecha.</span></li>
+              </ol>
+              <p class="mt-5 flex items-start gap-2 t-small text-muted"><svg class="icon icon-20 shrink-0" aria-hidden="true"><use href="#i-clock"/></svg>Respondemos en [tiempo de respuesta por confirmar] en días hábiles.</p>
+            </div>
+
+            <div>
+              <h3 class="t-h4">¿Prefiere conversar?</h3>
+              <ul class="mt-2 grid list-none p-0 t-small">
+                <li><a class="flex min-h-11 items-center gap-3 font-semibold text-fg no-underline hover:text-link" href="https://wa.me/593990000000?text=Hola%2C%20quisiera%20cotizar%20interpretaci%C3%B3n%20para%20un%20evento"><svg class="icon icon-20" aria-hidden="true"><use href="#i-message-circle"/></svg>WhatsApp <span class="num font-normal">+593 99 000 0000</span></a></li>
+                <li><a class="flex min-h-11 items-center gap-3 font-semibold text-fg no-underline hover:text-link" href="tel:+59320000000"><svg class="icon icon-20" aria-hidden="true"><use href="#i-phone"/></svg>Llamar <span class="num font-normal">+593 2 000 0000</span></a></li>
+                <li><a class="flex min-h-11 items-center gap-3 font-semibold text-fg no-underline hover:text-link" href="mailto:contacto@bridge.example"><svg class="icon icon-20" aria-hidden="true"><use href="#i-mail"/></svg><span class="[overflow-wrap:anywhere]">contacto@bridge.example</span></a></li>
+              </ul>
+            </div>
+
+            <p class="flex items-start gap-3 t-small text-muted"><svg class="icon icon-20 mt-0.5 shrink-0" aria-hidden="true"><use href="#i-shield-check"/></svg><span>Usamos sus datos solo para preparar la cotización y se borran a los 90 días [plazo por confirmar].</span></p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- @include footer -->
+<!-- @include whatsapp hidden="1" -->
+<script defer src="assets/js/event-quote-form.js"></script>
+</body>
+</html>

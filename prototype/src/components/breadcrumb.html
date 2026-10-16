@@ -1,0 +1,10 @@
+<!-- params: parent, parent_href, parent_note(opt tooltip for stub links), current -->
+<nav aria-label="{{label|Migas de pan}}">
+  <ol class="flex flex-wrap items-center gap-x-1 t-small text-muted">
+    <li><a class="link inline-flex min-h-11 min-w-11 items-center" href="index.html">Inicio</a></li>
+    <li aria-hidden="true"><svg class="icon icon-16"><use href="#i-chevron-right"/></svg></li>
+    <li><a class="link inline-flex min-h-11 items-center" href="{{parent_href}}" {{parent_note?|title="@"}}>{{parent}}</a></li>
+    <li aria-hidden="true"><svg class="icon icon-16"><use href="#i-chevron-right"/></svg></li>
+    <li aria-current="page" class="text-fg font-semibold">{{current}}</li>
+  </ol>
+</nav>

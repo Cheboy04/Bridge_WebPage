@@ -1,0 +1,224 @@
+<!doctype html>
+<!-- PROTOTYPE, stage A (worker B2). Page: Interpretación simultánea, modo Cabina de página completa. PLACEHOLDER DATA: phone +593 2 000 0000, WhatsApp +593 99 000 0000, email contacto@bridge.example (domain undecided). All copy is draft Spanish (usted). Claims marked [validar con Bridge] or [por confirmar] must be confirmed by Bridge. The event planner uses EXAMPLE rules [validar con Bridge]. -->
+<html lang="es">
+<head>
+<!-- @include head title="Interpretación simultánea para eventos | Bridge Traducciones" description="Intérpretes, cabinas, consolas y receptores para congresos, juntas y audiencias, desde Quito. Solicite su cotización." -->
+</head>
+<body class="mode-cabina">
+<a class="skip-link" href="#main">Saltar al contenido</a>
+<!-- @include icons -->
+<!-- @include header mode="cabina" lockup="dark" active="interpretacion" -->
+
+<main id="main">
+  <!-- HERO: text on Tinta, photo bleeds right (faces: no text on the picture) -->
+  <section class="bg-surface text-fg" aria-labelledby="h-title">
+    <div class="grid lg:grid-cols-2">
+      <div class="edge-l pb-14 pt-4 lg:pb-28 lg:pr-16">
+        <!-- @include breadcrumb parent="Interpretación" parent_href="#" current="Interpretación simultánea" -->
+        <p class="label mt-8 lg:mt-14">Cabina</p>
+        <h1 id="h-title" class="mt-3">Inter&shy;pretación simultánea para su evento</h1>
+        <p class="lead mt-6">Intérpretes, cabinas y equipos para que cada asistente escuche el evento en su idioma, en el mismo momento en que se habla.</p>
+        <div class="mt-10 flex flex-wrap gap-3">
+          <!-- @include button label="Solicitar cotización" href="cotizacion-interpretacion.html" icon="arrow-right" -->
+          <!-- @include button label="Armar el resumen de su evento" href="#planificador" variant="secondary" -->
+        </div>
+      </div>
+      <figure class="grade-cabina relative aspect-[4/5] sm:aspect-[3/2] lg:aspect-auto lg:min-h-[36rem] [&_img]:absolute [&_img]:inset-0">
+        <img src="assets/photo/cabina-800.webp" srcset="assets/photo/cabina-800.webp 800w, assets/photo/cabina-1600.webp 1600w" sizes="(min-width:1024px) 50vw, 100vw" width="1600" height="1289" decoding="async" fetchpriority="high" style="object-position:30% 40%" alt="Intérpretes con auriculares y micrófonos trabajando en una cabina de interpretación simultánea durante un evento">
+        <figcaption class="t-small absolute inset-x-0 bottom-0 z-10 px-4 pb-4 pt-20 text-fg sm:px-6" style="background:linear-gradient(to top,rgba(14,36,64,.88) 0%,rgba(14,36,64,.78) 45%,rgba(14,36,64,0) 100%)">Cabina de interpretación en un evento. Fotografía provisional, a reemplazar por una sesión propia.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- PLANNER: the signature moment of this page (replaces the old static event-brief mock) -->
+  <section id="planificador" class="sec bg-surface text-fg" aria-labelledby="pl-title">
+    <div class="wrap">
+      <div class="grid gap-y-6 lg:grid-cols-12 lg:gap-x-8">
+        <div class="lg:col-span-6">
+          <!-- @include section-heading id="pl-title" title="Arme el resumen de su evento" -->
+        </div>
+        <p class="lead lg:col-span-5 lg:col-start-8 lg:self-end">Indique cómo será y vea al instante qué equipo y cuántos intérpretes necesitaría. Luego lo llevamos a su cotización.</p>
+      </div>
+      <div class="mt-10 lg:mt-14"><!-- @include sig-event-planner --></div>
+    </div>
+  </section>
+
+  <!-- CUÁNDO: simultánea vs consecutiva (open columns, no cards) -->
+  <section class="sec bg-raised text-fg" aria-labelledby="c-title">
+    <div class="wrap">
+      <!-- @include section-heading id="c-title" title="Simultánea o consecutiva: cuál le conviene" lead="Las dos son interpretación profesional. Cambian el ritmo del evento y los equipos que necesita." -->
+      <div class="mt-12 grid gap-x-16 gap-y-14 lg:mt-16 lg:grid-cols-2">
+        <article class="border-t-2 border-fg pt-6">
+          <h3>Simultánea</h3>
+          <p class="mt-3 text-muted">El intérprete traduce mientras el orador habla. El público escucha por auriculares.</p>
+          <dl class="mt-8">
+            <div class="border-t border-line py-5"><dt class="t-h4">Conviene cuando</dt><dd class="mt-1">Hay muchos asistentes, varios idiomas o un programa con poco margen de tiempo: congresos, asambleas, transmisiones.</dd></div>
+            <div class="border-t border-line py-5"><dt class="t-h4">Lo que implica</dt><dd class="mt-1">Cabinas, consola y receptores, y dos intérpretes por combinación de idiomas que se turnan.</dd></div>
+            <div class="border-y border-line py-5"><dt class="t-h4">Tiempo del evento</dt><dd class="mt-1">No se alarga: el discurso fluye con normalidad.</dd></div>
+          </dl>
+        </article>
+        <article class="border-t-2 border-fg pt-6">
+          <h3>Consecutiva</h3>
+          <p class="mt-3 text-muted">El orador hace una pausa y el intérprete traduce lo dicho, sin equipos.</p>
+          <dl class="mt-8">
+            <div class="border-t border-line py-5"><dt class="t-h4">Conviene cuando</dt><dd class="mt-1">El grupo es pequeño y de dos idiomas: reuniones, entrevistas, visitas, audiencias.</dd></div>
+            <div class="border-t border-line py-5"><dt class="t-h4">Lo que implica</dt><dd class="mt-1">Un intérprete y, según el caso, un micrófono. Sin cabina ni receptores.</dd></div>
+            <div class="border-y border-line py-5"><dt class="t-h4">Tiempo del evento</dt><dd class="mt-1">Se alarga, porque cada intervención se dice dos veces.</dd></div>
+          </dl>
+          <a class="link mt-6 inline-flex min-h-11 items-center gap-2 font-semibold" href="#" title="No incluido en el prototipo">Ver interpretación consecutiva<svg class="icon icon-20" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUÉ INCLUYE -->
+  <section id="incluye" class="sec bg-surface text-fg" aria-labelledby="i-title">
+    <div class="wrap grid gap-y-12 lg:grid-cols-12 lg:gap-x-8">
+      <div class="lg:sticky lg:top-8 lg:col-span-4 lg:self-start">
+        <!-- @include section-heading id="i-title" title="Qué incluye el servicio" lead="Lo que llevamos a su evento. El alcance exacto se confirma en la cotización." -->
+      </div>
+      <dl class="lg:col-span-7 lg:col-start-6">
+        <div class="grid gap-x-6 gap-y-2 border-t border-line py-7 sm:grid-cols-[14rem_1fr]">
+          <dt class="t-h4 flex items-start gap-3"><svg class="icon mt-0.5 text-muted" aria-hidden="true"><use href="#i-users"/></svg>Intérpretes en equipo</dt>
+          <dd class="max-w-[52ch]">Normalmente dos intérpretes por combinación de idiomas en cada cabina, que se alternan para mantener la precisión. [validar con Bridge]</dd>
+        </div>
+        <div class="grid gap-x-6 gap-y-2 border-t border-line py-7 sm:grid-cols-[14rem_1fr]">
+          <dt class="t-h4 flex items-start gap-3"><svg class="icon mt-0.5 text-muted" aria-hidden="true"><use href="#i-mic"/></svg>Cabinas</dt>
+          <dd class="max-w-[52ch]">Cabinas insonorizadas para los intérpretes, con visión directa del orador y de la pantalla. [validar con Bridge]</dd>
+        </div>
+        <div class="grid gap-x-6 gap-y-2 border-t border-line py-7 sm:grid-cols-[14rem_1fr]">
+          <dt class="t-h4 flex items-start gap-3"><svg class="icon mt-0.5 text-muted" aria-hidden="true"><use href="#i-radio"/></svg>Consolas</dt>
+          <dd class="max-w-[52ch]">Consola del intérprete en cada cabina y consola central para distribuir los canales de idioma.</dd>
+        </div>
+        <div class="grid gap-x-6 gap-y-2 border-t border-line py-7 sm:grid-cols-[14rem_1fr]">
+          <dt class="t-h4 flex items-start gap-3"><svg class="icon mt-0.5 text-muted" aria-hidden="true"><use href="#i-headphones"/></svg>Receptores</dt>
+          <dd class="max-w-[52ch]">Receptores con auriculares para los asistentes, en la cantidad que indique su lista de invitados. [cantidad por asistente: por confirmar]</dd>
+        </div>
+        <div class="grid gap-x-6 gap-y-2 border-y border-line py-7 sm:grid-cols-[14rem_1fr]">
+          <dt class="t-h4 flex items-start gap-3"><svg class="icon mt-0.5 text-muted" aria-hidden="true"><use href="#i-check"/></svg>Técnico en sala</dt>
+          <dd class="max-w-[52ch]">Un técnico instala, prueba y atiende los equipos durante toda la jornada. [validar con Bridge]</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- TIPOS DE EVENTO -->
+  <section class="sec bg-raised text-fg" aria-labelledby="e-title">
+    <div class="wrap">
+      <!-- @include section-heading id="e-title" title="Eventos en los que trabajamos" -->
+      <div class="mt-12 grid gap-x-8 gap-y-12 lg:mt-20 lg:grid-cols-12">
+        <div class="lg:col-span-5">
+          <h3>Congresos y convenciones</h3>
+          <p class="mt-4 max-w-[44ch] text-muted">Sesiones plenarias y salas paralelas, con un canal de idioma por sala y un equipo de intérpretes por cada una.</p>
+        </div>
+        <div class="lg:col-span-5 lg:col-start-8 lg:mt-16">
+          <h3>Juntas de directorio y asambleas</h3>
+          <p class="mt-4 max-w-[44ch] text-muted">Reuniones con terminología financiera o corporativa, donde cada cifra y cada decisión debe quedar clara en ambos idiomas.</p>
+        </div>
+        <div class="lg:col-span-5">
+          <h3>Audiencias y procesos</h3>
+          <p class="mt-4 max-w-[44ch] text-muted">Interpretación para audiencias, arbitrajes y diligencias. Si el trámite requiere un intérprete con acreditación específica, la confirmamos antes. [por confirmar]</p>
+        </div>
+        <div class="lg:col-span-5 lg:col-start-8 lg:mt-16">
+          <h3>Transmisiones híbridas y remotas</h3>
+          <p class="mt-4 max-w-[44ch] text-muted">Interpretación para quienes asisten en sala y en línea, en la plataforma de su evento. [plataformas compatibles: por confirmar]</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLANIFICACIÓN: trail-steps -->
+  <section class="sec relative bg-surface text-fg" aria-labelledby="p-title">
+    <div class="wrap grid gap-y-14 lg:grid-cols-12 lg:gap-x-8">
+      <div class="lg:col-span-5">
+        <!-- @include section-heading id="p-title" title="Cómo planificar su evento" lead="Cuanto antes nos escriba, más margen tendrán los intérpretes para prepararse." -->
+        <h3 class="t-h4 mt-12">Qué información enviarnos</h3>
+        <ul class="mt-4 grid gap-1">
+          <li class="flex min-h-11 items-center gap-3"><svg class="icon icon-20 text-muted" aria-hidden="true"><use href="#i-calendar"/></svg>Fecha del evento</li>
+          <li class="flex min-h-11 items-center gap-3"><svg class="icon icon-20 text-muted" aria-hidden="true"><use href="#i-clock"/></svg>Duración y horario</li>
+          <li class="flex min-h-11 items-center gap-3"><svg class="icon icon-20 text-muted" aria-hidden="true"><use href="#i-languages"/></svg>Idiomas</li>
+          <li class="flex min-h-11 items-center gap-3"><svg class="icon icon-20 text-muted" aria-hidden="true"><use href="#i-users"/></svg>Número de asistentes</li>
+          <li class="flex min-h-11 items-center gap-3"><svg class="icon icon-20 text-muted" aria-hidden="true"><use href="#i-map-pin"/></svg>Lugar o plataforma</li>
+          <li class="flex min-h-11 items-center gap-3"><svg class="icon icon-20 text-muted" aria-hidden="true"><use href="#i-file-text"/></svg>Material de apoyo: programa, presentaciones, glosarios</li>
+        </ul>
+      </div>
+      <ol class="lg:col-span-6 lg:col-start-7">
+        <li class="grid grid-cols-[1.5rem_1fr] gap-x-4">
+          <div class="flex flex-col items-center gap-2"><span class="step-dot" aria-hidden="true"></span><span class="trail-v flex-1" style="--n:1;height:auto" aria-hidden="true"></span></div>
+          <div class="pb-10"><h3 class="t-h4">Escríbanos con anticipación</h3><p class="mt-2 max-w-[44ch] text-muted">Lo ideal es [4 a 6 semanas antes del evento, por confirmar]. Para eventos con varios idiomas o salas, mejor aún. Si su fecha es más próxima, consúltenos igualmente.</p></div>
+        </li>
+        <li class="grid grid-cols-[1.5rem_1fr] gap-x-4">
+          <div class="flex flex-col items-center gap-2"><span class="step-dot" aria-hidden="true"></span><span class="trail-v flex-1" style="--n:1;height:auto" aria-hidden="true"></span></div>
+          <div class="pb-10"><h3 class="t-h4">Reciba su cotización por escrito</h3><p class="mt-2 max-w-[44ch] text-muted">Con la información anterior le enviamos el alcance, los equipos, el número de intérpretes y el valor. [plazo de respuesta: por confirmar]</p></div>
+        </li>
+        <li class="grid grid-cols-[1.5rem_1fr] gap-x-4">
+          <div class="flex flex-col items-center gap-2"><span class="step-dot" aria-hidden="true"></span><span class="trail-v flex-1" style="--n:1;height:auto" aria-hidden="true"></span></div>
+          <div class="pb-10"><h3 class="t-h4">Envíe el material y confirme</h3><p class="mt-2 max-w-[44ch] text-muted">Al confirmar, comparta el programa y las presentaciones para que los intérpretes preparen la terminología de su sector.</p></div>
+        </li>
+        <li class="grid grid-cols-[1.5rem_1fr] gap-x-4">
+          <div class="flex flex-col items-center gap-2"><span class="step-dot target" aria-hidden="true"></span></div>
+          <div><h3 class="t-h4">Cuente con su equipo en sala</h3><p class="mt-2 max-w-[44ch] text-muted">Instalamos y probamos los equipos antes de que lleguen los asistentes, y el técnico permanece hasta el cierre.</p></div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sec bg-raised text-fg" aria-labelledby="f-title">
+    <div class="wrap grid gap-y-12 lg:grid-cols-12 lg:gap-x-8">
+      <div class="lg:col-span-4">
+        <!-- @include section-heading id="f-title" title="Preguntas frecuentes sobre interpretación simultánea" -->
+      </div>
+      <div class="faq lg:col-span-7 lg:col-start-6">
+        <!-- @include faq-accordion group="faq-simultanea" q="¿Cuántos intérpretes necesita mi evento?" a="En interpretación simultánea se trabaja normalmente con dos intérpretes por combinación de idiomas en cada cabina, que se turnan cada cierto tiempo. Si su evento tiene varios idiomas o salas, el número aumenta. [validar con Bridge]" -->
+        <!-- @include faq-accordion group="faq-simultanea" q="¿Con cuánta anticipación debo solicitar la cotización?" a="Entre más temprano, mejor: así podemos reservar al equipo adecuado y preparar la terminología. Como referencia, [4 a 6 semanas antes del evento, por confirmar]. Si su fecha es más cercana, escríbanos y le decimos qué es posible." -->
+        <!-- @include faq-accordion group="faq-simultanea" q="¿Pueden interpretar en eventos virtuales o híbridos?" a="Sí, en eventos en línea o con asistentes en sala y a distancia. Revisamos con usted la plataforma y la forma de entregar el audio de los intérpretes antes de cotizar. [plataformas compatibles: por confirmar]" -->
+        <!-- @include faq-accordion group="faq-simultanea" q="¿Qué material debo enviar a los intérpretes?" a="Programa, presentaciones, lista de ponentes y cualquier glosario o documento de referencia. Mientras antes lo reciban, mejor preparan los términos técnicos de su sector." -->
+        <!-- @include faq-accordion group="faq-simultanea" q="¿La cotización incluye los equipos?" a="Sí. La cotización detalla intérpretes, cabinas, consolas, receptores y técnico en sala, según el número de asistentes e idiomas. También indica lo que no incluye, para que no haya sorpresas. [validar con Bridge]" -->
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS RELACIONADOS -->
+  <section class="sec bg-surface text-fg" aria-labelledby="r-title">
+    <div class="wrap grid gap-y-12 lg:grid-cols-12 lg:gap-x-8">
+      <div class="lg:col-span-4">
+        <!-- @include section-heading id="r-title" title="Servicios relacionados" -->
+      </div>
+      <ul class="lg:col-span-7 lg:col-start-6">
+        <li class="group relative grid grid-cols-[auto_1fr] gap-x-5 border-t border-line py-7">
+          <svg class="icon mt-0.5 text-muted" aria-hidden="true"><use href="#i-mic"/></svg>
+          <div>
+            <h3 class="t-h4"><a class="text-fg no-underline after:absolute after:inset-0 group-hover:underline" href="#" title="No incluido en el prototipo">Interpretación consecutiva</a></h3>
+            <p class="mt-2 max-w-[52ch] text-muted">El intérprete traduce tras cada intervención. Útil en reuniones, entrevistas, audiencias y visitas.</p>
+          </div>
+        </li>
+        <li class="group relative grid grid-cols-[auto_1fr] gap-x-5 border-y border-line py-7">
+          <svg class="icon mt-0.5 text-muted" aria-hidden="true"><use href="#i-radio"/></svg>
+          <div>
+            <h3 class="t-h4"><a class="text-fg no-underline after:absolute after:inset-0 group-hover:underline" href="#" title="No incluido en el prototipo">Equipos y cabinas</a></h3>
+            <p class="mt-2 max-w-[52ch] text-muted">Cabinas, consolas, micrófonos y receptores para su evento, con instalación y soporte técnico durante la jornada.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="sec bg-raised text-fg" aria-labelledby="k-title">
+    <div class="wrap grid gap-y-12 lg:grid-cols-12 lg:gap-x-8">
+      <div class="lg:col-span-5">
+        <!-- @include section-heading id="k-title" title="Cuéntenos sobre su evento" lead="Escríbanos por WhatsApp, llámenos o solicite una cotización con la fecha, los idiomas y el lugar. Le respondemos con el alcance y el plazo." -->
+      </div>
+      <div class="lg:col-span-6 lg:col-start-7">
+        <!-- @include contact-block message="Hola%2C%20quisiera%20cotizar%20interpretaci%C3%B3n%20simult%C3%A1nea%20para%20un%20evento" quote="cotizacion-interpretacion.html" -->
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- @include footer -->
+<!-- @include whatsapp message="Hola%2C%20quisiera%20cotizar%20interpretaci%C3%B3n%20simult%C3%A1nea%20para%20un%20evento" -->
+<script defer src="assets/js/sig-cabina.js"></script>
+</body>
+</html>

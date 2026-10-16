@@ -1,0 +1,304 @@
+<title>Bridge Brand Directions</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600;7..72,700&family=Source+Sans+3:wght@400;600&family=Manrope:wght@400;600;700;800&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column; each direction is a full-bleed specimen band with its own fixed brand colors, framed by a neutral, theme-aware page. */
+:root{
+  --bg:#FAFBFC; --fg:#16202C; --muted:#5A6573; --line:#DDE3EA; --panel:#FFFFFF; --pick:#1C61AD;
+  --f-ui:"IBM Plex Sans",system-ui,sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+  --photo:url(data:image/jpeg;base64,__PHOTO__);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F1318;--fg:#E7ECF2;--muted:#9AA6B4;--line:#26303B;--panel:#151B22;--pick:#6EA8F0;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0F1318;--fg:#E7ECF2;--muted:#9AA6B4;--line:#26303B;--panel:#151B22;--pick:#6EA8F0;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--f-ui)}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{padding-block:56px 32px;border-bottom:1px solid var(--line)}
+.eyebrow{font:500 12px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font:600 clamp(30px,4.4vw,46px)/1.1 "Literata",Georgia,serif;margin:12px 0 14px;text-wrap:balance;letter-spacing:-.01em}
+.lede{max-width:64ch;color:var(--muted);margin:0}
+section.audit{padding-block:40px}
+section.audit h2,.verdict h2{font:600 22px/1.25 "Literata",Georgia,serif;margin:0 0 18px}
+.findings{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin:0;padding:0;list-style:none}
+.findings li{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px 18px;min-width:0}
+.findings b{display:block;margin-bottom:4px}
+.findings span{color:var(--muted);font-size:14.5px}
+.keep{margin-top:18px;color:var(--muted);font-size:15px;max-width:80ch}
+.keep b{color:var(--fg)}
+
+/* --- direction band --- */
+.dir{padding-block:56px;border-top:1px solid var(--line)}
+.dir-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px;margin-bottom:6px}
+.dir-head .code{font:500 13px/1 var(--f-mono);color:var(--muted)}
+.dir-head h2{margin:0;font:700 clamp(26px,3.4vw,34px)/1.1 var(--dname);letter-spacing:-.01em}
+.rec{font:500 11px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--pick);border:1px solid currentColor;padding:5px 8px;border-radius:3px}
+.thesis{max-width:70ch;color:var(--muted);margin:0 0 26px}
+.grid{display:grid;grid-template-columns:1.15fr 1fr;gap:16px}
+@media (max-width:820px){.grid{grid-template-columns:1fr}}
+.card{border-radius:8px;overflow:hidden;min-width:0}
+.stage{padding:34px 30px;display:flex;flex-direction:column;gap:22px;min-height:100%}
+.lockup{display:flex;align-items:center;gap:14px}
+.lockup svg{width:76px;height:76px;flex:none}
+.word{line-height:1}
+.word .name{font:var(--wordfont);letter-spacing:var(--wordtrack,-.01em);display:block}
+.word .desc{font:600 11.5px/1 var(--descfont);letter-spacing:.22em;text-transform:uppercase;display:block;margin-top:7px}
+.langs{display:flex;flex-wrap:wrap;gap:6px 14px;font:500 12px/1.4 var(--f-mono)}
+.langs span{opacity:.82}
+.spec h3{font:var(--hfont);margin:0 0 10px;text-wrap:balance;letter-spacing:-.01em}
+.spec p{margin:0 0 10px;font:var(--bfont);max-width:52ch}
+.spec .intl{font:var(--intlfont);opacity:.85;margin-top:4px}
+.btns{display:flex;flex-wrap:wrap;gap:10px}
+.btn{font:600 15px/1 var(--btnfont);padding:13px 18px;border-radius:var(--radius);border:1.5px solid transparent;cursor:default}
+.swatches{display:flex;flex-wrap:wrap;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.sw{background:var(--panel);min-width:0;flex:1 1 112px}
+.chip{height:62px}
+.sw div:last-child{padding:9px 11px 11px;font-size:12.5px;line-height:1.35}
+.sw b{display:block;font-weight:500}
+.sw code{font:400 12px var(--f-mono);color:var(--muted)}
+.sw .ratio{display:block;color:var(--muted);font:400 11.5px var(--f-mono);margin-top:2px}
+.apps{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+@media (max-width:640px){.apps{grid-template-columns:1fr}}
+.photo{position:relative;aspect-ratio:4/3;background:var(--photo) center/cover;max-width:100%}
+.photo::after{content:"";position:absolute;inset:0}
+.photo figcaption{position:absolute;left:14px;bottom:12px;right:14px;z-index:1;font:500 11px/1.3 var(--f-mono);letter-spacing:.06em;text-transform:uppercase}
+.doc{padding:22px 22px 20px;display:grid;grid-template-columns:1fr;grid-template-rows:auto auto 1fr;gap:14px 18px;font-size:13px;line-height:1.45}
+.doc .t{grid-column:1/-1;font:600 11px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase}
+.doc dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;min-width:0}
+.doc dt{opacity:.7}
+.doc dd{margin:0;font-variant-numeric:tabular-nums}
+.doc svg{width:120px;height:120px;justify-self:end;align-self:end}
+.pros{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px;font-size:14.5px}
+@media (max-width:640px){.pros{grid-template-columns:1fr}}
+.pros h4{margin:0 0 6px;font:600 12px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.pros ul{margin:0;padding-left:18px;color:var(--fg)}
+.pros li{margin-bottom:4px}
+
+/* --- D1 Sello --- */
+#d1{--dname:"Literata",Georgia,serif;--wordfont:700 40px/1 "Literata",Georgia,serif;--descfont:"Source Sans 3",sans-serif;--hfont:600 27px/1.15 "Literata",Georgia,serif;--bfont:400 16px/1.6 "Source Sans 3",sans-serif;--intlfont:400 15px/1.5 "Literata",serif;--btnfont:"Source Sans 3",sans-serif;--radius:3px}
+#d1 .stage{background:#F6F5F1;color:#0F2A4A}
+#d1 .word .desc{color:#56606C}
+#d1 .btn.p{background:#0F2A4A;color:#F6F5F1}
+#d1 .btn.s{border-color:#0F2A4A;color:#0F2A4A}
+#d1 .photo{filter:grayscale(.45) sepia(.14) contrast(1.04)}
+#d1 .photo figcaption{color:#F6F5F1}
+#d1 .photo::after{background:linear-gradient(transparent 55%,rgba(15,42,74,.7))}
+#d1 .doc{background:#FFFFFF;color:#0F2A4A;border:1px solid #E2DED4}
+#d1 .doc .t{color:#9C4A0E}
+/* --- D2 Cabina --- */
+#d2{--dname:"Manrope",sans-serif;--wordfont:800 40px/1 "Manrope",sans-serif;--wordtrack:-.03em;--descfont:"IBM Plex Sans",sans-serif;--hfont:700 27px/1.15 "Manrope",sans-serif;--bfont:400 16px/1.6 "IBM Plex Sans",sans-serif;--intlfont:500 15px/1.5 "Manrope",sans-serif;--btnfont:"Manrope",sans-serif;--radius:999px}
+#d2 .stage{background:#0B1F3A;color:#EAF1FA}
+#d2 .word .desc{color:#93A4BA}
+#d2 .langs{color:#E8A33D}
+#d2 .btn.p{background:#E8A33D;color:#0B1F3A}
+#d2 .btn.s{border-color:#5AA0F2;color:#EAF1FA}
+#d2 .photo{background-color:#0B1F3A;filter:grayscale(1) contrast(1.15) brightness(.9)}
+#d2 .photo-wrap{position:relative;background:#1C61AD}
+#d2 .photo-wrap .photo{mix-blend-mode:luminosity;opacity:.92}
+#d2 .photo figcaption{color:#EAF1FA}
+#d2 .doc{background:#10294A;color:#EAF1FA}
+#d2 .doc .t{color:#E8A33D}
+/* --- D3 Puente --- */
+#d3{--dname:"Literata",Georgia,serif;--wordfont:700 40px/1 "Manrope",sans-serif;--wordtrack:-.025em;--descfont:"Manrope",sans-serif;--hfont:600 27px/1.15 "Literata",Georgia,serif;--bfont:400 16px/1.6 "Manrope",sans-serif;--intlfont:400 15px/1.5 "Literata",serif;--btnfont:"Manrope",sans-serif;--radius:6px}
+#d3 .stage{background:#F4F6F9;color:#0E2440}
+#d3 .word .desc{color:#556274}
+#d3 .btn.p{background:#1C61AD;color:#FFFFFF}
+#d3 .btn.s{border-color:#0E2440;color:#0E2440}
+#d3 .photo{filter:grayscale(.3) saturate(.85) contrast(1.05)}
+#d3 .photo::after{background:linear-gradient(160deg,rgba(28,97,173,.0) 40%,rgba(14,36,64,.78))}
+#d3 .photo figcaption{color:#F4F6F9}
+#d3 .doc{background:#0E2440;color:#F4F6F9}
+#d3 .doc .t{color:#E3A148}
+#d3 .modes{display:grid;grid-template-columns:1fr 1fr;border-radius:8px;overflow:hidden}
+#d3 .modes>div{padding:16px 16px 18px;font:500 12px/1.4 var(--f-mono);letter-spacing:.04em}
+#d3 .modes b{display:block;font:600 17px/1.2 "Literata",serif;letter-spacing:0;margin-bottom:6px}
+
+.verdict{padding-block:48px 72px;border-top:1px solid var(--line)}
+.verdict p{max-width:70ch}
+.next{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:22px;padding:0;list-style:none;counter-reset:s 2}
+.next li{border-top:2px solid var(--line);padding-top:10px;font-size:14.5px;color:var(--muted);counter-increment:s}
+.next li::before{content:"Phase " counter(s);display:block;font:500 12px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--fg);margin-bottom:6px}
+.note{font-size:13px;color:var(--muted)}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- refreshed mark sketch: dotted signal trail rising into the B -->
+    <symbol id="trail" viewBox="0 0 120 120">
+      <circle cx="10" cy="72" r="2.1"/><circle cx="17" cy="66" r="2.6"/><circle cx="24.5" cy="60" r="3.1"/>
+      <circle cx="32.5" cy="54.5" r="3.6"/><circle cx="41" cy="49.5" r="4.1"/><circle cx="50" cy="45" r="4.6"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="top wrap">
+  <div class="eyebrow">Bridge Traducciones · Brand kit · Phase 3 of 6</div>
+  <h1>Three directions for a refreshed Bridge</h1>
+  <p class="lede">Each direction keeps the globe, the dotted trail and the blue, and redraws everything around them. They differ in which client they lead with: legal documents, live interpreting, or both at once. Pick one and Phase 4 turns it into tokens and final logo files.</p>
+</header>
+
+<section class="audit wrap" aria-labelledby="a-h">
+  <h2 id="a-h">What the audit found</h2>
+  <ul class="findings">
+    <li><b>No type system</b><span>The demo mixes Poppins 900, Inter, Arial, a system stack and DM Serif. Neither site has an h1.</span></li>
+    <li><b>Color with no source</b><span>Yellow #FFD800 and orange CTAs have no root in the logo. White on yellow measures 1.39:1. The logo grey #808285 fails body text at 3.85:1.</span></li>
+    <li><b>Dated logo execution</b><span>Chrome radial gradients on "ridge", fine globe line-work that vanishes small, three unrelated typefaces, dirty PNG transparency.</span></li>
+    <li><b>Template tells</b><span>Hard black shadow on the hero photo, emoji pill, empty video block, English footer with "Pricing Plans" and "#" links.</span></li>
+    <li><b>Trust left on the table</b><span>The ATA certification sits in the original logo file but on neither site. Years and client counts disagree (16 vs 17+, 500+ vs 750+).</span></li>
+    <li><b>Mixed languages</b><span>"Get in Touch", "Get A Quote" and "Cotiza Ahora" on the same journey. No language switcher.</span></li>
+  </ul>
+  <p class="keep"><b>Worth keeping:</b> the B knocked out of the globe, the dotted trail, the logo blue #1C61AD (6.25:1 with white), the real booth photography, the 3-step process and "Cotiza ahora" as the one call to action.</p>
+</section>
+
+<!-- ============ D1 ============ -->
+<section class="dir" id="d1" aria-labelledby="d1-h">
+ <div class="wrap">
+  <div class="dir-head"><span class="code">A</span><h2 id="d1-h">Sello</h2></div>
+  <p class="thesis">Leads with legal and notarial work. It reads like a well-made legal document: editorial serif, warm paper, navy ink, and a rust seal color used only where something is certified. The dotted trail becomes the ring of a seal.</p>
+  <div class="grid">
+    <div class="card"><div class="stage">
+      <div class="lockup">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#1C61AD"/><ellipse cx="60" cy="60" rx="26" ry="56" fill="none" stroke="#F6F5F1" stroke-opacity=".18" stroke-width="1.2"/><path d="M4 60h112" stroke="#F6F5F1" stroke-opacity=".18" stroke-width="1.2"/><use href="#trail" fill="#F6F5F1"/><text x="57" y="86" font-family="Literata,serif" font-weight="700" font-size="66" fill="#F6F5F1">B</text></svg>
+        <div class="word"><span class="name">Bridge</span><span class="desc">Traducciones</span></div>
+      </div>
+      <div class="langs"><span>EN Translations</span><span>FR Traductions</span><span>PT Traduções</span><span>DE Übersetzungen</span><span>RU Переводы</span><span>EL Μεταφράσεις</span></div>
+      <div class="spec">
+        <h3>Traducción certificada con validez legal</h3>
+        <p>Documentos notariales, escrituras y certificados traducidos por traductores certificados, listos para presentar ante notarías y consulados.</p>
+        <p class="intl">Заверенный перевод · Επικυρωμένη μετάφραση</p>
+      </div>
+      <div class="btns"><span class="btn p">Cotiza ahora</span><span class="btn s">Ver servicios</span></div>
+    </div></div>
+    <div class="card" style="display:flex;flex-direction:column;gap:16px">
+      <div class="swatches" role="list">
+        <div class="sw" role="listitem"><div class="chip" style="background:#0F2A4A"></div><div><b>Tinta</b><code>#0F2A4A</code><span class="ratio">13.3:1 on paper</span></div></div>
+        <div class="sw" role="listitem"><div class="chip" style="background:#1C61AD"></div><div><b>Bridge blue</b><code>#1C61AD</code><span class="ratio">5.7:1 on paper</span></div></div>
+        <div class="sw" role="listitem"><div class="chip" style="background:#F6F5F1;box-shadow:inset 0 -1px #E2DED4"></div><div><b>Papel</b><code>#F6F5F1</code><span class="ratio">surface</span></div></div>
+        <div class="sw" role="listitem"><div class="chip" style="background:#9C4A0E"></div><div><b>Sello</b><code>#9C4A0E</code><span class="ratio">5.7:1 · seals only</span></div></div>
+        <div class="sw" role="listitem"><div class="chip" style="background:#56606C"></div><div><b>Grafito</b><code>#56606C</code><span class="ratio">5.9:1 · replaces #808285</span></div></div>
+      </div>
+      <div class="note">Type: Literata (display, optical sizes) + Source Sans 3 (text). Both cover Latin Extended, Cyrillic and Greek.</div>
+    </div>
+  </div>
+  <div class="apps">
+    <figure class="card photo" style="margin:0"><figcaption>Photo grade: muted, slightly warm, navy fade</figcaption></figure>
+    <div class="card doc">
+      <span class="t">Traducción certificada</span>
+      <dl><dt>Par</dt><dd>Español → Inglés</dd><dt>Documento</dt><dd>Escritura pública</dd><dt>Folio</dt><dd>BT-2026-0142</dd><dt>Traductor</dt><dd>Certificado ATA · Quito</dd></dl>
+      <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="44" fill="none" stroke="#9C4A0E" stroke-width="3" stroke-dasharray="0 9" stroke-linecap="round"/><circle cx="50" cy="50" r="34" fill="none" stroke="#9C4A0E" stroke-width="1.2"/><text x="50" y="47" text-anchor="middle" font-family="Literata,serif" font-weight="700" font-size="17" fill="#9C4A0E">B</text><text x="50" y="62" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="6.5" letter-spacing="1" fill="#9C4A0E">CERTIFICADA</text></svg>
+    </div>
+  </div>
+  <div class="pros">
+    <div><h4>Strengths</h4><ul><li>Instant credibility with notaries, lawyers and consulates.</li><li>Seal device gives certified work a visible mark.</li><li>Very far from the SaaS-blue category default.</li></ul></div>
+    <div><h4>Risks</h4><ul><li>Booth and event work can feel stiff in this voice.</li><li>Serif plus warm paper is a common look; needs strict restraint.</li></ul></div>
+  </div>
+ </div>
+</section>
+
+<!-- ============ D2 ============ -->
+<section class="dir" id="d2" aria-labelledby="d2-h">
+ <div class="wrap">
+  <div class="dir-head"><span class="code">B</span><h2 id="d2-h">Cabina</h2></div>
+  <p class="thesis">Leads with live interpreting. Dark navy like a booth during a session, a geometric sans close to the original Century Gothic wordmark, and the dotted trail turned amber, like a live signal. Strongest for conferences and events.</p>
+  <div class="grid">
+    <div class="card"><div class="stage">
+      <div class="lockup">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#1C61AD"/><ellipse cx="60" cy="60" rx="26" ry="56" fill="none" stroke="#EAF1FA" stroke-opacity=".2" stroke-width="1.2"/><use href="#trail" fill="#E8A33D"/><text x="55" y="85" font-family="Manrope,sans-serif" font-weight="800" font-size="64" fill="#FFFFFF">B</text></svg>
+        <div class="word"><span class="name">Bridge</span><span class="desc">Traducciones</span></div>
+      </div>
+      <div class="langs"><span>EN Translations</span><span>FR Traductions</span><span>PT Traduções</span><span>DE Übersetzungen</span><span>RU Переводы</span><span>EL Μεταφράσεις</span></div>
+      <div class="spec">
+        <h3>Interpretación simultánea para eventos que no pueden fallar</h3>
+        <p>Cabinas, equipos y intérpretes para congresos, juntas y transmisiones en vivo, en Quito y en todo Ecuador.</p>
+        <p class="intl">Синхронный перевод · Ταυτόχρονη διερμηνεία</p>
+      </div>
+      <div class="btns"><span class="btn p">Cotiza ahora</span><span class="btn s">Ver servicios</span></div>
+    </div></div>
+    <div class="card" style="display:flex;flex-direction:column;gap:16px">
+      <div class="swatches" role="list">
+        <div class="sw" role="listitem"><div class="chip" style="background:#0B1F3A"></div><div><b>Noche</b><code>#0B1F3A</code><span class="ratio">surface</span></div></div>
+        <div class="sw" role="listitem"><div class="chip" style="background:#1C61AD"></div><div><b>Bridge blue</b><code>#1C61AD</code><span class="ratio">6.3:1 with white</span></div></div>
+        <div class="sw" role="listitem"><div class="chip" style="background:#5AA0F2"></div><div><b>Señal</b><code>#5AA0F2</code><span class="ratio">6.1:1 on noche</span></div></div>
+        <div class="sw" role="listitem"><div class="chip" style="background:#E8A33D"></div><div><b>Ámbar</b><code>#E8A33D</code><span class="ratio">7.7:1 on noche</span></div></div>
+        <div class="sw" role="listitem"><div class="chip" style="background:#EAF1FA;box-shadow:inset 0 -1px #D5DEE9"></div><div><b>Niebla</b><code>#EAF1FA</code><span class="ratio">14.5:1 on noche</span></div></div>
+      </div>
+      <div class="note">Type: Manrope (display) + IBM Plex Sans (text), Plex Mono for labels. All cover Cyrillic and Greek.</div>
+    </div>
+  </div>
+  <div class="apps">
+    <div class="card photo-wrap"><figure class="photo" style="margin:0"><figcaption>Photo grade: blue duotone</figcaption></figure></div>
+    <div class="card doc">
+      <span class="t">En vivo · Sala 2</span>
+      <dl><dt>Evento</dt><dd>Congreso regional de energía</dd><dt>Pares</dt><dd>ES ⇄ EN · ES ⇄ PT</dd><dt>Cabinas</dt><dd>3 · ISO 4043</dd><dt>Receptores</dt><dd>420</dd></dl>
+      <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="44" fill="none" stroke="#5AA0F2" stroke-opacity=".35" stroke-width="1.2"/><circle cx="50" cy="50" r="30" fill="none" stroke="#5AA0F2" stroke-opacity=".6" stroke-width="1.2"/><circle cx="50" cy="50" r="15" fill="#E8A33D"/></svg>
+    </div>
+  </div>
+  <div class="pros">
+    <div><h4>Strengths</h4><ul><li>Feels current and technical; booths look premium.</li><li>Wordmark stays closest to the original letterforms.</li><li>Amber trail is a distinctive, ownable accent.</li></ul></div>
+    <div><h4>Risks</h4><ul><li>Dark surfaces feel less suited to notarial paperwork.</li><li>Amber needs discipline or it drifts back toward the old yellow.</li></ul></div>
+  </div>
+ </div>
+</section>
+
+<!-- ============ D3 ============ -->
+<section class="dir" id="d3" aria-labelledby="d3-h">
+ <div class="wrap">
+  <div class="dir-head"><span class="code">C</span><h2 id="d3-h">Puente</h2><span class="rec">Recommended</span></div>
+  <p class="thesis">Serves both audiences on purpose. The system has two modes: a light Documento mode for certified translation and a dark Cabina mode for interpreting, joined by one blue and one dotted trail. Geometric sans for the name and interface, a serif for headlines, and amber only on the trail.</p>
+  <div class="grid">
+    <div class="card"><div class="stage">
+      <div class="lockup">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#1C61AD"/><ellipse cx="60" cy="60" rx="26" ry="56" fill="none" stroke="#FFFFFF" stroke-opacity=".18" stroke-width="1.2"/><path d="M4 60h112" stroke="#FFFFFF" stroke-opacity=".18" stroke-width="1.2"/><use href="#trail" fill="#FFFFFF"/><text x="55" y="85" font-family="Manrope,sans-serif" font-weight="800" font-size="64" fill="#FFFFFF">B</text></svg>
+        <div class="word"><span class="name">Bridge</span><span class="desc">Traducciones</span></div>
+      </div>
+      <div class="langs"><span>EN Translations</span><span>FR Traductions</span><span>PT Traduções</span><span>DE Übersetzungen</span><span>RU Переводы</span><span>EL Μεταφράσεις</span></div>
+      <div class="spec">
+        <h3>Traducción certificada e interpretación simultánea, desde Quito</h3>
+        <p>Documentos con validez legal y voz en vivo para sus eventos. Más de 16 años conectando idiomas en Ecuador.</p>
+        <p class="intl">Перевод и устный перевод · Μετάφραση και διερμηνεία</p>
+      </div>
+      <div class="btns"><span class="btn p">Cotiza ahora</span><span class="btn s">Ver servicios</span></div>
+      <div class="modes">
+        <div style="background:#FFFFFF;color:#0E2440;box-shadow:inset 0 0 0 1px #D8E0EA"><b>Documento</b>light · certified &amp; legal pages</div>
+        <div style="background:#0E2440;color:#F4F6F9"><b>Cabina</b>dark · interpreting &amp; events</div>
+      </div>
+    </div></div>
+    <div class="card" style="display:flex;flex-direction:column;gap:16px">
+      <div class="swatches" role="list">
+        <div class="sw" role="listitem"><div class="chip" style="background:#0E2440"></div><div><b>Tinta</b><code>#0E2440</code><span class="ratio">14.4:1 on bruma</span></div></div>
+        <div class="sw" role="listitem"><div class="chip" style="background:#1C61AD"></div><div><b>Bridge blue</b><code>#1C61AD</code><span class="ratio">6.3:1 with white</span></div></div>
+        <div class="sw" role="listitem"><div class="chip" style="background:#12489F"></div><div><b>Profundo</b><code>#12489F</code><span class="ratio">7.9:1 · links, hover</span></div></div>
+        <div class="sw" role="listitem"><div class="chip" style="background:#F4F6F9;box-shadow:inset 0 -1px #D8E0EA"></div><div><b>Bruma</b><code>#F4F6F9</code><span class="ratio">surface</span></div></div>
+        <div class="sw" role="listitem"><div class="chip" style="background:#E3A148"></div><div><b>Rastro</b><code>#E3A148</code><span class="ratio">7.0:1 on tinta · trail only</span></div></div>
+        <div class="sw" role="listitem"><div class="chip" style="background:#556274"></div><div><b>Grafito</b><code>#556274</code><span class="ratio">5.7:1 on bruma</span></div></div>
+      </div>
+      <div class="note">Type: Manrope (wordmark, UI, text) + Literata (headlines). Both cover Latin Extended, Cyrillic and Greek. Every pair shown passes WCAG AA.</div>
+    </div>
+  </div>
+  <div class="apps">
+    <figure class="card photo" style="margin:0"><figcaption>Photo grade: natural, cooled, ink fade for type</figcaption></figure>
+    <div class="card doc">
+      <span class="t">Traducción certificada</span>
+      <dl><dt>Par</dt><dd>Español → Inglés</dd><dt>Documento</dt><dd>Escritura pública</dd><dt>Folio</dt><dd>BT-2026-0142</dd><dt>Traductor</dt><dd>Certificado ATA · Quito</dd></dl>
+      <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="44" fill="none" stroke="#E3A148" stroke-width="3" stroke-dasharray="0 9" stroke-linecap="round"/><circle cx="50" cy="50" r="34" fill="#1C61AD"/><text x="50" y="62" text-anchor="middle" font-family="Manrope,sans-serif" font-weight="800" font-size="34" fill="#FFFFFF">B</text></svg>
+    </div>
+  </div>
+  <div class="pros">
+    <div><h4>Strengths</h4><ul><li>Each service gets the surface that suits it, under one brand.</li><li>Sans wordmark keeps continuity with the current logo.</li><li>Mode system maps directly onto the future site's two service paths.</li></ul></div>
+    <div><h4>Risks</h4><ul><li>Two modes need clear rules so pages don't mix them.</li><li>Two typefaces with distinct jobs; the serif must stay on headlines.</li></ul></div>
+  </div>
+ </div>
+</section>
+
+<section class="verdict wrap" aria-labelledby="v-h">
+  <h2 id="v-h">Recommendation</h2>
+  <p><b>Puente.</b> You asked for both audiences weighted equally and a refresh rather than a reinvention. Puente is the only direction that doesn't make one audience feel like a guest. Its sans wordmark is the closest successor to the current one, and the light/dark modes give the future site a ready structure for its two service paths. Elements can move between directions, for example Sello's seal ring for certified documents inside Puente.</p>
+  <p class="note">The marks above are quick sketches to compare directions, not final artwork. The final mark is redrawn from the original vector file in Phase 4.</p>
+  <ol class="next">
+    <li>Choose a direction, or mix elements from several.</li>
+    <li>Tokens (color, type, spacing, motion) and the redrawn logo in every language lockup.</li>
+    <li>Brand book: logo rules, palette, type, icons, photography, voice in ES and EN, components.</li>
+    <li>Review for accessibility and consistency, then hand off to the website build.</li>
+  </ol>
+</section>

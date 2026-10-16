@@ -1,0 +1,26 @@
+<!-- upload dropzone + file list (Alpine). params: id, name, label, hint, error, accept, demo (JSON-ish objects for static preview, e.g. {name:'escritura.pdf',size:2400000}), state -->
+<div class="field" x-data="{files:[{{demo|}}],drag:false,
+  sync(){this.files=[...$refs.input.files]},
+  put(list){const dt=new DataTransfer();list.forEach(f=>dt.items.add(f));$refs.input.files=dt.files;this.sync()},
+  drop(e){this.drag=false;this.put([...$refs.input.files,...e.dataTransfer.files])},
+  remove(i){this.files.splice(i,1);if(this.files.every(f=>f instanceof File))this.put(this.files)},
+  size(f){return f.size>1048576?(f.size/1048576).toFixed(1)+' MB':Math.max(1,Math.round(f.size/1024))+' KB'}}">
+  <span class="field-label" id="{{id}}-lbl">{{label}}</span>
+  <input class="dropzone-input sr-only" type="file" id="{{id}}" name="{{name}}" multiple accept="{{accept|.pdf,.jpg,.jpeg,.png,.docx}}" x-ref="input" @change="sync()" aria-labelledby="{{id}}-lbl" aria-describedby="{{id}}-hint {{id}}-err">
+  <label for="{{id}}" class="dropzone {{state|}} {{error?|err}}" :class="{'is-drag':drag}" @dragover.prevent="drag=true" @dragleave="drag=false" @drop.prevent="drop($event)">
+    <svg class="icon text-muted" aria-hidden="true"><use href="#i-upload"/></svg>
+    <span class="font-semibold">Seleccione sus archivos o arrástrelos aquí</span>
+    <span class="t-small text-muted">PDF, JPG, PNG o DOCX. Hasta 5 archivos de 20 MB.</span>
+  </label>
+  <ul class="grid" x-show="files.length" x-cloak>
+    <template x-for="(f,i) in files" :key="i">
+      <li class="flex min-h-12 items-center justify-between gap-3 border-b border-line">
+        <span class="flex min-w-0 items-center gap-2"><svg class="icon icon-20 text-muted" aria-hidden="true"><use href="#i-file-text"/></svg><span class="truncate" x-text="f.name"></span><span class="num t-small shrink-0 text-muted" x-text="size(f)"></span></span>
+        <button type="button" class="btn btn-secondary !min-h-11 !px-3 !border-transparent" @click="remove(i)" :aria-label="'Quitar '+f.name"><svg class="icon icon-20" aria-hidden="true"><use href="#i-trash-2"/></svg></button>
+      </li>
+    </template>
+  </ul>
+  <p class="sr-only" aria-live="polite" x-text="files.length+' archivos seleccionados'"></p>
+  <p id="{{id}}-hint" class="field-msg hint">{{hint|}}</p>
+  <p id="{{id}}-err" class="field-msg err">{{error?|<svg class="icon icon-20" aria-hidden="true"><use href="#i-circle-alert"/></svg><span>@</span>}}</p>
+</div>

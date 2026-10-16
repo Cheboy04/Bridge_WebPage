@@ -1,0 +1,22 @@
+<!-- params: years (placeholder token, e.g. [año]). No logos without written permission; no unsourced numbers. -->
+<section aria-label="{{label|Respaldo}}" class="bg-surface text-fg">
+  <div class="wrap py-12 lg:py-16">
+    <dl class="grid gap-8 lg:grid-cols-12 lg:gap-x-8">
+      <div class="lg:col-span-5">
+        <dt class="label">Credenciales</dt>
+        <dd class="mt-2 font-semibold text-[length:var(--text-h4)] leading-snug">Miembro de la <span lang="en" class="[hyphens:manual]">American Translators Association</span> (ATA)</dd>
+      </div>
+      <div class="lg:col-span-4">
+        <dt class="label">Trayectoria</dt>
+        <dd class="mt-2 font-semibold text-[length:var(--text-h4)] leading-snug">Desde <span class="num">{{years}}</span></dd>
+        <dd class="mt-1 t-small text-muted">Dato por confirmar con Bridge.</dd>
+      </div>
+      <div class="lg:col-span-3">
+        <dt class="label">Sede</dt>
+        <dd class="mt-2 font-semibold text-[length:var(--text-h4)] leading-snug">Quito, Ecuador</dd>
+      </div>
+    </dl>
+    <!-- PROTOTYPE placeholder only. In production this row renders ONLY when at least one Client has logo_permission = true, listing those logos; otherwise the whole block is omitted. -->
+    <p class="mt-12 rounded-card border border-dashed border-line-strong px-5 py-4 t-small text-muted">Logos de clientes con autorización escrita: se mostrarán aquí cuando existan [placeholder del prototipo].</p>
+  </div>
+</section>

@@ -1,0 +1,58 @@
+<!-- Before/after certified document (signature #4). params: uid (unique per page), level (heading level, default 2).
+     At rest (no JS or reduced motion): both versions side by side (stacked on mobile). With JS + motion allowed: one stage, range input drives clip-path. SAMPLE DATA: every name/number is a fake placeholder. -->
+<div class="ba" data-ba>
+  <div class="ba-head">
+    <h{{level|2}} id="ba-h-{{uid}}">De su original a la traducción certificada</h{{level|2}}>
+    <p class="lead mt-5">Un mismo documento, dos versiones. Arrastre el control para ver cómo queda su partida de nacimiento: el texto fiel al original, la declaración del traductor y el sello.</p>
+  </div>
+
+  <figure class="ba-stage" data-ba-stage aria-labelledby="ba-h-{{uid}}">
+    <div class="ba-tags" aria-hidden="true"><span class="ba-tag ba-tag-l">Original</span><span class="ba-tag ba-tag-r">Traducción certificada</span></div>
+
+    <article class="ba-doc ba-orig" lang="en" aria-label="Original en inglés (muestra)">
+      <p class="ba-kicker"><span class="ba-cap-only">Original · inglés</span></p>
+      <p class="ba-org">Republic of Exampleland · Civil Registry</p>
+      <p class="ba-title">Certificate of Birth</p>
+      <dl class="ba-rows">
+        <div><dt>Full name</dt><dd><span class="ba-bar" style="--w:9rem"><span class="sr-only">Sample Person (redacted)</span></span></dd></div>
+        <div><dt>Date of birth</dt><dd>00 / 00 / 0000</dd></div>
+        <div><dt>Place of birth</dt><dd>Example City, Sample Province</dd></div>
+        <div><dt>Sex</dt><dd>Female</dd></div>
+        <div><dt>Mother</dt><dd><span class="ba-bar" style="--w:8rem"><span class="sr-only">Sample Mother (redacted)</span></span></dd></div>
+        <div><dt>Father</dt><dd><span class="ba-bar" style="--w:7rem"><span class="sr-only">Sample Father (redacted)</span></span></dd></div>
+        <div><dt>Entry no.</dt><dd class="num">000-0000-00</dd></div>
+      </dl>
+      <p class="ba-sig-line"><span>Registrar</span> <i></i> <span class="ba-stampmark" aria-hidden="true">Seal</span></p>
+    </article>
+
+    <article class="ba-doc ba-cert" lang="es" aria-label="Traducción certificada al español (muestra)">
+      <p class="ba-kicker"><span class="ba-cap-only">Traducción certificada · español</span></p>
+      <p class="ba-org">República de Ejemplolandia · Registro Civil</p>
+      <p class="ba-title">Partida de nacimiento</p>
+      <dl class="ba-rows">
+        <div><dt>Nombre completo</dt><dd><span class="ba-bar" style="--w:9rem"><span class="sr-only">Persona Ejemplo (omitido)</span></span></dd></div>
+        <div><dt>Fecha de nacimiento</dt><dd>00 / 00 / 0000</dd></div>
+        <div><dt>Lugar de nacimiento</dt><dd>Ciudad Ejemplo, Provincia de Muestra</dd></div>
+        <div><dt>Sexo</dt><dd>Femenino</dd></div>
+        <div><dt>Madre</dt><dd><span class="ba-bar" style="--w:8rem"><span class="sr-only">Madre Ejemplo (omitido)</span></span></dd></div>
+        <div><dt>Padre</dt><dd><span class="ba-bar" style="--w:7rem"><span class="sr-only">Padre Ejemplo (omitido)</span></span></dd></div>
+        <div><dt>N.º de inscripción</dt><dd class="num">000-0000-00</dd></div>
+      </dl>
+      <div class="ba-decl">
+        <p><strong>Declaración del traductor.</strong> Yo, [nombre del traductor], declaro que esta traducción del inglés al español es fiel y completa respecto del documento original.</p>
+        <div class="ba-decl-foot">
+          <p class="num">[Firma del traductor]<br>Folio [N.º 0000] · Quito, [fecha]</p>
+          <!-- @include seal uid="ba-{{uid}}" size="84" -->
+        </div>
+      </div>
+    </article>
+
+    <div class="ba-ui" data-ba-ui>
+      <input class="ba-range" type="range" min="0" max="100" step="1" value="50" data-ba-range aria-label="Comparar original y traducción certificada" aria-describedby="ba-hint-{{uid}}">
+      <span class="ba-line" aria-hidden="true"><span class="ba-knob"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m9 7-5 5 5 5"/><path d="m15 7 5 5-5 5"/></svg></span></span>
+    </div>
+  </figure>
+
+  <p class="ba-hint t-small text-muted" id="ba-hint-{{uid}}" data-ba-hint>Con el teclado, use las flechas izquierda y derecha. Muestra con datos ficticios. En su traducción real reproducimos sellos, firmas y anotaciones del original.</p>
+</div>
+<script defer src="assets/js/sig-documento.js"></script>

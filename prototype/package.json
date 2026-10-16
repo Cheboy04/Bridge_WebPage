@@ -1,0 +1,13 @@
+{
+  "name": "bridge-prototype",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "build": "node build.mjs",
+    "serve": "npx -y http-server@14.1.1 dist -p 4173 -s"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "4.1.11",
+    "tailwindcss": "4.1.11"
+  }
+}

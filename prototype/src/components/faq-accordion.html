@@ -1,0 +1,5 @@
+<!-- one item. params: q, a, open(opt), group(opt, exclusive-open name). Wrap items in <div class="faq"> -->
+<details {{open?|open}} {{group?|name="@"}}>
+  <summary><span>{{q}}</span><svg class="icon" aria-hidden="true"><use href="#i-chevron-down"/></svg></summary>
+  <div class="faq-a"><p>{{a}}</p></div>
+</details>

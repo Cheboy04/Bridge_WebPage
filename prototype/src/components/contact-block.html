@@ -1,0 +1,13 @@
+<!-- params: message (url-encoded wa.me text), quote (href, cotizacion.html). Order: WhatsApp, phone, email, quote. -->
+<ul class="grid gap-0">
+  <li><a class="group flex min-h-[4.5rem] items-center gap-4 border-b border-line py-4 no-underline" href="https://wa.me/593990000000?text={{message|Hola%2C%20quisiera%20cotizar%20un%20servicio%20de%20Bridge%20Traducciones}}">
+    <svg class="icon text-muted" aria-hidden="true"><use href="#i-message-circle"/></svg>
+    <span class="grid"><span class="label">WhatsApp</span><span class="num t-h4 text-fg group-hover:text-link">+593 99 000 0000</span></span></a></li>
+  <li><a class="group flex min-h-[4.5rem] items-center gap-4 border-b border-line py-4 no-underline" href="tel:+59320000000">
+    <svg class="icon text-muted" aria-hidden="true"><use href="#i-phone"/></svg>
+    <span class="grid"><span class="label">Teléfono</span><span class="num t-h4 text-fg group-hover:text-link">+593 2 000 0000</span></span></a></li>
+  <li><a class="group flex min-h-[4.5rem] items-center gap-4 border-b border-line py-4 no-underline" href="mailto:contacto@bridge.example">
+    <svg class="icon text-muted" aria-hidden="true"><use href="#i-mail"/></svg>
+    <span class="grid"><span class="label">Correo</span><span class="t-h4 text-fg group-hover:text-link [overflow-wrap:anywhere]">contacto@bridge.example</span></span></a></li>
+  <li class="pt-8"><!-- @include button label="Solicitar cotización" href="{{quote|cotizacion.html}}" icon="arrow-right" --></li>
+</ul>

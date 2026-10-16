@@ -1,0 +1,8 @@
+<!-- params: id, name, label (html allowed, e.g. privacy link), error, required, state -->
+<div class="field">
+  <label class="flex min-h-11 cursor-pointer items-start gap-3 py-2" for="{{id}}">
+    <input class="check {{state|}}" type="checkbox" id="{{id}}" name="{{name}}" {{required?|required}} {{error?|aria-invalid="true"}} aria-describedby="{{id}}-err">
+    <span>{{label}}</span>
+  </label>
+  <p id="{{id}}-err" class="field-msg err">{{error?|<svg class="icon icon-20" aria-hidden="true"><use href="#i-circle-alert"/></svg><span>@</span>}}</p>
+</div>

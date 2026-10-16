@@ -1,0 +1,62 @@
+<title>Bridge Site Prototype</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,600&family=Manrope:wght@400;600;700&display=swap">
+<style>
+/* Layout: a single column cover sheet listing the prototype screens, in the Puente palette. */
+:root{--bg:#F4F6F9;--panel:#FFFFFF;--fg:#0E2440;--muted:#556274;--line:#D8E0EA;--accent:#1C61AD;--trail:#1C61AD;
+  --f-d:"Literata",Georgia,serif;--f-t:"Manrope",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E2440;--panel:#14305A;--fg:#F4F6F9;--muted:#A9B6C8;--line:#24406B;--accent:#6BA6E8;--trail:#E3A148;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0E2440;--panel:#14305A;--fg:#F4F6F9;--muted:#A9B6C8;--line:#24406B;--accent:#6BA6E8;--trail:#E3A148;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--f-t)}
+.wrap{max-width:880px;margin:0 auto;padding-block:56px 72px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.k{font-size:13px;color:var(--muted);font-weight:600}
+h1{font:600 clamp(30px,5vw,44px)/1.1 var(--f-d);margin:10px 0 12px;text-wrap:balance}
+.lede{color:var(--muted);max-width:60ch;margin:0}
+.trail{display:flex;gap:7px;align-items:center;margin:28px 0}
+.trail i{display:block;border-radius:50%;background:var(--trail)}
+ol{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+li a{display:grid;grid-template-columns:1fr auto;gap:4px 16px;padding:18px 20px;background:var(--panel);border:1px solid var(--line);border-radius:8px;color:inherit;text-decoration:none}
+li a:hover{border-color:var(--accent)}
+li a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+li b{font-weight:700}
+li span{grid-column:1;color:var(--muted);font-size:14.5px;min-width:0}
+li em{grid-row:1/3;grid-column:2;align-self:center;font-style:normal;font-size:13px;font-weight:600;color:var(--accent);white-space:nowrap}
+h2{font:600 20px/1.3 var(--f-d);margin:40px 0 10px}
+ul.notes{margin:0;padding-left:18px;color:var(--muted);font-size:14.5px}
+ul.notes li{margin-bottom:6px}
+</style>
+
+<div class="wrap">
+  <div class="k">Bridge Traducciones · Prototipo · Dirección Puente</div>
+  <h1>Site prototype</h1>
+  <p class="lede">Clickable static prototype of the new site, in Spanish, built on the Puente brand system and the final logo. It exists to test the system on real pages before the Laravel and Filament build. All contact data, numbers and legal wording are placeholders.</p>
+  <div class="trail" aria-hidden="true"><i style="width:5px;height:5px"></i><i style="width:6px;height:6px"></i><i style="width:7px;height:7px"></i><i style="width:8px;height:8px"></i><i style="width:9px;height:9px"></i></div>
+  <ol>
+    <li><a href="inicio.html"><b>Inicio</b><span>Both services with equal weight, Documento and Cabina modes side by side, trust strip, process, contact.</span><em>Abrir →</em></a></li>
+    <li><a href="traduccion-certificada.html"><b>Traducción certificada</b><span>Documento mode service page: when it is needed, process, what you receive, FAQ.</span><em>Abrir →</em></a></li>
+    <li><a href="interpretacion-simultanea.html"><b>Interpretación simultánea</b><span>Full Cabina (dark) mode page: comparison, what is included, event brief, planning steps.</span><em>Abrir →</em></a></li>
+    <li><a href="cotizacion.html"><b>Cotización</b><span>Chooser between a document quote and an event quote.</span><em>Abrir →</em></a></li>
+    <li><a href="cotizacion-traduccion.html"><b>Cotizar una traducción</b><span>Full form with file upload and validation. Submit empty to see the error summary.</span><em>Abrir →</em></a></li>
+    <li><a href="cotizacion-interpretacion.html"><b>Cotizar interpretación</b><span>Event quote form. Open it from the planner on the interpreting page to see it pre-filled.</span><em>Abrir →</em></a></li>
+    <li><a href="cotizacion-traduccion.html?estado=errores"><b>Formulario con errores</b><span>Review view with server-style errors filled in, no typing needed.</span><em>Abrir →</em></a></li>
+    <li><a href="cotizacion-gracias.html"><b>Solicitud enviada</b><span>Confirmation page after a quote request.</span><em>Abrir →</em></a></li>
+    <li><a href="componentes.html"><b>Componentes</b><span>Every component in both modes with hover, focus, error and disabled states. Seeds the brand book.</span><em>Abrir →</em></a></li>
+  </ol>
+  <h2>Signature components (version 2)</h2>
+  <ul class="notes">
+    <li><b>Inicio, hero:</b> switch between Documento and Evento. In Evento, change the channel (ES, EN, FR, PT).</li>
+    <li><b>Inicio and Traducción certificada:</b> the language-pair checker. "Cotizar este par" pre-fills the quote form.</li>
+    <li><b>Traducción certificada:</b> drag the before/after handle, or use the arrow keys on it.</li>
+    <li><b>Interpretación simultánea:</b> the event planner. "Usar este resumen en mi cotización" carries the brief into the event quote form.</li>
+    <li><b>Every page:</b> the dotted trail draws itself as you scroll, and the footer name cycles through seven languages.</li>
+  </ul>
+  <h2>What to look at</h2>
+  <ul class="notes">
+    <li>Whether the two modes feel like one brand, especially moving from Inicio to the dark interpreting page.</li>
+    <li>The voice: usted throughout and "Solicitar cotización" as the main action.</li>
+    <li>The floating WhatsApp button and the contact block at the end of each page. The button is hidden on the quote form pages.</li>
+    <li>Links marked "No incluido en el prototipo" and the event quote form are not built yet.</li>
+    <li>The certification seal and the booth photo are provisional.</li>
+  </ul>
+</div>

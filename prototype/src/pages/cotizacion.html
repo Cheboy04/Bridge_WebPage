@@ -1,0 +1,53 @@
+<!doctype html>
+<!-- PROTOTYPE, stage B3. Quote chooser (Documento). PLACEHOLDER contact data. Draft Spanish (usted), to be reviewed by Bridge. -->
+<html lang="es">
+<head>
+<!-- @include head title="Solicitar cotización | Bridge Traducciones" description="Solicite una cotización de traducción de documentos o de interpretación para su evento. Le respondemos con el alcance y el plazo." -->
+</head>
+<body>
+<a class="skip-link" href="#main">Saltar al contenido</a>
+<!-- @include icons -->
+<!-- @include header -->
+
+<main id="main">
+  <section class="bg-surface text-fg" aria-labelledby="q-title">
+    <div class="wrap pb-16 pt-6 lg:pb-32 lg:pt-8">
+      <div class="pt-6 lg:pt-12">
+        <h1 id="q-title">¿Qué necesita cotizar?</h1>
+        <p class="lead mt-5">Elija el servicio y le pediremos solo los datos necesarios para darle un alcance y un plazo.</p>
+      </div>
+
+      <h2 class="sr-only">Servicios</h2>
+      <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:mt-14 lg:gap-8 [&_.svc]:p-6 lg:[&_.svc]:p-10 [&_.svc]:min-h-56">
+        <!-- @include service-card icon="file-check" title="Traducción de documentos" text="Certificada, legal, notariada o escrita. Suba sus archivos y le indicamos precio y plazo." href="cotizacion-traduccion.html" linklabel="Cotizar traducción" meta="Un formulario corto, con adjuntos opcionales." -->
+        <!-- @include service-card icon="headphones" title="Interpretación para un evento" text="Intérpretes, cabinas y equipos para congresos, reuniones y audiencias." href="cotizacion-interpretacion.html" linklabel="Cotizar interpretación" meta="Fechas, ciudad, asistentes y pares de idiomas." -->
+      </div>
+    </div>
+  </section>
+
+  <section class="sec bg-raised text-fg" aria-labelledby="c-title">
+    <div class="wrap grid gap-y-10 lg:grid-cols-12 lg:gap-x-8">
+      <div class="lg:col-span-5">
+        <!-- @include section-heading id="c-title" title="¿Prefiere conversar?" lead="Escríbanos o llámenos y le orientamos. No hace falta tener todos los datos a mano." -->
+      </div>
+      <div class="lg:col-span-6 lg:col-start-7">
+        <ul class="grid">
+          <li><a class="group flex min-h-[4.5rem] items-center gap-4 border-b border-line py-4 no-underline" href="https://wa.me/593990000000?text=Hola%2C%20quisiera%20cotizar%20un%20servicio%20de%20Bridge%20Traducciones">
+            <svg class="icon text-muted" aria-hidden="true"><use href="#i-message-circle"/></svg>
+            <span class="grid"><span class="label">WhatsApp</span><span class="num t-h4 text-fg group-hover:text-link">+593 99 000 0000</span></span></a></li>
+          <li><a class="group flex min-h-[4.5rem] items-center gap-4 border-b border-line py-4 no-underline" href="tel:+59320000000">
+            <svg class="icon text-muted" aria-hidden="true"><use href="#i-phone"/></svg>
+            <span class="grid"><span class="label">Teléfono</span><span class="num t-h4 text-fg group-hover:text-link">+593 2 000 0000</span></span></a></li>
+          <li><a class="group flex min-h-[4.5rem] items-center gap-4 border-b border-line py-4 no-underline" href="mailto:contacto@bridge.example">
+            <svg class="icon text-muted" aria-hidden="true"><use href="#i-mail"/></svg>
+            <span class="grid"><span class="label">Correo</span><span class="t-h4 text-fg group-hover:text-link [overflow-wrap:anywhere]">contacto@bridge.example</span></span></a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- @include footer -->
+<!-- @include whatsapp hidden="1" -->
+</body>
+</html>

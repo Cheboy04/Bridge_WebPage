@@ -1,0 +1,33 @@
+# Audit A: UX / IA / Accessibility (demo = redesign attempt, old = bridge-traducciones.com)
+
+Note: the old computed capture hit a Cloudflare challenge page; old values below come from sites-computed-old.json (real page).
+
+## 1. Top findings (severity order)
+1. [old] Hero is illegible and unfocused. White text sits on a ~#6E6C80 purple veil over a faded presenter and a ghosted logo (old-desktop-fold). The h2 has no h1 above it. The 4 service lines are unpunctuated and wrap mid-word on mobile ("Interpretació/n"; old-mobile-fold). Implication: the kit needs a defined "on-photo" text treatment (scrim spec) and a headline size/weight that survives long Spanish words with no mid-word breaks.
+2. [both] Trust signals are thin and inconsistent. Experience says 16 years (old) vs 17+ (demo). Clients say 500+ (old) vs 750+ (demo), and neither is evidenced. No ATA badge, no notarization or "traductor certificado" seal, no real client logos. The demo's "Organizaciones que confían" heading has no logos under it (demo-desktop-full). Implication: the kit must include a credential/seal system (badge lockups, a client-logo strip style, stat treatment) and a facts sheet with one canonical set of numbers.
+3. [demo] The CTA colour fails contrast and CTAs are inconsistent. "Get in Touch" is navy on #FFD800 (12.3:1, fine), but the footer CTA is orange (#FFB95F) with tiny text, and white on the yellow is 1.39:1. There are 3 competing buttons (yellow, navy, pale blue) plus underlined text links. Implication: the kit needs ONE primary CTA colour with a locked label colour, one secondary and one tertiary, and a ban on white-on-yellow.
+4. [both] Mixed EN/ES. Demo nav: Home/Services/About/Contact. Demo CTA: "Get in Touch". Demo footer: "Our Team, Pricing Plans, We are Hiring, App Features", many "#" links, and "Tema de CreativeThemes". Old CTA: "Get A Quote". The old `<html lang>` and capture title were "en" on the challenge page. Implication: the kit needs a bilingual voice and terminology sheet (ES primary, EN/DE equivalents for nav and CTAs) and a language-switch component spec.
+5. [demo] Heading structure is broken. h1 is null (computed) and the hero is a styled div. The h2s are 57px/900 Poppins, and the h5s carry key claims. The old site is similar: h1 null, h6 used for the hero lines, h2 52px at weight 400. Implication: the kit's type scale must define h1 to h4 plus eyebrow and lead roles, not just display sizes.
+6. [demo] Weak conversion path. The only quote entry is a nav button and a pale footer CTA ("Únase a cientos..." is light blue on white, ~2:1 by eye). There is no form preview, no WhatsApp/phone in the header, and no split between "certified/notarized document" and "event interpreting" journeys (demo-desktop-full). Old: phone and email are in the header (good), but the CTA is a bare arrow link. Implication: the kit needs a CTA/contact component family (button, phone/WhatsApp chip, quote-form header) and a dual-audience colour or iconography cue (legal vs events).
+7. [both] The visual system is a mix. Demo: Poppins, Inter, DM Serif Display and system fonts (4 families, 91 elements fall back to system). Old: Poppins + DM Serif. The demo shows a black empty video block, emoji used as a badge icon (🟡), a hard black drop shadow on the hero photo, and a stock/AI office image with an invented logo. Old: purple overlay, cyan nav #4FA8E4 on purple (3.0:1), the clip-art icon style on a lavender #CCD2E6 panel. Implication: the kit should fix 2 typefaces max, one icon family and one photo-treatment rule, and ban emoji and AI-invented logos.
+8. [demo/old] Small text and contrast. Demo body grey #5A5A5A is 6.9:1 (pass), but service descriptions render at roughly 11 to 12px on desktop (demo-desktop-full), "SABER MÁS →" links are tiny with blue #0073E6 at 4.57:1 (barely passes), and the footer is dense. Old: #4FA8E4 on white is 2.61:1 (fail), white on coral #E96651 is 3.24:1 (fail), and the mobile body is 15.5px with a 46px line-height. Implication: set the type minimums and approved colour pairs below.
+
+## 2. What to keep
+- Globe-B and dotted trail, plus the "Your Language Partners" tagline (the demo logo reads well on white).
+- Navy plus blue family (demo #00236F / #0B1C30; old #0D6FAC) as the trust base.
+- The demo's stat band, 3-step process and benefit list (clear, scannable).
+- The old header contact strip (phone and email visible at all times).
+- A serif accent (DM Serif Display) for headlines or quotes, which suits the legal/notarial side.
+- Spanish-first copy, and "Cotiza ahora" as the verb.
+
+## 3. Brand-kit requirements
+1. Text pairs must meet 4.5:1 (AA), large text 3:1. Publish an approved pairs table. Known passes: #5A5A5A on white 6.9, #0B1C30 on #FFD800 12.3, #00236F on #D3E4FE 11.1. Known fails to forbid: white on #FFD800 1.39, #4FA8E4 on white 2.61, white on #E96651 3.24.
+2. The accent blue used for text links must be darkened to at least 4.5:1 on tinted bands (#0073E6 is 4.57 on white and lower on #EFF4FF).
+3. One primary CTA colour with a fixed label colour, a hover/focus/disabled state set, a 3:1 focus ring, and a minimum button height of 44px with at least 8px between targets.
+4. A defined on-photo scrim (a minimum overlay opacity that gives at least 4.5:1 for white text), and no logo watermarks inside hero imagery.
+5. Type scale: body at least 16px, small text at least 14px, line-height 1.5, and display sizes tested against long strings (e.g. "Interpretación simultánea", "Beglaubigte Übersetzung"). Add `hyphens:auto` and `overflow-wrap` rules, and use no weight-900 for body-adjacent headings.
+6. Bilingual name lockup: horizontal and stacked versions of "Bridge Traducciones" with a "Translations" or "Language Partners" descriptor in ES/EN/DE. Define a minimum size at which the descriptor drops out, and use the logo's own colours as the only fixed ones.
+7. A credential/seal kit: ATA, notary and certified-translation badges in one-colour and full-colour, a client-logo grid style (grayscale), and a stat/counter style, with numbers supplied from a single approved facts sheet.
+8. Dual-audience system: a shared palette with a subtle cue (icon set or secondary tint) separating "documentos certificados" from "eventos e interpretación", with the same CTA treatment on both.
+9. A language-switch component and a terminology sheet (nav, CTA and footer labels in ES/EN) so no template English leaks.
+10. Icons: a single outline set (the demo's line icons are the closest), no emoji, no clip-art. Photo rule: real event photos preferred (inventory notes the booth photo as the best candidate), no black drop shadows, no AI-invented logos.

@@ -1,0 +1,7 @@
+<!-- params: title, label(opt, names a mode or service), lead(opt), tag(h2), id(opt), trail(1 = 48-96px connector above), class(opt) -->
+<div class="{{class|}}">
+  {{trail==1|<span class="trail-v target mb-6" style="--n:2" aria-hidden="true"></span>}}
+  {{label?|<p class="label mb-3">@</p>}}
+  <{{tag|h2}} {{id?|id="@"}}>{{title}}</{{tag|h2}}>
+  {{lead?|<p class="lead mt-5">@</p>}}
+</div>

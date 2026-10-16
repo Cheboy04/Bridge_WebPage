@@ -1,0 +1,8 @@
+<!-- floating wa.me link. params: message (url-encoded), hidden(1 on quote pages). Placeholder number. No pulsing, no third-party script. -->
+<div role="complementary" aria-label="Contacto por WhatsApp" {{hidden==1|hidden}}>
+<a class="fixed z-40 inline-flex h-14 items-center gap-3 rounded-full border-2 border-bruma bg-bridge px-5 font-semibold text-white no-underline shadow-float transition-transform duration-[var(--dur-base)] ease-[var(--ease-out)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:[box-shadow:0_0_0_3px_#0E2440,0_0_0_6px_#F4F6F9]"
+   style="right:max(1rem,env(safe-area-inset-right));bottom:max(1rem,env(safe-area-inset-bottom))"
+   href="https://wa.me/593990000000?text={{message|Hola%2C%20quisiera%20cotizar%20un%20servicio%20de%20Bridge%20Traducciones}}" target="_blank" rel="noopener">
+  <svg class="icon" aria-hidden="true"><use href="#i-message-circle"/></svg><span>WhatsApp</span><span class="sr-only"> (abre una pestaña nueva)</span>
+</a>
+</div>

@@ -1,0 +1,89 @@
+/* Signature #2 (language-pair checker) and #4 (before/after document). Plain CSS on the app.css tokens.
+   Radius tokens come from W1 (--radius-sm/md/lg/full); fallbacks keep this file safe on its own. */
+
+/* ---------- #2 checker ---------- */
+.lc-pick { display: grid; gap: 1rem; margin-top: 2rem; align-items: end; max-width: 46rem; }
+@media (min-width: 40rem) { .lc-pick { grid-template-columns: minmax(0, 1fr) 3rem minmax(0, 1fr); } }
+.lc-pick .control { border-radius: var(--radius-sm, 8px); }
+.lc-swap { display: inline-grid; place-items: center; width: 3rem; height: 3rem; border-radius: var(--radius-full, 999px); border: 1px solid var(--border-strong); background: transparent; color: var(--text); cursor: pointer; transition: background-color var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out); }
+.lc-swap:hover:not(:disabled) { background: var(--surface-raised); }
+.lc-swap:active:not(:disabled) { transform: scale(0.96); }
+.lc-swap:disabled { opacity: 0.45; cursor: default; }
+.lc-swap .icon { transform: rotate(90deg); }
+@media (min-width: 40rem) { .lc-swap .icon { transform: none; } }
+.lc-pick select:disabled { opacity: 0.7; }
+
+.lc-result { margin-top: 2rem; padding-top: 1.75rem; border-top: 1px solid var(--border); min-height: 14.5rem; max-width: 46rem; }
+.lc-title { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; margin: 0; font: 500 var(--text-h3) / 1.25 var(--font-serif); }
+.lc-pair { display: inline-flex; align-items: center; gap: 0.5rem; font: 700 var(--text-small) / 1 var(--font-sans); letter-spacing: 0.04em; color: var(--text-muted); }
+.lc-pair i { display: block; width: 2.25rem; height: 4px; background: radial-gradient(circle, var(--trail) 2px, transparent 2.5px) 0 50% / 12px 4px repeat-x; }
+.lc-ok { color: var(--success); flex: none; }
+.lc-ico { color: var(--text); flex: none; }
+.lc-err { color: var(--error); font-family: var(--font-sans); font-weight: 600; font-size: var(--text-body); line-height: 1.4; align-items: flex-start; }
+.lc-err .icon { margin-top: 0.15rem; flex: none; }
+.lc-sub { margin: 1rem 0 0; color: var(--text-muted); max-width: 52ch; }
+.lc-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.75rem 0 0; padding: 0; list-style: none; }
+.lc-chips li { display: inline-flex; align-items: center; min-height: 2.25rem; padding: 0 0.875rem; border-radius: var(--radius-full, 999px); background: var(--surface-raised); font: 600 var(--text-small) / 1.3 var(--font-sans); }
+.lc-meta { margin: 1rem 0 0; font-size: var(--text-small); color: var(--text-muted); }
+.lc-result p:has(> .lc-cta) { margin: 1.5rem 0 0; }
+.lc-cta { border-radius: var(--radius-full, 999px); }
+.lc-foot { margin-top: 1.25rem; max-width: 52ch; }
+
+/* ---------- #4 before / after ---------- */
+.ba-head { max-width: 52rem; }
+.ba-stage { margin: 2.5rem 0 0; display: grid; gap: 1rem; position: relative; }
+@media (min-width: 64rem) { .ba-stage { grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3.5rem; } }
+.ba-hint { margin: 1rem 0 0; max-width: 60ch; }
+.ba-tags, .ba-ui { display: none; }
+
+.ba-doc { display: flex; flex-direction: column; padding: clamp(1.25rem, 3vw, 2.5rem); border-radius: var(--radius-lg, 24px); font-size: var(--text-small); line-height: 1.5; color: var(--text); }
+.ba-orig { background: color-mix(in srgb, var(--surface-raised) 86%, var(--text)); }
+.ba-cert { background: var(--surface); }
+.ba-kicker { margin: 0 0 1.25rem; font-weight: 700; color: var(--text-muted); }
+.ba-org { margin: 0; color: var(--text-muted); font-weight: 600; }
+.ba-title { margin: 0.25rem 0 1.5rem; font: 700 var(--text-h4) / 1.25 var(--font-sans); }
+.ba-cert .ba-title { font: 600 var(--text-h3) / 1.2 var(--font-serif); }
+.ba-rows { margin: 0; display: grid; }
+.ba-rows > div { display: grid; gap: 0.1rem 1rem; padding: 0.7rem 0; border-top: 1px solid color-mix(in srgb, var(--text) 16%, transparent); }
+@media (min-width: 40rem) { .ba-rows > div { grid-template-columns: 9.5rem 1fr; } }
+.ba-rows dt { color: var(--text-muted); font-weight: 600; }
+.ba-rows dd { margin: 0; }
+.ba-bar { display: inline-block; width: var(--w, 8rem); max-width: 100%; height: 1.05em; vertical-align: -0.2em; border-radius: 3px; background: var(--text); }
+.ba-sig-line { display: flex; align-items: flex-end; gap: 0.75rem; margin: auto 0 0; padding-top: 2rem; color: var(--text-muted); }
+.ba-sig-line i { flex: 1; border-bottom: 1px solid var(--text-muted); height: 1.5rem; }
+.ba-stampmark { display: grid; place-items: center; width: 4rem; height: 4rem; border: 1px dashed var(--text-muted); border-radius: 50%; font-size: var(--text-small); }
+.ba-decl { margin-top: auto; padding-top: 1.5rem; }
+.ba-decl > p { margin: 0; }
+.ba-decl-foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid color-mix(in srgb, var(--text) 16%, transparent); }
+.ba-decl-foot p { margin: 0; color: var(--text-muted); }
+
+/* Slider mode: JS present and motion allowed. Otherwise both sheets stay visible (side by side / stacked). */
+@media (prefers-reduced-motion: no-preference) {
+  .ba[data-ready] .ba-stage { --p: 50; container-type: inline-size; display: grid; grid-template-columns: 1fr; gap: 0; overflow: hidden; border-radius: var(--radius-lg, 24px); background: var(--surface); }
+  .ba[data-ready] .ba-doc { grid-area: 1 / 1; border-radius: 0; padding-top: 4.5rem; }
+  .ba[data-ready] .ba-cert { clip-path: inset(0 0 0 calc(var(--p) * 1%)); }
+  .ba[data-ready] .ba-cap-only { display: none; }
+  .ba[data-ready] .ba-kicker { display: none; }
+  .ba[data-ready] .ba-tags { display: block; }
+  .ba-tag { position: absolute; top: 1.25rem; z-index: 3; padding: 0.4rem 0.9rem; border-radius: var(--radius-full, 999px); font: 700 var(--text-small) / 1.2 var(--font-sans); pointer-events: none; }
+  .ba-tag-l { left: 1.25rem; background: var(--text); color: var(--surface); }
+  .ba-tag-r { right: 1.25rem; background: var(--accent); color: var(--accent-contrast); }
+  .ba[data-ready] .ba-ui { display: block; position: absolute; inset: 0; z-index: 2; }
+  .ba-range { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; touch-action: pan-y; -webkit-appearance: none; appearance: none; background: transparent; }
+  .ba-range::-webkit-slider-thumb { -webkit-appearance: none; width: 1px; height: 100vh; }
+  .ba-range::-moz-range-thumb { width: 1px; height: 100vh; border: 0; }
+  .ba-line { position: absolute; top: 0; bottom: 0; left: calc(var(--p) * 1%); width: 2px; margin-left: -1px; background: var(--surface); box-shadow: 0 0 0 1px color-mix(in srgb, var(--text) 25%, transparent); pointer-events: none; }
+  .ba-knob { position: absolute; top: 50%; left: 50%; display: grid; place-items: center; width: 3rem; height: 3rem; /* keep the 48px knob inside the stage at 0 and 100 */ --kx: calc(clamp(1.75rem, var(--p) * 1cqw, 100cqw - 1.75rem) - var(--p) * 1cqw); transform: translate(calc(-50% + var(--kx)), -50%); border-radius: 50%; background: var(--accent); color: var(--accent-contrast); }
+  .ba-range:focus-visible ~ .ba-line .ba-knob { outline: 3px solid var(--focus); outline-offset: 3px; }
+  .ba-range:active ~ .ba-line .ba-knob { transform: translate(calc(-50% + var(--kx)), -50%) scale(1.06); }
+}
+/* muted text fails 4.5:1 on the grey "scan" sheet: use full text color there */
+.ba-orig :is(.ba-kicker, .ba-org, dt, .ba-sig-line, .ba-stampmark) { color: var(--text); }
+.ba-orig .ba-sig-line i, .ba-orig .ba-stampmark { border-color: var(--text); }
+/* desktop: text left, stage right (a document is portrait-ish; do not stretch it across 1200px) */
+@media (min-width: 64rem) and (prefers-reduced-motion: no-preference) {
+  .ba[data-ready] { display: grid; grid-template-columns: 5fr 7fr; column-gap: 4rem; align-items: start; }
+  .ba[data-ready] .ba-head { grid-column: 1; grid-row: 1; }
+  .ba[data-ready] .ba-stage { grid-column: 2; grid-row: 1 / span 2; margin-top: 0; }
+  .ba[data-ready] .ba-hint { grid-column: 1; grid-row: 2; align-self: end; }
+}

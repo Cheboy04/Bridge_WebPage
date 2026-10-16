@@ -1,0 +1,61 @@
+<!-- params: active (traduccion|interpretacion|nosotros|blog|faq|contacto), mode(documento|cabina), lockup(light|dark), uid.
+     Mobile menu: Alpine, focus trap, Esc closes, focus returns to the toggle. Desktop nav from 1280px. -->
+<header class="mode-{{mode|documento}} bg-surface text-fg" x-data="{open:false,
+  close(){this.open=false;this.$nextTick(()=>this.$refs.toggle.focus())},
+  trap(e){const f=[...this.$refs.panel.querySelectorAll('a[href],button')],a=f[0],z=f[f.length-1];
+    if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}
+    else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}}}"
+  x-effect="document.documentElement.style.overflow=open?'hidden':'';if(open)$nextTick(()=>$refs.shut.focus())"
+  @keydown.escape.window="open&&close()">
+  <div class="hidden bg-raised lg:block">
+    <div class="wrap flex items-center justify-between gap-6 t-small">
+      <p class="inline-flex items-center gap-2 text-muted"><svg class="icon icon-16" aria-hidden="true"><use href="#i-map-pin"/></svg>Quito, Ecuador</p>
+      <ul class="flex items-center gap-6">
+        <li><a class="inline-flex min-h-11 items-center gap-2 font-semibold text-fg no-underline hover:text-link" href="tel:+59320000000"><svg class="icon icon-16" aria-hidden="true"><use href="#i-phone"/></svg><span class="num">+593 2 000 0000</span></a></li>
+        <li><a class="inline-flex min-h-11 items-center gap-2 font-semibold text-fg no-underline hover:text-link" href="mailto:contacto@bridge.example"><svg class="icon icon-16" aria-hidden="true"><use href="#i-mail"/></svg>contacto@bridge.example</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap flex items-center justify-between gap-6 py-4 xl:py-5">
+    <a href="index.html" class="block shrink-0" aria-label="Bridge Traducciones, ir al inicio"><img src="assets/logo/bridge-lockup-es-{{lockup|light}}.svg" alt="" width="200" height="79" class="h-auto w-[180px] xl:w-[200px]"></a>
+    <nav aria-label="{{navlabel|Principal}}" class="hidden items-center gap-7 xl:flex">
+      <a class="nav-link" href="#" title="No incluido en el prototipo" {{active==traduccion|aria-current="page"}}>Traducción</a>
+      <a class="nav-link" href="#" title="No incluido en el prototipo" {{active==interpretacion|aria-current="page"}}>Interpretación</a>
+      <a class="nav-link" href="#" title="No incluido en el prototipo" {{active==nosotros|aria-current="page"}}>Nosotros</a>
+      <a class="nav-link" href="#" title="No incluido en el prototipo" {{active==blog|aria-current="page"}}>Blog</a>
+      <a class="nav-link" href="#" title="No incluido en el prototipo" {{active==faq|aria-current="page"}}>Preguntas frecuentes</a>
+      <a class="nav-link" href="#" title="No incluido en el prototipo" {{active==contacto|aria-current="page"}}>Contacto</a>
+    </nav>
+    <div class="hidden xl:block"><!-- @include button label="Solicitar cotización" href="cotizacion.html" --></div>
+    <button type="button" x-ref="toggle" @click="open=true" :aria-expanded="open" aria-controls="{{uid|m}}-menu" class="btn btn-secondary xl:hidden">
+      <svg class="icon icon-20" aria-hidden="true"><use href="#i-menu"/></svg>Menú
+    </button>
+  </div>
+
+  <div id="{{uid|m}}-menu" x-show="open" x-cloak x-ref="panel" @keydown.tab="trap($event)" role="dialog" aria-modal="true" aria-label="Menú {{navlabel|principal}}"
+       x-transition:enter="transition duration-[var(--dur-base)] ease-[var(--ease-out)]" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
+       x-transition:leave="transition duration-[var(--dur-instant)] ease-[var(--ease-in)]" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+       class="fixed inset-0 z-50 overflow-y-auto bg-surface text-fg">
+    <div class="wrap flex items-center justify-between gap-6 py-4">
+      <img src="assets/logo/bridge-lockup-es-{{lockup|light}}.svg" alt="Bridge Traducciones" width="180" height="71" class="h-auto w-[180px]">
+      <button type="button" x-ref="shut" @click="close()" class="btn btn-secondary"><svg class="icon icon-20" aria-hidden="true"><use href="#i-x"/></svg>Cerrar<span class="sr-only"> menú</span></button>
+    </div>
+    <div class="wrap pb-12 pt-4">
+      <nav aria-label="{{navlabel|Principal}} (móvil)">
+        <ul class="grid">
+          <li><a class="flex min-h-14 items-center border-b border-line text-[length:var(--text-h4)] font-bold no-underline" href="#" title="No incluido en el prototipo" {{active==traduccion|aria-current="page"}}>Traducción</a></li>
+          <li><a class="flex min-h-14 items-center border-b border-line text-[length:var(--text-h4)] font-bold no-underline" href="#" title="No incluido en el prototipo" {{active==interpretacion|aria-current="page"}}>Interpretación</a></li>
+          <li><a class="flex min-h-14 items-center border-b border-line text-[length:var(--text-h4)] font-bold no-underline" href="#" title="No incluido en el prototipo" {{active==nosotros|aria-current="page"}}>Nosotros</a></li>
+          <li><a class="flex min-h-14 items-center border-b border-line text-[length:var(--text-h4)] font-bold no-underline" href="#" title="No incluido en el prototipo" {{active==blog|aria-current="page"}}>Blog</a></li>
+          <li><a class="flex min-h-14 items-center border-b border-line text-[length:var(--text-h4)] font-bold no-underline" href="#" title="No incluido en el prototipo" {{active==faq|aria-current="page"}}>Preguntas frecuentes</a></li>
+          <li><a class="flex min-h-14 items-center border-b border-line text-[length:var(--text-h4)] font-bold no-underline" href="#" title="No incluido en el prototipo" {{active==contacto|aria-current="page"}}>Contacto</a></li>
+        </ul>
+      </nav>
+      <div class="mt-8"><!-- @include button label="Solicitar cotización" href="cotizacion.html" icon="arrow-right" --></div>
+      <ul class="mt-8 grid gap-1 t-small">
+        <li><a class="inline-flex min-h-11 items-center gap-3 font-semibold text-fg no-underline" href="tel:+59320000000"><svg class="icon icon-20" aria-hidden="true"><use href="#i-phone"/></svg><span class="num">+593 2 000 0000</span></a></li>
+        <li><a class="inline-flex min-h-11 items-center gap-3 font-semibold text-fg no-underline" href="mailto:contacto@bridge.example"><svg class="icon icon-20" aria-hidden="true"><use href="#i-mail"/></svg>contacto@bridge.example</a></li>
+      </ul>
+    </div>
+  </div>
+</header>

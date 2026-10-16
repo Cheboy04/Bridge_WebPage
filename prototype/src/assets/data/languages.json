@@ -1,0 +1,22 @@
+{
+  "_meta": {
+    "example": true,
+    "note": "[DATOS DE EJEMPLO, validar con Bridge] Mirrors the CMS Language model (code, name, services[], featured). Rule used by the checker: a pair is listed when both languages exist here and one of them is Spanish; services are the intersection of both. Keep in sync with the inline copy in src/components/sig-lang-checker.html."
+  },
+  "languages": [
+    { "code": "es", "name": "Español", "services": ["certificada", "legal", "notariada"], "featured": true },
+    { "code": "en", "name": "Inglés", "services": ["certificada", "legal", "notariada"], "featured": true },
+    { "code": "fr", "name": "Francés", "services": ["certificada", "legal", "notariada"], "featured": true },
+    { "code": "pt", "name": "Portugués", "services": ["certificada", "legal", "notariada"], "featured": true },
+    { "code": "de", "name": "Alemán", "services": ["certificada", "legal", "notariada"], "featured": true },
+    { "code": "it", "name": "Italiano", "services": ["certificada", "legal", "notariada"], "featured": true },
+    { "code": "zh", "name": "Chino", "services": ["certificada", "legal"], "featured": false },
+    { "code": "ja", "name": "Japonés", "services": ["certificada", "legal"], "featured": false },
+    { "code": "ru", "name": "Ruso", "services": ["certificada", "legal"], "featured": false },
+    { "code": "ar", "name": "Árabe", "services": ["certificada"], "featured": false },
+    { "code": "ko", "name": "Coreano", "services": ["certificada"], "featured": false },
+    { "code": "nl", "name": "Neerlandés", "services": ["certificada", "legal"], "featured": false },
+    { "code": "el", "name": "Griego", "services": ["certificada"], "featured": false },
+    { "code": "qu", "name": "Kichwa", "services": ["certificada"], "featured": false }
+  ]
+}

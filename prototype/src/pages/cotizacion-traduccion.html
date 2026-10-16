@@ -1,0 +1,126 @@
+<!doctype html>
+<!-- PROTOTYPE, stage B3. Translation quote form (Documento, always). PLACEHOLDER: contact data, response time, 90-day retention [plazo por confirmar]. Service options mock the CMS. Draft Spanish (usted). Logic in assets/js/quote-form.js. -->
+<html lang="es">
+<head>
+<!-- @include head title="Cotizar traducción | Bridge Traducciones" description="Solicite una cotización de traducción certificada, legal, notariada o escrita. Adjunte sus documentos y le respondemos con precio y plazo." -->
+</head>
+<body>
+<a class="skip-link" href="#main">Saltar al contenido</a>
+<!-- @include icons -->
+<!-- @include header -->
+
+<main id="main">
+  <section class="bg-surface text-fg" aria-labelledby="f-title">
+    <div class="wrap pb-16 pt-6 lg:pb-32 lg:pt-8">
+      <!-- @include breadcrumb parent="Solicitar cotización" parent_href="cotizacion.html" current="Traducción" -->
+
+      <div class="mt-8 grid gap-y-12 lg:mt-12 lg:grid-cols-12 lg:gap-x-8">
+        <div class="lg:col-span-7">
+          <h1 id="f-title">Cotizar una traducción</h1>
+          <p class="lead mt-5">Cuéntenos qué documento necesita traducir. Le respondemos con el precio y el plazo.</p>
+
+          <p id="estado-aviso" class="mt-6 flex items-start gap-2 rounded-control bg-raised p-3 t-small" hidden><svg class="icon icon-20 mt-0.5" aria-hidden="true"><use href="#i-info"/></svg><span>Vista de revisión: errores de ejemplo, como los devolvería el servidor. Quite <code>?estado=errores</code> de la dirección para ver el formulario limpio.</span></p>
+
+          <div id="error-summary" tabindex="-1" aria-labelledby="error-summary-title" hidden class="mt-8 rounded-card border border-err p-5 sm:p-6">
+            <h2 id="error-summary-title" class="flex items-center gap-2 font-sans text-[length:var(--text-h4)] font-bold leading-tight text-err"></h2>
+            <p class="mt-2 t-small text-muted">Corrija estos datos y vuelva a enviar. Lo que ya escribió se conserva.</p>
+            <ul id="error-summary-list" class="mt-4 grid list-none gap-1 p-0 [&_a]:inline-flex [&_a]:min-h-11 [&_a]:items-center"></ul>
+          </div>
+
+          <form id="quote-form" class="mt-10 grid gap-12" action="cotizacion-gracias.html" method="post" enctype="multipart/form-data" novalidate>
+
+            <fieldset class="m-0 grid min-w-0 gap-6 border-0 p-0">
+              <legend class="mb-6 p-0 font-serif text-[length:var(--text-h3)] font-medium leading-tight">Sus datos</legend>
+              <!-- @include field-text id="nombre" name="nombre" label="Nombre y apellido" required="1" autocomplete="name" -->
+              <p class="-mb-2 t-small text-muted" id="contacto-nota">Necesitamos al menos un medio para responderle: correo o teléfono. Basta con uno.</p>
+              <div class="grid gap-6 sm:grid-cols-2">
+                <!-- @include field-text id="email" name="email" type="email" label="Correo electrónico" autocomplete="email" hint="Opcional si indica un teléfono." -->
+                <!-- @include field-text id="telefono" name="telefono" type="tel" label="Teléfono o WhatsApp" autocomplete="tel" hint="Opcional si indica un correo." placeholder="+593 99 000 0000" -->
+              </div>
+              <!-- @include field-text id="empresa" name="empresa" label="Empresa u organización (opcional)" autocomplete="organization" -->
+            </fieldset>
+
+            <hr class="m-0 border-0 border-t border-line">
+            <fieldset class="m-0 grid min-w-0 gap-6 border-0 p-0">
+              <legend class="mb-6 p-0 font-serif text-[length:var(--text-h3)] font-medium leading-tight">Su documento</legend>
+              <!-- @include field-select id="servicio" name="servicio" label="Servicio" required="1" options="<option value=''>Seleccione un servicio</option><option value='certificada'>Traducción certificada</option><option value='legal'>Traducción legal</option><option value='notariada'>Traducción notariada</option><option value='escrita'>Traducción escrita</option><option value='orientacion'>No estoy seguro, necesito orientación</option>" -->
+
+              <div class="grid items-start gap-4 sm:grid-cols-[1fr_auto_1fr] sm:gap-3">
+                <!-- @include field-select id="idioma-origen" name="idioma_origen" label="Idioma del documento" required="1" options="<option value=''>Seleccione</option><option value='es'>Español</option><option value='en'>Inglés</option><option value='fr'>Francés</option><option value='de'>Alemán</option><option value='it'>Italiano</option><option value='pt'>Portugués</option><option value='ru'>Ruso</option><option value='zh'>Chino</option><option value='ja'>Japonés</option><option value='ar'>Árabe</option><option value='nl'>Neerlandés</option><option value='ko'>Coreano</option><option value='el'>Griego</option><option value='qu'>Kichwa</option><option value='otro'>Otro (indíquelo en el mensaje)</option>" -->
+                <button type="button" id="swap-idiomas" class="btn btn-secondary justify-self-start sm:mt-[1.525rem]" aria-label="Intercambiar idiomas"><svg class="icon icon-20 rotate-90 sm:rotate-0" aria-hidden="true" viewBox="0 0 24 24"><path d="M8 3 4 7l4 4M4 7h16M16 21l4-4-4-4M20 17H4"/></svg><span class="sm:hidden">Intercambiar</span></button>
+                <!-- @include field-select id="idioma-destino" name="idioma_destino" label="Traducir a" required="1" options="<option value=''>Seleccione</option><option value='es'>Español</option><option value='en'>Inglés</option><option value='fr'>Francés</option><option value='de'>Alemán</option><option value='it'>Italiano</option><option value='pt'>Portugués</option><option value='ru'>Ruso</option><option value='zh'>Chino</option><option value='ja'>Japonés</option><option value='ar'>Árabe</option><option value='nl'>Neerlandés</option><option value='ko'>Coreano</option><option value='el'>Griego</option><option value='qu'>Kichwa</option><option value='otro'>Otro (indíquelo en el mensaje)</option>" -->
+              </div>
+              <p id="swap-status" class="sr-only" role="status"></p>
+              <p id="prefill-nota" class="-mt-2 flex items-start gap-2 t-small text-muted" hidden><svg class="icon icon-20 mt-0.5 shrink-0" aria-hidden="true"><use href="#i-info"/></svg><span></span></p>
+
+              <fieldset class="m-0 min-w-0 border-0 p-0" aria-describedby="needs-hint">
+                <legend class="field-label mb-1 p-0">Certificación que necesita (opcional)</legend>
+                <p id="needs-hint" class="t-small text-muted">Si no está seguro, déjelo en blanco: se lo confirmamos al cotizar.</p>
+                <div class="mt-2 grid">
+                  <!-- @include field-check id="need-cert" name="necesita[]" label="Certificación del traductor <span class='block t-small text-muted'>Declaración firmada de que la traducción es fiel al original.</span>" -->
+                  <!-- @include field-check id="need-not" name="necesita[]" label="Notarización <span class='block t-small text-muted'>Un notario da fe de la firma del traductor.</span>" -->
+                  <!-- @include field-check id="need-apo" name="necesita[]" label="Apostilla o legalización <span class='block t-small text-muted'>Para usar el documento en otro país.</span>" -->
+                </div>
+              </fieldset>
+
+              <!-- @include field-file id="archivos" name="archivos[]" label="Documentos a traducir (opcional)" hint="Puede enviarlos ahora o por WhatsApp después. Máximo 5 archivos de 20 MB: PDF, JPG, PNG o DOCX." -->
+            </fieldset>
+
+            <hr class="m-0 border-0 border-t border-line">
+            <fieldset class="m-0 grid min-w-0 gap-6 border-0 p-0">
+              <legend class="mb-6 p-0 font-serif text-[length:var(--text-h3)] font-medium leading-tight">Entrega</legend>
+              <div class="grid gap-2">
+                <!-- @include field-text id="fecha" name="fecha" type="date" label="Fecha límite" hint="La más cercana en que necesita el documento." autocomplete="off" -->
+                <!-- @include field-check id="sin-urgencia" name="sin_urgencia" label="Sin urgencia: no tengo fecha límite" -->
+              </div>
+              <!-- @include field-textarea id="mensaje" name="mensaje" label="Mensaje (opcional)" hint="Por ejemplo: para qué trámite o institución es la traducción." -->
+            </fieldset>
+
+            <hr class="m-0 border-0 border-t border-line">
+            <div class="grid gap-6">
+              <!-- @include field-check id="consentimiento" name="consentimiento" required="1" label="Acepto la <a class='link' href='#' title='No incluido en el prototipo'>política de privacidad</a> (obligatorio). <span class='block t-small text-muted'>Sus archivos se borran 90 días después de recibirlos [plazo por confirmar].</span>" -->
+
+              <div aria-hidden="true" class="sr-only"><label>No complete este campo <input type="text" id="web" name="web" tabindex="-1" autocomplete="off"></label></div>
+
+              <div class="flex flex-wrap items-center gap-4">
+                <button type="submit" id="enviar" class="btn btn-primary"><span>Enviar solicitud</span><svg class="icon icon-20 icon-go" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
+                <p id="submit-status" class="t-small text-muted" role="status"></p>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <section class="lg:col-span-4 lg:col-start-9" aria-labelledby="aside-title">
+          <div class="grid gap-10 rounded-card bg-raised p-6 lg:sticky lg:top-6 lg:p-8">
+            <div>
+              <h2 id="aside-title" class="font-sans text-[length:var(--text-h4)] font-bold leading-tight">Qué pasa después</h2>
+              <ol class="mt-5 grid list-none gap-5 p-0">
+                <li class="grid grid-cols-[auto_1fr] gap-4"><span class="num font-bold text-link" aria-hidden="true">1</span><span><strong>Revisamos su solicitud</strong> y sus documentos.</span></li>
+                <li class="grid grid-cols-[auto_1fr] gap-4"><span class="num font-bold text-link" aria-hidden="true">2</span><span><strong>Le enviamos la cotización</strong> con precio y plazo.</span></li>
+                <li class="grid grid-cols-[auto_1fr] gap-4"><span class="num font-bold text-link" aria-hidden="true">3</span><span><strong>Usted confirma</strong> y empezamos a traducir.</span></li>
+              </ol>
+              <p class="mt-5 flex items-start gap-2 t-small text-muted"><svg class="icon icon-20" aria-hidden="true"><use href="#i-clock"/></svg>Respondemos en [tiempo de respuesta por confirmar] en días hábiles.</p>
+            </div>
+
+            <div>
+              <h3 class="t-h4">¿Prefiere conversar?</h3>
+              <ul class="mt-2 grid list-none p-0 t-small">
+                <li><a class="flex min-h-11 items-center gap-3 font-semibold text-fg no-underline hover:text-link" href="https://wa.me/593990000000?text=Hola%2C%20quisiera%20cotizar%3A%20Traducci%C3%B3n%20de%20documentos"><svg class="icon icon-20" aria-hidden="true"><use href="#i-message-circle"/></svg>WhatsApp <span class="num font-normal">+593 99 000 0000</span></a></li>
+                <li><a class="flex min-h-11 items-center gap-3 font-semibold text-fg no-underline hover:text-link" href="tel:+59320000000"><svg class="icon icon-20" aria-hidden="true"><use href="#i-phone"/></svg>Llamar <span class="num font-normal">+593 2 000 0000</span></a></li>
+                <li><a class="flex min-h-11 items-center gap-3 font-semibold text-fg no-underline hover:text-link" href="mailto:contacto@bridge.example"><svg class="icon icon-20" aria-hidden="true"><use href="#i-mail"/></svg><span class="[overflow-wrap:anywhere]">contacto@bridge.example</span></a></li>
+              </ul>
+            </div>
+
+            <p class="flex items-start gap-3 t-small text-muted"><svg class="icon icon-20 mt-0.5" aria-hidden="true"><use href="#i-shield-check"/></svg><span>Sus documentos se guardan en un espacio privado, solo los ve el equipo que los traduce y se borran a los 90 días [plazo por confirmar]. No los enviamos por correo.</span></p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- @include footer -->
+<!-- @include whatsapp hidden="1" -->
+<script defer src="assets/js/quote-form.js"></script>
+</body>
+</html>

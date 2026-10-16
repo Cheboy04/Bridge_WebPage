@@ -56,7 +56,7 @@ Why: speed matters and code authorship is not a requirement. Every commit is sti
 | 2.1 | Topology            | DECIDED | `solo-backend` variant: one Laravel monolith in `site/`. See D2.3. |
 | 2.2 | Visibility          | DECIDED | **Public**, with compensating controls. See D2.2. |
 | 2.3 | Branch model        | DECIDED | `feature/*` → `develop` (staging) → `main` (production). Rules: `docs/global/reglas-git.md`. |
-| 2.4 | Stack versions      | PARTIAL | Majors decided. Exact pins arrive with the lockfiles in P1. See D2.1. |
+| 2.4 | Stack versions      | DECIDED | Pinned by the lockfiles in `site/` (brg-31, 2026-10-16). See D2.1. |
 | 2.5 | Tracker             | DECIDED | GitHub Issues + Projects on `Cheboy04/Bridge_WebPage`, prefix `BRG`. See D2.4. |
 | 2.6 | Languages           | DECIDED | Docs English · code English · UI Spanish (i18n-ready, D3.6). |
 
@@ -64,16 +64,16 @@ Why: speed matters and code authorship is not a requirement. Every commit is sti
 
 | Component | Version | Where it is pinned | Note |
 | --- | --- | --- | --- |
-| PHP | 8.3 (selected in hPanel) | hPanel; `composer.json` `require.php` | Filament 5 needs ≥ 8.2. |
-| Laravel | 12.x | `site/composer.lock` | Filament 5 needs ≥ 11.28. |
-| Filament | 5.x | `site/composer.lock` | Verified on context7 on 2026-10-15. |
-| Livewire | the version Filament 5 requires | `site/composer.lock` | Not chosen separately. |
-| Tailwind CSS | 4.x (≥ 4.1) | `site/package-lock.json` | Filament 5 needs ≥ 4.1. |
-| MySQL | the version Hostinger provides | hPanel | **Not verified yet** (P7 hosting checks). |
-| Pest · Larastan · Pint | latest stable at install | `site/composer.lock` | Larastan level decided in P1. |
-| `spatie/laravel-translatable`, `spatie/laravel-sitemap` | latest compatible | `site/composer.lock` | The only extra packages (D3.7). |
+| PHP | 8.3 (selected in hPanel) | hPanel; `composer.json` `require.php` `^8.3` and `config.platform.php` `8.3.0` | Filament 5 needs ≥ 8.2. The platform pin makes the lockfile resolve for 8.3 even on a newer local CLI. |
+| Laravel | 12.70.0 | `site/composer.lock` | Filament 5 needs ≥ 11.28. |
+| Filament | 5.10.2 | `site/composer.lock` | Install steps verified on context7 on 2026-10-16. |
+| Livewire | 4.4.7 | `site/composer.lock` | Pulled in by Filament; not chosen separately. |
+| Tailwind CSS | 4.3.3 (with `@tailwindcss/vite` 4.3.3, Vite 7.3.7, `laravel-vite-plugin` 2.1.0) | `site/package-lock.json` | Filament 5 needs ≥ 4.1. |
+| MySQL | the version Hostinger provides | hPanel | **Not verified yet** (P7 hosting checks). Local tests run on MySQL 8.4 (throwaway container). |
+| Pest · Larastan · Pint | Pest 3.8.7 · Larastan 3.13.0 · Pint 1.32.1 | `site/composer.lock` | Larastan **level 6** over `app`, `bootstrap/app.php`, `config`, `database`, `routes` (`site/phpstan.neon`). Tests are left out because Pest closures bind `$this` at runtime. Level 7+ flags only the skeleton's `config/filesystems.php`; raise the level once it's fixed. |
+| `spatie/laravel-translatable`, `spatie/laravel-sitemap` | 6.14.1 · 8.0.0 | `site/composer.lock` | The only extra packages (D3.7). |
 
-Exact versions are recorded here when P1 installs them. Until then the lockfile doesn't exist and nobody assumes a minor.
+Versions recorded on 2026-10-16 when brg-31 installed them. The lockfiles stay the real pin; this table is updated when a lockfile changes a major or minor.
 
 ### D2.2 — Public repository with compensating controls (2026-10-16)
 

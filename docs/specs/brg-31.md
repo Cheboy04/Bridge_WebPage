@@ -2,7 +2,7 @@
 
 > **GitHub Issues:** `BRG-5` (local `brg-31`) · **Phase:** P1 · **Covers:** RNF-06, RNF-07, RNF-09
 > **Counterpart:** — (does not cross layers)
-> **Status:** `[x]` draft · `[x]` approved · `[ ]` implemented
+> **Status:** `[x]` draft · `[x]` approved · `[x]` implemented (pending PR)
 
 Turns the issue's acceptance criteria (quality chain passes, placeholder home and `/admin/login` respond, lockfiles and versions recorded) into the scaffold's contract and its smoke tests.
 
@@ -81,6 +81,7 @@ Not a Pest test, checked in review (step `.04`): `vendor/bin/pint --test` and `v
 ## 5. Implementation notes
 
 - Install with `composer create-project laravel/laravel site` (Laravel 12), then `composer require filament/filament:"^5.0" spatie/laravel-translatable spatie/laravel-sitemap` and `composer require --dev pestphp/pest larastan/larastan`. Check the Filament 5 install steps on context7 at that moment, not from memory.
+- `composer.json` pins `"config": {"platform": {"php": "8.3.0"}}`, so the lockfile resolves for production's PHP 8.3 even when the local CLI is newer (owner, 2026-10-16).
 - Review the diff of every generator (lessons: generators add extras), especially `composer.json` and `package.json`.
 - Tests 4 and 5 read `../prototype/src/styles/app.css` relative to `site/`. They're the guard that keeps the site and the reference implementation in sync until the prototype retires.
 - Subset fonts with the Google Fonts CSS2 API using a full Chrome user agent (HANDOFF_v1 trap 5), or with `pyftsubset`. Literata needs its `opsz` axis.
@@ -88,5 +89,7 @@ Not a Pest test, checked in review (step `.04`): `vendor/bin/pint --test` and `v
 
 ## 6. Spec change log
 
+- `2026-10-16` — implemented. Deviations from the notes: no `pestphp/pest-plugin-laravel` (tests use `$this->get()`); Larastan excludes `tests/` (ADR D2.1); generator extras removed (`axios` + `resources/js/`, `laravel/sail`, the skeleton README, the example tests); Filament's published assets (`public/{css,js,fonts}/filament`) stay git-ignored because `composer install` republishes them (`filament:upgrade` in `post-autoload-dump`).
+- `2026-10-16` — added the `config.platform.php = 8.3.0` pin (local CLI is PHP 8.5; owner approved).
 - `2026-10-16` — approved by the owner (C1). Updated for D3.2/D3.5 and the real key `BRG-5`.
 - `2026-10-16` — draft created (kit Phase 6).

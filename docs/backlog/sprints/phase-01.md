@@ -24,7 +24,7 @@ brg-34 / `BRG-44` was decided by the owner on 2026-10-16 (ADR D3.2, D3.5); the i
 
 ## Execution sequence
 
-1. **brg-31** (spec [`docs/specs/brg-31.md`](../../specs/brg-31.md), approved): scaffold, packages, tokens, fonts, smoke tests. Branch `feature/BRG-5-scaffold`.
+1. **brg-31** (spec [`docs/specs/brg-31.md`](../../specs/brg-31.md), approved): scaffold, packages, tokens, fonts, smoke tests. Branch `feature/BRG-5-scaffold`. Implemented 2026-10-16 (chain green, C3 11/11); waiting on the PR to `develop`.
 2. ~~**brg-34**~~: decided 2026-10-16.
 3. **brg-32**: the CI workflow, once `site/` exists.
 4. **brg-33**: the deploy workflow, once CI is green **and** the owner has done the hosting checks. **Non-blocking** (owner, 2026-10-16): if the checks aren't done when brg-31 and brg-32 close, P1 closes without it and brg-33 carries forward.

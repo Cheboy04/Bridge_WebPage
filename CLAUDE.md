@@ -136,7 +136,7 @@ node check.mjs <page …>                 # axe-core, overflow at 390/1440, cons
 
 ### 7.2 Quality chain before asking for a commit
 
-In the **same order as the CI job** (defined in P1). If CI changes, this list changes in the same PR.
+In the **same order as the CI job** (`.github/workflows/ci.yml`, job `quality`; step 5 stays local until ADR 11.3). If CI changes, this list changes in the same PR.
 
 1. Format (Pint) → no diff.
 2. Static analysis (Larastan) → 0 errors. Known warnings are listed with their ticket.

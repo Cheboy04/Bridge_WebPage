@@ -91,7 +91,7 @@ Before writing a spec or a test, or proposing an implementation:
 - No Laravel code: `site/` doesn't exist and isn't scaffolded until P1.
 - No Composer or npm packages added anywhere, and no CI workflow.
 - No migrations, models or ERD slices (P2).
-- `prototype/` changes only for the P0 polish items listed in the roadmap, never for new features. It is the reference implementation.
+- `prototype/` changes only for the P0 polish items listed in `docs/backlog/sprints/phase-00.md`, never for new features. It is the reference implementation.
 - No component is called "locked" without its three layers (ADR D3.8). The certification seal can't be locked while the stamp is OPEN.
 - No writes to GitHub Issues/Projects until the owner approves the backlog (kit Phase 4).
 - No real Bridge data (phones, emails, addresses, stats) in any file: they go to the placeholder register as unknowns.

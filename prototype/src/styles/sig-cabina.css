@@ -15,7 +15,11 @@
   /* segmented control: native radios, pill shape */
   .seg { width: 100%; max-width: 30rem; display: grid; grid-template-columns: repeat(var(--cols, 3), 1fr); gap: 2px; padding: 3px; border: 1px solid var(--border-strong); border-radius: var(--radius-full, 9999px); }
   .seg label { position: relative; display: flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: 0.25rem 0.5rem; border-radius: var(--radius-full, 9999px); text-align: center; font: 600 0.9375rem / 1.2 var(--font-sans); color: var(--text); cursor: pointer; transition: background-color var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out); }
-  @media (min-width: 40rem) { .seg label { padding-inline: 1rem; font-size: 1rem; } }
+  @media (min-width: 40rem) {
+    .seg label { padding-inline: 1rem; font-size: 1rem; white-space: nowrap; }
+    /* P0 polish 2026-10-16: equal columns no narrower than the longest label ("Jornada completa" wrapped at 1440) */
+    .seg { max-width: 34rem; grid-template-columns: repeat(var(--cols, 3), minmax(max-content, 1fr)); }
+  }
   .seg label:hover { background: var(--surface-raised); }
   .seg label:has(input:checked) { background: var(--accent); color: var(--accent-contrast); }
   .seg label:has(input:focus-visible) { outline: 2px solid var(--focus); outline-offset: 3px; }

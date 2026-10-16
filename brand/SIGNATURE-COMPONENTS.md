@@ -1,6 +1,6 @@
 # Signature components
 
-Status: approved by client 2026-10-15 (all six). Inspiration: expertweb.com.ec (principles only: show the service working, a stage per service, process that progresses on scroll). Do not copy its look; it shares our navy + amber palette, so keep amber on the trail only and avoid its capsule nav.
+Status: approved by client 2026-10-15 (all six). **Owns the behaviour layer** (ADR D3.8); exact values locked 2026-10-16 in "Shipped behaviour" below. Inspiration: expertweb.com.ec (principles only: show the service working, a stage per service, process that progresses on scroll). Do not copy its look; it shares our navy + amber palette, so keep amber on the trail only and avoid its capsule nav.
 
 **Thesis:** Bridge's product is invisible (a translated document, a voice in an ear). Each signature component makes one part of it visible.
 
@@ -33,7 +33,7 @@ Status: approved by client 2026-10-15 (all six). Inspiration: expertweb.com.ec (
 "¿De qué idioma a qué idioma?" Two native selects (origen, destino) with a swap button.
 
 **Result panel** (updates on change; polite live region):
-- **Supported pair:** "Sí, trabajamos [origen] → [destino]", then which services apply (certificada, legal, notariada) and the turnaround "[por confirmar]". Primary button "Cotizar este par" links to `cotizacion-traduccion.html?origen=xx&destino=yy`.
+- **Supported pair** (both languages listed and one of them is Spanish; see "Shipped behaviour"): "Sí, trabajamos [origen] → [destino]", then which services apply (certificada, legal, notariada) and the turnaround "[por confirmar]". Primary button "Cotizar este par" links to `cotizacion-traduccion.html?origen=xx&destino=yy`.
 - **Unlisted pair:** "Consúltenos: coordinamos este par con traductores aliados [validar con Bridge]". It has a WhatsApp link pre-filled with the pair.
 - **Same language:** an inline error.
 
@@ -77,6 +77,79 @@ A large Bridge wordmark (outlined SVG from `brand/logo/lockup/bridge-wordmark-da
 - **Screen readers:** the cycling element is `aria-hidden`. A visually hidden static text reads "Bridge Traducciones".
 - **Reduced motion:** a static line listing all seven names separated by middots, in `--text-muted`.
 - **Script support:** the slot is sized for "Übersetzungen" and uses Manrope (Cyrillic and Greek supported).
+
+---
+
+## Shipped behaviour — exact values (locked 2026-10-16, P0)
+
+Read from the reference implementation (`prototype/src/styles/app.css`, `sig-documento.css`, `sig-cabina.css`, `prototype/src/assets/js/sig-*.js`). The Laravel port must reproduce these values; changing one means changing this table first. Token names refer to `--dur-*` / `--ease-*` (brand book, `DIRECTION.md` §9). "Motion allowed" means `prefers-reduced-motion: no-preference`; otherwise the final state shows with no animation.
+
+### 1. Hero stage
+
+| Element | Animation | Duration | Delay | Easing |
+| --- | --- | --- | --- | --- |
+| Translation phrases (4 `.ph` spans) | opacity 0→1, translateY 5px→0 | 400ms each | `index × 400ms` (0, 400, 800, 1200) | `ease-out` |
+| Seal | opacity 0→1, scale 1.25→1 | 240ms | 1700ms | `ease-out` |
+| Signature line | scaleX 0→1 from the left | 320ms | 1750ms | `ease-out` |
+| Caption on channel change | opacity 1→0, swap text, 0→1 | 120ms out (`dur-instant`) | text swaps at 120ms | `ease-out` |
+| Level meter (5 dots) | opacity low→1→low, infinite | 1.8s cycle | `dot index × 140ms` | ease-in-out |
+| Tab and chip state | background and colour | 200ms (`dur-base`) | — | `ease-out` |
+
+- The document sequence replays on every selection of the Documento tab and on "Repetir" (shown only when JS runs). The whole sequence lasts about 2.07s.
+- Meter resting opacities: dots 1–3 at 0.65, dots 4–5 at 0.25 (static at rest: 1–3 full, 4–5 at 0.3).
+- Tabs: ArrowLeft/ArrowRight wrap, Home/End jump; the chosen tab is stored in `sessionStorage['bridge-hero-tab']` (`doc`|`evt`) and restored on load without replaying the announcement.
+- The live region announces "Canal inglés" etc. only on a user's channel change.
+- Without JS both panels are stacked in their final state and the tablist is hidden.
+
+### 2. Language-pair checker
+
+- No animation. The result is a polite, atomic live region that updates on `change` of either select and on swap.
+- **Supported pair rule (as shipped):** both languages are listed **and one of them is Spanish**. The services shown are the intersection of the two languages' `services`. Any other pair (including two listed non-Spanish languages) shows "Consúltenos" with the WhatsApp link. Same language on both sides: inline error on the "Traducir a" select (`aria-invalid`).
+- Without JS: the selects stay disabled and the static es → en result shows.
+
+### 3. Event planner
+
+| Element | Behaviour | Value |
+| --- | --- | --- |
+| Output number change | opacity 0.35→1, translateY 4px→0 | 320ms (`dur-slow`), `ease-out` |
+| Live summary for screen readers | debounced after the last input, never on load | 800ms |
+| Range ↔ number input | mirrored on input; out-of-range numbers clamp on blur | asistentes 20–1000 (range step 10), idiomas 1–4, días 2–30 |
+
+The formulas (example rules until Bridge confirms them, placeholder register #19–20): interpreters = ceil(2 × languages × 1.5) for "jornada" and "varios" (more than 6 h), 2 × languages for "medio"; booths = languages (presencial, híbrido); receivers = ceil(attendees × 1.1) (presencial, híbrido); platform (remoto, híbrido); 1 technician per room (presencial, híbrido).
+
+### 4. Before/after document
+
+| Element | Behaviour | Value |
+| --- | --- | --- |
+| Intro sweep | once, when 55 % of the stage is visible; from "original only" (100) to the middle (50) | 1100ms, ease-out cubic (`1 − (1 − t)³`) |
+| Cancel | any user input cancels the sweep | — |
+| Knob while dragging | scale 1.06 | — |
+| Range | 0–100, step 1, default 50 | `aria-valuetext`: "Mostrando el original" at ≥ 98, "Mostrando la traducción certificada" at ≤ 2, otherwise both percentages |
+
+- The slider exists only with JS **and** motion allowed. Otherwise both sheets show side by side (desktop) or stacked (mobile).
+- Desktop (≥ `breakpoint-lg`): text column and stage at 5fr / 7fr, gap 4rem. The knob is clamped inside the stage with `cqw` units (HANDOFF_v1 trap 10).
+
+### 5. Living trail
+
+| Element | Timeline | Range | Timing |
+| --- | --- | --- | --- |
+| Section connector `.trail-v` | `view()` | entry 10 % → entry 100 % | `steps(--n, jump-end)`: dot by dot |
+| Process step 1 dot fill | `--proc` (the whole list) | cover 4 % → 10 % | `ease-out` |
+| Trail 1 → 2 | `--proc` | cover 10 % → 26 % | linear |
+| Step 2 dot fill | `--proc` | cover 26 % → 32 % | `ease-out` |
+| Trail 2 → 3 | `--proc` | cover 32 % → 48 % | linear |
+| Step 3 dot fill | `--proc` | cover 48 % → 54 % | `ease-out` |
+
+- Only inside `@supports (animation-timeline: view())` and motion allowed. The dot reveal uses `clip-path` (a deliberate paint-only exception to "transform and opacity only").
+- Resting state: fully drawn, solid markers.
+
+### 6. Multilingual footer
+
+| Element | Behaviour | Value |
+| --- | --- | --- |
+| Descriptor cycle | 7 names + the first repeated, vertical slide | 16.8s loop = 2.4s per name: hold about 1.97s, slide about 0.43s; `cubic-bezier(0.2, 0, 0, 1)` |
+| Pause | on `:hover` or `:focus-within` of the footer, and while `document.hidden` | — |
+| Reduced motion | static line of all seven names joined by middots, `text-muted` | — |
 
 ---
 

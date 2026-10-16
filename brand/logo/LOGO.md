@@ -11,7 +11,7 @@ Unit `u` = 1/112 of the disc diameter. All coordinates sit on a 0.5 u grid (B, d
 | Disc | circle, diameter 112 u, centre (56,56) |
 | Meridians | ellipses rx 24 and 46, ry 55, plus one parallel `M3 44 Q56 34 109 44`; stroke 1.7 u, white 30% (mono: 1.4 u true knockout) |
 | B | custom drawn, 44 x 60 u, stem 12 u, at x 56, y 26 (vertically centred in the disc); counters 17.5 x 11 and 20.5 x 16 u; white (mono: knockout) |
-| Trail | 5 round dots, radii 2.5, 3, 3.5, 4, 4.5 u, equal arc spacing along the quadratic (14,84) (26,64) (46,57), gaps 4.9 / 4.5 / 3.3 / 2.0 u; first dot 3 u inside the disc edge, last dot 5.5 u from the B. White in every colour version |
+| Trail | 5 round dots, radii 3, 3.5, 4, 4.5, 5 u, centres on the quadratic (14,84) (26,64) (46,57) at (14,84) (19.75,75.75) (27.25,68) (36,61.5) (46,57), gaps 3.6 / 3.3 / 2.4 / 1.5 u (tightening toward the B); first dot 2.5 u inside the disc edge, last dot 5 u from the B. White in every colour version. **Strengthened 2026-10-16** (P0 polish): each radius +0.5 u, matching the app icon trail; was 2.5–4.5 u |
 | "ridge" | Manrope 800, 83.33 u (cap height = B height = 60 u), baseline y 86, tracking -1.2 u, hand-fit: "r" stem at x 116.8 (4.8 u clear of the disc, 16.8 u from the B), "ri" kern 0 |
 | Descriptor | Manrope 700, 13 u (cap 9.4 u), tracking 0.16 em, caps, baseline y 122, ink-left on the "r" stem. Slot = width of ÜBERSETZUNGEN (135 u); the other six words are shorter, same size and tracking |
 | Lockup | viewBox 317 x 126 for all 7 languages (112 for the wordmark), tight to the artwork, no built-in padding |

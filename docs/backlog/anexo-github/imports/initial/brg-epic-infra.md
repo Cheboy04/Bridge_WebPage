@@ -1,0 +1,1 @@
+Outcome and limits: `site/` scaffold, quality chain, CI, staging and production deploys, backups. Accounts and server settings are configured by the owner. The epic groups approved scope; each delivery requires a spec and tests in red before implementing.

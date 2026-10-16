@@ -1,0 +1,1 @@
+Outcome and limits: Data model, migrations and Filament resources for every CMS entity, with the `admin` and `editor` roles. The epic groups approved scope; each delivery requires a spec and tests in red before implementing.

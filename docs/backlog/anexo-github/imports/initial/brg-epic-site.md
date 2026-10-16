@@ -1,0 +1,1 @@
+Outcome and limits: The branded layout and every public page, at visual parity with the prototype and the brand book. The epic groups approved scope; each delivery requires a spec and tests in red before implementing.

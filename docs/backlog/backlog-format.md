@@ -1,6 +1,6 @@
 # Common backlog format
 
-**Status:** official convention for granularity and traceability since YYYY-MM-DD. An official backlog does not authorize implementation and does not replace Ready (`docs/global/metodologia-sdd-tdd.md` §9).
+**Status:** official convention for granularity and traceability since 2026-10-16. An official backlog does not authorize implementation and does not replace Ready (`docs/global/metodologia-sdd-tdd.md` §9).
 
 This format is **task-manager agnostic**. The GitHub Issues mapping and loading steps are in [`anexo-github/`](anexo-github/README.md) (ADR D2.4).
 
@@ -161,9 +161,9 @@ All tickets enter the official backlog with no owner and no evidence. They are s
 
 ## Estimation, capacity and Ready
 
-- Stories are estimated in story points (1, 2, 3, 5) by planning poker, considering complexity, uncertainty and volume, with no direct translation to hours. The anchor story is in the ADR (1.5).
+- Stories are estimated in story points (1, 2, 3, 5) by planning poker, considering complexity, uncertainty and volume, with no direct translation to hours. The anchor story is in the ADR (1.5). **Not in use yet:** ADR 1.5 is OPEN and delivery is phase-based (D1.1), so the SP field stays empty.
 - A story of more than 5 SP is split.
-- Nominal capacity: <!-- RELLENAR: people × hours per phase -->. Specs, tests, reviews, integration, fixes, documentation and Tasks without SP consume that same capacity. External waits are recorded separately, without fictitious hours.
+- Nominal capacity: OPEN (one owner, part-time; hours not recorded, roadmap assumptions). Specs, tests, reviews, integration, fixes, documentation and Tasks without SP consume that same capacity. External waits are recorded separately, without fictitious hours.
 - **Continuous flow:** if a phase ends early, take Ready stories from the next one, never one blocked by the ADR.
 - **Ready:** AC written in the ticket, the ADR blocks it depends on in DECIDED status, and work outside "What NOT to do yet". The spec is written when the story enters the cycle, not before loading the backlog.
 

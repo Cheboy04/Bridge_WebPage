@@ -2,7 +2,7 @@
 
 > **GitHub Issues:** `BRG-42` (local `brg-32`) · **Phase:** P1 · **Covers:** RNF-06, RNF-07
 > **Counterpart:** — (does not cross layers)
-> **Status:** `[x]` draft · `[x]` approved · `[x]` implemented (pending CI evidence)
+> **Status:** `[x]` draft · `[x]` approved · `[x]` implemented (ruleset pending, test 5)
 
 Turns the issue's acceptance criteria (a PR runs the chain in order and fails on any step, tests run against MySQL, the check is required) into one workflow, one suite fix and the evidence each one can fail.
 
@@ -90,6 +90,7 @@ Test 4 uses the cheaper option the owner chose on approval: one red CI run inste
 
 ## 6. Spec change log
 
+- `2026-10-16` — CI evidence (PR #60, merged). Test 3: [run 38950827776](https://github.com/Cheboy04/Bridge_WebPage/actions/runs/38950827776) green, steps Pint → Larastan → Pest → Vite in order. Test 4: [run 38958419144](https://github.com/Cheboy04/Bridge_WebPage/actions/runs/38958419144) red at *Tests (Pest)* with *Build (Vite)* skipped; [run 38958667420](https://github.com/Cheboy04/Bridge_WebPage/actions/runs/38958667420) green after the revert. Test 5 **not met yet**: ruleset `Quality` (id 25272569) requires `quality` but has `enforcement: disabled`, and its include pattern is the single string `refs/heads/main, develop` (it must be two entries, `refs/heads/main` and `refs/heads/develop`). Owner to fix.
 - `2026-10-16` — approved by the owner (C1), with the single-red-run option for test 4.
 - `2026-10-16` — implemented. Suite 9 green on MySQL with no `public/build`. C3: test 1 killed by `DB_CONNECTION=mariadb`; test 2 red without `withoutVite()`. Locally `pint --test`, `phpstan analyse` and `npm run build` each exit 1 when broken and 0 when restored. The CI steps ran green on a clean copy of `site/`. Pending: the green and red CI runs (tests 3–4) and the ruleset (test 5).
 - `2026-10-16` — draft created. Found while specifying: the suite depends on a local Vite build (§1, test 2).

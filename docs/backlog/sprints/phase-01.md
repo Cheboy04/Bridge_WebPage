@@ -26,7 +26,7 @@ brg-34 / `BRG-44` was decided by the owner on 2026-10-16 (ADR D3.2, D3.5); the i
 
 1. **brg-31** (spec [`docs/specs/brg-31.md`](../../specs/brg-31.md), approved): scaffold, packages, tokens, fonts, smoke tests. Branch `feature/BRG-5-scaffold`. Done 2026-10-16 (PR #59).
 2. ~~**brg-34**~~: decided 2026-10-16.
-3. **brg-32** (spec [`docs/specs/brg-32.md`](../../specs/brg-32.md), approved): the CI workflow. Branch `feature/BRG-42-ci`. Implemented 2026-10-16; waiting on the CI runs and the owner's ruleset.
+3. **brg-32** (spec [`docs/specs/brg-32.md`](../../specs/brg-32.md), approved): the CI workflow. Branch `feature/BRG-42-ci`. Done 2026-10-16 (PR #60; CI green and red runs recorded in the spec). Still open: the ruleset fix (owner).
 4. **brg-33**: the deploy workflow, once CI is green **and** the owner has done the hosting checks. **Non-blocking** (owner, 2026-10-16): if the checks aren't done when brg-31 and brg-32 close, P1 closes without it and brg-33 carries forward.
 
 ## Ready conditions
@@ -48,9 +48,9 @@ Each Task follows its checklist in the issue body. The cross-cutting quality lin
 
 ### Close
 
-- A PR to `develop` runs the chain green; the merge deploys to staging.
-- Staging serves the token-styled placeholder and `/admin/login`.
-- ADR D2.1 records the installed versions; ADR 3.2 and 3.5 are DECIDED.
+- A PR to `develop` runs the chain green (**met** 2026-10-16, PR #60); the merge deploys to staging (**not met**: brg-33 blocked on the hosting checks).
+- Staging serves the token-styled placeholder and `/admin/login` (**not met**, same reason; met locally, brg-31 evidence).
+- ADR D2.1 records the installed versions; ADR 3.2 and 3.5 are DECIDED (**met**).
 
 ## Phase Definition of Done
 

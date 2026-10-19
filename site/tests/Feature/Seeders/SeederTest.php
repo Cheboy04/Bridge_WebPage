@@ -103,7 +103,8 @@ it('seeds a browsable demo dataset outside production', function () {
 it('keeps demo content out of production', function () {
     app()->detectEnvironment(fn () => 'production');
 
-    $this->seed();
+    // Production asks for confirmation; --force is how a release would run it.
+    $this->artisan('db:seed', ['--force' => true])->assertSuccessful();
 
     expect(Post::count())->toBe(0)
         ->and(Client::count())->toBe(0)

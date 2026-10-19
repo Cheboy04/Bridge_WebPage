@@ -19,13 +19,15 @@ No story points (ADR 1.5 OPEN). P2 has three Tasks and no Stories.
 | `BRG-46` | `brg-36` | Task | ERD slice, migrations and models: Settings and Lead (+ attachments), `LeadType` / `LeadStatus` enums | — |
 | `BRG-47` | `brg-37` | Task | Factories and seeders (invented data; real public language list) | brg-35, brg-36 |
 | `BRG-43` | `brg-33` | Task | Release deploy to staging (carried from P1) | owner's hosting checks |
+| `BRG-68` | — | Task | Evidence-led visual remaster: gated Home and Certified Translation reference-prototype slice | approved R1 synthesis and story |
 
 ## Execution sequence
 
 1. **brg-35**: ERD slice in `docs/erd/` (from `PLANTILLA-ERD.md`), owner approves it, then spec, red tests, migrations and models. Its factories are written with it, because the model tests need them. ERD [`modelo-contenido.md`](../../erd/modelo-contenido.md) and spec [`brg-35.md`](../../specs/brg-35.md) approved 2026-10-19; merged 2026-10-19 (PR #64, C3 15/15).
 2. **brg-36**: same cycle. ERD [`modelo-leads-settings.md`](../../erd/modelo-leads-settings.md) and spec [`brg-36.md`](../../specs/brg-36.md) approved by the agent (mode C) 2026-10-19; merged 2026-10-19 (PR #65, C3 17/17).
-3. **brg-37**: the seeders and anything brg-35/36 didn't already need: the public language list and `DatabaseSeeder` wiring. Spec [`brg-37.md`](../../specs/brg-37.md); implemented on `feature/BRG-47-seeders` (C3 7/7), PR pending the owner's merge.
+3. **brg-37**: the seeders and anything brg-35/36 didn't already need: the public language list and `DatabaseSeeder` wiring. Spec [`brg-37.md`](../../specs/brg-37.md); merged 2026-10-19 (PR #67, C3 7/7).
 4. **brg-33** whenever the hosting checks land; it doesn't gate P2.
+5. **BRG-68** runs as an owner-approved design track without changing P2's data goal: evidence and story gates, committed prototype spec, red tests, then only Home and Certified Translation. It adds no Laravel public UI and does not redesign the other prototype pages.
 
 ## Ready conditions
 
@@ -43,6 +45,7 @@ Each Task follows its checklist in the issue body. The cross-cutting line is the
 
 - ~~`CLAUDE.md` §5 updated with P2's scope.~~ Done 2026-10-19.
 - P1's carry-over is recorded ([`phase-01.md`](phase-01.md)).
+- BRG-68's narrow prototype exception was approved by the owner and recorded in `CLAUDE.md` §5 on 2026-10-19.
 
 ### Close
 

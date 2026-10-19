@@ -51,7 +51,7 @@ Approve the full change table above: monumental service language, document/type 
 
 Alternative: apply only larger type and spacing while retaining the current bands and boxes. It is lower risk but does not answer the evidence-backed root cause.
 
-**Decision:** pending.
+**Decision:** approved by the owner on 2026-10-19 ("Continue").
 
 ### B. Home balance — recommendation: translation leads, Cabina remains equal in the page
 
@@ -59,7 +59,7 @@ Let the first transformation be original → certified document, then use the ex
 
 Alternative: preserve a 50/50 split in the hero. It keeps service parity immediate but recreates the two-widget composition the audit found weak.
 
-**Decision:** pending.
+**Decision:** approved by the owner on 2026-10-19 ("Continue").
 
 ### C. Certified-page finish — recommendation: document-led, no stock image
 
@@ -67,8 +67,8 @@ Use type, real service copy, sheet geometry, folio and provisional seal only. Tr
 
 Alternative: use the existing pen-on-document stock image. It adds imagery but weakens honesty and distinctiveness.
 
-**Decision:** pending.
+**Decision:** approved by the owner on 2026-10-19 ("Continue").
 
 ## 7. Gate and next step
 
-No prototype source changes have started. After A–C are approved or revised, the next committed artifact is the BRG-68 story/spec and story beat document. Then tests are written and proven red before the smallest two-page implementation. Every other page stays unchanged.
+No prototype source changes have started. A–C were approved on 2026-10-19. The next gate is approval of the BRG-68 story and growth test below; after that, the implementation spec is committed, tests are written and proven red, and only then does the smallest two-page implementation begin. Every other page stays unchanged.

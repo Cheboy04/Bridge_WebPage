@@ -148,7 +148,7 @@ Every table uses Laravel's default auto-increment unsigned `bigint` `id`, and fo
 
 ### D3.6 — Multilingual readiness, MVP = `es` (2026-10-15)
 
-- Every user-facing text column (titles, bodies, slugs, SEO fields) is a translatable JSON column through `spatie/laravel-translatable` from day one. Only `es` is filled at launch. Adding a locale is a data task, not a migration.
+- Every user-facing text column (titles, bodies, slugs, SEO fields) is a translatable JSON column through `spatie/laravel-translatable` from day one. Only `es` is filled at launch. Adding a locale is a data task, not a migration, **except** one unique-index migration per sluggable table (services, posts, pages), because public slugs are unique per locale in the database (owner, 2026-10-19; `docs/erd/modelo-contenido.md` I3).
 - Spanish URLs live at the root with no prefix (`/traduccion/certificada`). Future locales get a prefix (`/en/...`). Spanish URLs never change.
 - Interface strings go through `__()` in `lang/es/*.php`. No hard-coded Spanish in Blade.
 - `<html lang>`, `hreflang` and sitemap alternates come from `config('site.locales')`. With one locale, no hreflang is printed.
@@ -230,13 +230,14 @@ Field lists are a draft in `docs/ARCHITECTURE.md` §2. The ERD (`docs/erd/`) bec
 | --- | ------------------------ | ------- | -------- |
 | 6.1 | Engine                   | DECIDED | MySQL, included with Hostinger. CI runs against MySQL too (lessons: same engine as production). |
 | 6.2 | Naming conventions       | DECIDED | Laravel conventions: plural `snake_case` tables, `snake_case` columns, `<model>_id` foreign keys. Translatable columns are JSON. |
-| 6.3 | Index strategy           | OPEN    | Decide per ERD slice in P2. |
+| 6.3 | Index strategy           | OPEN    | Decided per ERD slice in P2. **Content slice decided 2026-10-19:** FK indexes and business uniques only, slugs unique per locale through a functional index (`docs/erd/modelo-contenido.md` §6). Settings and Lead slice pending (brg-36). |
 | 6.4 | Seeders and factories    | DECIDED | Invented data only (D2.2). A `LanguageSeeder` may seed the real public language list. |
 | 6.5 | Backups                  | DECIDED | Hostinger daily backups, plus a weekly `mysqldump` and private uploads copied off-server. See D9.1. |
 
-### ERD status — OPEN
+### ERD status — PARTIAL
 
-No ERD slice exists yet. Each P2 story waits for the slice it uses. The draft model lives in D4.1 and `docs/ARCHITECTURE.md` §2.
+- **Content slice** (`docs/erd/modelo-contenido.md`, brg-35): **approved by the owner 2026-10-19**, with no soft deletes, FAQs cascading with their service, and new users defaulting to `editor`.
+- **Settings and Lead slice** (brg-36): not written yet. Its draft is still D4.1 and `docs/ARCHITECTURE.md` §2.
 
 ---
 

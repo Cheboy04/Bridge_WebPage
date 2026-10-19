@@ -2,7 +2,7 @@
 
 > **GitHub Issues:** `BRG-47` (local `brg-37`) · **Phase:** P2 · **Covers:** RNF-06
 > **Counterpart:** — (does not cross layers)
-> **Status:** `[x]` draft · `[x]` approved (agent, mode C, 2026-10-19) · `[ ]` implemented
+> **Status:** `[x]` draft · `[x]` approved (agent, mode C, 2026-10-19) · `[x]` implemented
 
 Turns the issue's acceptance criterion (`php artisan migrate:fresh --seed` builds a browsable dataset with no real client data) into four seeders and the tests that prove what they create, what they skip and what they never overwrite. The factories already exist (brg-35, brg-36).
 
@@ -80,4 +80,7 @@ The AC itself is also run once for real: `php artisan migrate:fresh --seed` agai
 
 ## 6. Spec change log
 
+- `2026-10-19` — review with C3: **7 mutations, 7 killed**. #5 (no "no posts yet" guard) died by error: the second run hits the `pages` slug unique index creating `privacidad` again, which is the duplication the guard prevents.
+- `2026-10-19` — implemented: suite 100 green (208 assertions); Pint clean; Larastan 0 errors; Vite build ok. AC run for real: `php artisan migrate:fresh --seed` on the local MySQL gave 14 languages, 7 services, 30 language links, 1 settings row, 13 FAQs, 3 posts, 6 clients, 2 testimonials, 2 pages, 1 user, 0 leads. Ping-pong on test 7: `db:seed` asks for confirmation in production, so the test runs `db:seed --force`, as a release would.
+- `2026-10-19` — red: 7 cases (commit after the spec). Test 3 was born green on the first run, because `Settings::current()` creates the row itself; it now counts rows before reading.
 - `2026-10-19` — draft created and approved by the agent (mode C). Decisions taken alone: never-overwrite rule (§1 rule 1), demo skipped only in production (rule 2), the prototype catalogue as seed data (§1).

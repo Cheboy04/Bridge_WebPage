@@ -248,7 +248,8 @@ Field lists are a draft in `docs/ARCHITECTURE.md` §2. The ERD (`docs/erd/`) bec
 - Accepted types: PDF, JPG, PNG, DOCX. At most 20 MB per file and 5 files per lead (translation quote form only).
 - Stored on a **private disk** (`storage/app/private`), never `public/`. Downloadable only from Filament through a signed, time-limited URL.
 - **Never attached to emails.** The notification email links to the lead in Filament.
-- **Automatic deletion** by a daily scheduled job, **90 days** after the lead is created. The period is OPEN until Bridge confirms it (summary #2). It must be stated in `/privacidad`.
+- **Automatic deletion** by a daily scheduled job, **90 days** after the lead is created. It must be stated in `/privacidad`.
+- **The lead record goes too** (owner, 2026-10-19): the same job deletes leads older than 90 days, together with their attachment files (rows cascade, files are deleted by the job; ERD I15). One period, one job: `config('leads.retention_days')`, default 90.
 
 Why: clients upload IDs, deeds and court documents. Ecuador's LOPDP applies.
 → *Quality attribute: security (confidentiality).*
@@ -350,7 +351,7 @@ All configured by the owner; the agent records them as dependencies and stops (`
 This is the **only** live list. `CLAUDE.md` and the methodology consult it; they don't copy it.
 
 1. ~~**3.2 — Time zone.**~~ — **closed 2026-10-16** (D3.2).
-2. ⚠️ **7 — Attachment retention period.** 90 days proposed; Bridge must confirm. Blocks the cleanup job in P5 and the `/privacidad` text. The job can be built with the period in config, which is compatible with any answer.
+2. ~~**7 — Retention period.**~~ — **closed 2026-10-19** by the owner: leads and their attachments are deleted 90 days after creation (D7.1).
 3. ⚠️ **9.1 — Hosting checks.** SSH enabled, `php -v; composer -V; which php`, plan limits in hPanel → Details, minimum cron interval, deploy key. Blocks brg-33 (staging deploy); work continues locally meanwhile (owner, 2026-10-16). Note: D9.1 deploys over SSH from GitHub Actions; hPanel's own "import from GitHub" is not needed.
 4. ⚠️ **10 — Canonical domain.** Blocks the 301 map, sitemap and canonical URLs (P7). Long lead time.
 5. ~~**3.5 — Primary key type.**~~ — **closed 2026-10-16** (D3.5).

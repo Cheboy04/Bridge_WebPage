@@ -10,7 +10,7 @@ This slice fixes `settings`, `leads`, `language_lead` and `lead_attachments`. Ap
 
 Precedence: this document owns these tables' columns and constraints (ADR D4.1, 4.6). It replaces the Lead and Settings rows of `docs/ARCHITECTURE.md` §2. The form fields come from the prototype (`prototype/src/pages/cotizacion-*.html`) and ARCHITECTURE §3; what Bridge must supply comes from `docs/placeholder-register.md`.
 
-Out of scope: the IP address (D8.5: used for rate limiting, never stored), the honeypot value, lead assignment to a user, lead history or audit trail, a separate `contacto` form table (all three forms write `leads`), retention of the lead **rows** (§9 Q-B, a question for Bridge).
+Out of scope: the IP address (D8.5: used for rate limiting, never stored), the honeypot value, lead assignment to a user, lead history or audit trail, a separate `contacto` form table (all three forms write `leads`). Retention: 90 days for leads and attachments (§9 Q-B, answered); it's a job in P5 and needs no column beyond `created_at`.
 
 ## 2. Invariants added by this slice
 
@@ -204,6 +204,6 @@ brg-36's tests repeat these in Pest against MySQL in CI.
 5. Enum values in English (`in_person`, `half_day`, …), per `nomenclatura.md` §1; added to its dictionary in the same PR.
 
 **Question for the owner (doesn't block brg-36):**
-- **Q-B — How long are lead rows kept?** D7.1 only sets the **attachment** period (90 days). The rows themselves hold names, emails and phones, and LOPDP expects a stated period. This is Bridge's call; added to the placeholder register as row #30. The schema works with any answer (it would be a scheduled job in P5, like the attachments).
+- **Q-B — How long are lead rows kept?** **Answered 2026-10-19 by the owner: 90 days**, the same as the attachments (ADR D7.1). Original question: D7.1 only sets the **attachment** period (90 days). The rows themselves hold names, emails and phones, and LOPDP expects a stated period. This is Bridge's call; added to the placeholder register as row #30. The schema works with any answer (it would be a scheduled job in P5, like the attachments).
 
 On approval, in this same branch: ADR 6.3 and "ERD status" (closed), `docs/ARCHITECTURE.md` §2 pointer, `docs/nomenclatura.md` dictionary, placeholder register row #30, then the spec `docs/specs/brg-36.md`.

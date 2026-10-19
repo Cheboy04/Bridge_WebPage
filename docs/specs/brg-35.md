@@ -2,7 +2,7 @@
 
 > **GitHub Issues:** `BRG-45` (local `brg-35`) · **Phase:** P2 · **Covers:** RF-02–RF-06, RF-08, RNF-06
 > **Counterpart:** — (does not cross layers)
-> **Status:** `[x]` draft · `[ ]` approved · `[ ]` implemented
+> **Status:** `[x]` draft · `[x]` approved · `[ ]` implemented
 
 Turns the issue's acceptance criteria (migrations run on MySQL; models declare `$fillable` and translatable attributes) into the schema of the approved ERD slice, plus the tests that prove each constraint and each model contract can fail.
 
@@ -136,4 +136,5 @@ Tests 2, 4–7 repeat the ERD §8 probes in CI (R1–R4, A3–A4), which is wher
 
 ## 6. Spec change log
 
+- `2026-10-19` — approved by the owner (C1), including §3.5.
 - `2026-10-19` — draft created from the approved ERD slice. Decisions carried from the ERD approval: functional slug index (Q1), no soft deletes (Q2), FAQ cascade (Q3), default `editor` (Q4). Added here: `role` stays out of `$fillable` (§3.5).

@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\DB;
 uses(RefreshDatabase::class);
 
 it('rejects a second settings row', function () {
-    DB::table('settings')->insert([]);
+    DB::table('settings')->insert(['phone_landline' => null]);
 
-    expect(fn () => DB::table('settings')->insert([]))
+    expect(fn () => DB::table('settings')->insert(['phone_landline' => null]))
         ->toThrow(UniqueConstraintViolationException::class);
 });
 
@@ -23,7 +23,7 @@ it('rejects a singleton other than one', function () {
         ->toThrow(QueryException::class);
 
     // The table itself works: only the bad value was refused, not a missing table.
-    DB::table('settings')->insert([]);
+    DB::table('settings')->insert(['phone_landline' => null]);
     expect(DB::table('settings')->count())->toBe(1);
 });
 

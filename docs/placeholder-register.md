@@ -30,7 +30,7 @@ It merges and replaces three earlier lists: the open items of the old `docs/ARCH
 | 11 | Permission to show the ATA badge | not shown | — | P7 | Open |
 | 12 | The Ecuadorian designation behind "traducción certificada" and "notariada" (ATA alone has no legal standing in Ecuador) | the word "validez legal" is not used | service copy in the CMS | P4 (service copy) | Open |
 | 13 | Privacy policy text (LOPDP): controller, purpose, rights | template to come | `Page` "privacidad" | P5 (forms link to it), P7 | Open |
-| 14 | Attachment retention period (90 days proposed) | 90 in config | `config('leads.attachments')` + `/privacidad` | P5 (also ADR summary #2) | Open |
+| 14 | Attachment retention period (90 days proposed) | 90 in config | `config('leads.retention_days')` + `/privacidad` | P5 (also ADR summary #2) | answered 2026-10-19 by the owner → 90 days, deleted with the lead (ADR D7.1, #30) |
 | **Catalogue** | | | | | |
 | 15 | Launch service list per hub (Traducción, Interpretación) | 6 services in the prototype nav | `Service` | P4 | Open |
 | 16 | Language list, with the services offered per language | 14 example languages | `Language` | P4 | Open |
@@ -49,9 +49,10 @@ It merges and replaces three earlier lists: the open items of the old `docs/ARCH
 | 27 | Photo shoot: a real booth event and redacted certified documents | interim booth photo (consent held by Bridge, ADR D2.2) | media library | P4 (Documento imagery parity) | Open |
 | 28 | Licence of `Interpreting Booth Hero image.png`, or drop it | not used | — | P4 | Open |
 | 29 | Legal-entity name for the footer © line | "© [año] Bridge Traducciones" | `Settings` | P7 | Open |
-| 30 | Retention period of lead **records** (names, emails, phones), separate from the attachments' 90 days (#14) | none: rows are kept | a scheduled job in P5 + `/privacidad` | P5 (privacy text), P7 | Open |
+| 30 | Retention period of lead **records** (names, emails, phones), separate from the attachments' 90 days (#14) | none: rows are kept | a scheduled job in P5 + `/privacidad` | P5 (privacy text), P7 | answered 2026-10-19 by the owner → 90 days, same as the attachments (ADR D7.1) |
 
 ## Change log
 
+- `2026-10-19` — rows #14 and #30 answered by the owner: 90 days for leads and attachments.
 - `2026-10-19` — row #30 added (brg-36 ERD, `docs/erd/modelo-leads-settings.md` §9 Q-B).
 - `2026-10-16` — created in P0 from ARCHITECTURE §12, DIRECTION §11 and HANDOFF_v1 §8 (seed list), plus the open labels found in the prototype.

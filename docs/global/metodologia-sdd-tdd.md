@@ -43,29 +43,28 @@ A test that can't fail proves nothing. A spec the code no longer meets stops bei
 
 ## 2. Roles
 
-**Current mode: `B`** (ADR D1.2). Changing mode is an ADR decision (block 1), not a session decision.
+**Current mode: `C`** since 2026-10-19 (ADR D1.2; mode B before that). Changing mode is an ADR decision (block 1), not a session decision.
 
-### Mode B — The agent implements, the human reviews
-
-Speed matters and code authorship is not a requirement. The human approves the intent and the result.
+### Mode C — The agent runs the cycle, the owner merges
 
 | Cycle step | Who |
 | --- | --- |
-| Spec | **Agent** (the human approves it **before** anything else) |
-| Red tests | **Agent** (shows the red) |
+| Spec and ERD slice | **Agent**, self-approved. Committed **before** the tests. |
+| Red tests | **Agent**. The red is committed (C2 evidence). |
 | Code until green | **Agent** |
-| Review with C3 (§5) | **Agent** (self-review), then **the human** reads the diff |
-| Commit / push / PR | **Human**. The agent hands over the filled-in commands and stops (`reglas-git.md` §1). |
+| Review with C3 (§5) | **Agent** |
+| Commit / push / PR | **Agent** (`reglas-git.md`) |
+| Merge into `develop` / `main` | **Owner**. The agent asks with the PR link and stops that task's line there. |
 
-**Mandatory counterweight:** the agent can't approve its own spec or sign off its own C3 without showing the evidence (the red of each mutation).
+**Mandatory counterweight:** with no approval gate, the evidence is the control. Every PR body carries: the spec link, the red (commit or CI run), the C3 table (mutations and how many survived), the quality chain result, and any decision the agent took on its own (spec choices, technical OPEN points closed). A claim without evidence is not Done.
 
 **Parallel workers:** when work is split across subagents, each worker gets **strict file ownership** (named files, no overlap). Shared stubs are created before anyone starts, so the build never breaks mid-run. The orchestrating agent integrates and reviews; a worker's report is a claim, not evidence, until the orchestrator re-checks it.
 
 ### Permissions
 
-**What the agent MAY run without asking:** read-only tools (read, search, query the code graph, `git status/branch/log/diff`), writing and running test files, application code inside the approved spec's scope, and the quality chain (`CLAUDE.md` §7.2).
+**What the agent MAY run without asking:** read-only tools; specs, ERD slices and their ADR updates; tests and application code inside the spec's scope; the quality chain (`CLAUDE.md` §7.2); git and `gh` per `reglas-git.md` §1 (branches, commits, pushes to its own branches, PRs, issue comments and closing).
 
-**What the agent does NOT run:** git writes, infrastructure configuration (`CLAUDE.md` §0.6), and anything outside the approved spec. If it thinks one is needed, it **explains it in steps** and stops.
+**What the agent does NOT run:** merges into `develop`/`main`, pushes to them, history rewrites of pushed branches, infrastructure or repo settings (`CLAUDE.md` §0.6), and decisions that need business input, money, accounts or Bridge's data (ADR D1.2). For those it **asks the owner** and moves on to other Ready work meanwhile.
 
 ---
 
@@ -88,12 +87,12 @@ The spec lives next to the code and evolves with it. Its job is to prevent *inte
 
 The order is fixed. Each task of a story goes through:
 
-1. **Specify.** The agent reads the story in GitHub Issues, its acceptance criteria, the relevant ADR and the existing code (searching first, §7). It writes or updates the spec. The human approves it.
+1. **Specify.** The agent reads the story in GitHub Issues, its acceptance criteria, the relevant ADR and the existing code (searching first, §7). It writes or updates the spec and commits it before any test (C1).
 2. **Red.** The agent writes the tests derived from the acceptance criteria. **They must fail** when run, because there's no implementation yet, and the agent shows that red.
 3. **Green.** The agent writes the code until the tests pass.
 4. **Ping-pong (if needed).** If a test clashes with a better design, the agent says so and justifies it, adjusts the test and confirms it still covers the acceptance criterion. Tests aren't untouchable, but they're never relaxed silently.
 5. **Review.** With the suite green, the agent audits the diff (§5) and verifies that each test **can fail**.
-6. **Commit.** Per `reglas-git.md`: the agent hands over the command block and **stops**.
+6. **Integrate.** Per `reglas-git.md`: the agent commits, pushes, opens the PR with the evidence (§2 counterweight), and asks the owner to merge.
 
 Small iterations: one reviewable diff at a time, one task at a time. Nothing else gets touched "while we're at it".
 
@@ -101,7 +100,7 @@ Small iterations: one reviewable diff at a time, one task at a time. Nothing els
 
 ## 5. The TDD gates (non-negotiable)
 
-**C1 — No tests without an approved spec.** If the spec is missing, it is written first (§3).
+**C1 — No tests without a committed spec.** If the spec is missing, it is written first (§3).
 
 **C2 — No implementation without a test that already fails.** The red is seen before writing application code. If a test is born green without implementation, it's badly written (or it's a guard rail declared as such in a comment).
 
@@ -161,4 +160,4 @@ It is memory **of the code**, not of the conversation. Memory between sessions i
 
 **Ready (a task can enter the cycle) if:** its story has acceptance criteria in GitHub Issues; the ADR decisions it depends on are `DECIDED` (or compatible with every outcome, §8); the ERD slice it needs is approved (if it touches data); and it isn't under "What NOT to do yet".
 
-**Done (the agent can hand over the commit block) if:** the spec is written or updated; tests are green; each test was proven red (C3); the review has no open findings; the story's acceptance criteria are covered; and the docs have no drift. Without this, the task isn't delivered even if "it works".
+**Done (the agent can open the PR) if:** the spec is written or updated; tests are green; each test was proven red (C3); the review has no open findings; the story's acceptance criteria are covered; and the docs have no drift. Without this, the task isn't delivered even if "it works".

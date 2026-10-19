@@ -5,7 +5,7 @@ Delete the whole erd/ directory if the repo has no persistence of its own. -->
 
 > **GitHub Issues:** `BRG-XX`
 > **Base:** <!-- earlier slice documents, if any -->
-> **Status:** draft · approved by the human on YYYY-MM-DD
+> **Status:** draft · approved on YYYY-MM-DD (by the agent in mode C, ADR D1.2)
 
 ## 1. Scope and precedence
 

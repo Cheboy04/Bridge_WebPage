@@ -85,7 +85,7 @@ Copy this file and fill it in. **Where the spec lives:**
 <!-- Newest first. Each time the implementation reveals something unforeseen, note it here and fix the affected section in the same session. Also record the cycle milestones with their evidence:
 - `YYYY-MM-DD` — review with C3: N mutations, M survive; #X is hardened because… 
 - `YYYY-MM-DD` — implemented: suite N green; linters clean.
-- `YYYY-MM-DD` — approved by the human. Tests in red: N cases fail for <right reason>.
+- `YYYY-MM-DD` — spec committed (C1). Tests in red: N cases fail for <right reason>.
 - `YYYY-MM-DD` — draft created. Human decisions: …
 -->
 

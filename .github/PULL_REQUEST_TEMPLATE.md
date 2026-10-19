@@ -17,7 +17,8 @@
 
 <!-- Which tests cover the change and how to verify it by hand. An acceptance criterion that can't be verified doesn't count as tested. -->
 
-- [ ] Tests added or updated and seen red before the implementation (C2)
+- [ ] Spec committed before the tests (C1): <commit>
+- [ ] Tests added or updated and seen red before the implementation (C2): <red commit or CI run>
 - [ ] Each non-trivial test proven by breaking it (C3): N mutations, M survived and are justified in the spec
 - [ ] Verified locally
 - [ ] Public UI: 0 axe violations and no horizontal overflow at 390 and 1440 (if it changes something visible)
@@ -37,6 +38,10 @@
 ## CI
 
 - [ ] Pipeline green
+
+## Decisions taken by the agent (mode C, ADR D1.2)
+
+<!-- Every choice made without the owner: spec choices, technical OPEN points closed, deviations. "None" if none. -->
 
 ## Notes for the reviewer
 

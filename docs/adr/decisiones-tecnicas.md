@@ -230,14 +230,14 @@ Field lists are a draft in `docs/ARCHITECTURE.md` §2. The ERD (`docs/erd/`) bec
 | --- | ------------------------ | ------- | -------- |
 | 6.1 | Engine                   | DECIDED | MySQL, included with Hostinger. CI runs against MySQL too (lessons: same engine as production). |
 | 6.2 | Naming conventions       | DECIDED | Laravel conventions: plural `snake_case` tables, `snake_case` columns, `<model>_id` foreign keys. Translatable columns are JSON. |
-| 6.3 | Index strategy           | OPEN    | Decided per ERD slice in P2. **Content slice decided 2026-10-19:** FK indexes and business uniques only, slugs unique per locale through a functional index (`docs/erd/modelo-contenido.md` §6). Settings and Lead slice pending (brg-36). |
+| 6.3 | Index strategy           | DECIDED | Per ERD slice (2026-10-19): FK indexes and business uniques only, no performance indexes until measured. Content: slugs unique per locale through a functional index (`docs/erd/modelo-contenido.md` §6). Settings and Lead: single-row guard and contact-channel `CHECK` (`docs/erd/modelo-leads-settings.md` §6). |
 | 6.4 | Seeders and factories    | DECIDED | Invented data only (D2.2). A `LanguageSeeder` may seed the real public language list. |
 | 6.5 | Backups                  | DECIDED | Hostinger daily backups, plus a weekly `mysqldump` and private uploads copied off-server. See D9.1. |
 
-### ERD status — PARTIAL
+### ERD status — DECIDED
 
 - **Content slice** (`docs/erd/modelo-contenido.md`, brg-35): **approved by the owner 2026-10-19**, with no soft deletes, FAQs cascading with their service, and new users defaulting to `editor`.
-- **Settings and Lead slice** (brg-36): not written yet. Its draft is still D4.1 and `docs/ARCHITECTURE.md` §2.
+- **Settings and Lead slice** (`docs/erd/modelo-leads-settings.md`, brg-36): approved 2026-10-19 by the agent in mode C (D1.2): one guarded Settings row, one `leads` table for the three forms, leads restrict deleting the services and languages they reference.
 
 ---
 

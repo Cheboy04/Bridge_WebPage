@@ -49,7 +49,9 @@ It merges and replaces three earlier lists: the open items of the old `docs/ARCH
 | 27 | Photo shoot: a real booth event and redacted certified documents | interim booth photo (consent held by Bridge, ADR D2.2) | media library | P4 (Documento imagery parity) | Open |
 | 28 | Licence of `Interpreting Booth Hero image.png`, or drop it | not used | — | P4 | Open |
 | 29 | Legal-entity name for the footer © line | "© [año] Bridge Traducciones" | `Settings` | P7 | Open |
+| 30 | Retention period of lead **records** (names, emails, phones), separate from the attachments' 90 days (#14) | none: rows are kept | a scheduled job in P5 + `/privacidad` | P5 (privacy text), P7 | Open |
 
 ## Change log
 
+- `2026-10-19` — row #30 added (brg-36 ERD, `docs/erd/modelo-leads-settings.md` §9 Q-B).
 - `2026-10-16` — created in P0 from ARCHITECTURE §12, DIRECTION §11 and HANDOFF_v1 §8 (seed list), plus the open labels found in the prototype.

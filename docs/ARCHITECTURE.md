@@ -30,7 +30,7 @@ Mode in brackets: **D** = Documento (light), **C** = Cabina (dark).
 
 ## 2. Content model draft (Filament resources)
 
-The model list and roles are decided in ADR D4.1–D4.2. These field lists are the **draft** for the P2 ERD slices; the ERD owns columns once a slice is approved. **Approved 2026-10-19:** Service, Language, Post, Client, Testimonial, Faq and Page → [`docs/erd/modelo-contenido.md`](erd/modelo-contenido.md) (the rows below are superseded for them). Lead and Settings are still draft.
+The model list and roles are decided in ADR D4.1–D4.2. These field lists are the **draft** for the P2 ERD slices; the ERD owns columns once a slice is approved. **Approved 2026-10-19:** Service, Language, Post, Client, Testimonial, Faq and Page → [`docs/erd/modelo-contenido.md`](erd/modelo-contenido.md) (the rows below are superseded for them). Lead and Settings → [`docs/erd/modelo-leads-settings.md`](erd/modelo-leads-settings.md) (2026-10-19).
 
 | Model | Key fields (draft) |
 | --- | --- |

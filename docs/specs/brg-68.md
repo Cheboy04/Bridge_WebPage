@@ -102,5 +102,6 @@ Runner: Node's built-in `node:test` against the prototype source and built HTML,
 
 ## 6. Spec change log
 
+- `2026-10-19` — red: 7 Node contract cases fail for the intended missing R1 page hooks, beats, shared close, scoped stylesheet, arrival enhancement and built safeguards. The prototype build passes before the assertions; no case fails from the runner.
 - `2026-10-19` — approved by the agent under mode C after the owner approved R1 synthesis A–C and Story v1; no OPEN ADR point blocks the static slice.
 - `2026-10-19` — created. No Laravel/Blade implementation; no other prototype page may opt into R1.

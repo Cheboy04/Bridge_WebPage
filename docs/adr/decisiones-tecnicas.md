@@ -26,7 +26,7 @@ How this document works:
 | 1.4 | Reporting to stakeholders        | OPEN    | Today: private claude.ai artifacts shared with Bridge (prototype, logo sheet). Not formalised. |
 | 1.5 | Anchor story (estimation)        | OPEN    | No story-point estimation agreed. Low priority under phase-based work. |
 | 1.6 | Definition of Ready              | PARTIAL | See below. |
-| 1.7 | Agent/human roles mode           | DECIDED | Mode **B**, the human runs every git write. See D1.2. |
+| 1.7 | Agent/human roles mode           | DECIDED | Mode **C** since 2026-10-19: the agent runs the whole cycle and git up to the PR; the owner merges. See D1.2. |
 
 **Definition of Done (current):** merged into `develop` through a PR with CI green; tests passing and each non-trivial test proven red (C3); the story's acceptance criteria met; applicable RNF verified with their instrument (block 11); public UI at visual parity with the prototype (D3.8); accepted at the phase review.
 
@@ -39,13 +39,20 @@ The project runs eight phases in dependency order instead of sprints: **P0 Lock 
 Why: a single part-time developer with agents. A calendar cadence adds ceremony without adding control. The phase gate is where the owner approves.
 → *Quality attribute: maintainability (modularity of delivery).*
 
-### D1.2 — Roles mode B, human-run git (2026-10-16)
+### D1.2 — Roles mode C, agent-run cycle, owner merges (2026-10-19)
 
-The agent writes the spec, the red tests and the application code. The owner approves every spec **before** tests are written and reads every diff. The agent **never** runs git writes (`add`, `commit`, `push`, `branch`, `checkout`, `merge`, `reset`, `tag`, `stash`). It hands over the filled-in commands and stops. Rules: `docs/global/reglas-git.md`.
+**Replaces mode B** (2026-10-16: owner approved every spec and ran every git write), by the owner's decision on 2026-10-19.
+
+- The agent runs the whole SDD/TDD cycle **without approval gates**: it writes and approves its own specs and ERD slices, writes the red tests, implements, reviews with C3, and records the evidence.
+- The agent runs git and `gh` up to the PR: branches, commits, pushes to its own branches, opens PRs, comments on and closes issues. Rules: `docs/global/reglas-git.md`.
+- The **owner merges** every PR into `develop` and `main`. A merge is the review point; the agent asks for it with the PR link.
+- **Stays with the owner:** decisions that need business input, money, accounts or Bridge's data (e.g. ADR 7 retention, 10 domain and mail provider, the stamp); infrastructure (`CLAUDE.md` §0.6); repo settings. Technical OPEN points the agent may decide itself, recording the rationale in the ADR and flagging it in the PR.
+
+Why mode C: the owner wants speed and trusts the gates. The counterweight to removing approvals is **visible evidence** in the history and the PR: the spec commit precedes the test commit (C1), the red is committed (C2), and the C3 mutation table is in the spec's log and the PR body.
 
 Agents: Opus plans, writes specs, integrates and reviews visually. Sonnet workers build in parallel with **strict file ownership**. Haiku does mechanical work (captures, renames, bulk checks).
 
-Why: speed matters and code authorship is not a requirement. Every commit is still a point where a human read the diff.
+Mode B (2026-10-16 → 2026-10-19) lives on in the git history and HANDOFF_v1–v4.
 
 ---
 

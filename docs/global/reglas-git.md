@@ -1,7 +1,7 @@
 # Git rules (Bridge Traducciones website)
 
 **Status:** official since 2026-10-16.
-**Owns:** the branch model, naming of branches and commits, and what the agent may do with git. **Referenced by:** `CLAUDE.md` §0.1, the methodology §2, the PR template.
+**Owns:** the branch model, naming of branches and commits, and what the agent may do with git. **Referenced by:** `CLAUDE.md` §0.1, the methodology §2, the PR template. **Mode C since 2026-10-19** (ADR D1.2).
 
 **Source of truth for the ID that names branches and commits:** the issue number in **GitHub Issues** (`BRG-<n>`, where `<n>` is the issue number; ADR D2.4). This document defines the _format_; the real ID comes from the board.
 
@@ -9,20 +9,18 @@
 
 ## 1. What the agent does with git
 
-### Hard rule: the agent reads, it doesn't write
+### Mode C: the agent runs git up to the PR; the owner merges (ADR D1.2, since 2026-10-19)
 
-Mode B (ADR D1.2) lets the agent write code, but version control belongs **only to the human**. Every commit is a point where a person read a diff and said yes. Frequent commits are also the safety net to revert if something slips through, which matters more in a **public** repo: a secret that enters the history isn't removed by one more commit.
-
-| The agent **DOES** (read only) | The agent **NEVER** does (writes) |
+| The agent **DOES** | The agent **NEVER** does |
 | --- | --- |
-| `git status`, `git branch`, `git log`, `git diff`, `git show` | `git commit`, `git add` |
-| Read the current branch to fill in the hand-over commands | `git push` |
-| Inspect the history to guide better | `git checkout` / `switch` / `checkout -b` |
-| `gh` read commands (`gh issue view`, `gh pr view`, `gh repo view`) | `git merge`, `git rebase`, `git reset` |
-| | `git tag`, `git branch -d/-D`, `git stash` |
-| | `gh pr create/merge`, `gh issue create/edit` without the owner's approval for that batch |
+| Read commands (`status`, `log`, `diff`, `show`, `gh … view`) | Push to `main` or `develop`, or merge into them (`git merge`, `gh pr merge`) |
+| `git switch` / `switch -c`, `add`, `commit`, `stash` | `push --force` or any rewrite of a branch already pushed (`rebase`, `reset`, `commit --amend` after push) |
+| `push` its own `feature/*`, `docs/*`, `fix/*` branches | `git tag`, `hotfix/*` work, deleting remote branches someone else owns |
+| `gh pr create` (base `develop`), `gh pr comment`, `gh pr edit` on its own PRs | Repo settings, rulesets, secrets, deploy keys (`CLAUDE.md` §0.6) |
+| `gh issue comment`, `gh issue close`, `gh issue edit` (labels, milestone) after a merge or to record evidence | `gh issue create` in bulk, or deleting issues |
+| Delete its own local branches after the owner merges | Commit `.env`, secrets or real client data (public repo, D2.2) |
 
-If the agent thinks a write is needed, it **doesn't run it**: it hands over the command block (§4) and stops.
+**Asking the owner:** the agent asks only for what it can't do: merging a PR, an infrastructure action, or a business decision. It sends the PR link (or the exact action) and continues with other Ready work meanwhile.
 
 ---
 
@@ -65,13 +63,11 @@ This is the **only place** where the convention lives. The PR template and `CLAU
 
 ---
 
-## 4. Hand-over rule (mandatory)
+## 4. Branch and PR routine (mandatory)
 
-Because the agent doesn't run git writes, **every time it starts and every time it closes a task it hands over a ready-to-copy command block**, filled in with the real branch and ID (read with `git branch` / `git status` and from the board). Without that block, the task isn't delivered.
-
-- **Before touching anything:** say which branch the work must be on and how to create it. If the base branch doesn't exist or **the real `BRG-<n>` isn't known**, say so and **stop**: don't start on the wrong branch and don't invent the ID.
-- **When done:** the closing block (`add`, the commit written per §3, `push`, and opening the PR to `develop`).
-- Before the closing block, the agent shows `git diff --stat` and confirms there are no secrets or real client data in the diff.
+- **Before touching anything:** check the branch (`git branch --show-current`). Work never happens on `develop` or `main`: create the branch from an up-to-date `develop`, named with the real `BRG-<n>` from the board. If the ID isn't known, look it up in `docs/backlog/key-map.md`; never invent one.
+- **When done:** show `git diff --stat`, confirm there are no secrets or real client data in it, commit per §3, push, and open the PR to `develop` with the evidence the methodology §2 requires. Then report the PR link to the owner and ask for the merge.
+- **After the owner merges:** switch to `develop`, pull, delete the local branch, and close the issue with a comment linking the PR (`Closes #N` only fires on `main`).
 
 ### 4.1 Command blocks
 
@@ -114,6 +110,8 @@ git branch -d feature/BRG-<n>-<slug>
 git push origin --delete feature/BRG-<n>-<slug>
 git remote prune origin
 ```
+
+The agent runs these blocks itself (§1); the remote-branch delete only for its own branches.
 
 **Initial repo bootstrap** (once; done on 2026-10-16):
 

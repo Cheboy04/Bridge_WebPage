@@ -8,12 +8,13 @@ This is a single-layer repo: one Laravel monolith in `site/` (ADR D2.3). The sta
 
 ## 0. Hard rules (non-negotiable)
 
-1. **Git:** I don't run git writes (`add`, `commit`, `push`, `merge`, `branch`, `checkout`/`switch`, `reset`, `tag`, `stash`). I **do** read (`git status/branch/log/diff/show`). I hand over the write commands already filled in, and stop. → `docs/global/reglas-git.md`.
-2. **Who writes application code:** mode **B** of `docs/global/metodologia-sdd-tdd.md` §2. I write the spec, the red tests and the code. The owner approves the spec **before** I write tests, and reads every diff. I never approve my own spec or my own C3 without showing the evidence.
+1. **Git:** I branch, commit, push my own branches and open PRs to `develop`. I **never** push to or merge into `develop`/`main`, force-push, or rewrite pushed history. **The owner merges**: I ask with the PR link. → `docs/global/reglas-git.md` §1.
+2. **How I work:** mode **C** of `docs/global/metodologia-sdd-tdd.md` §2 (ADR D1.2, since 2026-10-19). I run the whole SDD/TDD cycle without approval gates: spec (committed before the tests), red, green, review with C3. No approval means **evidence is the control**: every PR carries the spec link, the red, the C3 table, the chain result and any decision I took alone.
 3. **One change at a time, one task at a time.** I don't touch anything outside the task's diff "while I'm at it".
 4. **The source of truth rules.** Stories and AC → GitHub Issues. Technical decisions → ADR (by number: `D3.1`…). Design → brand docs (ADR D3.8). If the code must differ from the spec, **the spec is updated first**, in the same session.
 5. **Secrets never go into the repo or to the client.** The repo is **public** (ADR D2.2): never secrets or real client data in code, config, seeds, tests, the tracker or the history. `.env` always in `.gitignore`; `site/.env.example` versioned with no real values.
-6. **I don't touch infrastructure by hand** (Hostinger hPanel/SSH/DNS/mail/cron, GitHub repo settings/secrets/deploy keys, Google GA4). If a task needs it, I flag it as a dependency and stop.
+6. **I don't touch infrastructure by hand** (Hostinger hPanel/SSH/DNS/mail/cron, GitHub repo settings/secrets/deploy keys, Google GA4). If a task needs it, I ask the owner and move on to other Ready work.
+7. **Business decisions stay with the owner:** anything that needs business input, money, accounts or Bridge's data. Technical choices I make myself and record (ADR, spec log), flagged in the PR.
 
 ---
 
@@ -21,7 +22,7 @@ This is a single-layer repo: one Laravel monolith in `site/` (ADR D2.3). The sta
 
 Before writing a spec or a test, or proposing an implementation:
 
-1. **Does it touch something `OPEN` in the ADR?** If yes, I don't work on it yet: I flag the pending decision. The live list is at the end of the ADR ("Summary of prioritised open points"); I consult it, I don't copy it.
+1. **Does it touch something `OPEN` in the ADR?** If it's a technical point, I decide it, record it in the ADR and flag it in the PR. If it needs the owner (rule 7), I ask and don't build on it until answered. The live list is at the end of the ADR ("Summary of prioritised open points"); I consult it, I don't copy it.
 2. **Does it fall under "What NOT to do yet" (§5)?** If yes, I don't do it, even if it looks reasonable.
 3. **Does it affect a convention** (names, commits, branches, error handling, time zone, tokens, contrast)? I check it against the document that owns it before applying it.
 
@@ -37,7 +38,7 @@ Before writing a spec or a test, or proposing an implementation:
 4. The **story spec** in `docs/specs/HU-XX.md` and its acceptance criteria in GitHub Issues.
 5. I search the code with codebase-memory-mcp (§8) before writing tests or proposing code, to reuse instead of rewrite.
 
-**When a task closes**, I report: what I did, which files I touched, what's left and the review findings (methodology §5), and I **hand over the git command block**. Then I stop.
+**When a task closes**, I open the PR with its evidence and report to the owner: what I did, what's left, the review findings (methodology §5), decisions I took alone, and the PR link to merge. While a PR waits, I can start the next Ready task on its own branch.
 
 **When the session closes**, I write the next `HANDOFF_vN.md` from `docs/global/PLANTILLA-HANDOFF.md`.
 
@@ -70,7 +71,7 @@ Before writing a spec or a test, or proposing an implementation:
 | --- | --- | --- |
 | `CLAUDE.md` | Hard rules, ritual, structure, stack (§7) | Agent behaviour and stack rules |
 | `docs/global/metodologia-sdd-tdd.md` | SDD/TDD cycle, gates, roles | How each task is worked |
-| `docs/global/reglas-git.md` | Branches, commits, command hand-over | Everything git |
+| `docs/global/reglas-git.md` | Branches, commits, PR routine, what the agent may run | Everything git |
 | `docs/global/lecciones-transversales.md` | Learned traps still in force | What not to repeat |
 | `docs/global/GUIA-ESTILO-DOCS.md` | Doc conventions | How docs are written |
 | `docs/adr/decisiones-tecnicas.md` | Closed decisions (`Dx.y`) and the open list | What is technically decided |

@@ -1,6 +1,6 @@
 # Phase 1 — Skeleton (Bridge Traducciones website)
 
-**Status:** in progress since 2026-10-16 (backlog approved, P0 closed, board loaded).
+**Status:** **closed 2026-10-19** with brg-33 / `BRG-43` carried forward (owner, 2026-10-19; see *Carry-over*). Ran 2026-10-16 → 2026-10-19.
 **Owns:** the plan, tickets and close criteria of P1. **Referenced by:** `CLAUDE.md` §5, `docs/backlog/roadmap.md`.
 
 ## Goal
@@ -20,14 +20,14 @@ No story points (ADR 1.5 OPEN). P1 has four Tasks and no Stories.
 | `BRG-43` | `brg-33` | Task | Release deploy to staging | brg-32; owner's hosting checks |
 | `BRG-44` | `brg-34` | Task | Decide time zone and primary key type | owner's decision |
 
-brg-34 / `BRG-44` was decided by the owner on 2026-10-16 (ADR D3.2, D3.5); the issue can be closed.
+brg-34 / `BRG-44` was decided by the owner on 2026-10-16 (ADR D3.2, D3.5).
 
 ## Execution sequence
 
 1. **brg-31** (spec [`docs/specs/brg-31.md`](../../specs/brg-31.md), approved): scaffold, packages, tokens, fonts, smoke tests. Branch `feature/BRG-5-scaffold`. Done 2026-10-16 (PR #59).
 2. ~~**brg-34**~~: decided 2026-10-16.
-3. **brg-32** (spec [`docs/specs/brg-32.md`](../../specs/brg-32.md), approved): the CI workflow. Branch `feature/BRG-42-ci`. Done 2026-10-16 (PR #60; CI green and red runs recorded in the spec). Still open: the ruleset fix (owner).
-4. **brg-33**: the deploy workflow, once CI is green **and** the owner has done the hosting checks. **Non-blocking** (owner, 2026-10-16): if the checks aren't done when brg-31 and brg-32 close, P1 closes without it and brg-33 carries forward.
+3. **brg-32** (spec [`docs/specs/brg-32.md`](../../specs/brg-32.md), approved): the CI workflow. Branch `feature/BRG-42-ci`. Done 2026-10-16 (PR #60; CI green and red runs recorded in the spec). Ruleset `Quality` fixed by the owner (active on `main` and `develop`, checked 2026-10-19).
+4. **brg-33**: the deploy workflow, once CI is green **and** the owner has done the hosting checks. **Non-blocking** (owner, 2026-10-16). **Carried forward** on 2026-10-19 (see *Carry-over*).
 
 ## Ready conditions
 
@@ -48,9 +48,17 @@ Each Task follows its checklist in the issue body. The cross-cutting quality lin
 
 ### Close
 
-- A PR to `develop` runs the chain green (**met** 2026-10-16, PR #60); the merge deploys to staging (**not met**: brg-33 blocked on the hosting checks).
-- Staging serves the token-styled placeholder and `/admin/login` (**not met**, same reason; met locally, brg-31 evidence).
-- ADR D2.1 records the installed versions; ADR 3.2 and 3.5 are DECIDED (**met**).
+- A PR to `develop` runs the chain green (**met** 2026-10-16, PR #60); the merge deploys to staging (**carried** with brg-33).
+- Staging serves the token-styled placeholder and `/admin/login` (**carried** with brg-33; met locally, brg-31 evidence).
+- ADR D2.1 records the installed versions; ADR 3.2 and 3.5 are DECIDED (**met**; no drift between D2.1 and the lockfiles, checked 2026-10-19).
+
+## Carry-over
+
+Recorded 2026-10-19, as the DoD and the risk table allow:
+
+- **brg-33 / `BRG-43`** stays open and blocked on ADR 9.1's hosting checks (owner). It doesn't block P2–P5: those phases demo locally (roadmap, *Planning assumptions*).
+- **Effect on the gates:** the two staging items above stay unmet until brg-33 lands. Every later phase's "on staging" criterion is checked locally until then and re-checked on staging once brg-33 is Done.
+- **Latest point:** before P6. Local brg-43 (observability, P6) and brg-46 (backups, P7) depend on it.
 
 ## Phase Definition of Done
 
@@ -67,3 +75,4 @@ The four Tasks are Done (or brg-33 is explicitly carried to the next phase becau
 ## GitHub Issues sync executed
 
 - `2026-10-16` — batch `initial` loaded by the owner; P1 tickets `BRG-5`, `BRG-42`, `BRG-43`, `BRG-44`.
+- `2026-10-19` — `BRG-5`, `BRG-42`, `BRG-44` closed by the owner. **Pending (owner):** move `BRG-43` to the `P2 Data` milestone (carry-over).

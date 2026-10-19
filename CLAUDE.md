@@ -84,16 +84,16 @@ Before writing a spec or a test, or proposing an implementation:
 
 ---
 
-## 5. What NOT to do yet (scope of Phase 1, Skeleton)
+## 5. What NOT to do yet (scope of Phase 2, Data)
 
-**Updated on 2026-10-16:** P0 closed (owner approved the brand book); the project is in **P1 (Skeleton)** (ADR D1.1, `docs/backlog/sprints/phase-01.md`). The "no Laravel code" veto is lifted **only** for brg-31 (`BRG-5`), brg-32 (`BRG-42`) and brg-33 (`BRG-43`). Until P1 closes:
+**Updated on 2026-10-19:** P1 closed with brg-33 carried forward; the project is in **P2 (Data)** (ADR D1.1, `docs/backlog/sprints/phase-02.md`). The veto is lifted for brg-35 (`BRG-45`), brg-36 (`BRG-46`) and brg-37 (`BRG-47`), plus brg-33 (`BRG-43`) whenever its hosting checks land. Until P2 closes:
 
-- No models, migrations of our own, ERD slices or factories (P2: brg-35–37).
-- No Filament resources, Blade components or pages beyond brg-31's placeholder home (P3, P4).
+- No migration or model before its ERD slice in `docs/erd/` is approved by the owner (C1).
+- No Filament resources, policies, Blade components or pages beyond brg-31's placeholder home (P3, P4).
 - No packages beyond those in ADR D3.7 and the dev tooling in D2.1.
-- brg-33 (staging deploy) is **not a blocker**: the owner is still sorting out the Hostinger checks, so work continues locally. Don't stall P1 or P2 waiting for it.
+- brg-33 (staging deploy) is **not a blocker**: "on staging" criteria are checked locally until it lands (phase-01 *Carry-over*). It must land before P6.
 - `prototype/` is the reference implementation: no changes except to fix a drift the site's token tests reveal (recorded in the phase doc).
-- No real Bridge data in any file; it goes to `Settings` through the admin later (placeholder register).
+- No real Bridge data in any file, factory or seeder; it goes to `Settings` through the admin later (placeholder register).
 
 ## 6. Closed infrastructure decisions
 

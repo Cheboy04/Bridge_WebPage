@@ -32,7 +32,7 @@ A release can ship only when all its stories meet the Definition of Done (ADR bl
 | Phase | Stories and cross-cutting work | Demonstrable at close | Main risk or dependency |
 | --- | --- | --- | --- |
 | P0 Lock | Brand book, component contracts, shipped timings, placeholder register, polish | Brand book artifact; repo docs | Stamp OPEN (Seal stays provisional) |
-| P1 Skeleton | brg-31 scaffold + tokens, brg-32 CI, brg-33 staging deploy, brg-34 time zone and PK decision | Staging serves a token-styled placeholder page and the `/admin` login; CI green on a PR | Owner's Hostinger checks (ADR summary #3) |
+| P1 Skeleton (**closed 2026-10-19**, brg-33 carried) | brg-31 scaffold + tokens, brg-32 CI, brg-33 staging deploy, brg-34 time zone and PK decision | Staging serves a token-styled placeholder page and the `/admin` login; CI green on a PR | Owner's Hostinger checks (ADR summary #3) |
 | P2 Data | brg-35, brg-36 ERD slices and migrations, brg-37 seeders | Migrations run on staging; models with translatable fields and factories | ADR 3.2, 3.5 (closed by brg-34) |
 | P3 Admin | HU-02 roles, HU-03–HU-09 resources | Editor and admin sign in on staging and manage every entity | — |
 | P4 Public site | brg-39 harness first, HU-01 layout, HU-10–HU-17 pages, HU-18–HU-22 signature, brg-38 error pages | Every page on staging at parity with the prototype; 0 axe violations | Bridge content still placeholders (register) |
@@ -98,6 +98,7 @@ Quality is not saved for the end: every UI story's checklist carries its own a11
 | Discrepancy | Where | Action |
 | --- | --- | --- |
 | ~~Staging deploy in P1 vs P7~~ | HANDOFF_v1 decision 15 vs this roadmap | **Resolved 2026-10-16:** the owner approved P1, non-blocking |
+| Staging demo per phase vs brg-33 still blocked | P1 close (2026-10-19) | P2–P5 demo locally and are re-checked on staging once brg-33 lands; it must land before P6 |
 
 ## Governance in GitHub Issues
 
@@ -107,4 +108,5 @@ GitHub Issues is the operational source of truth; the current key map is in [`ke
 
 1. ~~The owner approves this roadmap and the backlog.~~ Done 2026-10-16.
 2. ~~Load the board.~~ Done 2026-10-16 (`BRG-4`…`BRG-57`).
-3. Start P1 with brg-31 / `BRG-5` (spec approved: `docs/specs/brg-31.md`).
+3. ~~Start P1 with brg-31 / `BRG-5`.~~ P1 closed 2026-10-19; brg-33 carried forward, non-blocking, due before P6 ([`phase-01.md`](sprints/phase-01.md) *Carry-over*).
+4. P2 ([`phase-02.md`](sprints/phase-02.md)): the ERD slice for brg-35 / `BRG-45` first.

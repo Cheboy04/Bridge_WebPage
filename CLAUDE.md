@@ -122,7 +122,7 @@ From `site/` (exist from P1; confirm against `composer.json` scripts when they l
 php artisan serve                       # dev server
 php artisan test                        # tests, one pass (Pest)
 vendor/bin/pint --test                  # format check, no changes
-vendor/bin/phpstan analyse              # Larastan
+vendor/bin/phpstan analyse --memory-limit=1G   # Larastan (128M runs out since brg-35)
 npm run build                           # Vite build
 composer install && npm ci              # install respecting the lockfiles (never `composer update` / `npm install <pkg>` without an ADR entry)
 ```

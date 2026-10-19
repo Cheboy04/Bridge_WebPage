@@ -268,8 +268,8 @@ Restraint: no indexes beyond these (no index on `sort`, `published`, `mode`) unt
 
 | Table | Migrates in (ticket, phase) | Status |
 | --- | --- | --- |
-| services, languages, language_service, faqs, posts, clients, testimonials, pages, users.role | brg-35 / `BRG-45`, P2 | Design of this document |
-| Factories for these models | brg-35 (the model tests need them) | Design of this document |
+| services, languages, language_service, faqs, posts, clients, testimonials, pages, users.role | brg-35 / `BRG-45`, P2 | **Migrated** 2026-10-19 (`site/database/migrations/2026_10_19_*`) |
+| Factories for these models | brg-35 (the model tests need them) | **Done** 2026-10-19 |
 | `LanguageSeeder`, `DatabaseSeeder` wiring | brg-37 / `BRG-47`, P2 | Pending |
 
 ## 8. Design verification

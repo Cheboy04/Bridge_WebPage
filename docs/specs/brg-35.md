@@ -2,7 +2,7 @@
 
 > **GitHub Issues:** `BRG-45` (local `brg-35`) · **Phase:** P2 · **Covers:** RF-02–RF-06, RF-08, RNF-06
 > **Counterpart:** — (does not cross layers)
-> **Status:** `[x]` draft · `[x]` approved · `[ ]` implemented
+> **Status:** `[x]` draft · `[x]` approved · `[x]` implemented
 
 Turns the issue's acceptance criteria (migrations run on MySQL; models declare `$fillable` and translatable attributes) into the schema of the approved ERD slice, plus the tests that prove each constraint and each model contract can fail.
 
@@ -136,5 +136,8 @@ Tests 2, 4–7 repeat the ERD §8 probes in CI (R1–R4, A3–A4), which is wher
 
 ## 6. Spec change log
 
+- `2026-10-19` — review with C3: **15 mutations, 15 killed**, each the one named in §4 and run with the test's filter, then restored from git. Two died by error, not assertion: #3 (index on `en`) threw the expected `1062 Duplicate entry 'same' for key services_slug_es_unique`; #10 (no `HasTranslations`) threw a `TypeError` saving the array title before the JSON assertion ran. Both are still red because of the mutation, so they count.
+- `2026-10-19` — implemented: suite 57 green (124 assertions) on MySQL 8.4; Pint clean; Larastan level 6 **0 errors with `--memory-limit=1G`** (128M now runs out, so the CI step and `CLAUDE.md` §7.1 got the flag, as brg-32's spec §5 foresaw); Vite build ok. Unforeseen: a pipe operator (`|>`, PHP 8.5) slipped into a draft test and was rewritten, since production is PHP 8.3 (D2.1).
+- `2026-10-19` — red: 48 new cases failed for the right reason (missing tables and `users.role`, missing models and enums); the 9 existing tests stayed green. Commit `c1d0fb1`.
 - `2026-10-19` — approved by the owner (C1), including §3.5.
 - `2026-10-19` — draft created from the approved ERD slice. Decisions carried from the ERD approval: functional slug index (Q1), no soft deletes (Q2), FAQ cascade (Q3), default `editor` (Q4). Added here: `role` stays out of `$fillable` (§3.5).

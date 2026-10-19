@@ -44,7 +44,11 @@ It records what Laravel and Filament dictate, plus the few project rules on top.
 | solicitud / cotización (lead) | `Lead` |
 | tipo de solicitud: contacto / traducción / interpretación | `LeadType::Contact` / `Translation` / `Interpreting` |
 | estado: nuevo / contactado / cotizado / ganado / perdido | `LeadStatus::New` / `Contacted` / `Quoted` / `Won` / `Lost` |
-| adjunto | `attachment` |
+| adjunto | `attachment` (`LeadAttachment`, table `lead_attachments`) |
+| qué necesita (certificación, notarización, apostilla, cabinas, receptores, técnico, plataforma) | `LeadNeed::TranslatorCertification` / `Notarization` / `Apostille` / `Booths` / `Receivers` / `Technician` / `Platform` |
+| modalidad: presencial / híbrido / remoto | `EventModality::InPerson` / `Hybrid` / `Remote` (`in_person`, `hybrid`, `remote`) |
+| duración: medio día / jornada / varios días | `EventDuration::HalfDay` / `FullDay` / `MultiDay` (`half_day`, `full_day`, `multi_day`) |
+| rol: administrador / editor | `UserRole::Admin` / `Editor` |
 | consentimiento | `consent_at` |
 | ajustes del sitio | `Settings` |
 | traducción certificada | `certified-translation` (slug data; the URL slug is Spanish) |

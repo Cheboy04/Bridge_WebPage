@@ -4,42 +4,51 @@
 <head>
 <!-- @include head title="Traducción certificada | Bridge Traducciones (prototipo)" description="Traducción certificada de documentos para notarías, consulados, universidades y trámites migratorios, desde Quito." -->
 </head>
-<body>
+<body class="page-certified-r1" data-remaster-page="certified">
 <a class="skip-link" href="#main">Saltar al contenido</a>
 <!-- @include icons -->
 <!-- @include header active="traduccion" -->
 
 <main id="main">
-  <!-- HERO -->
-  <section class="bg-surface text-fg" aria-labelledby="h-title">
-    <div class="wrap grid gap-y-12 pb-16 pt-6 lg:grid-cols-12 lg:gap-x-8 lg:pb-28 lg:pt-8">
-      <div class="lg:col-span-7">
+  <!-- ARRIVAL: document-led, no photography -->
+  <section class="r1-certified-arrival bg-surface text-fg" data-remaster-beat="arrival" aria-labelledby="h-title">
+    <div class="wrap r1-certified-arrival-grid grid gap-y-12 pb-16 pt-6 lg:grid-cols-12 lg:gap-x-8 lg:pb-28 lg:pt-8">
+      <div class="r1-certified-arrival-copy lg:col-span-7">
         <!-- @include breadcrumb parent="Traducción" parent_href="#" parent_note="No incluido en el prototipo" current="Traducción certificada" -->
-        <h1 id="h-title" class="mt-8 t-display">Traducción certificada de sus documentos</h1>
+        <p class="r1-monument" aria-hidden="true">Original / traducción</p>
+        <h1 id="h-title" class="r1-certified-title mt-8 t-display">Traducción certificada de sus documentos</h1>
         <p class="lead mt-6">Traducimos su documento y lo entregamos con una declaración firmada de que la traducción es fiel al original. Usted nos envía el archivo; nosotros coordinamos el resto.</p>
         <div class="mt-10 flex flex-wrap gap-3">
           <!-- @include button label="Cotizar una traducción" href="cotizacion-traduccion.html" icon="arrow-right" -->
           <!-- @include button label="Qué recibe" href="#recibe" variant="secondary" -->
         </div>
       </div>
-      <div class="lg:col-span-4 lg:col-start-9 lg:mt-14" role="group" aria-labelledby="fact-title">
-        <div class="border-t border-line pt-6 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
+      <div class="r1-certified-sheet lg:col-span-4 lg:col-start-9 lg:mt-14" role="group" aria-labelledby="fact-title">
+        <span class="r1-crossing-decor trail-h" aria-hidden="true"></span>
+        <div class="r1-certified-sheet-inner border-t border-line pt-6 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
+          <p class="label">Muestra demostrativa</p>
+          <p class="r1-certified-sheet-source mt-5" lang="en">Original · Birth certificate</p>
+          <p class="r1-certified-sheet-target mt-2">Traducción · Partida de nacimiento</p>
           <h2 id="fact-title" class="t-h4 !font-sans">En resumen</h2>
           <dl class="mt-5 grid gap-5">
             <div><dt class="t-small font-semibold text-muted">Cotización</dt><dd class="mt-1">Por escrito, antes de empezar.</dd></div>
             <div><dt class="t-small font-semibold text-muted">Plazo de entrega</dt><dd class="mt-1">[por confirmar]</dd></div>
             <div><dt class="t-small font-semibold text-muted">Entrega</dt><dd class="mt-1">Digital o en físico.</dd></div>
           </dl>
+          <div class="r1-certified-seal mt-8">
+            <!-- @include seal uid="cert-arrival" size="128" -->
+          </div>
+          <p class="mt-3 t-small text-muted">Sello de certificación provisional. [formato final por definir]</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- SIGNATURE MOMENT: BEFORE / AFTER (also answers "Qué recibe") -->
-  <section id="recibe" class="sec bg-raised text-fg" aria-labelledby="ba-h-doc">
-    <div class="wrap">
-      <!-- @include sig-before-after uid="doc" -->
-      <ul class="mt-14 grid gap-x-8 lg:grid-cols-3" aria-label="Qué recibe">
+  <section id="recibe" class="r1-certified-transformation sec bg-raised text-fg" data-remaster-beat="transformation" aria-labelledby="ba-h-doc">
+    <div class="wrap" data-signature-moment="certified-before-after">
+      <!-- @include sig-before-after uid="doc" lead="Un mismo documento, dos versiones. Compare el original con la traducción certificada: el texto fiel, la declaración del traductor y el sello." hint="Muestra con datos ficticios. En su traducción real reproducimos sellos, firmas y anotaciones del original." -->
+      <ul class="r1-evidence-rows mt-14 grid gap-x-8 lg:grid-cols-3" aria-label="Qué recibe">
         <li class="flex gap-3 border-t border-line py-5"><svg class="icon icon-20 mt-1 shrink-0 text-muted" aria-hidden="true"><use href="#i-check"/></svg>La traducción de todo el documento, incluidos sellos, firmas y anotaciones.</li>
         <li class="flex gap-3 border-t border-line py-5"><svg class="icon icon-20 mt-1 shrink-0 text-muted" aria-hidden="true"><use href="#i-check"/></svg>La declaración de fidelidad firmada por el traductor.</li>
         <li class="flex gap-3 border-t border-line py-5"><svg class="icon icon-20 mt-1 shrink-0 text-muted" aria-hidden="true"><use href="#i-check"/></svg>El sello de certificación de Bridge. [formato final por definir]</li>
@@ -48,14 +57,14 @@
   </section>
 
   <!-- QUÉ ES Y CUÁNDO SE PIDE -->
-  <section class="sec bg-surface text-fg" aria-labelledby="q-title">
+  <section class="r1-fit-proof sec bg-surface text-fg" data-remaster-beat="fit-proof" aria-labelledby="q-title">
     <div class="wrap grid gap-y-12 lg:grid-cols-12 lg:gap-x-8">
       <div class="lg:sticky lg:top-8 lg:col-span-5 lg:self-start">
         <!-- @include section-heading id="q-title" title="Qué es y cuándo se pide" lead="Una traducción certificada es la traducción completa de un documento, acompañada de una declaración del traductor que confirma que es fiel al original." -->
       </div>
       <div class="lg:col-span-6 lg:col-start-7">
         <p class="measure hy">Suele solicitarse cuando un documento emitido en un idioma debe presentarse ante una institución que trabaja en otro. Cada institución define sus propios requisitos, por eso conviene consultar primero qué le piden a usted.</p>
-        <dl class="mt-10">
+        <dl class="r1-proof-rows mt-10">
           <div class="grid gap-x-8 gap-y-1 border-t border-line py-6 sm:grid-cols-[11rem_1fr]">
             <dt class="t-h4">Notarías</dt>
             <dd>Para escrituras, poderes y otros actos con documentos en otro idioma. [validar con Bridge: alcance y requisitos notariales]</dd>
@@ -79,10 +88,10 @@
   </section>
 
   <!-- DOCUMENTOS -->
-  <section class="sec bg-raised text-fg" aria-labelledby="d-title">
+  <section class="r1-proof-section sec bg-raised text-fg" aria-labelledby="d-title">
     <div class="wrap">
       <!-- @include section-heading id="d-title" title="Documentos que traducimos con frecuencia" lead="Si el suyo no está en la lista, envíenoslo igual: lo revisamos y le confirmamos si podemos traducirlo." -->
-      <ul class="mt-12 grid gap-x-8 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3">
+      <ul class="r1-document-rows mt-12 grid gap-x-8 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3">
         <li class="flex min-h-14 items-center gap-3 border-t border-line py-3"><svg class="icon icon-20 text-muted" aria-hidden="true"><use href="#i-file-check"/></svg>Partidas de nacimiento, matrimonio y defunción</li>
         <li class="flex min-h-14 items-center gap-3 border-t border-line py-3"><svg class="icon icon-20 text-muted" aria-hidden="true"><use href="#i-file-check"/></svg>Títulos y actas de grado</li>
         <li class="flex min-h-14 items-center gap-3 border-t border-line py-3"><svg class="icon icon-20 text-muted" aria-hidden="true"><use href="#i-file-check"/></svg>Certificados de notas y programas de estudio</li>
@@ -96,11 +105,63 @@
     </div>
   </section>
 
+  <!-- PLAZO Y PRECIO -->
+  <section class="r1-proof-section sec bg-raised text-fg" aria-labelledby="pz-title">
+    <div class="wrap grid gap-y-12 lg:grid-cols-12 lg:gap-x-8">
+      <div class="lg:col-span-5">
+        <!-- @include section-heading id="pz-title" title="Plazo y valor" lead="No hay una tarifa única: depende de su documento. Se la confirmamos por escrito antes de empezar." -->
+        <div class="mt-8"><!-- @include button label="Pedir cotización" href="cotizacion-traduccion.html" icon="arrow-right" --></div>
+      </div>
+      <dl class="r1-proof-rows lg:col-span-6 lg:col-start-7">
+        <div class="grid gap-x-8 gap-y-1 border-t border-line py-6 sm:grid-cols-[11rem_1fr]"><dt class="t-h4">Extensión</dt><dd>Cantidad de páginas o de palabras del documento.</dd></div>
+        <div class="grid gap-x-8 gap-y-1 border-t border-line py-6 sm:grid-cols-[11rem_1fr]"><dt class="t-h4">Idiomas</dt><dd>Algunas combinaciones requieren más tiempo.</dd></div>
+        <div class="grid gap-x-8 gap-y-1 border-t border-line py-6 sm:grid-cols-[11rem_1fr]"><dt class="t-h4">Urgencia</dt><dd>Los plazos cortos pueden tener un recargo. [por confirmar]</dd></div>
+        <div class="grid gap-x-8 gap-y-1 border-t border-line py-6 sm:grid-cols-[11rem_1fr]"><dt class="t-h4">Tipo de entrega</dt><dd>Digital o física. Los trámites adicionales se cotizan aparte. [por confirmar]</dd></div>
+        <div class="grid gap-x-8 gap-y-1 border-y border-line py-6 sm:grid-cols-[11rem_1fr]"><dt class="t-h4">Tarifa y plazo base</dt><dd class="num">[por confirmar con Bridge]</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- IDIOMAS: language-pair checker (signature #2). Data mirrors the CMS Language model. -->
+  <section class="r1-proof-section sec bg-surface text-fg" id="idiomas">
+    <div class="wrap">
+      <!-- @include sig-lang-checker uid="cert" level="2" -->
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="r1-proof-section sec bg-raised text-fg" aria-labelledby="f-title">
+    <div class="wrap grid gap-y-12 lg:grid-cols-12 lg:gap-x-8">
+      <div class="lg:col-span-4">
+        <!-- @include section-heading id="f-title" title="Preguntas frecuentes" -->
+      </div>
+      <div class="faq lg:col-span-7 lg:col-start-6">
+        <!-- @include faq-accordion group="cert" open="1" q="¿Qué diferencia hay entre una traducción simple y una certificada?" a="La traducción certificada incluye una declaración firmada del traductor que confirma que el texto es fiel al original. La simple no la incluye y sirve para uso informativo." -->
+        <!-- @include faq-accordion group="cert" q="¿Mi traducción será aceptada en cualquier institución?" a="Cada institución fija sus requisitos. Antes de empezar le preguntamos dónde presentará el documento y le indicamos si necesita pasos adicionales. [validar con Bridge]" -->
+        <!-- @include faq-accordion group="cert" q="¿Necesito enviar el documento original?" a="Para cotizar y traducir basta un escaneo o una foto legible. Si la institución exige el original, se lo indicamos. [validar con Bridge]" -->
+        <!-- @include faq-accordion group="cert" q="¿Cuánto tarda y cuánto cuesta?" a="Depende de la extensión, los idiomas y la urgencia. Le enviamos la cotización por escrito, con plazo y valor, antes de empezar. [por confirmar]" -->
+        <!-- @include faq-accordion group="cert" q="¿Qué pasa con mis documentos después del trabajo?" a="Se guardan en un espacio privado y se eliminan automáticamente al cumplirse el plazo que indica nuestra política de privacidad. [plazo por confirmar]" -->
+      </div>
+    </div>
+  </section>
+
+  <!-- RELACIONADOS -->
+  <section class="r1-proof-section sec bg-surface text-fg" aria-labelledby="rel-title">
+    <div class="wrap">
+      <!-- @include section-heading id="rel-title" title="Servicios relacionados" -->
+      <div class="mt-10 grid gap-4 lg:grid-cols-2">
+        <!-- @include service-card icon="scale" title="Traducción legal" text="Contratos, sentencias, poderes y demás documentos jurídicos, con terminología consistente en cada versión." href="#" note="No incluido en el prototipo" -->
+        <!-- @include service-card icon="stamp" title="Traducción notariada" text="Traducción certificada con el trámite notarial que su caso requiera. Le indicamos los pasos antes de empezar." href="#" note="No incluido en el prototipo" -->
+      </div>
+    </div>
+  </section>
+
   <!-- PROCESO -->
-  <section class="sec relative bg-surface text-fg" aria-labelledby="p-title">
+  <section class="r1-certified-process sec relative bg-raised text-fg" data-remaster-beat="process" aria-labelledby="p-title">
+    <span class="r1-crossing-decor trail-v absolute top-0" style="--n:2;left:var(--edge)" aria-hidden="true"></span>
     <div class="wrap">
       <!-- @include section-heading id="p-title" title="Cómo funciona" lead="Cuatro pasos, con una cotización por escrito antes de empezar." -->
-      <ol class="mt-14 grid lg:mt-20 lg:grid-cols-4 lg:gap-x-8">
+      <ol class="r1-process-route mt-14 grid lg:mt-20 lg:grid-cols-4 lg:gap-x-8">
         <li class="grid grid-cols-[1.5rem_1fr] gap-x-4 lg:grid-cols-1 lg:gap-x-0">
           <div class="flex flex-col items-center gap-2 lg:mb-6 lg:h-6 lg:flex-row lg:gap-4 lg:pr-8">
             <span class="step-dot" aria-hidden="true"></span>
@@ -147,68 +208,21 @@
     </div>
   </section>
 
-  <!-- PLAZO Y PRECIO -->
-  <section class="sec bg-raised text-fg" aria-labelledby="pz-title">
-    <div class="wrap grid gap-y-12 lg:grid-cols-12 lg:gap-x-8">
-      <div class="lg:col-span-5">
-        <!-- @include section-heading id="pz-title" title="Plazo y valor" lead="No hay una tarifa única: depende de su documento. Se la confirmamos por escrito antes de empezar." -->
-        <div class="mt-8"><!-- @include button label="Pedir cotización" href="cotizacion-traduccion.html" icon="arrow-right" --></div>
-      </div>
-      <dl class="lg:col-span-6 lg:col-start-7">
-        <div class="grid gap-x-8 gap-y-1 border-t border-line py-6 sm:grid-cols-[11rem_1fr]"><dt class="t-h4">Extensión</dt><dd>Cantidad de páginas o de palabras del documento.</dd></div>
-        <div class="grid gap-x-8 gap-y-1 border-t border-line py-6 sm:grid-cols-[11rem_1fr]"><dt class="t-h4">Idiomas</dt><dd>Algunas combinaciones requieren más tiempo.</dd></div>
-        <div class="grid gap-x-8 gap-y-1 border-t border-line py-6 sm:grid-cols-[11rem_1fr]"><dt class="t-h4">Urgencia</dt><dd>Los plazos cortos pueden tener un recargo. [por confirmar]</dd></div>
-        <div class="grid gap-x-8 gap-y-1 border-t border-line py-6 sm:grid-cols-[11rem_1fr]"><dt class="t-h4">Tipo de entrega</dt><dd>Digital o física. Los trámites adicionales se cotizan aparte. [por confirmar]</dd></div>
-        <div class="grid gap-x-8 gap-y-1 border-y border-line py-6 sm:grid-cols-[11rem_1fr]"><dt class="t-h4">Tarifa y plazo base</dt><dd class="num">[por confirmar con Bridge]</dd></div>
-      </dl>
-    </div>
-  </section>
+  <div class="r1-certified-close" data-remaster-beat="close">
+    <!-- @include remaster-close -->
 
-  <!-- IDIOMAS: language-pair checker (signature #2). Data mirrors the CMS Language model. -->
-  <section class="sec bg-surface text-fg" id="idiomas">
-    <div class="wrap">
-      <!-- @include sig-lang-checker uid="cert" level="2" -->
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section class="sec bg-raised text-fg" aria-labelledby="f-title">
-    <div class="wrap grid gap-y-12 lg:grid-cols-12 lg:gap-x-8">
-      <div class="lg:col-span-4">
-        <!-- @include section-heading id="f-title" title="Preguntas frecuentes" -->
+    <!-- CONTACTO -->
+    <section class="sec bg-raised text-fg" aria-labelledby="k-title">
+      <div class="wrap grid gap-y-12 lg:grid-cols-12 lg:gap-x-8">
+        <div class="lg:col-span-5">
+          <!-- @include section-heading id="k-title" title="Cuéntenos qué documento necesita traducir" lead="Escríbanos por WhatsApp, llámenos o solicite una cotización con sus archivos adjuntos." -->
+        </div>
+        <div class="lg:col-span-6 lg:col-start-7">
+          <!-- @include contact-block message="Hola%2C%20quisiera%20cotizar%20una%20traducci%C3%B3n%20certificada" quote="cotizacion-traduccion.html" -->
+        </div>
       </div>
-      <div class="faq lg:col-span-7 lg:col-start-6">
-        <!-- @include faq-accordion group="cert" open="1" q="¿Qué diferencia hay entre una traducción simple y una certificada?" a="La traducción certificada incluye una declaración firmada del traductor que confirma que el texto es fiel al original. La simple no la incluye y sirve para uso informativo." -->
-        <!-- @include faq-accordion group="cert" q="¿Mi traducción será aceptada en cualquier institución?" a="Cada institución fija sus requisitos. Antes de empezar le preguntamos dónde presentará el documento y le indicamos si necesita pasos adicionales. [validar con Bridge]" -->
-        <!-- @include faq-accordion group="cert" q="¿Necesito enviar el documento original?" a="Para cotizar y traducir basta un escaneo o una foto legible. Si la institución exige el original, se lo indicamos. [validar con Bridge]" -->
-        <!-- @include faq-accordion group="cert" q="¿Cuánto tarda y cuánto cuesta?" a="Depende de la extensión, los idiomas y la urgencia. Le enviamos la cotización por escrito, con plazo y valor, antes de empezar. [por confirmar]" -->
-        <!-- @include faq-accordion group="cert" q="¿Qué pasa con mis documentos después del trabajo?" a="Se guardan en un espacio privado y se eliminan automáticamente al cumplirse el plazo que indica nuestra política de privacidad. [plazo por confirmar]" -->
-      </div>
-    </div>
-  </section>
-
-  <!-- RELACIONADOS -->
-  <section class="sec bg-surface text-fg" aria-labelledby="rel-title">
-    <div class="wrap">
-      <!-- @include section-heading id="rel-title" title="Servicios relacionados" -->
-      <div class="mt-10 grid gap-4 lg:grid-cols-2">
-        <!-- @include service-card icon="scale" title="Traducción legal" text="Contratos, sentencias, poderes y demás documentos jurídicos, con terminología consistente en cada versión." href="#" note="No incluido en el prototipo" -->
-        <!-- @include service-card icon="stamp" title="Traducción notariada" text="Traducción certificada con el trámite notarial que su caso requiera. Le indicamos los pasos antes de empezar." href="#" note="No incluido en el prototipo" -->
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACTO -->
-  <section class="sec bg-raised text-fg" aria-labelledby="k-title">
-    <div class="wrap grid gap-y-12 lg:grid-cols-12 lg:gap-x-8">
-      <div class="lg:col-span-5">
-        <!-- @include section-heading id="k-title" title="Cuéntenos qué documento necesita traducir" lead="Escríbanos por WhatsApp, llámenos o solicite una cotización con sus archivos adjuntos." -->
-      </div>
-      <div class="lg:col-span-6 lg:col-start-7">
-        <!-- @include contact-block message="Hola%2C%20quisiera%20cotizar%20una%20traducci%C3%B3n%20certificada" quote="cotizacion-traduccion.html" -->
-      </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </main>
 
 <!-- @include footer -->

@@ -15,8 +15,10 @@
 
 # Remaster evidence: local prototype/reference captures and machine-check records
 /audit/remaster-*/before/
+/audit/remaster-*/after/
 /audit/remaster-*/inspiration/
 /audit/remaster-*/baseline-evidence.json
+/audit/remaster-*/after-evidence.json
 
 # Generated pages that embed the booth photo (identifiable people) as base64
 /audit/directions.html

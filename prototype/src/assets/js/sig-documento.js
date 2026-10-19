@@ -59,6 +59,7 @@
 
   /* ---------- #4 before/after ---------- */
   document.querySelectorAll('[data-ba]').forEach((root) => {
+    if (root.closest('.page-certified-r1')) return;
     const stage = root.querySelector('[data-ba-stage]'), range = root.querySelector('[data-ba-range]');
     const set = (v) => {
       stage.style.setProperty('--p', v);

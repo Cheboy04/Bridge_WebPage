@@ -2,7 +2,7 @@
 
 > **GitHub Issues:** `BRG-68` · **Phase:** P2 parallel design track · **Covers:** RNF-06, RNF-09
 > **Counterpart:** — (the Laravel public-site port remains in P4)
-> **Status:** `[x]` draft · `[x]` approved (mode C) · `[ ]` implemented
+> **Status:** `[x]` draft · `[x]` approved (mode C) · `[x]` implemented
 
 This spec turns the approved R1 synthesis and story into a testable static-reference contract. It changes only Home and Certified Translation; it does not implement the public site in Laravel.
 
@@ -85,11 +85,11 @@ Runner: Node's built-in `node:test` against the prototype source and built HTML,
 | --- | --- | --- | --- |
 | 1 | `tests/remaster-r1.test.mjs::only the approved two pages opt into R1` | Home and Certified carry their exact body classes/hooks; every other source page carries none | Remove Home's opt-in class; the page-boundary assertion fails |
 | 2 | `tests/remaster-r1.test.mjs::Home follows the approved story with one signature moment` | Beat order, one Home signature hook, translation before Cabina, unchanged checker include and one booth image | Duplicate the signature hook on the Cabina handoff; the exact-count assertion fails |
-| 3 | `tests/remaster-r1.test.mjs::Certified Translation is document led with one signature moment` | Beat order, one certified signature around the existing before/after include, provisional document material and no `assets/photo/` | Add the booth asset path to the certified source; the no-photo assertion fails |
+| 3 | `tests/remaster-r1.test.mjs::Certified Translation is document led with one signature moment` | Beat order, one certified signature around the existing before/after include, provisional document material, no `assets/photo/`, and page-scoped transform/opacity motion instead of the shared clip slider | Add the booth asset path to the certified source; the no-photo assertion fails |
 | 4 | `tests/remaster-r1.test.mjs::both pages finish the story through the shared close` | Both pages include the same minimal close and built HTML contains the closing sequence before contact/footer | Remove the close include from either page; the source/built assertion fails |
 | 5 | `tests/remaster-r1.test.mjs::R1 styles stay page scoped and support reflow` | The new stylesheet is imported, new selectors are rooted at the two opt-ins, a 320 px rule withdraws decoration, and no new raw color/font token is introduced | Remove `.page-home-r1` from a Home rule; the selector-scope assertion fails |
 | 6 | `tests/remaster-r1.test.mjs::Home arrival progressively enhances to a static accessible end state` | One Home script, native skip/replay controls, repeat-visit state, reduced-motion branch, static end-state marker and transform/opacity-only keyframes | Remove the reduced-motion branch from the script; the motion-contract assertion fails |
-| 7 | `tests/remaster-r1.test.mjs::built remaster keeps semantic and disclosure safeguards` | Built pages retain one h1, labelled sections, provisional/demo wording, decorative `aria-hidden`, and no new credential/legal-validity claim | Remove `aria-hidden` from the crossing decoration; the built safeguard assertion fails |
+| 7 | `tests/remaster-r1.test.mjs::built remaster keeps semantic and disclosure safeguards` | Built pages retain one h1, labelled sections, provisional/demo wording, `aria-hidden` on every crossing decoration, and no new credential/legal-validity claim | Remove `aria-hidden` from any crossing decoration; the built safeguard assertion fails |
 | 8 | `check.mjs index traduccion-certificada` | At 320/390/1440: no axe violation, horizontal overflow or console error; screenshots are produced with reduced motion | Give a remaster layer fixed width wider than 320 px; the 320 overflow result fails |
 
 ## 5. Implementation notes
@@ -102,6 +102,8 @@ Runner: Node's built-in `node:test` against the prototype source and built HTML,
 
 ## 6. Spec change log
 
+- `2026-10-19` — implemented: 7/7 Node contract cases green; build green; fail-enforcing browser gate green for both pages at 320/390/1440 with 0 axe violations, overflow and console errors. Independent final review's four findings were fixed: browser exit status, Certified motion boundary, arrival-control focus/reduced-motion behavior and at-rest sheet shadow.
+- `2026-10-19` — review with C3: **10 mutations, 10 killed**. Mutations covered page opt-in, signature count, no-photo Certified, shared close, CSS scoping, reduced motion, every decoration's semantics, Certified's non-clip motion boundary, arrival focus transfer and the browser gate's nonzero overflow failure.
 - `2026-10-19` — red: 7 Node contract cases fail for the intended missing R1 page hooks, beats, shared close, scoped stylesheet, arrival enhancement and built safeguards. The prototype build passes before the assertions; no case fails from the runner.
 - `2026-10-19` — approved by the agent under mode C after the owner approved R1 synthesis A–C and Story v1; no OPEN ADR point blocks the static slice.
 - `2026-10-19` — created. No Laravel/Blade implementation; no other prototype page may opt into R1.

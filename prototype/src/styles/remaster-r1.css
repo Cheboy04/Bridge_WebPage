@@ -1,0 +1,377 @@
+/* BRG-68: page-scoped composition for Home and Certified Translation only. */
+
+.page-home-r1 .r1-arrival {
+  min-height: calc(100svh - 5rem);
+  padding-block: clamp(3rem, 8vw, 8rem);
+  overflow: hidden;
+}
+
+.page-home-r1 .r1-arrival-grid {
+  display: grid;
+  gap: clamp(3rem, 7vw, 7rem);
+  align-items: center;
+}
+
+.page-home-r1 .r1-arrival-copy {
+  display: grid;
+  gap: 1.75rem;
+  position: relative;
+  z-index: 1;
+}
+
+.page-home-r1 .r1-monument,
+.page-certified-r1 .r1-monument {
+  font: 600 clamp(3.2rem, 11vw, 10rem) / 0.84 var(--font-serif);
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+
+.page-home-r1 .r1-monument span {
+  display: block;
+}
+
+.page-home-r1 .r1-service-line {
+  max-width: 34ch;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.page-home-r1 .r1-crossing {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  align-self: stretch;
+  border-block: 1px solid var(--border-strong);
+}
+
+.page-home-r1 .r1-crossing-decor {
+  position: absolute;
+  left: 1.5rem;
+  top: 26%;
+  z-index: 2;
+}
+
+.page-home-r1 .r1-source,
+.page-home-r1 .r1-target,
+.page-home-r1 .r1-signed {
+  display: grid;
+  gap: 0.6rem;
+  padding: 1.75rem 1.5rem 1.75rem 4rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.page-home-r1 .r1-source {
+  color: var(--text-muted);
+}
+
+.page-home-r1 .r1-target {
+  font: 500 var(--text-h3) / 1.3 var(--font-serif);
+}
+
+.page-home-r1 .r1-target .label {
+  font: 600 var(--text-small) / 1.3 var(--font-sans);
+}
+
+.page-home-r1 .r1-signed {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  border-bottom: 0;
+  background: var(--surface-raised);
+}
+
+.page-home-r1 .r1-signed > :not(svg) {
+  grid-column: 1;
+}
+
+.page-home-r1 .r1-signed > svg {
+  grid-column: 2;
+  grid-row: 1 / span 3;
+}
+
+.page-home-r1 .r1-arrival-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-top: 1rem;
+}
+
+.page-home-r1 .r1-arrival-controls[hidden],
+.page-home-r1 .r1-arrival-controls button[hidden] {
+  display: none;
+}
+
+.page-home-r1 .r1-arrival[data-arrival-state="ready"] :is(.r1-target, .r1-signed) {
+  opacity: 0;
+  transform: translateY(0.75rem);
+}
+
+.page-home-r1 .r1-arrival[data-arrival-state="playing"] .r1-target {
+  animation: r1-arrival var(--dur-slow) var(--ease-out) 320ms both;
+}
+
+.page-home-r1 .r1-arrival[data-arrival-state="playing"] .r1-signed {
+  animation: r1-arrival var(--dur-slow) var(--ease-out) 820ms both;
+}
+
+@keyframes r1-arrival {
+  from { opacity: 0; transform: translateY(0.75rem); }
+  to { opacity: 1; transform: none; }
+}
+
+.page-home-r1 .r1-document-proof .svc-list,
+.page-home-r1 .r1-cabina-handoff .svc-list {
+  border-bottom: 1px solid var(--border);
+}
+
+.page-home-r1 .r1-document-proof .svc,
+.page-home-r1 .r1-cabina-handoff .svc {
+  border-radius: 0;
+  border-top: 1px solid var(--border);
+  background: transparent;
+  padding-inline: 0;
+}
+
+.page-home-r1 .r1-cabina-handoff {
+  min-height: 90svh;
+  display: grid;
+  align-items: center;
+}
+
+.page-home-r1 .r1-cabina-handoff h2 {
+  max-width: 9ch;
+  font-size: clamp(3rem, 8vw, 7.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+}
+
+.page-home-r1 .r1-cabina-handoff .grade-cabina {
+  border-radius: 0;
+  border-block: 1px solid var(--border-strong);
+}
+
+.page-home-r1 .r1-proof-process .process {
+  border-block: 1px solid var(--border);
+  padding-block: 2rem;
+}
+
+.page-home-r1 .r1-proof-process + section dl > div {
+  border-radius: 0;
+}
+
+.page-certified-r1 .r1-certified-arrival {
+  position: relative;
+  overflow: hidden;
+}
+
+.page-certified-r1 .r1-certified-arrival-grid {
+  min-height: min(54rem, calc(100svh - 5rem));
+  align-items: center;
+  padding-block: clamp(3rem, 7vw, 7rem);
+}
+
+.page-certified-r1 .r1-certified-arrival-copy {
+  position: relative;
+  z-index: 1;
+}
+
+.page-certified-r1 .r1-monument {
+  display: none;
+}
+
+.page-certified-r1 .r1-certified-title {
+  max-width: 12ch;
+  font-size: clamp(3rem, 7vw, 7rem);
+  line-height: 0.94;
+  letter-spacing: -0.04em;
+}
+
+.page-certified-r1 .r1-certified-sheet {
+  position: relative;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  background: var(--surface-raised);
+}
+
+.page-certified-r1 .r1-certified-sheet .r1-crossing-decor {
+  position: absolute;
+  width: 36%;
+  right: 0;
+  top: 1.5rem;
+}
+
+.page-certified-r1 .r1-certified-sheet-inner {
+  border-color: var(--border-strong);
+}
+
+.page-certified-r1 .r1-certified-sheet-source {
+  color: var(--text-muted);
+}
+
+.page-certified-r1 .r1-certified-sheet-target {
+  font: 500 var(--text-h3) / 1.25 var(--font-serif);
+}
+
+.page-certified-r1 .r1-certified-seal {
+  display: flex;
+  justify-content: end;
+}
+
+.page-certified-r1 .r1-certified-transformation .ba-doc {
+  border-radius: 0;
+}
+
+@keyframes r1-document-arrival {
+  from { opacity: 0; transform: translateX(1rem); }
+  to { opacity: 1; transform: none; }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .page-certified-r1 .r1-certified-transformation .ba-cert {
+      animation: r1-document-arrival var(--dur-trail) var(--ease-out) both;
+      animation-timeline: view();
+      animation-range: entry 10% entry 75%;
+    }
+  }
+}
+
+.page-certified-r1 .r1-evidence-rows {
+  border-bottom: 1px solid var(--border);
+}
+
+.page-certified-r1 .r1-proof-rows,
+.page-certified-r1 .r1-document-rows {
+  border-bottom: 1px solid var(--border);
+}
+
+.page-certified-r1 .r1-proof-section + .r1-proof-section {
+  border-top: 1px solid var(--border);
+}
+
+.page-certified-r1 .r1-certified-process {
+  border-top: 1px solid var(--border-strong);
+}
+
+.page-certified-r1 .r1-process-route {
+  border-block: 1px solid var(--border);
+  padding-block: 2rem;
+}
+
+.page-home-r1 .r1-close,
+.page-certified-r1 .r1-close {
+  padding-block: clamp(5rem, 10vw, 10rem);
+  overflow: hidden;
+}
+
+.page-home-r1 .r1-close-grid,
+.page-certified-r1 .r1-close-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.page-home-r1 .r1-close-line,
+.page-certified-r1 .r1-close-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.15em 0.3em;
+  max-width: none;
+  font-size: clamp(3rem, 10vw, 9rem);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+}
+
+.page-home-r1 .r1-close-arrow,
+.page-certified-r1 .r1-close-arrow {
+  color: var(--trail);
+  font-family: var(--font-sans);
+  font-weight: 400;
+}
+
+.page-home-r1 .r1-close .r1-crossing-decor,
+.page-certified-r1 .r1-close .r1-crossing-decor {
+  width: min(28rem, 70vw);
+}
+
+@media (min-width: 64rem) {
+  .page-home-r1 .r1-arrival-grid {
+    grid-template-columns: minmax(0, 7fr) minmax(22rem, 5fr);
+  }
+
+  .page-home-r1 .r1-crossing {
+    margin-left: -8rem;
+    margin-top: 7rem;
+  }
+
+  .page-home-r1 .r1-target {
+    margin-left: 3rem;
+    border-left: 1px solid var(--border-strong);
+  }
+
+  .page-home-r1 .r1-signed {
+    margin-left: 6rem;
+  }
+
+  .page-certified-r1 .r1-certified-sheet {
+    margin-left: -4rem;
+    transform: translateY(3rem);
+  }
+}
+
+@media (max-width: 39.99rem) {
+  .page-home-r1 .r1-signed {
+    grid-template-columns: 1fr;
+  }
+
+  .page-home-r1 .r1-signed > svg {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .page-home-r1 .r1-close-arrow,
+  .page-certified-r1 .r1-close-arrow {
+    flex-basis: 1em;
+  }
+}
+
+@media (max-width: 20rem) {
+  .page-home-r1 header > .wrap,
+  .page-certified-r1 header > .wrap {
+    gap: 0.5rem;
+  }
+
+  .page-home-r1 header > .wrap > a img,
+  .page-certified-r1 header > .wrap > a img {
+    width: 8.5rem;
+  }
+
+  .page-home-r1 header > .wrap > .btn,
+  .page-certified-r1 header > .wrap > .btn {
+    padding-inline: 0.75rem;
+  }
+
+  .page-home-r1 .r1-crossing-decor,
+  .page-certified-r1 .r1-crossing-decor {
+    display: none;
+  }
+
+  .page-home-r1 .r1-source,
+  .page-home-r1 .r1-target,
+  .page-home-r1 .r1-signed {
+    padding-inline: 1rem;
+  }
+
+  .page-home-r1 .r1-monument,
+  .page-certified-r1 .r1-certified-title {
+    font-size: 2.8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-home-r1 .r1-arrival :is(.r1-target, .r1-signed) {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+}

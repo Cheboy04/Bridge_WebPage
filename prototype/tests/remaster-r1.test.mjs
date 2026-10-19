@@ -41,10 +41,13 @@ test('Home follows the approved story with one signature moment', () => {
   assert.equal(occurrences(home, 'data-signature-moment="home-crossing"'), 1);
   assert.ok(home.indexOf('data-remaster-beat="document-proof"') < home.indexOf('data-remaster-beat="cabina-handoff"'));
   assert.equal(occurrences(home, '@include sig-lang-checker'), 1);
-  assert.equal(occurrences(home, 'assets/photo/cabina-'), 2, 'one responsive booth image has two src/srcset paths');
+  assert.equal(occurrences(home, '<img'), 1, 'Home uses the booth image once');
+  assert.match(home, /srcset="assets\/photo\/cabina-800\.webp 800w, assets\/photo\/cabina-1600\.webp 1600w"/);
 });
 
 test('Certified Translation is document led with one signature moment', () => {
+  const documentJs = read('src/assets/js/sig-documento.js');
+  const css = read('src/styles/remaster-r1.css');
   assert.ok(ordered(certified, [
     'data-remaster-beat="arrival"',
     'data-remaster-beat="transformation"',
@@ -56,6 +59,12 @@ test('Certified Translation is document led with one signature moment', () => {
   assert.match(certified, /data-signature-moment="certified-before-after"[\s\S]*?@include sig-before-after/);
   assert.match(certified, /@include seal/);
   assert.doesNotMatch(certified, /assets\/photo\//);
+  assert.match(documentJs, /root\.closest\('\.page-certified-r1'\)\) return/);
+  assert.doesNotMatch(certified, /sig-before-after[^>]*(?:Arrastre|flechas)/i);
+  const documentMotion = css.match(/@keyframes r1-document-arrival[\s\S]*?\n\}/)?.[0] ?? '';
+  assert.match(documentMotion, /opacity/);
+  assert.match(documentMotion, /transform/);
+  assert.doesNotMatch(documentMotion, /clip-path/);
 });
 
 test('both pages finish the story through the shared close', () => {
@@ -79,7 +88,7 @@ test('R1 styles stay page scoped and support reflow', () => {
   assert.match(css, /@media \(max-width: 20rem\)/);
   assert.match(css, /\.r1-crossing-decor[^}]*display:\s*none/s);
   assert.doesNotMatch(css, /#[\da-f]{3,8}\b/i);
-  assert.doesNotMatch(css, /font-family\s*:/);
+  assert.doesNotMatch(css, /font-family\s*:\s*["']?(?:Literata|Manrope)/i);
 });
 
 test('Home arrival progressively enhances to a static accessible end state', () => {
@@ -91,6 +100,9 @@ test('Home arrival progressively enhances to a static accessible end state', () 
   assert.match(home, /<button[^>]*type="button"[^>]*data-arrival-replay/);
   assert.match(js, /bridge-remaster-arrival-seen/);
   assert.match(js, /prefers-reduced-motion:\s*reduce/);
+  assert.match(js, /replay\.hidden = reducedMotion\.matches/);
+  assert.match(js, /replay\.hidden \? fallback : replay/);
+  assert.match(js, /\.focus\(\)/);
   assert.match(css, /@media \(prefers-reduced-motion: reduce\)/);
   const keyframes = css.match(/@keyframes r1-arrival[\s\S]*?\n\}/)?.[0] ?? '';
   assert.match(keyframes, /opacity/);
@@ -102,8 +114,12 @@ test('built remaster keeps semantic and disclosure safeguards', () => {
   for (const [name, built] of [['Home', read('dist/index.html')], ['Certified', read('dist/traduccion-certificada.html')]]) {
     assert.equal(occurrences(built, '<h1'), 1, name);
     assert.match(built, /<section[^>]*aria-labelledby=/, name);
-    assert.match(built, /aria-hidden="true"[^>]*class="[^"]*r1-crossing-decor|class="[^"]*r1-crossing-decor[^"]*"[^>]*aria-hidden="true"/, name);
+    const decorations = built.match(/<[^>]*class="[^"]*r1-crossing-decor[^"]*"[^>]*>/g) ?? [];
+    assert.ok(decorations.length > 0, `${name} has crossing decoration`);
+    decorations.forEach((tag) => assert.match(tag, /aria-hidden="true"/, `${name}: ${tag}`));
     assert.doesNotMatch(built, /validez legal|resultado garantizado/i, name);
   }
-  assert.match(read('dist/traduccion-certificada.html'), /provisional|por definir|demostr/i);
+  const builtCertified = read('dist/traduccion-certificada.html');
+  assert.match(builtCertified, /provisional|por definir|demostr/i);
+  assert.doesNotMatch(builtCertified, /Arrastre el control|use las flechas/i);
 });

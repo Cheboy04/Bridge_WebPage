@@ -4,52 +4,46 @@
 <head>
 <!-- @include head title="Bridge Traducciones | Traducción certificada e interpretación simultánea, desde Quito" description="Traducción certificada e interpretación simultánea, desde Quito. Documentos exactos. Voz en vivo." -->
 </head>
-<body>
+<body class="page-home-r1" data-remaster-page="home">
 <a class="skip-link" href="#main">Saltar al contenido</a>
 <!-- @include icons -->
 <!-- @include header -->
 
 <main id="main">
-  <!-- HERO (Documento) -->
-  <section class="bg-surface text-fg" aria-labelledby="hero-title">
-    <div class="wrap grid gap-y-16 pb-20 pt-10 lg:grid-cols-12 lg:gap-x-8 lg:pb-28 lg:pt-20">
-      <div class="lg:col-span-7 lg:pt-6">
-        <h1 id="hero-title" class="hero-h1"><span class="hook">Del original a la firma. Del orador al oído.</span><span class="kw">Traducción certificada e interpretación simultánea en Quito</span></h1>
-        <p class="lead mt-8">Traducimos y certificamos sus documentos, y llevamos intérpretes, equipos y cabinas a su congreso o reunión. Dos servicios, un mismo equipo.</p>
-        <div class="mt-10 flex flex-wrap gap-3">
+  <!-- ARRIVAL / PROMISE (Documento) -->
+  <section class="r1-arrival bg-surface text-fg" data-remaster-beat="arrival" data-signature-moment="home-crossing" data-arrival data-arrival-state="complete" aria-labelledby="hero-title">
+    <div class="wrap r1-arrival-grid">
+      <div class="r1-arrival-copy">
+        <p class="label">Bridge Traducciones · Quito</p>
+        <h1 id="hero-title" class="r1-monument"><span>Del original</span> <span>a la firma.</span></h1>
+        <p class="lead">Traducimos y certificamos sus documentos, y llevamos intérpretes, equipos y cabinas a su congreso o reunión. Dos servicios, un mismo equipo.</p>
+        <p class="r1-service-line">Traducción certificada e interpretación simultánea en Quito</p>
+        <div class="flex flex-wrap gap-3">
           <!-- @include button label="Solicitar cotización" href="cotizacion.html" icon="arrow-right" -->
           <!-- @include button label="Ver servicios" href="#traduccion" variant="secondary" -->
         </div>
       </div>
 
-      <!-- #1 signature: Documento / Evento stage (right column desktop, below the CTAs on mobile) -->
-      <div class="lg:col-span-5">
-        <!-- @include sig-hero -->
+      <div class="r1-crossing" aria-label="Ejemplo demostrativo de una traducción certificada">
+        <span class="r1-crossing-decor trail-v target" aria-hidden="true"></span>
+        <p class="r1-source"><span class="label">Original · inglés</span><span lang="en">The parties agree to the terms of this contract.</span></p>
+        <p class="r1-target"><span class="label">Traducción · español</span><span>Las partes acuerdan los términos del presente contrato.</span></p>
+        <div class="r1-signed">
+          <p class="label">Resultado demostrativo</p>
+          <p class="font-serif">Traducción firmada</p>
+          <p class="num t-small text-muted">Firma · Folio [N.º 0000] · Quito, [fecha]</p>
+          <!-- @include seal uid="home-arrival" size="104" -->
+        </div>
+        <div class="r1-arrival-controls" data-arrival-controls hidden>
+          <button class="link min-h-11 font-semibold" type="button" data-arrival-skip>Omitir animación</button>
+          <button class="link min-h-11 font-semibold" type="button" data-arrival-replay>Repetir recorrido</button>
+        </div>
+        <p class="sr-only" role="status" aria-live="polite" data-arrival-status></p>
       </div>
-    </div>
-
-    <!-- the two modes, equal weight; each door is ONE link (label is a span, not a nested link) -->
-    <div class="grid sm:grid-cols-2">
-      <a href="traduccion-certificada.html" class="door mode-documento bg-raised edge-l">
-        <span class="label">Documento</span>
-        <span>
-          <span class="door-title t-h3 block">Traducción certificada</span>
-          <span class="mt-2 block text-muted">Certificada, legal y notariada.</span>
-        </span>
-        <span class="inline-flex items-center gap-2 font-semibold text-link">Ver servicios de traducción<svg class="icon icon-20 icon-go" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
-      </a>
-      <a href="interpretacion-simultanea.html" class="door mode-cabina edge-r">
-        <span class="label">Cabina</span>
-        <span>
-          <span class="door-title t-h3 block">Interpretación simultánea</span>
-          <span class="mt-2 block text-muted">Simultánea, consecutiva, equipos y cabinas.</span>
-        </span>
-        <span class="inline-flex items-center gap-2 font-semibold text-link">Ver servicios de interpretación<svg class="icon icon-20 icon-go" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
-      </a>
     </div>
   </section>
 
-  <section class="sec bg-raised text-fg" id="idiomas">
+  <section class="sec bg-raised text-fg" id="idiomas" data-remaster-beat="relevance" aria-label="Comprobar combinación de idiomas">
     <div class="wrap">
       <!-- @include sig-lang-checker uid="home" level="2" -->
     </div>
@@ -58,7 +52,7 @@
   <!-- @include trust-strip years="[año]" -->
 
   <!-- TRADUCCIÓN (Documento) -->
-  <section id="traduccion" class="sec relative bg-surface text-fg" aria-labelledby="t-title">
+  <section id="traduccion" class="r1-document-proof sec relative bg-surface text-fg" data-remaster-beat="document-proof" aria-labelledby="t-title">
     <div class="wrap grid gap-y-12 lg:grid-cols-12 lg:items-start lg:gap-x-8">
       <div class="lg:sticky lg:top-8 lg:col-span-5">
         <!-- @include section-heading label="Traducción" id="t-title" title="Documentos exactos, traducidos y certifi&shy;cados" lead="Traducimos y certificamos documentos personales, académicos, corporativos y legales. Usted nos envía el original; nosotros coordinamos el resto." -->
@@ -74,7 +68,7 @@
   </section>
 
   <!-- INTERPRETACIÓN (Cabina) -->
-  <section id="interpretacion" class="sec mode-cabina relative" aria-labelledby="i-title">
+  <section id="interpretacion" class="r1-cabina-handoff sec mode-cabina relative" data-remaster-beat="cabina-handoff" aria-labelledby="i-title">
     <span class="trail-v target absolute top-0" style="--n:2;left:var(--edge)" aria-hidden="true"></span>
     <div class="wrap grid gap-y-12 lg:grid-cols-12 lg:items-start lg:gap-x-8">
       <div class="lg:col-span-6 lg:col-start-7 lg:row-start-1">
@@ -97,7 +91,7 @@
   </section>
 
   <!-- CÓMO FUNCIONA (Documento) -->
-  <section class="sec relative bg-surface text-fg" aria-labelledby="c-title">
+  <section class="r1-proof-process sec relative bg-surface text-fg" data-remaster-beat="proof-process" aria-labelledby="c-title">
     <span class="trail-v target absolute top-0" style="--n:2;left:var(--edge)" aria-hidden="true"></span>
     <div class="wrap">
       <!-- @include section-heading id="c-title" title="Cómo trabajamos" lead="Una misma secuencia para un documento o para un evento." -->
@@ -186,6 +180,10 @@
     </div>
   </section>
 
+  <div data-remaster-beat="close">
+    <!-- @include remaster-close -->
+  </div>
+
   <!-- CONTACTO -->
   <section class="sec bg-raised text-fg" aria-labelledby="k-title">
     <div class="wrap grid gap-y-12 lg:grid-cols-12 lg:gap-x-8">
@@ -201,5 +199,6 @@
 
 <!-- @include footer -->
 <!-- @include whatsapp message="Hola%2C%20quisiera%20cotizar%20un%20servicio%20de%20Bridge%20Traducciones" -->
+<script defer src="assets/js/remaster-home.js"></script>
 </body>
 </html>

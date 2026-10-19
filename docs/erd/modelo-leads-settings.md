@@ -169,8 +169,8 @@ Restraint as in the content slice: no index on `status`, `type` or `created_at` 
 
 | Table | Migrates in | Status |
 | --- | --- | --- |
-| settings, leads, language_lead, lead_attachments | brg-36 / `BRG-46`, P2 | Design of this document |
-| Enums `LeadType`, `LeadStatus`, `LeadNeed`, `EventModality`, `EventDuration` | brg-36 | Design of this document |
+| settings, leads, language_lead, lead_attachments | brg-36 / `BRG-46`, P2 | **Migrated** 2026-10-19 (`2026_10_19_000010`–`13`) |
+| Enums `LeadType`, `LeadStatus`, `LeadNeed`, `EventModality`, `EventDuration` | brg-36 | **Done** 2026-10-19 |
 | Retention job, validation, forms, notifications | P5 (HU-23–HU-28) | Not in P2 |
 
 ## 8. Design verification

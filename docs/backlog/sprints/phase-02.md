@@ -22,8 +22,8 @@ No story points (ADR 1.5 OPEN). P2 has three Tasks and no Stories.
 
 ## Execution sequence
 
-1. **brg-35**: ERD slice in `docs/erd/` (from `PLANTILLA-ERD.md`), owner approves it, then spec, red tests, migrations and models. Its factories are written with it, because the model tests need them. ERD [`modelo-contenido.md`](../../erd/modelo-contenido.md) and spec [`brg-35.md`](../../specs/brg-35.md) approved 2026-10-19; implemented on `feature/BRG-45-content-erd` (C3 15/15), PR pending the owner's merge.
-2. **brg-36**: same cycle. Independent of brg-35; it can run in parallel if the owner prefers.
+1. **brg-35**: ERD slice in `docs/erd/` (from `PLANTILLA-ERD.md`), owner approves it, then spec, red tests, migrations and models. Its factories are written with it, because the model tests need them. ERD [`modelo-contenido.md`](../../erd/modelo-contenido.md) and spec [`brg-35.md`](../../specs/brg-35.md) approved 2026-10-19; merged 2026-10-19 (PR #64, C3 15/15).
+2. **brg-36**: same cycle. ERD [`modelo-leads-settings.md`](../../erd/modelo-leads-settings.md) and spec [`brg-36.md`](../../specs/brg-36.md) approved by the agent (mode C) 2026-10-19; implemented on `feature/BRG-46-settings-lead-erd` (C3 17/17), PR pending the owner's merge.
 3. **brg-37**: the seeders and anything brg-35/36 didn't already need: the public language list and `DatabaseSeeder` wiring.
 4. **brg-33** whenever the hosting checks land; it doesn't gate P2.
 

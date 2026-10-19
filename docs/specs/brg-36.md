@@ -2,7 +2,7 @@
 
 > **GitHub Issues:** `BRG-46` (local `brg-36`) · **Phase:** P2 · **Covers:** RF-07, RF-09–RF-13, RNF-04, RNF-06
 > **Counterpart:** — (does not cross layers)
-> **Status:** `[x]` draft · `[x]` approved (agent, mode C, 2026-10-19) · `[ ]` implemented
+> **Status:** `[x]` draft · `[x]` approved (agent, mode C, 2026-10-19) · `[x]` implemented
 
 Turns the issue's acceptance criteria (the ERD slice approved; migrations run in CI; lead type and status use `LeadType` and `LeadStatus`) into the schema of [`docs/erd/modelo-leads-settings.md`](../erd/modelo-leads-settings.md), plus tests that prove each constraint and model contract can fail.
 
@@ -123,4 +123,7 @@ Runner: Pest. Real boundary (C4): MySQL 8.4, locally and in CI. `RefreshDatabase
 
 ## 6. Spec change log
 
+- `2026-10-19` — review with C3: **17 mutations, 17 killed**, each the one in §4, filtered to its test and restored from git. Dataset tests failed only on the targeted row (`target`, `modality`, `targetLanguage`, `Settings`). Four died by error, not assertion, because the database or Laravel refused the write the mutation enabled: #4 (`create([])` hits the singleton unique), #6 (`AND` rejects a phone-only lead), #10 (restrict refuses the lead delete), #14 (no cast can't save the array).
+- `2026-10-19` — implemented: suite 93 green (179 assertions); Pint clean; Larastan 0 errors; Vite build ok. Ping-pong on tests 2–3: `DB::table()->insert([])` runs **no SQL** in Laravel (an empty insert returns `true`), so the tests insert an explicit null column. The tests still assert the same behaviour.
+- `2026-10-19` — red: 36 cases failing on missing tables, models and enums (commit `f1b01df`). Test 3 was born green on the first run, because inserting into a missing table also throws `QueryException`; it now also asserts that a valid insert succeeds.
 - `2026-10-19` — draft created and approved by the agent (mode C). Decisions taken alone: §3.2 (`status` and `notes` fillable, `singleton` not), §3.4 (no inverse relations yet).

@@ -80,7 +80,7 @@ Full list (one row per ticket):
 
 | Key | Type | Title | Origin (session, handoff) |
 | --- | ---- | ----- | ------------------------- |
-|     |      |       |                           |
+| `BRG-68` | Task | Evidence-led visual remaster: direction and gated two-page prototype | 2026-10-19 owner request; remaster round 1 |
 
 ## Historical keys that are not reused
 

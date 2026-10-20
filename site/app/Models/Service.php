@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Enums\ServiceMode;
 use Database\Factories\ServiceFactory;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -47,5 +49,16 @@ class Service extends Model
     public function faqs(): HasMany
     {
         return $this->hasMany(Faq::class);
+    }
+
+    /**
+     * The only way public pages read services (HU-03).
+     *
+     * @param  Builder<self>  $query
+     */
+    #[Scope]
+    protected function published(Builder $query): void
+    {
+        $query->where('published', true);
     }
 }

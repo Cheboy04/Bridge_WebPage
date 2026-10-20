@@ -80,6 +80,17 @@ return [
             'published' => 'Publicado',
         ],
     ],
+    'faqs' => [
+        'model' => 'pregunta frecuente',
+        'plural' => 'preguntas frecuentes',
+        'general' => 'General',
+        'fields' => [
+            'question' => 'Pregunta',
+            'answer' => 'Respuesta',
+            'service' => 'Servicio',
+            'service_placeholder' => 'General (página de preguntas frecuentes)',
+        ],
+    ],
     'users' => [
         'model' => 'usuario',
         'plural' => 'usuarios',

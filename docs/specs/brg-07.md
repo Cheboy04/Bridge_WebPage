@@ -2,7 +2,7 @@
 
 > **GitHub Issues:** `BRG-18` (local `brg-07`) · **Phase:** P3 · **Covers:** RF-05
 > **Counterpart:** — (does not cross layers)
-> **Status:** `[x]` draft · `[x]` approved (agent, mode C, 2026-10-19) · `[ ]` implemented
+> **Status:** `[x]` draft · `[x]` approved (agent, mode C, 2026-10-19) · `[x]` implemented
 
 Turns the issue's acceptance criteria (editors manage clients and testimonials; `logo_permission` defaults to false and the form says written permission is required; a client without permission never comes back from the public logo query) into two Filament resources, their policies and two public scopes.
 
@@ -89,4 +89,7 @@ Runner: Pest, MySQL (C4), `RefreshDatabase`. Files `tests/Feature/Admin/ClientRe
 
 ## 6. Spec change log
 
+- `2026-10-19` — review with C3: **11 mutations, 11 killed** (the 10 rows of §4, #7 split in two), each lint-checked and with a named failing case. Review findings: none open.
+- `2026-10-19` — implemented: suite 217 green (483 assertions); Pint clean; Larastan 0 errors; Vite build ok.
+- `2026-10-19` — red: 20 cases failing (commit `f69d62e`).
 - `2026-10-19` — draft created and approved by the agent (mode C). Decisions taken alone: `publicLogos()` also requires a logo and orders by `sort` (§3.1), the "at least six" rule left to P4 (§1).

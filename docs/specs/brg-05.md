@@ -2,7 +2,7 @@
 
 > **GitHub Issues:** `BRG-16` (local `brg-05`) · **Phase:** P3 · **Covers:** RF-06
 > **Counterpart:** — (does not cross layers)
-> **Status:** `[x]` draft · `[x]` approved (agent, mode C, 2026-10-19) · `[ ]` implemented
+> **Status:** `[x]` draft · `[x]` approved (agent, mode C, 2026-10-19) · `[x]` implemented
 
 Turns the issue's acceptance criteria (create, edit, reorder and delete FAQs; an FAQ without a service is global, with one it belongs to that service's page) into a Filament resource, its policy and the scope P4 reads global FAQs with.
 
@@ -56,7 +56,7 @@ Runner: Pest, MySQL (C4), `RefreshDatabase`. File `tests/Feature/Admin/FaqResour
 | 1 | `it opens the faq pages for both roles` (dataset: role × index, create, edit) | 200 | `FaqPolicy` no longer extends the base |
 | 2 | `it lets an editor create a global faq` | Through `CreateFaq` without a service: `question` stored as `{"es": …}`, `service_id` null | Give the select a default service |
 | 3 | `it lets an editor attach a faq to a service` | Through `CreateFaq` with a service: it is in `$service->faqs` | Remove the `service_id` field from the form |
-| 4 | `it requires a question and an answer` | `assertHasFormErrors` with `required` on both | Remove `->required()` from `answer` |
+| 4 | `it requires a question and an answer` | `assertHasFormErrors`: `required` on `question`, an error on `answer` | Remove `->required()` from `answer` |
 | 5 | `it loads the Spanish question into the edit form` | `assertSchemaStateSet` shows the plain question | Remove `FillsTranslations` from `EditFaq` |
 | 6 | `it reorders faqs by drag` | `reorderTable` writes `sort` in the new order | Remove `->reorderable('sort')` |
 | 7 | `it lets an editor delete a faq` | The edit header's delete action removes the row | Remove `DeleteAction` from the header |
@@ -69,4 +69,7 @@ Runner: Pest, MySQL (C4), `RefreshDatabase`. File `tests/Feature/Admin/FaqResour
 
 ## 6. Spec change log
 
+- `2026-10-19` — review with C3: **8 mutations, 8 killed**, each lint-checked and with a named failing case. Review findings: none open.
+- `2026-10-19` — implemented: suite 185 green (405 assertions); Pint clean; Larastan 0 errors; Vite build ok. Ping-pong on test 4: the rich editor enforces `required` with its own closure rule, so Livewire can't match the rule name; the test checks that `answer` has an error (the message is "El campo respuesta es obligatorio."), and the C3 mutation still kills it.
+- `2026-10-19` — red: 13 cases failing (commit `a223908`).
 - `2026-10-19` — draft created and approved by the agent (mode C). Decisions taken alone: the scope name (§1), no list filter yet (§1).

@@ -1,7 +1,9 @@
 <?php
 
 // BRG-14 (brg-03) · spec docs/specs/brg-03.md §4 · test 10
+// BRG-15 (brg-04) · spec docs/specs/brg-04.md §4 · test 8
 
+use App\Models\Language;
 use App\Models\Service;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -12,4 +14,11 @@ it('keeps unpublished services out of the published scope', function () {
     Service::factory()->create(['published' => false]);
 
     expect(Service::published()->pluck('id')->all())->toBe([$published->id]);
+});
+
+it('keeps unpublished languages out of the published scope', function () {
+    $published = Language::factory()->create(['published' => true]);
+    Language::factory()->create(['published' => false]);
+
+    expect(Language::published()->pluck('id')->all())->toBe([$published->id]);
 });

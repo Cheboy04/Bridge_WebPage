@@ -2,7 +2,7 @@
 
 > **GitHub Issues:** `BRG-14` (local `brg-03`) · **Phase:** P3 · **Covers:** RF-02, RNF-06
 > **Counterpart:** — (does not cross layers)
-> **Status:** `[x]` draft · `[x]` approved (agent, mode C, 2026-10-19) · `[ ]` implemented
+> **Status:** `[x]` draft · `[x]` approved (agent, mode C, 2026-10-19) · `[x]` implemented
 
 Turns the issue's acceptance criteria (create, edit, reorder, publish and unpublish; a required mode; unique slugs with a Spanish error; unpublished services kept out of public queries) into a Filament resource, its policy, the model's public scope and the Spanish validation messages the whole admin needs.
 
@@ -61,7 +61,7 @@ Generated with `make:filament-resource Service --embed-schemas --embed-table` (a
 | `featured`, `published` | Toggle | `published` defaults to off |
 | `seo_title`, `seo_description` | TextInput, Textarea | optional, max 255 |
 
-- Translatable fields are plain fields: in the single `es` locale, spatie reads and writes the current locale's value (D3.6, D3.9). The tests prove the round trip (phase-03 risk 1).
+- Translatable fields are plain fields in the single `es` locale (D3.6, D3.9). Saving works as is (spatie's setter writes the current locale). Loading doesn't: spatie casts the columns to arrays, so Filament would fill `['es' => …]`. The edit page uses `App\Filament\Concerns\FillsTranslations`, which fills each translatable field with the current locale's value. Every translatable resource's edit page reuses it (phase-03 risk 1).
 - Table: title, mode (badge), published and featured (icons), `defaultSort('sort')`, `reorderable('sort')`. Edit row action; delete in the edit page header. No bulk actions.
 - Labels in Spanish in `lang/es/admin.php`; `ServiceMode` labels "Documento (traducción)" and "Cabina (interpretación)".
 
@@ -77,13 +77,13 @@ Runner: Pest, MySQL (C4), `RefreshDatabase`. File `tests/Feature/Admin/ServiceRe
 | --- | --- | --- | --- |
 | 1 | `it opens the services pages for both roles` (dataset: role × index, create, edit) | 200 | `ServicePolicy::viewAny` returns false |
 | 2 | `it lets an editor create a service` | Through `CreateService`: `title` stored as `{"es": …}`, the chosen mode, `published` false by default | `published` toggle defaults to on |
-| 3 | `it loads the Spanish values into the edit form` | `assertSchemaStateSet` shows the plain Spanish `title`, not JSON | Remove `title` from `Service::$translatable` |
+| 3 | `it loads the Spanish values into the edit form` | `assertSchemaStateSet` shows the plain Spanish `title`, not `['es' => …]` | Remove `FillsTranslations` from `EditService` |
 | 4 | `it requires a mode` | `assertHasFormErrors(['mode' => 'required'])` | Remove `->required()` from `mode` |
 | 5 | `it rejects a duplicate slug in either mode` (dataset: same mode, other mode) | `assertHasFormErrors(['slug' => 'unique'])`; nothing created | Remove the unique rule → the database throws instead |
 | 6 | `it rejects a slug that is not lowercase kebab` | `assertHasFormErrors(['slug' => 'regex'])` | Remove the regex |
 | 7 | `it reorders services by drag` | `reorderTable` with a new order writes `sort` in that order | Remove `->reorderable('sort')` |
 | 8 | `it lets an editor unpublish and publish a service` | Through `EditService`: off persists, then on persists | Remove the `published` toggle from the form |
-| 9 | `it stores the image on the public disk` | The saved path exists on the fake `public` disk under `services/` | Store on the `local` disk |
+| 9 | `it stores the image on the public disk` (fake file with an `image/jpeg` type: GD is not installed locally or in CI) | The saved path exists on the fake `public` disk under `services/` | Store on the `local` disk |
 | 10 | `Content/ScopeTest::it keeps unpublished services out of the published scope` | `Service::published()` returns only the published one | The scope adds no `where` |
 | 11 | `Admin/ValidationLangTest::it shows validation messages in Spanish` (dataset: required, unique, regex, max.string) | `__("validation.$key")` is neither the key nor the English text | Delete `lang/es/validation.php` |
 
@@ -95,4 +95,7 @@ Runner: Pest, MySQL (C4), `RefreshDatabase`. File `tests/Feature/Admin/ServiceRe
 
 ## 6. Spec change log
 
+- `2026-10-19` — review with C3: **11 mutations, 11 killed**, each filtered to its test and restored. #5 first "died" from a parse error (deleting the `unique` line left its comma in a comment), so it was redone as a no-op swap (`->required()`): both rows then fail with `UniqueConstraintViolationException`, the database refusing what validation no longer catches. Review findings: none open. `FillsTranslations` guards on `method_exists` so Larastan accepts it and it is harmless on a non-translatable model.
+- `2026-10-19` — implemented: suite 154 green (327 assertions); Pint clean; Larastan 0 errors; Vite build ok. Ping-pong: (1) the edit page threw 500 because the rich editor received `['es' => …]`; fixed with `FillsTranslations` (§3.3), and test 3's mutation changed to removing it. (2) Test 9 uses `UploadedFile::fake()->create()` with an image MIME type: `fake()->image()` needs GD, which neither the local PHP nor CI (`extensions: intl, pdo_mysql`) has.
+- `2026-10-19` — red: 20 cases failing (commit `4cc0081`): 404 routes, missing pages and scope, raw validation keys.
 - `2026-10-19` — draft created and approved by the agent (mode C). Decisions taken alone: global slug uniqueness follows ERD I3 (§2 note), Spanish validation file in this story (§1), icon as a validated text field until P4 (§1), delete-with-leads handling deferred to HU-27 (§1).

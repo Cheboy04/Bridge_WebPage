@@ -114,6 +114,31 @@ return [
             'published' => 'Publicado',
         ],
     ],
+    'clients' => [
+        'model' => 'cliente',
+        'plural' => 'clientes',
+        'fields' => [
+            'name' => 'Nombre',
+            'logo' => 'Logo',
+            'url' => 'Sitio web',
+            'sector' => 'Sector',
+            'logo_permission' => 'Permiso para mostrar el logo',
+            'logo_permission_help' => 'Actívelo solo si el cliente dio su permiso por escrito. Sin él, el logo nunca aparece en el sitio.',
+        ],
+    ],
+    'testimonials' => [
+        'model' => 'testimonio',
+        'plural' => 'testimonios',
+        'fields' => [
+            'quote' => 'Testimonio',
+            'person' => 'Persona',
+            'role' => 'Cargo',
+            'company' => 'Empresa',
+            'company_help' => 'Para empresas que no están en la lista de clientes.',
+            'client' => 'Cliente',
+            'published' => 'Publicado',
+        ],
+    ],
     'faqs' => [
         'model' => 'pregunta frecuente',
         'plural' => 'preguntas frecuentes',

@@ -53,7 +53,8 @@ This spec turns the approved R1 synthesis and story into a testable static-refer
 ### 3.3 Certified Translation composition
 
 - The beats appear in story order: document-led arrival, before/after transformation, fit/proof, process, close.
-- `data-signature-moment="certified-before-after"` occurs exactly once around the existing before/after signature component.
+- `data-signature-moment="certified-before-after"` occurs exactly once around the before/after signature component. The interactive clip-path slider stays enabled on this page (owner decision, 2026-10-19 review): no page-scoped entrance replaces it.
+- The slider shows how to use it without reading the hint: a labelled handle (“Deslice”) that collapses once the user acts, and the two side labels are native buttons that move the divider to show the whole original or the whole certified translation. Drag, keyboard arrows and the buttons all drive the same `input type=range`. The how-to text shows only while the slider exists; the static side-by-side state never tells the user to drag.
 - The page uses no `assets/photo/` image. Sheet geometry, folio, source/target text and the provisional seal supply the visual material.
 - Existing service facts, caveats, language checker, FAQ, quote path, contact path and placeholder annotations remain present.
 
@@ -69,7 +70,8 @@ This spec turns the approved R1 synthesis and story into a testable static-refer
 - New decoration cannot cover selectable text or controls and is hidden from assistive technology.
 - At 320 CSS px (the 1280 px / 400% reflow equivalent), 390 px and 1440 px: no horizontal overflow, console error or axe WCAG A/AA violation.
 - At narrow/reflow widths, decorative crossings withdraw before meaningful content clips or becomes two-dimensionally scrollable.
-- Motion uses transform/opacity only, completes within the existing duration vocabulary, and has a `prefers-reduced-motion` end state. Essential meaning never depends on animation.
+- New R1 motion uses transform/opacity only, completes within the existing duration vocabulary, and has a `prefers-reduced-motion` end state. Essential meaning never depends on animation. The before/after slider keeps its locked contract in `brand/SIGNATURE-COMPONENTS.md` #4, including the user-driven `clip-path`.
+- Every decorative crossing stays inside the section that owns it. An absolutely positioned decoration is positioned only against its own composition (`.r1-crossing`, `.r1-certified-sheet`), never inherited by another section's decoration. Amber trail dots therefore appear only on Tinta (brand `DIRECTION.md` §2, §4).
 
 ### 3.6 Visual acceptance
 
@@ -85,11 +87,14 @@ Runner: Node's built-in `node:test` against the prototype source and built HTML,
 | --- | --- | --- | --- |
 | 1 | `tests/remaster-r1.test.mjs::only the approved two pages opt into R1` | Home and Certified carry their exact body classes/hooks; every other source page carries none | Remove Home's opt-in class; the page-boundary assertion fails |
 | 2 | `tests/remaster-r1.test.mjs::Home follows the approved story with one signature moment` | Beat order, one Home signature hook, translation before Cabina, unchanged checker include and one booth image | Duplicate the signature hook on the Cabina handoff; the exact-count assertion fails |
-| 3 | `tests/remaster-r1.test.mjs::Certified Translation is document led with one signature moment` | Beat order, one certified signature around the existing before/after include, provisional document material, no `assets/photo/`, and page-scoped transform/opacity motion instead of the shared clip slider | Add the booth asset path to the certified source; the no-photo assertion fails |
+| 3 | `tests/remaster-r1.test.mjs::Certified Translation is document led with one signature moment` | Beat order, one certified signature around the before/after include, provisional document material, no `assets/photo/`, the slider not disabled on the page and no competing entrance animation | Add the booth asset path to the certified source; the no-photo assertion fails |
 | 4 | `tests/remaster-r1.test.mjs::both pages finish the story through the shared close` | Both pages include the same minimal close and built HTML contains the closing sequence before contact/footer | Remove the close include from either page; the source/built assertion fails |
 | 5 | `tests/remaster-r1.test.mjs::R1 styles stay page scoped and support reflow` | The new stylesheet is imported, new selectors are rooted at the two opt-ins, a 320 px rule withdraws decoration, and no new raw color/font token is introduced | Remove `.page-home-r1` from a Home rule; the selector-scope assertion fails |
 | 6 | `tests/remaster-r1.test.mjs::Home arrival progressively enhances to a static accessible end state` | One Home script, native skip/replay controls, repeat-visit state, reduced-motion branch, static end-state marker and transform/opacity-only keyframes | Remove the reduced-motion branch from the script; the motion-contract assertion fails |
 | 7 | `tests/remaster-r1.test.mjs::built remaster keeps semantic and disclosure safeguards` | Built pages retain one h1, labelled sections, provisional/demo wording, `aria-hidden` on every crossing decoration, and no new credential/legal-validity claim | Remove `aria-hidden` from any crossing decoration; the built safeguard assertion fails |
+| 9 | `tests/remaster-r1.browser.test.mjs::crossing decorations stay inside their own section` | At 1440 and 390, every visible `.r1-crossing-decor` box lies inside its closest `section` | Remove `position: relative` scoping so the close's trail inherits the hero offset; the trail lands in the hero and the case fails |
+| 10 | `tests/remaster-r1.browser.test.mjs::Certified slider is operable by drag label, buttons and keyboard` | With motion allowed: the slider is live, the handle shows “Deslice”, the “Original” button reveals the whole original, “Traducción certificada” the whole translation, ArrowLeft moves the value, and the label collapses after use | Re-add the page-level early return in `sig-documento.js`; the slider never becomes ready and the case fails |
+| 11 | `tests/remaster-r1.browser.test.mjs::reduced motion shows both sheets and no drag instruction` | With reduced motion: both sheets visible, no jump buttons, the how-to text hidden, Home arrival complete with skip hidden | Show the how-to text unconditionally; the case fails |
 | 8 | `check.mjs index traduccion-certificada` | At 320/390/1440: no axe violation, horizontal overflow or console error; screenshots are produced with reduced motion | Give a remaster layer fixed width wider than 320 px; the 320 overflow result fails |
 
 ## 5. Implementation notes
@@ -102,6 +107,7 @@ Runner: Node's built-in `node:test` against the prototype source and built HTML,
 
 ## 6. Spec change log
 
+- `2026-10-19` — post-review revision (owner request after the PR #69 review): (a) the Home close's decorative trail escaped to the top of the page as amber dots on a light surface, because the hero's absolute-position rule matched every `.r1-crossing-decor` on Home; scoped to its composition and covered by browser test 9. (b) The owner wants the before/after slider back on Certified with a clearer affordance; §3.3 and tests 3, 10, 11 changed accordingly. (c) The Certified hero's dead `aria-hidden` monument paragraph is removed and its summary heading is separated from the sample text. (d) Brand docs now record the R1 type role, de-boxing and close (rule 4 drift). Browser cases run through Playwright already used by `check.mjs`; no new dependency.
 - `2026-10-19` — implemented: 7/7 Node contract cases green; build green; fail-enforcing browser gate green for both pages at 320/390/1440 with 0 axe violations, overflow and console errors. Independent final review's four findings were fixed: browser exit status, Certified motion boundary, arrival-control focus/reduced-motion behavior and at-rest sheet shadow.
 - `2026-10-19` — review with C3: **10 mutations, 10 killed**. Mutations covered page opt-in, signature count, no-photo Certified, shared close, CSS scoping, reduced motion, every decoration's semantics, Certified's non-clip motion boundary, arrival focus transfer and the browser gate's nonzero overflow failure.
 - `2026-10-19` — red: 7 Node contract cases fail for the intended missing R1 page hooks, beats, shared close, scoped stylesheet, arrival enhancement and built safeguards. The prototype build passes before the assertions; no case fails from the runner.

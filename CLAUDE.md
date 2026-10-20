@@ -85,16 +85,16 @@ Before writing a spec or a test, or proposing an implementation:
 
 ---
 
-## 5. What NOT to do yet (scope of Phase 3, Admin)
+## 5. What NOT to do yet (scope of Phase 4, Public site)
 
-**Updated on 2026-10-19:** P2 closed with brg-33 carried forward; the project is in **P3 (Admin)** (ADR D1.1, `docs/backlog/sprints/phase-03.md`). The veto is lifted for HU-02–HU-09 (`BRG-13`…`BRG-20`): Filament resources, policies and the model scopes they need. brg-33 (`BRG-43`) proceeds whenever its hosting checks land. Until P3 closes:
+**Updated on 2026-10-19:** P3 closed with brg-33 carried forward; the project is in **P4 (Public site)** (ADR D1.1, `docs/backlog/sprints/phase-04.md`). The veto is lifted for brg-39 (`BRG-49`), HU-01 and HU-10–HU-22 (`BRG-12`, `BRG-21`…`BRG-33`) and brg-38 (`BRG-48`): public Blade pages, components, routes and signature JS. brg-33 (`BRG-43`) proceeds whenever its hosting checks land. Until P4 closes:
 
-- No public Blade pages, components or routes beyond brg-31's placeholder home (P4).
-- No Lead resource, lead forms, mailables or scheduled jobs (P5). The permission matrix records the editor's lead rights; HU-27 applies them.
+- No page story (HU-01, HU-10–HU-22, brg-38) before the owner approves the prototype design it ports (phase-04 start gate). brg-39 is Ready now.
+- No Lead resource, lead forms, mailables or scheduled jobs (P5). HU-19 and HU-20 only link to the quote form's URL.
 - No migration or column change before its ERD slice in `docs/erd/` is updated and approved (C1).
-- No packages beyond those in ADR D3.7 and the dev tooling in D2.1 (that includes Filament plugins).
+- No packages beyond those in ADR D3.7 and the dev tooling in D2.1 (no JS framework or animation library).
 - brg-33 (staging deploy) is **not a blocker**: "on staging" criteria are checked locally until it lands (phase-01 *Carry-over*). It must land before P6.
-- `prototype/` is the reference implementation: no changes except to fix a drift the site's token tests reveal (recorded in the phase doc). BRG-68 is merged; another remaster round needs a new owner-approved synthesis gate.
+- `prototype/` is the reference implementation: no changes except to fix a drift the site's token tests reveal (recorded in the phase doc), or a remaster round with a new owner-approved synthesis gate.
 - No real Bridge data in any file, factory or seeder; it goes to `Settings` through the admin later (placeholder register).
 
 ## 6. Closed infrastructure decisions

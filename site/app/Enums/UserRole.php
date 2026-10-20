@@ -2,8 +2,15 @@
 
 namespace App\Enums;
 
-enum UserRole: string
+use Filament\Support\Contracts\HasLabel;
+
+enum UserRole: string implements HasLabel
 {
     case Admin = 'admin';
     case Editor = 'editor';
+
+    public function getLabel(): string
+    {
+        return __('admin.roles.'.$this->value);
+    }
 }

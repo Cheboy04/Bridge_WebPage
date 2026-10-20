@@ -26,10 +26,8 @@ class DemoContentSeeder extends Seeder
             return;
         }
 
-        User::firstOrCreate(
-            ['email' => 'test@example.com'],
-            User::factory()->raw(['name' => 'Test User', 'email' => 'test@example.com']),
-        );
+        User::factory()->admin()->create(['name' => 'Test User', 'email' => 'test@example.com']);
+        User::factory()->create(['name' => 'Editor Demo', 'email' => 'editor@example.com']);
 
         Faq::factory()->count(5)->create();
         Service::where('mode', ServiceMode::Documento)->each(

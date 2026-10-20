@@ -1,6 +1,19 @@
 <?php
 
 return [
+    'pages' => [
+        'model' => 'página',
+        'plural' => 'páginas',
+        'fields' => [
+            'title' => 'Título',
+            'slug' => 'Slug (URL)',
+            'slug_help' => 'Fijo una vez creada: el sitio busca la página por este valor.',
+            'body' => 'Contenido',
+            'seo_title' => 'Título SEO',
+            'seo_description' => 'Descripción SEO',
+            'updated_at' => 'Actualizada',
+        ],
+    ],
     'roles' => [
         'admin' => 'Administrador',
         'editor' => 'Editor',

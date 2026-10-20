@@ -112,7 +112,7 @@ it('stores the image on the public disk', function () {
     Storage::fake('public');
 
     Livewire::test(CreateService::class)
-        ->fillForm(serviceForm(['image' => UploadedFile::fake()->image('cabina.jpg')]))
+        ->fillForm(serviceForm(['image' => UploadedFile::fake()->create('cabina.jpg', 20, 'image/jpeg')]))
         ->call('create')
         ->assertHasNoFormErrors();
 

@@ -68,6 +68,18 @@ return [
             'hero_hook_help' => 'Vacío: se usa la frase predeterminada.',
         ],
     ],
+    'languages' => [
+        'model' => 'idioma',
+        'plural' => 'idiomas',
+        'fields' => [
+            'code' => 'Código ISO',
+            'code_help' => 'Código ISO 639 en minúsculas, con región opcional: en, qu, pt-BR.',
+            'name' => 'Nombre',
+            'services' => 'Servicios que se ofrecen',
+            'featured' => 'Destacado',
+            'published' => 'Publicado',
+        ],
+    ],
     'users' => [
         'model' => 'usuario',
         'plural' => 'usuarios',

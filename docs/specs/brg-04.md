@@ -2,7 +2,7 @@
 
 > **GitHub Issues:** `BRG-15` (local `brg-04`) · **Phase:** P3 · **Covers:** RF-03
 > **Counterpart:** — (does not cross layers)
-> **Status:** `[x]` draft · `[x]` approved (agent, mode C, 2026-10-19) · `[ ]` implemented
+> **Status:** `[x]` draft · `[x]` approved (agent, mode C, 2026-10-19) · `[x]` implemented
 
 Turns the issue's acceptance criteria (add, edit, reorder and unpublish a language and pick its services; unique, validated codes; the checker's data built from published languages only) into a Filament resource, its policy, the `published()` scope and the LangChecker payload builder.
 
@@ -85,4 +85,7 @@ Runner: Pest, MySQL (C4), `RefreshDatabase`. File `tests/Feature/Admin/LanguageR
 
 ## 6. Spec change log
 
+- `2026-10-19` — review with C3: **12 mutations, 12 killed** (the 11 rows of §4, #10 split in two), each lint-checked and filtered to its test, every kill a named failing case. Review findings: none open.
+- `2026-10-19` — implemented: suite 172 green (376 assertions); Pint clean; Larastan 0 errors; Vite build ok. One fix on the way: inside the model, `self::published()` calls the protected scope method directly, so `checkerPayload()` uses `self::query()->published()`.
+- `2026-10-19` — red: 18 cases failing (commit `4d376d3`).
 - `2026-10-19` — draft created and approved by the agent (mode C). Decisions taken alone: checker `services` limited to published Documento services (§3.1), shared `StaffContentPolicy` base (§3.2), code format (§3.3).

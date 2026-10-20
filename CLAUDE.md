@@ -85,15 +85,16 @@ Before writing a spec or a test, or proposing an implementation:
 
 ---
 
-## 5. What NOT to do yet (scope of Phase 2, Data)
+## 5. What NOT to do yet (scope of Phase 3, Admin)
 
-**Updated on 2026-10-19:** P1 closed with brg-33 carried forward; the project is in **P2 (Data)** (ADR D1.1, `docs/backlog/sprints/phase-02.md`). The veto is lifted for brg-35 (`BRG-45`), brg-36 (`BRG-46`) and brg-37 (`BRG-47`), plus brg-33 (`BRG-43`) whenever its hosting checks land. The owner also approved the parallel BRG-68 reference-prototype remaster, limited to Home and Certified Translation; its gate evidence lives in `audit/remaster-r1/`. Until P2 closes:
+**Updated on 2026-10-19:** P2 closed with brg-33 carried forward; the project is in **P3 (Admin)** (ADR D1.1, `docs/backlog/sprints/phase-03.md`). The veto is lifted for HU-02–HU-09 (`BRG-13`…`BRG-20`): Filament resources, policies and the model scopes they need. brg-33 (`BRG-43`) proceeds whenever its hosting checks land. Until P3 closes:
 
-- No migration or model before its ERD slice in `docs/erd/` is approved by the owner (C1).
-- No Filament resources, policies, Blade components or pages beyond brg-31's placeholder home (P3, P4).
-- No packages beyond those in ADR D3.7 and the dev tooling in D2.1.
+- No public Blade pages, components or routes beyond brg-31's placeholder home (P4).
+- No Lead resource, lead forms, mailables or scheduled jobs (P5). The permission matrix records the editor's lead rights; HU-27 applies them.
+- No migration or column change before its ERD slice in `docs/erd/` is updated and approved (C1).
+- No packages beyond those in ADR D3.7 and the dev tooling in D2.1 (that includes Filament plugins).
 - brg-33 (staging deploy) is **not a blocker**: "on staging" criteria are checked locally until it lands (phase-01 *Carry-over*). It must land before P6.
-- `prototype/` is the reference implementation: no changes except to fix a drift the site's token tests reveal, or the approved BRG-68 Home and Certified Translation slice (recorded in the phase doc). BRG-68 must not redesign the other pages or add Laravel public UI.
+- `prototype/` is the reference implementation: no changes except to fix a drift the site's token tests reveal (recorded in the phase doc). BRG-68 is merged; another remaster round needs a new owner-approved synthesis gate.
 - No real Bridge data in any file, factory or seeder; it goes to `Settings` through the admin later (placeholder register).
 
 ## 6. Closed infrastructure decisions

@@ -1,6 +1,6 @@
 # Phase 2 — Data (Bridge Traducciones website)
 
-**Status:** in progress since 2026-10-19 (P1 closed with brg-33 carried forward, [`phase-01.md`](phase-01.md) *Carry-over*).
+**Status:** **closed 2026-10-19** with brg-33 carried forward again (*Carry-over* below). Opened 2026-10-19 after P1 ([`phase-01.md`](phase-01.md) *Carry-over*). Next: [`phase-03.md`](phase-03.md).
 **Owns:** the plan, tickets and close criteria of P2. **Referenced by:** `CLAUDE.md` §5, `docs/backlog/roadmap.md`.
 
 ## Goal
@@ -49,9 +49,17 @@ Each Task follows its checklist in the issue body. The cross-cutting line is the
 
 ### Close
 
-- Every ERD slice is approved and matches its migrations.
-- Migrations run green in CI on MySQL. "On staging" (the issues' AC) is checked locally until brg-33 lands, then re-checked on staging (P1 carry-over).
-- `php artisan migrate:fresh --seed` builds the dataset with no real client data (D2.2).
+- Every ERD slice is approved and matches its migrations (**met**: both slices approved 2026-10-19 and merged with their migrations, PRs #64 and #65).
+- Migrations run green in CI on MySQL (**met**, PRs #64, #65, #67). "On staging" (the issues' AC) is checked locally until brg-33 lands, then re-checked on staging (**carried** with brg-33).
+- `php artisan migrate:fresh --seed` builds the dataset with no real client data (D2.2) (**met** locally on MySQL 2026-10-19 on `develop` at `138d382`; suite 100/100).
+
+## Carry-over
+
+Recorded 2026-10-19:
+
+- **brg-33 / `BRG-43`** stays open and blocked on ADR 9.1's hosting checks (owner). Same terms as P1's carry-over: it doesn't block P3–P5 and must land before P6.
+- **Effect on the gates:** the "on staging" item above stays unmet until brg-33 lands.
+- **BRG-68 / issue #68:** PR #69 merged into `develop`, but `Closes #68` only fires on a merge into the default branch (`main`), so the issue is still open. **Pending (owner):** close #68 by hand.
 
 ## Phase Definition of Done
 
@@ -67,4 +75,5 @@ The three Tasks are Done, with no drift between the ERD slices, the migrations a
 
 ## GitHub Issues sync executed
 
-- **Pending (owner):** move `BRG-43` to the `P2 Data` milestone.
+- `2026-10-19` — `BRG-43` sits in the `P2 Data` milestone. `BRG-45`, `BRG-46`, `BRG-47` closed with their PRs.
+- **Pending (owner):** move `BRG-43` to the `P3 Admin` milestone (carry-over); close issue #68.

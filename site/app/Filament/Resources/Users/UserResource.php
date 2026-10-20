@@ -81,7 +81,7 @@ class UserResource extends Resource
                     ->badge(),
                 TextColumn::make('created_at')
                     ->label(__('admin.users.fields.created_at'))
-                    ->dateTime(timezone: 'America/Guayaquil')
+                    ->dateTime()
                     ->sortable(),
             ])
             ->recordActions([

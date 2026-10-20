@@ -67,6 +67,9 @@ return [
 
     'timezone' => 'UTC',
 
+    // ADR D3.2: store UTC, display in Ecuador time (Filament fields and columns).
+    'display_timezone' => 'America/Guayaquil',
+
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration

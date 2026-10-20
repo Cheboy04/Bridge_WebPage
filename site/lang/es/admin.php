@@ -5,6 +5,27 @@ return [
         'admin' => 'Administrador',
         'editor' => 'Editor',
     ],
+    'posts' => [
+        'model' => 'artículo',
+        'plural' => 'artículos',
+        'status' => [
+            'draft' => 'Borrador',
+            'scheduled' => 'Programado',
+            'published' => 'Publicado',
+        ],
+        'fields' => [
+            'title' => 'Título',
+            'slug' => 'Slug (URL)',
+            'excerpt' => 'Extracto',
+            'body' => 'Contenido',
+            'cover' => 'Imagen de portada',
+            'published_at' => 'Fecha de publicación',
+            'published_at_help' => 'Vacío: borrador. Fecha futura: se publica sola en esa fecha (hora de Ecuador).',
+            'status' => 'Estado',
+            'seo_title' => 'Título SEO',
+            'seo_description' => 'Descripción SEO',
+        ],
+    ],
     'modes' => [
         'documento' => 'Documento (traducción)',
         'cabina' => 'Cabina (interpretación)',

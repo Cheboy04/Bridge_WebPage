@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Services;
 
 use App\Enums\ServiceMode;
+use App\Filament\Fields\SlugFields;
 use App\Filament\Resources\Services\Pages\CreateService;
 use App\Filament\Resources\Services\Pages\EditService;
 use App\Filament\Resources\Services\Pages\ListServices;
@@ -16,13 +17,11 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Resources\Resource;
-use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Support\Str;
 
 class ServiceResource extends Resource
 {
@@ -31,9 +30,6 @@ class ServiceResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedLanguage;
 
     protected static ?string $recordTitleAttribute = 'title';
-
-    /** Lowercase kebab: URL slugs and sprite ids (spec brg-03 §3.3). */
-    private const KEBAB = '/^[a-z0-9]+(?:-[a-z0-9]+)*$/';
 
     public static function getModelLabel(): string
     {
@@ -49,23 +45,7 @@ class ServiceResource extends Resource
     {
         return $schema
             ->components([
-                TextInput::make('title')
-                    ->label(__('admin.services.fields.title'))
-                    ->required()
-                    ->maxLength(255)
-                    ->live(onBlur: true)
-                    ->afterStateUpdated(function (Set $set, ?string $state, string $operation): void {
-                        if ($operation === 'create') {
-                            $set('slug', Str::slug((string) $state));
-                        }
-                    }),
-                TextInput::make('slug')
-                    ->label(__('admin.services.fields.slug'))
-                    ->required()
-                    ->maxLength(255)
-                    ->regex(self::KEBAB)
-                    // ERD I3: unique across all services, like the functional index.
-                    ->unique(column: 'slug->es', ignoreRecord: true),
+                ...SlugFields::make('admin.services.fields'),
                 Select::make('mode')
                     ->label(__('admin.services.fields.mode'))
                     ->options(ServiceMode::class)
@@ -80,7 +60,7 @@ class ServiceResource extends Resource
                     ->label(__('admin.services.fields.icon'))
                     ->helperText(__('admin.services.fields.icon_help'))
                     ->maxLength(255)
-                    ->regex(self::KEBAB),
+                    ->regex(SlugFields::KEBAB),
                 FileUpload::make('image')
                     ->label(__('admin.services.fields.image'))
                     ->image()

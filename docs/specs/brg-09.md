@@ -2,7 +2,7 @@
 
 > **GitHub Issues:** `BRG-20` (local `brg-09`) · **Phase:** P3 · **Covers:** RF-07, RNF-05
 > **Counterpart:** — (does not cross layers)
-> **Status:** `[x]` draft · `[x]` approved (agent, mode C, 2026-10-19) · `[ ]` implemented
+> **Status:** `[x]` draft · `[x]` approved (agent, mode C, 2026-10-19) · `[x]` implemented
 
 Turns the issue's acceptance criteria (only `admin` opens and saves Settings; phone and WhatsApp numbers in international format; a saved change shows on the next request) into one Filament page bound to the single Settings row.
 
@@ -73,13 +73,16 @@ Runner: Pest, MySQL (C4), `RefreshDatabase`. File `tests/Feature/Admin/SettingsP
 | 5 | `it rejects a phone that is not international` (dataset: `022000000`, `+593 2 abc 0000`, `+0 2 000 0000`) | `assertHasFormErrors(['data.phone_landline' …])` regex | Remove the phone regex |
 | 6 | `it rejects a WhatsApp number that wa.me cannot use` (dataset: `+593990000000`, `099 000 0000`) | Regex error on `whatsapp_number` | Remove the WhatsApp regex |
 | 7 | `it keeps a documented stat with its source and date` | A stat row round-trips per locale | Remove `stats` from the form |
-| 8 | `it shows a saved change on the next read` | After save, `Settings::current()` (a fresh query) returns the new value | Guard rail (born green: no cache). Proven red by memoising `current()` in a static |
+| 8 | `it shows a saved change on the next read` | After a save, the row is changed in the database as another request would; `Settings::current()` returns that value | Guard rail (born green: no cache). Proven red by memoising `current()` in a static |
 
 ## 5. Implementation notes
 
-- Form errors on a page with `statePath('data')` are keyed `data.<field>` in Livewire; Filament's `assertHasFormErrors` takes the bare field name. Check which one this version expects.
+- Filament's `assertHasFormErrors` takes the bare field name on a page with `statePath('data')` (checked).
 - Larastan with `--memory-limit=1G`.
 
 ## 6. Spec change log
 
+- `2026-10-19` — review with C3: **8 mutations, 8 killed**, each lint-checked and with a named failing case. #8 first **survived**: the memoised instance was the same object `save()` had filled, so the test could not see staleness. Test 8 now changes the row in the database after the save, as another request would, and the memo mutation fails it. Review findings: none open.
+- `2026-10-19` — implemented: suite 166 green on this branch (373 assertions); Pint clean; Larastan 0 errors; Vite build ok. Ping-pong on tests 3 and 7: MySQL's JSON type normalises the key order inside `socials` and `stats` items, so they compare with `toEqual` (same keys and values, still a list) instead of `toBe`.
+- `2026-10-19` — red: 12 cases failing (commit `c41e290`).
 - `2026-10-19` — draft created and approved by the agent (mode C). Decisions taken alone: the two number formats (§3.2), stats require source and date (§3.2), no cache (§3.3), page without a Blade view (§3.1).

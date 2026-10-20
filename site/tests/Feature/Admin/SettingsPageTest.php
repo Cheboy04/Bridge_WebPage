@@ -6,6 +6,7 @@ use App\Filament\Pages\EditSettings;
 use App\Models\Settings;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Livewire\Livewire;
 
 uses(RefreshDatabase::class);
@@ -89,11 +90,12 @@ it('keeps a documented stat with its source and date', function () {
 });
 
 it('shows a saved change on the next read', function () {
-    Settings::current();
-
     Livewire::test(EditSettings::class)
         ->fillForm(['contact_email' => 'nuevo@bridge.example.test'])
         ->call('save');
 
-    expect(Settings::current()->contact_email)->toBe('nuevo@bridge.example.test');
+    // Another request saving the row: a cached copy of current() would miss it.
+    DB::table('settings')->update(['contact_email' => 'otro@bridge.example.test']);
+
+    expect(Settings::current()->contact_email)->toBe('otro@bridge.example.test');
 });

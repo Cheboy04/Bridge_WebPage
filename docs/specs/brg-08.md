@@ -2,7 +2,7 @@
 
 > **GitHub Issues:** `BRG-19` (local `brg-08`) · **Phase:** P3 · **Covers:** RF-01, RF-07
 > **Counterpart:** — (does not cross layers)
-> **Status:** `[x]` draft · `[x]` approved (agent, mode C, 2026-10-19) · `[ ]` implemented
+> **Status:** `[x]` draft · `[x]` approved (agent, mode C, 2026-10-19) · `[x]` implemented
 
 Turns the issue's acceptance criteria (an editor edits a page's title, body and SEO fields; the `privacidad` page can't be deleted) into a Filament resource and a policy that blocks that one delete.
 
@@ -67,4 +67,7 @@ Runner: Pest, MySQL (C4), `RefreshDatabase`. File `tests/Feature/Admin/PageResou
 
 ## 6. Spec change log
 
+- `2026-10-19` — review with C3: **6 mutations, 6 killed** (the 6 rows of §4), each lint-checked and with a named failing case. Review findings: none open.
+- `2026-10-19` — implemented: suite 221 green (509 assertions); Pint clean; Larastan 0 errors; Vite build ok.
+- `2026-10-19` — red: 12 cases failing, the resource didn't exist (commit `a215d40`).
 - `2026-10-19` — draft created and approved by the agent (mode C). Decisions taken alone: the slug locked on edit (§1), no sanitise-on-save for `Page.body` (§1), only `privacidad` protected (§1).

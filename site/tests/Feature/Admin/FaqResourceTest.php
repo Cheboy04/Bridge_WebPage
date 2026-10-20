@@ -58,7 +58,8 @@ it('requires a question and an answer', function () {
     Livewire::test(CreateFaq::class)
         ->fillForm(['question' => '', 'answer' => ''])
         ->call('create')
-        ->assertHasFormErrors(['question' => 'required', 'answer' => 'required']);
+        // The rich editor enforces `required` through its own closure rule, so only the key is checked.
+        ->assertHasFormErrors(['question' => 'required', 'answer']);
 });
 
 it('loads the Spanish question into the edit form', function () {

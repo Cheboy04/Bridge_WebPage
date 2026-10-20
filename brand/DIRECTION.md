@@ -77,6 +77,7 @@ Scale: mobile 16px base, ratio 1.2; desktop 18px base, ratio 1.25. Display and h
 
 | Role | Face / weight | Mobile px (rem) | Desktop px (rem) | Line-height | Tracking |
 |---|---|---|---|---|---|
+| monument (R1 pages only, see below) | Literata 600 | clamp(3.2rem, 11vw, 10rem) | up to 160 (10) | 0.84 | -0.055em |
 | display (home hero only) | Literata 600 | 39.8 (2.49) | 54.9 (3.43) | 1.10 | -0.01em |
 | h1 | Literata 600 | 33.2 (2.07) | 43.9 (2.75) | 1.15 | -0.01em |
 | h2 | Literata 600 | 27.6 (1.73) | 35.2 (2.20) | 1.2 | 0 |
@@ -89,6 +90,8 @@ Scale: mobile 16px base, ratio 1.2; desktop 18px base, ratio 1.25. Display and h
 
 Label and eyebrow are the same role: sentence case, never uppercase-tracked, at most one per section, only to name a mode or service ("Interpretación simultánea"). No weight above 700 in the UI (800 is the wordmark only); never 900. Minimum text is 14px.
 
+**Monument role (BRG-68 remaster, approved 2026-10-19).** On the R1 pages (Home and Traducción certificada) one truthful service phrase per chapter may be set as an object: the Home H1 ("Del original a la firma.", `clamp(3.2rem, 11vw, 10rem)`), the Certified H1 (`clamp(3rem, 7vw, 7rem)`, line-height 0.94), the Cabina chapter heading (`clamp(3rem, 8vw, 7.5rem)`) and the shared close line "original → traducción → firma" (`clamp(3rem, 10vw, 9rem)`, on Tinta, arrows in the trail colour). Rules: the monument is always the section's real heading, never a decorative duplicate; at most one per chapter; never on body copy, controls or a language name; at 320px it drops to 2.8rem. Pages that have not passed a remaster gate keep the display/h1 rows above.
+
 **Line length:** body 60 to 70ch (cap 68ch); h1 and display 24ch; lead paragraph 52ch.
 
 **Long words.** Set `lang` on `<html>` and on every inline foreign phrase. Body and h3 and below: `hyphens:auto; hyphenate-limit-chars: 7 3 3; overflow-wrap:break-word`. Headings h1 to h2: `hyphens:manual`, `text-wrap:balance`, sized so "Interpretación" and "Übersetzungsbeglaubigung" fit a 288px column (soft hyphens inserted by hand in strings known to be long); never allow the unhyphenated mid-word break seen in the audit ("Interpretació/n"). **Cyrillic and Greek titles:** Literata, `:lang(ru), :lang(el) { hyphens:manual; letter-spacing:0; line-height:+0.05 }`, `font-synthesis:none`, no italics for emphasis (Cyrillic italics change letterforms), no uppercase transform (Greek loses accents). Fallback stack: Literata, Georgia, serif / Manrope, system-ui, sans-serif.
@@ -98,7 +101,7 @@ Label and eyebrow are the same role: sentence case, never uppercase-tracked, at 
 Round dots on a straight or arced path, one direction: source to target.
 
 - **Size:** dot diameter 4px (UI), 6px (section connectors, steps), 8px (hero, seal ring). Pitch is always 3 times the diameter. The target end gets one dot at 1.5 times the size.
-- **Where:** (1) one connector per section boundary, vertical, 48 to 96px, aligned to the text left edge; (2) process steps, linking step markers, source to target; (3) language switcher, between current and target code (ES ··· EN); (4) loaders, 5 dots lighting in sequence; (5) seal ring on the certification stamp (Documento only), dot count = circumference / pitch.
+- **Where:** (0, R1 pages) the Home arrival connector between source and target, the Certified hero sheet's horizontal run, and one horizontal run under the close line (amber, on Tinta). Each sits inside its own composition, never positioned against the page; (1) one connector per section boundary, vertical, 48 to 96px, aligned to the text left edge; (2) process steps, linking step markers, source to target; (3) language switcher, between current and target code (ES ··· EN); (4) loaders, 5 dots lighting in sequence; (5) seal ring on the certification stamp (Documento only), dot count = circumference / pitch.
 - **Color:** blue (#1C61AD) on light surfaces; amber (#E3A148) on Tinta and #17325A only; white on Bridge blue fills and on photo scrims.
 - **Must not appear:** as dividers or table rules, list bullets, form field borders, underlines, inside ordinary cards (signature stages may use it), behind body text, on more than one connector per viewport, on photos without a scrim, with a second globe or map, or as a carrier of information without a text equivalent.
 
@@ -106,6 +109,7 @@ Round dots on a straight or arced path, one direction: source to target.
 
 - **Spacing:** 4px base. Scale 4, 8, 12, 16, 24, 32, 48, 64, 96, 128. Gap between sections (64 mobile / 128 desktop) is at least twice the largest gap inside one.
 - **Radius (revised 2026-10-15, client asked for less boxy components):** the brand is built on circles (globe, dots), so shapes lean round. `--radius-sm` 8px inputs and tags · `--radius-md` 14px cards, dialogs, photos · `--radius-lg` 24px signature stages (see `SIGNATURE-COMPONENTS.md`) · `--radius-full` buttons, chips, the WhatsApp button and segmented controls, echoing the dots. Never mix two radii on nested edges; an inner element is the outer radius minus the padding.
+- **R1 de-boxing (Home and Traducción certificada, 2026-10-19):** signature stages and service rows on these pages are square-edged paper and ruled rows (radius 0, 1px rules) instead of raised `--radius-lg` panels: the arrival crossing, the before/after stage and sheets, the Certified hero sheet and the Home service lists. Controls keep their radii. Grounds rotate hard between white, Bruma and Tinta; the close is always Tinta.
 - **Fewer boxes:** a repeated grid of identical bordered cards is a last resort. Prefer open lists with dividers, sticky stage layouts, full-bleed moments and asymmetric two-column compositions. Max one boxed card grid per page.
 - **Border and elevation:** 1px border or a tone step, never both on the same edge. No shadow at rest. Floating layers only (menus, dialogs): `0 8px 24px rgba(14,36,64,.14)` in Documento; in Cabina no shadow, use surface-raised plus border.
 - **Grid:** 12 columns, container 1200px, margins 16 / 24 / 32 (mobile / tablet / desktop), gutters 16 / 24 / 32. Photos may bleed to 1440. Prose column 68ch. Breakpoints 640, 1024, 1280.

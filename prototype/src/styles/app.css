@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "./sig-documento.css";
 @import "./sig-cabina.css";
+@import "./remaster-r1.css";
 @source "../components";
 @source "../pages";
 

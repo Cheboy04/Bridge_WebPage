@@ -34,7 +34,7 @@
 .ba-stage { margin: 2.5rem 0 0; display: grid; gap: 1rem; position: relative; }
 @media (min-width: 64rem) { .ba-stage { grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3.5rem; } }
 .ba-hint { margin: 1rem 0 0; max-width: 60ch; }
-.ba-tags, .ba-ui { display: none; }
+.ba-tags, .ba-ui, .ba-howto { display: none; }
 
 .ba-doc { display: flex; flex-direction: column; padding: clamp(1.25rem, 3vw, 2.5rem); border-radius: var(--radius-lg, 24px); font-size: var(--text-small); line-height: 1.5; color: var(--text); }
 .ba-orig { background: color-mix(in srgb, var(--surface-raised) 86%, var(--text)); }
@@ -65,7 +65,9 @@
   .ba[data-ready] .ba-cap-only { display: none; }
   .ba[data-ready] .ba-kicker { display: none; }
   .ba[data-ready] .ba-tags { display: block; }
-  .ba-tag { position: absolute; top: 1.25rem; z-index: 3; padding: 0.4rem 0.9rem; border-radius: var(--radius-full, 999px); font: 700 var(--text-small) / 1.2 var(--font-sans); pointer-events: none; }
+  .ba[data-ready] .ba-howto { display: inline; }
+  /* the side labels are buttons above the range: a tap shows one whole version (44px targets) */
+  .ba-tag { position: absolute; top: 1rem; z-index: 3; display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 1rem; border: 0; border-radius: var(--radius-full, 999px); font: 700 var(--text-small) / 1.2 var(--font-sans); cursor: pointer; }
   .ba-tag-l { left: 1.25rem; background: var(--text); color: var(--surface); }
   .ba-tag-r { right: 1.25rem; background: var(--accent); color: var(--accent-contrast); }
   .ba[data-ready] .ba-ui { display: block; position: absolute; inset: 0; z-index: 2; }
@@ -73,7 +75,11 @@
   .ba-range::-webkit-slider-thumb { -webkit-appearance: none; width: 1px; height: 100vh; }
   .ba-range::-moz-range-thumb { width: 1px; height: 100vh; border: 0; }
   .ba-line { position: absolute; top: 0; bottom: 0; left: calc(var(--p) * 1%); width: 2px; margin-left: -1px; background: var(--surface); box-shadow: 0 0 0 1px color-mix(in srgb, var(--text) 25%, transparent); pointer-events: none; }
-  .ba-knob { position: absolute; top: 50%; left: 50%; display: grid; place-items: center; width: 3rem; height: 3rem; /* keep the 48px knob inside the stage at 0 and 100 */ --kx: calc(clamp(1.75rem, var(--p) * 1cqw, 100cqw - 1.75rem) - var(--p) * 1cqw); transform: translate(calc(-50% + var(--kx)), -50%); border-radius: 50%; background: var(--accent); color: var(--accent-contrast); }
+  .ba-knob { position: absolute; top: 50%; left: 50%; display: grid; place-items: center; gap: 0.4rem; grid-auto-flow: column; width: var(--kw); height: 3rem; --kw: 3rem; /* keep the knob inside the stage at 0 and 100 */ --kx: calc(clamp(var(--kw) / 2 + 0.25rem, var(--p) * 1cqw, 100cqw - var(--kw) / 2 - 0.25rem) - var(--p) * 1cqw); transform: translate(calc(-50% + var(--kx)), -50%); border-radius: 50%; background: var(--accent); color: var(--accent-contrast); }
+  /* until the first user action the knob is a labelled pill ("Deslice"); then it collapses to the round handle */
+  .ba:not([data-touched]) .ba-knob { --kw: 7.5rem; }
+  .ba-knob-label { font: 700 var(--text-small) / 1 var(--font-sans); }
+  .ba[data-touched] .ba-knob-label { display: none; }
   .ba-range:focus-visible ~ .ba-line .ba-knob { outline: 3px solid var(--focus); outline-offset: 3px; }
   .ba-range:active ~ .ba-line .ba-knob { transform: translate(calc(-50% + var(--kx)), -50%) scale(1.06); }
 }

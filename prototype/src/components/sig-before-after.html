@@ -1,13 +1,13 @@
 <!-- Before/after certified document (signature #4). params: uid (unique per page), level (heading level, default 2).
-     At rest (no JS or reduced motion): both versions side by side (stacked on mobile). With JS + motion allowed: one stage, range input drives clip-path. SAMPLE DATA: every name/number is a fake placeholder. -->
+     At rest (no JS or reduced motion): both versions side by side (stacked on mobile). With JS + motion allowed: one stage, range input drives clip-path; a "Deslice" handle and two jump buttons show how to use it. SAMPLE DATA: every name/number is a fake placeholder. -->
 <div class="ba" data-ba>
   <div class="ba-head">
     <h{{level|2}} id="ba-h-{{uid}}">De su original a la traducción certificada</h{{level|2}}>
-    <p class="lead mt-5">{{lead|Un mismo documento, dos versiones. Arrastre el control para ver cómo queda su partida de nacimiento: el texto fiel al original, la declaración del traductor y el sello.}}</p>
+    <p class="lead mt-5">Un mismo documento, dos versiones. Compare el original con la traducción certificada: el texto fiel, la declaración del traductor y el sello.</p>
   </div>
 
   <figure class="ba-stage" data-ba-stage aria-labelledby="ba-h-{{uid}}">
-    <div class="ba-tags" aria-hidden="true"><span class="ba-tag ba-tag-l">Original</span><span class="ba-tag ba-tag-r">Traducción certificada</span></div>
+    <div class="ba-tags"><button type="button" class="ba-tag ba-tag-l" data-ba-jump="100">Original</button><button type="button" class="ba-tag ba-tag-r" data-ba-jump="0">Traducción certificada</button></div>
 
     <article class="ba-doc ba-orig" lang="en" aria-label="Original en inglés (muestra)">
       <p class="ba-kicker"><span class="ba-cap-only">Original · inglés</span></p>
@@ -49,10 +49,10 @@
 
     <div class="ba-ui" data-ba-ui>
       <input class="ba-range" type="range" min="0" max="100" step="1" value="50" data-ba-range aria-label="Comparar original y traducción certificada" aria-describedby="ba-hint-{{uid}}">
-      <span class="ba-line" aria-hidden="true"><span class="ba-knob"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m9 7-5 5 5 5"/><path d="m15 7 5 5-5 5"/></svg></span></span>
+      <span class="ba-line" aria-hidden="true"><span class="ba-knob"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m9 7-5 5 5 5"/><path d="m15 7 5 5-5 5"/></svg><span class="ba-knob-label">Deslice</span></span></span>
     </div>
   </figure>
 
-  <p class="ba-hint t-small text-muted" id="ba-hint-{{uid}}" data-ba-hint>{{hint|Con el teclado, use las flechas izquierda y derecha. Muestra con datos ficticios. En su traducción real reproducimos sellos, firmas y anotaciones del original.}}</p>
+  <p class="ba-hint t-small text-muted" id="ba-hint-{{uid}}" data-ba-hint><span class="ba-howto" data-ba-howto>Arrastre la barra o toque «Original» y «Traducción certificada». Con el teclado, use las flechas. </span>Muestra con datos ficticios. En su traducción real reproducimos sellos, firmas y anotaciones del original.</p>
 </div>
 <script defer src="assets/js/sig-documento.js"></script>

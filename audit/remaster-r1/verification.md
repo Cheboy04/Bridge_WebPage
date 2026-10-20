@@ -29,3 +29,14 @@ Visual inspection confirms the approved synthesis:
 The final read-only reviewer found four issues. All were resolved before delivery: the browser checker now fails closed, the Certified signature uses a page-scoped transform/opacity entrance rather than the shared clip slider, arrival controls preserve focus and disappear under reduced motion, and the static Certified sheet uses a border instead of a resting shadow.
 
 The remaining six prototype pages have no R1 opt-in class or `data-remaster-*` hook and were not redesigned.
+
+## Post-review revision — 2026-10-19
+
+An independent review of PR #69 (Claude, at the owner's request) found what the gates above missed:
+
+- **Escaped amber trail.** The Home hero rule `.page-home-r1 .r1-crossing-decor { position: absolute; top: 26% }` also matched the close's trail. `.r1-close` is not positioned, so the trail rendered at the top of the page as amber dots on a light surface (brand `DIRECTION.md` §2). Axe, overflow and the source contract cannot see this, and the full-page captures were checked only downscaled. Fixed by scoping to `.r1-crossing > .r1-crossing-decor`; browser test 9 now fails on any decoration outside its section.
+- **Brand docs drift.** The monument type role, R1 de-boxing, arrival and close existed only in code. Now recorded in `brand/DIRECTION.md` §3–§5 and `brand/SIGNATURE-COMPONENTS.md`.
+- **Slider restored (owner decision).** The before/after slider is the Certified signature moment again, with a "Deslice" handle label, tappable "Original" / "Traducción certificada" buttons and a how-to line shown only in slider mode.
+- **Certified hero.** The hidden, unused monument paragraph is removed; the "En resumen" heading is separated from the sample text by a rule.
+
+Evidence: `npm test` 10/10; `check.mjs` green on both pages at 320/390/1440; axe on the live slider 0 violations; C3 5/5 (see spec log). Review method that caught the bug: full-page captures cut into 1440×1800 crops and read at 50 %, not as a single thumbnail.

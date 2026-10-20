@@ -1,4 +1,5 @@
-/* BRG-68: page-scoped composition for Home and Certified Translation only. */
+/* BRG-68: page-scoped composition for Home and Certified Translation only.
+   Absolute decorations are positioned against their own composition only (spec §3.5), never by a page-wide selector. */
 
 .page-home-r1 .r1-arrival {
   min-height: calc(100svh - 5rem);
@@ -19,8 +20,7 @@
   z-index: 1;
 }
 
-.page-home-r1 .r1-monument,
-.page-certified-r1 .r1-monument {
+.page-home-r1 .r1-monument {
   font: 600 clamp(3.2rem, 11vw, 10rem) / 0.84 var(--font-serif);
   letter-spacing: -0.055em;
   text-wrap: balance;
@@ -45,7 +45,7 @@
   border-block: 1px solid var(--border-strong);
 }
 
-.page-home-r1 .r1-crossing-decor {
+.page-home-r1 .r1-crossing > .r1-crossing-decor {
   position: absolute;
   left: 1.5rem;
   top: 26%;
@@ -176,10 +176,6 @@
   z-index: 1;
 }
 
-.page-certified-r1 .r1-monument {
-  display: none;
-}
-
 .page-certified-r1 .r1-certified-title {
   max-width: 12ch;
   font-size: clamp(3rem, 7vw, 7rem);
@@ -217,23 +213,8 @@
   justify-content: end;
 }
 
-.page-certified-r1 .r1-certified-transformation .ba-doc {
+.page-certified-r1 .r1-certified-transformation :is(.ba-doc, .ba-stage) {
   border-radius: 0;
-}
-
-@keyframes r1-document-arrival {
-  from { opacity: 0; transform: translateX(1rem); }
-  to { opacity: 1; transform: none; }
-}
-
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .page-certified-r1 .r1-certified-transformation .ba-cert {
-      animation: r1-document-arrival var(--dur-trail) var(--ease-out) both;
-      animation-timeline: view();
-      animation-range: entry 10% entry 75%;
-    }
-  }
 }
 
 .page-certified-r1 .r1-evidence-rows {

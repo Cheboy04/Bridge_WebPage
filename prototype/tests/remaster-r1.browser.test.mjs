@@ -49,6 +49,10 @@ test('Certified slider is operable by drag label, buttons and keyboard', async (
   assert.ok(await tab.getByText('Deslice', { exact: true }).isVisible(), 'handle label visible before use');
   assert.ok(await tab.locator('[data-ba-howto]').isVisible(), 'how-to visible in slider mode');
 
+  await range.focus();
+  await tab.keyboard.press('ArrowRight');
+  assert.equal(await tab.getByText('Deslice', { exact: true }).isVisible(), false, 'label collapses after the first keyboard use');
+
   await tab.getByRole('button', { name: 'Original', exact: true }).click();
   await tab.waitForFunction(() => document.querySelector('[data-ba-range]').value === '100');
   assert.match(await range.getAttribute('aria-valuetext'), /Mostrando el original/);
@@ -60,7 +64,6 @@ test('Certified slider is operable by drag label, buttons and keyboard', async (
   await range.focus();
   await tab.keyboard.press('ArrowRight');
   assert.equal(await range.inputValue(), '1');
-  assert.equal(await tab.getByText('Deslice', { exact: true }).isVisible(), false, 'label collapses after use');
   await tab.context().close();
 });
 

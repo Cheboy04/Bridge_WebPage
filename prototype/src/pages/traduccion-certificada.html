@@ -15,7 +15,6 @@
     <div class="wrap r1-certified-arrival-grid grid gap-y-12 pb-16 pt-6 lg:grid-cols-12 lg:gap-x-8 lg:pb-28 lg:pt-8">
       <div class="r1-certified-arrival-copy lg:col-span-7">
         <!-- @include breadcrumb parent="Traducción" parent_href="#" parent_note="No incluido en el prototipo" current="Traducción certificada" -->
-        <p class="r1-monument" aria-hidden="true">Original / traducción</p>
         <h1 id="h-title" class="r1-certified-title mt-8 t-display">Traducción certificada de sus documentos</h1>
         <p class="lead mt-6">Traducimos su documento y lo entregamos con una declaración firmada de que la traducción es fiel al original. Usted nos envía el archivo; nosotros coordinamos el resto.</p>
         <div class="mt-10 flex flex-wrap gap-3">
@@ -29,7 +28,7 @@
           <p class="label">Muestra demostrativa</p>
           <p class="r1-certified-sheet-source mt-5" lang="en">Original · Birth certificate</p>
           <p class="r1-certified-sheet-target mt-2">Traducción · Partida de nacimiento</p>
-          <h2 id="fact-title" class="t-h4 !font-sans">En resumen</h2>
+          <h2 id="fact-title" class="t-h4 !font-sans mt-8 border-t border-line pt-6">En resumen</h2>
           <dl class="mt-5 grid gap-5">
             <div><dt class="t-small font-semibold text-muted">Cotización</dt><dd class="mt-1">Por escrito, antes de empezar.</dd></div>
             <div><dt class="t-small font-semibold text-muted">Plazo de entrega</dt><dd class="mt-1">[por confirmar]</dd></div>
@@ -47,7 +46,7 @@
   <!-- SIGNATURE MOMENT: BEFORE / AFTER (also answers "Qué recibe") -->
   <section id="recibe" class="r1-certified-transformation sec bg-raised text-fg" data-remaster-beat="transformation" aria-labelledby="ba-h-doc">
     <div class="wrap" data-signature-moment="certified-before-after">
-      <!-- @include sig-before-after uid="doc" lead="Un mismo documento, dos versiones. Compare el original con la traducción certificada: el texto fiel, la declaración del traductor y el sello." hint="Muestra con datos ficticios. En su traducción real reproducimos sellos, firmas y anotaciones del original." -->
+      <!-- @include sig-before-after uid="doc" -->
       <ul class="r1-evidence-rows mt-14 grid gap-x-8 lg:grid-cols-3" aria-label="Qué recibe">
         <li class="flex gap-3 border-t border-line py-5"><svg class="icon icon-20 mt-1 shrink-0 text-muted" aria-hidden="true"><use href="#i-check"/></svg>La traducción de todo el documento, incluidos sellos, firmas y anotaciones.</li>
         <li class="flex gap-3 border-t border-line py-5"><svg class="icon icon-20 mt-1 shrink-0 text-muted" aria-hidden="true"><use href="#i-check"/></svg>La declaración de fidelidad firmada por el traductor.</li>

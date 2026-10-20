@@ -12,11 +12,13 @@ Status: approved by client 2026-10-15 (all six). **Owns the behaviour layer** (A
 4. **No libraries** beyond Alpine (already loaded). CSS scroll-driven animations (`animation-timeline: view()`) inside `@supports` and `prefers-reduced-motion: no-preference`; otherwise static. Transform and opacity only.
 5. **Data is real or labelled.** Rules and numbers not confirmed by Bridge carry a visible "[regla de ejemplo, validar con Bridge]" or "[por confirmar]".
 6. **Ports to Laravel.** Each one is a Blade component later; data comes from the CMS (Language model, Settings) or config. Prefill uses query parameters, which Livewire reads with `#[Url]`.
-7. **Radius:** stages use `--radius-lg` (24px), controls `--radius-full`. See DIRECTION.md §5.
+7. **Radius:** stages use `--radius-lg` (24px), controls `--radius-full`. See DIRECTION.md §5. On the R1 pages (Home, Traducción certificada) stages are square-edged (DIRECTION.md §5, R1 de-boxing).
 
 ---
 
 ## 1. Hero "Del original a la firma. Del orador al oído." (home)
+
+> **Superseded on Home by the R1 arrival (BRG-68, 2026-10-19)**, see "R1 remaster" below. The tabbed stage described here remains the component contract for the gallery (`componentes.html`) and any page not yet remastered.
 
 **H1:** `<h1>` contains the hook line large and, on a second line at about 40% size, "Traducción certificada e interpretación simultánea en Quito" (keeps search keywords).
 
@@ -56,7 +58,7 @@ Every rule shows "[regla de ejemplo, validar con Bridge]" once, at the panel foo
 
 ## 4. Before/after certified document (Traducción certificada)
 
-A stage showing one document twice, stacked: the original (English, plain) and the certified Spanish version (translator's declaration, seal, signature line). A draggable divider reveals one over the other using `clip-path` driven by an `input type=range` (0 to 100, default 50). The range is visually styled as a round handle with a vertical rule, keyboard operable, with labels "Original" and "Traducción certificada" at each side.
+A stage showing one document twice, stacked: the original (English, plain) and the certified Spanish version (translator's declaration, seal, signature line). A draggable divider reveals one over the other using `clip-path` driven by an `input type=range` (0 to 100, default 50). The range is visually styled as a handle with a vertical rule, keyboard operable. **Affordance (revised 2026-10-19 at the owner's request):** until the user first acts, the handle is a labelled pill "‹› Deslice"; after the first drag, key or tap it collapses to the round handle. The side labels "Original" and "Traducción certificada" are native buttons: a tap glides the divider to show that whole version. The how-to line ("Arrastre la barra o toque «Original» y «Traducción certificada». Con el teclado, use las flechas.") shows only while the slider exists.
 
 - **Reduced motion / no JS:** both versions side by side (desktop) or stacked (mobile), no slider.
 - **Content:** a redacted-looking sample (birth certificate). Names and numbers are clearly fake placeholders.
@@ -124,9 +126,12 @@ The formulas (example rules until Bridge confirms them, placeholder register #19
 | Intro sweep | once, when 55 % of the stage is visible; from "original only" (100) to the middle (50) | 1100ms, ease-out cubic (`1 − (1 − t)³`) |
 | Cancel | any user input cancels the sweep | — |
 | Knob while dragging | scale 1.06 | — |
+| Knob label "Deslice" | pill 7.5rem wide until the first user input or tap; then the 3rem round knob. Clamp keeps either size inside the stage (`--kw`) | — |
+| "Original" / "Traducción certificada" buttons | glide the divider to 100 / 0; cancel any running glide; count as first use | 600ms, ease-out cubic; min-height 44px |
 | Range | 0–100, step 1, default 50 | `aria-valuetext`: "Mostrando el original" at ≥ 98, "Mostrando la traducción certificada" at ≤ 2, otherwise both percentages |
 
-- The slider exists only with JS **and** motion allowed. Otherwise both sheets show side by side (desktop) or stacked (mobile).
+- The slider exists only with JS **and** motion allowed. Otherwise both sheets show side by side (desktop) or stacked (mobile), without the jump buttons or the how-to line.
+- The intro sweep is skipped if the user already acted before the stage came into view.
 - Desktop (≥ `breakpoint-lg`): text column and stage at 5fr / 7fr, gap 4rem. The knob is clamped inside the stage with `cqw` units (HANDOFF_v1 trap 10).
 
 ### 5. Living trail
@@ -150,6 +155,20 @@ The formulas (example rules until Bridge confirms them, placeholder register #19
 | Descriptor cycle | 7 names + the first repeated, vertical slide | 16.8s loop = 2.4s per name: hold about 1.97s, slide about 0.43s; `cubic-bezier(0.2, 0, 0, 1)` |
 | Pause | on `:hover` or `:focus-within` of the footer, and while `document.hidden` | — |
 | Reduced motion | static line of all seven names joined by middots, `text-muted` | — |
+
+### R1 remaster (Home and Traducción certificada, BRG-68, 2026-10-19)
+
+Pages opt in with `body.page-home-r1` / `body.page-certified-r1`; styles live in `prototype/src/styles/remaster-r1.css`, every selector rooted at an opt-in class.
+
+| Element | Behaviour | Value |
+| --- | --- | --- |
+| Home arrival (signature moment) | source phrase → target phrase → signed result, stacked and offset; trail connector between source and target | target and signed block: opacity 0→1, translateY 0.75rem→0, `dur-slow` (320ms), `ease-out`, delays 320ms / 820ms; complete at 1600ms |
+| Arrival controls | native "Omitir animación" / "Repetir recorrido" buttons, shown only when JS runs; skip announces "Recorrido completado…" politely and moves focus to "Repetir recorrido" (or the CTA under reduced motion) | — |
+| Repeat visits | plays once; `localStorage['bridge-remaster-arrival-seen']` (try/catch) shows the end state directly | — |
+| Reduced motion / no JS | the signed end state is the HTML; no sequence, no "Repetir recorrido" | — |
+| Cabina handoff | hard edge into a full Tinta chapter, monument heading, booth photo once; no animation of its own (not a second signature moment) | — |
+| Close | shared include `remaster-close.html`: "original → traducción → firma" on Tinta with one amber trail run under it, then the page's contact block and footer | static |
+| Decorations | `.r1-crossing-decor`, always `aria-hidden`, positioned only inside its own composition; hidden at ≤ 320px | — |
 
 ---
 

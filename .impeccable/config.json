@@ -1,0 +1,35 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "flat-type-hierarchy",
+        "value": "*",
+        "files": [
+          "prototype/src/pages/index.html"
+        ],
+        "createdAt": "2026-10-19T23:59:03.798Z",
+        "reason": "False positive: page-scoped remaster CSS sets the hero heading to clamp(3.2rem, 11vw, 10rem) versus 1–1.125rem body text."
+      },
+      {
+        "rule": "skipped-heading",
+        "value": "*",
+        "files": [
+          "prototype/src/pages/index.html"
+        ],
+        "createdAt": "2026-10-19T23:59:03.814Z",
+        "reason": "False positive on uncompiled include source: the built document injects h2 section headings before the visible h3 descendants."
+      },
+      {
+        "rule": "flat-type-hierarchy",
+        "value": "*",
+        "files": [
+          "prototype/src/pages/traduccion-certificada.html"
+        ],
+        "createdAt": "2026-10-19T23:59:03.830Z",
+        "reason": "False positive: page-scoped remaster CSS sets the hero heading to clamp(3rem, 7vw, 7rem) versus 1–1.125rem body text."
+      }
+    ]
+  }
+}

@@ -28,6 +28,18 @@ return [
             'seo_description' => 'Descripción SEO',
         ],
     ],
+    'languages' => [
+        'model' => 'idioma',
+        'plural' => 'idiomas',
+        'fields' => [
+            'code' => 'Código ISO',
+            'code_help' => 'Código ISO 639 en minúsculas, con región opcional: en, qu, pt-BR.',
+            'name' => 'Nombre',
+            'services' => 'Servicios que se ofrecen',
+            'featured' => 'Destacado',
+            'published' => 'Publicado',
+        ],
+    ],
     'users' => [
         'model' => 'usuario',
         'plural' => 'usuarios',

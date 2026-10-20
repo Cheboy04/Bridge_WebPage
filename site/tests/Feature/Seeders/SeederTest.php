@@ -1,9 +1,11 @@
 <?php
 
 // BRG-47 (brg-37) · spec docs/specs/brg-37.md §4 · tests 1–7
+// BRG-13 (brg-02) · spec docs/specs/brg-02.md §4 · test 15 (last case)
 // The catalogue and Settings seeders never overwrite; demo content never reaches production.
 
 use App\Enums\ServiceMode;
+use App\Enums\UserRole;
 use App\Models\Client;
 use App\Models\Faq;
 use App\Models\Language;
@@ -111,4 +113,11 @@ it('keeps demo content out of production', function () {
         ->and(User::count())->toBe(0)
         ->and(Language::count())->toBe(14)
         ->and(Service::count())->toBe(7);
+});
+
+it('seeds an admin and an editor for demos', function () {
+    $this->seed();
+
+    expect(User::firstWhere('email', 'test@example.com')->role)->toBe(UserRole::Admin)
+        ->and(User::firstWhere('email', 'editor@example.com')->role)->toBe(UserRole::Editor);
 });

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Enums\ServiceMode;
+use App\Enums\UserRole;
 use App\Models\Client;
 use App\Models\Faq;
 use App\Models\Page;
@@ -26,9 +27,14 @@ class DemoContentSeeder extends Seeder
             return;
         }
 
+        // `role` is not fillable (brg-35 §3.5), so the admin role is forced.
         User::firstOrCreate(
             ['email' => 'test@example.com'],
             User::factory()->raw(['name' => 'Test User', 'email' => 'test@example.com']),
+        )->forceFill(['role' => UserRole::Admin])->save();
+        User::firstOrCreate(
+            ['email' => 'editor@example.com'],
+            User::factory()->raw(['name' => 'Editor Demo', 'email' => 'editor@example.com']),
         );
 
         Faq::factory()->count(5)->create();

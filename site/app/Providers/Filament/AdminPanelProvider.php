@@ -28,6 +28,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->strictAuthorization() // every model needs a policy (ADR D8.1)
             ->colors([
                 'primary' => Color::hex('#1c61ad'), // brand token --color-bridge (prototype/src/styles/app.css)
             ])

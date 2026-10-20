@@ -260,12 +260,28 @@ Why: clients upload IDs, deeds and court documents. Ecuador's LOPDP applies.
 
 | #   | Point                                     | Status  | Decision |
 | --- | ----------------------------------------- | ------- | -------- |
-| 8.1 | Permission matrix (role × resource × action) | PARTIAL | Roles decided (D4.2). The full matrix is written with the P3 admin stories. |
+| 8.1 | Permission matrix (role × resource × action) | DECIDED | See D8.1 (2026-10-19, brg-02). |
 | 8.2 | Identity provider                         | DECIDED | None external. Filament login (4.5). |
 | 8.3 | CORS                                      | DECIDED | Not applicable: same-origin monolith. |
 | 8.4 | Rate limiting and spam                    | DECIDED | Per-IP rate limit on every form, plus a honeypot field. Turnstile is deferred (D3.9). |
 | 8.5 | Privacy (LOPDP)                           | DECIDED | See D8.5. Legal text supplied by Bridge. |
 | 8.6 | Analytics                                 | DECIDED | GA4 loads **only** after cookie consent. The WhatsApp link sets no cookies. |
+
+### D8.1 — Permission matrix (2026-10-19)
+
+Decided by the agent in mode C (D1.2) with HU-02 (`docs/specs/brg-02.md`). Enforced by one policy per model, with Filament in strict authorization mode, so a model with no policy is never silently open.
+
+| Model | `admin` | `editor` | Shipped by |
+| --- | --- | --- | --- |
+| Service, Language, Faq, Post, Client, Testimonial | every action | every action | HU-03–HU-07 |
+| Page | every action, except deleting `privacidad` | same as admin | HU-08 |
+| Settings | view, update (no create or delete: one row, ERD I11) | none | HU-02 (screen in HU-09) |
+| User | every action, except deleting their own account | none | HU-02 |
+| Lead | view, update, delete | view, update | HU-27 |
+
+Why an admin can't delete their own account: deleting the last admin locks the owner out of Settings and Users, with no way back but the server. Why editors can't delete leads: a lead holds personal data and its deletion belongs to the retention job (D7.1) or the owner.
+
+→ *Quality attribute: security (least privilege).*
 
 ### D8.5 — Personal data (2026-10-15)
 

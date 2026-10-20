@@ -1,4 +1,4 @@
-// BRG-68 spec tests 1–7. Browser evidence is test 8.
+// BRG-68 spec tests 1–7. Browser behaviour is tests 9–11 (remaster-r1.browser.test.mjs); check.mjs is test 8.
 import assert from 'node:assert/strict';
 import { readdirSync, readFileSync } from 'node:fs';
 import { test } from 'node:test';
@@ -59,12 +59,9 @@ test('Certified Translation is document led with one signature moment', () => {
   assert.match(certified, /data-signature-moment="certified-before-after"[\s\S]*?@include sig-before-after/);
   assert.match(certified, /@include seal/);
   assert.doesNotMatch(certified, /assets\/photo\//);
-  assert.match(documentJs, /root\.closest\('\.page-certified-r1'\)\) return/);
-  assert.doesNotMatch(certified, /sig-before-after[^>]*(?:Arrastre|flechas)/i);
-  const documentMotion = css.match(/@keyframes r1-document-arrival[\s\S]*?\n\}/)?.[0] ?? '';
-  assert.match(documentMotion, /opacity/);
-  assert.match(documentMotion, /transform/);
-  assert.doesNotMatch(documentMotion, /clip-path/);
+  // the slider is the signature moment again: nothing disables it or competes with it on this page
+  assert.doesNotMatch(documentJs, /page-certified-r1/);
+  assert.doesNotMatch(css, /\.ba-(?:cert|orig|doc)[^{]*\{[^}]*animation/);
 });
 
 test('both pages finish the story through the shared close', () => {
@@ -121,5 +118,4 @@ test('built remaster keeps semantic and disclosure safeguards', () => {
   }
   const builtCertified = read('dist/traduccion-certificada.html');
   assert.match(builtCertified, /provisional|por definir|demostr/i);
-  assert.doesNotMatch(builtCertified, /Arrastre el control|use las flechas/i);
 });

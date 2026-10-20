@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "build": "node build.mjs",
-    "test": "node build.mjs && node tests/remaster-r1.test.mjs",
+    "test": "node build.mjs && node --test tests/*.test.mjs",
     "serve": "npx -y http-server@14.1.1 dist -p 4173 -s"
   },
   "devDependencies": {

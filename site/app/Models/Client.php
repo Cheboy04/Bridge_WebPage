@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Database\Factories\ClientFactory;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -37,5 +39,17 @@ class Client extends Model
     public function testimonials(): HasMany
     {
         return $this->hasMany(Testimonial::class);
+    }
+
+    /**
+     * The only query for public logos: written permission and a logo, in
+     * the row's order (HU-07, D4.1, DIRECTION §10).
+     *
+     * @param  Builder<self>  $query
+     */
+    #[Scope]
+    protected function publicLogos(Builder $query): void
+    {
+        $query->where('logo_permission', true)->whereNotNull('logo')->orderBy('sort')->orderBy('id');
     }
 }

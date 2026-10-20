@@ -51,7 +51,8 @@ it('saves the settings', function () {
         ->and($settings->whatsapp_number)->toBe('593990000000')
         ->and($settings->contact_email)->toBe('contacto@bridge.example.test')
         ->and($settings->getTranslations('office_hours'))->toBe(['es' => 'Lunes a viernes, 9:00–18:00'])
-        ->and($settings->socials)->toBe([['network' => 'LinkedIn', 'url' => 'https://example.test/bridge']]);
+        // MySQL's JSON type normalises key order, so compare without it.
+        ->and($settings->socials)->toEqual([['network' => 'LinkedIn', 'url' => 'https://example.test/bridge']]);
 });
 
 it('loads the saved values in Spanish', function () {
@@ -83,7 +84,8 @@ it('keeps a documented stat with its source and date', function () {
         ->call('save')
         ->assertHasNoFormErrors();
 
-    expect(Settings::current()->getTranslation('stats', 'es'))->toBe([$stat]);
+    // MySQL's JSON type normalises key order, so compare without it.
+    expect(Settings::current()->getTranslation('stats', 'es'))->toEqual([$stat]);
 });
 
 it('shows a saved change on the next read', function () {

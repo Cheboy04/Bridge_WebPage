@@ -2,7 +2,7 @@
 
 > **GitHub Issues:** `BRG-17` (local `brg-06`) · **Phase:** P3 · **Covers:** RF-04
 > **Counterpart:** — (does not cross layers)
-> **Status:** `[x]` draft · `[x]` approved (agent, mode C, 2026-10-19) · `[ ]` implemented
+> **Status:** `[x]` draft · `[x]` approved (agent, mode C, 2026-10-19) · `[x]` implemented
 
 Turns the issue's acceptance criteria (draft, schedule and publish a post; a future `published_at` stays private until then; rich text sanitised on save) into a Filament resource, its policy, the public scope and a sanitising mutator on the model.
 
@@ -63,7 +63,7 @@ Runner: Pest, MySQL (C4), `RefreshDatabase`. File `tests/Feature/Admin/PostResou
 | 3 | `it schedules a post for a future date` | A future date (entered in Guayaquil time) is stored as the matching UTC instant | Remove the display time zone |
 | 4 | `Content/ScopeTest::it keeps drafts and scheduled posts out of the published scope` | Past → in; null and future → out; once time passes the scheduled date, it's in (`travelTo`) | Drop the `<= now()` condition |
 | 5 | `Content/SanitizeTest::it sanitises the post body on save` | A body with `<script>`, an `onclick` and a `javascript:` link is stored without them; safe markup (`<p>`, `<strong>`, a normal link) survives | Remove the `body()` mutator |
-| 6 | `it sanitises a body saved through the admin form` | Same through `CreatePost` | Same mutation as #5 |
+| 6 | ~~`it sanitises a body saved through the admin form`~~ | **Deleted in review** (C3, §6) | — |
 | 7 | `it rejects a duplicate slug` | `assertHasFormErrors(['slug' => 'unique'])` | `SlugFields` unique rule swapped for a no-op → the database throws |
 | 8 | `it loads the Spanish title into the edit form` | `assertSchemaStateSet` | Remove `FillsTranslations` from `EditPost` |
 | 9 | `Admin/ServiceResourceTest` (brg-03), `Admin/UserResourceTest` (brg-02) | Still green after moving onto `SlugFields` and the global zone | Run unchanged |
@@ -76,4 +76,7 @@ Runner: Pest, MySQL (C4), `RefreshDatabase`. File `tests/Feature/Admin/PostResou
 
 ## 6. Spec change log
 
+- `2026-10-19` — review with C3: **8 mutations, 7 killed, 1 survived → test deleted.** Test 6 (sanitising through the admin form) stayed green with the mutator removed: Filament's rich editor already sanitises its HTML on dehydrate, so the test proved Filament, not our code. Deleted per C3. Test 5 proves the mutator, which also covers every non-admin write path. The other 7 were each lint-checked and killed with a named failing case. Review findings: none open.
+- `2026-10-19` — implemented: suite 210 green (485 assertions); Pint clean; Larastan 0 errors (needed `@property Carbon|null $published_at`); Vite build ok. `ServiceResourceTest` and `UserResourceTest` unchanged and green after the `SlugFields` and time-zone moves.
+- `2026-10-19` — red: 13 cases failing (commit `9bd4012`).
 - `2026-10-19` — draft created and approved by the agent (mode C). Decisions taken alone: sanitise in a model mutator with Filament's configured Symfony sanitiser (§1, §3.1), the global display time zone (§1), the shared `SlugFields` (§1), no sanitise-on-save for Service/FAQ bodies (§1).

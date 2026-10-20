@@ -1,6 +1,6 @@
 <?php
 
-// BRG-17 (brg-06) · spec docs/specs/brg-06.md §4 · tests 1–3, 6–8
+// BRG-17 (brg-06) · spec docs/specs/brg-06.md §4 · tests 1–3, 7–8
 
 use App\Filament\Resources\Posts\Pages\CreatePost;
 use App\Filament\Resources\Posts\Pages\EditPost;
@@ -55,15 +55,6 @@ it('schedules a post for a future date', function () {
 
     // Entered in America/Guayaquil (UTC-5), stored in UTC (ADR D3.2).
     expect(Post::sole()->published_at->utc()->format('Y-m-d H:i'))->toBe('2030-01-15 14:00');
-});
-
-it('sanitises a body saved through the admin form', function () {
-    Livewire::test(CreatePost::class)
-        ->fillForm(postForm(['body' => '<p>Hola</p><script>alert(1)</script>']))
-        ->call('create')
-        ->assertHasNoFormErrors();
-
-    expect(Post::sole()->body)->toContain('<p>Hola</p>')->not->toContain('<script');
 });
 
 it('rejects a duplicate slug', function () {

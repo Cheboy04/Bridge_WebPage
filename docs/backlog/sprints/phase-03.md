@@ -1,6 +1,6 @@
 # Phase 3 — Admin (Bridge Traducciones website)
 
-**Status:** in progress since 2026-10-19 (P2 closed with brg-33 carried forward, [`phase-02.md`](phase-02.md) *Carry-over*).
+**Status:** **closed 2026-10-19** with brg-33 carried forward again (*Carry-over* below). Opened 2026-10-19 after P2 ([`phase-02.md`](phase-02.md) *Carry-over*). Next: [`phase-04.md`](phase-04.md).
 **Owns:** the plan, tickets and close criteria of P3. **Referenced by:** `CLAUDE.md` §5, `docs/backlog/roadmap.md`.
 
 ## Goal
@@ -27,9 +27,9 @@ No story points (ADR 1.5 OPEN). P3 has eight Stories and no Tasks, plus brg-33 c
 
 ## Execution sequence
 
-1. **brg-02** first: the panel access rule, the policies and the permission matrix (ADR 8.1, PARTIAL) that every resource story reuses. The matrix is closed in the ADR in the same PR.
-2. **brg-03**, then **brg-04** and **brg-05**: both reference services (the language pivot and the FAQ's optional service).
-3. **brg-06**, **brg-07**, **brg-08**, **brg-09** in any order; each is independent once brg-02 is merged.
+1. **brg-02** first: the panel access rule, the policies and the permission matrix (ADR 8.1, PARTIAL) that every resource story reuses. The matrix is closed in the ADR in the same PR. Merged 2026-10-19 (PR #71, spec [`brg-02.md`](../../specs/brg-02.md)).
+2. **brg-03**, then **brg-04** and **brg-05**: both reference services (the language pivot and the FAQ's optional service). Merged 2026-10-19 (PRs #72, #73, #75).
+3. **brg-06**, **brg-07**, **brg-08**, **brg-09** in any order; each is independent once brg-02 is merged. Merged 2026-10-19 (PRs #76, #77, #78, #74).
 4. **brg-33** whenever the hosting checks land; it doesn't gate P3.
 
 ## Ready conditions
@@ -54,9 +54,17 @@ Each Story follows its checklist in the issue body. Cross-cutting rules for ever
 
 ### Close
 
-- An `editor` and an `admin` manage every content entity locally, and staging once brg-33 lands (P1 carry-over).
-- ADR 8.1 (permission matrix) is DECIDED.
-- CI green on MySQL for every P3 PR.
+- An `editor` and an `admin` manage every content entity locally, and staging once brg-33 lands (P1 carry-over). **Met locally:** every resource has a per-role test through Filament, and `migrate:fresh --seed` plus the suite (241/241) are green on `develop` at `a399e27`. "On staging" is **carried** with brg-33.
+- ADR 8.1 (permission matrix) is DECIDED (**met**, D8.1, PR #71).
+- CI green on MySQL for every P3 PR (**met**, PRs #71–#78).
+
+## Carry-over
+
+Recorded 2026-10-19:
+
+- **brg-33 / `BRG-43`** stays open and blocked on ADR 9.1's hosting checks (owner), on the same terms as P1 and P2: it doesn't block P4–P5 and must land before P6.
+- **For P4 (recorded in the specs, not drift):** every rich-text body (`Service.body`, `Faq.answer`, `Post.body`, `Page.body`) is sanitised on render (ERD I9); only `Post.body` is also sanitised on save (brg-06). P4 reads public data only through the tested scopes: `Service::published()`, `Language::published()` and `checkerPayload()`, `Faq::withoutService()`, `Post::published()`, `Client::publicLogos()`, `Testimonial::published()`. A deleted `nosotros` page needs a P4 fallback (brg-08).
+- **For P5:** HU-27 applies D8.1's lead rights and makes a service delete report the restrict-on-delete case when leads reference it.
 
 ## Phase Definition of Done
 
@@ -72,4 +80,5 @@ The eight Stories are Done per ADR block 1, with no drift between the policies, 
 
 ## GitHub Issues sync executed
 
-- **Pending (owner):** move `BRG-43` to the `P3 Admin` milestone.
+- `2026-10-19` — PRs #71–#78 merged into `develop`. Their `Closes #n` keywords only fire on the default branch (`main`), so issues #13–#20 are still open.
+- **Pending (owner):** close issues #13–#20 by hand; move `BRG-43` (#43, still in `P2 Data`) to the `P4 Public site` milestone.

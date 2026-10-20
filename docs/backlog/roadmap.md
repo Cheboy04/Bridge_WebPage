@@ -34,7 +34,7 @@ A release can ship only when all its stories meet the Definition of Done (ADR bl
 | P0 Lock | Brand book, component contracts, shipped timings, placeholder register, polish | Brand book artifact; repo docs | Stamp OPEN (Seal stays provisional) |
 | P1 Skeleton (**closed 2026-10-19**, brg-33 carried) | brg-31 scaffold + tokens, brg-32 CI, brg-33 staging deploy, brg-34 time zone and PK decision | Staging serves a token-styled placeholder page and the `/admin` login; CI green on a PR | Owner's Hostinger checks (ADR summary #3) |
 | P2 Data (**closed 2026-10-19**, brg-33 carried) | brg-35, brg-36 ERD slices and migrations, brg-37 seeders | Migrations run on staging; models with translatable fields and factories | ADR 3.2, 3.5 (closed by brg-34) |
-| P3 Admin | HU-02 roles, HU-03–HU-09 resources | Editor and admin sign in on staging and manage every entity | — |
+| P3 Admin (**closed 2026-10-19**, brg-33 carried) | HU-02 roles, HU-03–HU-09 resources | Editor and admin sign in on staging and manage every entity | — |
 | P4 Public site | brg-39 harness first, HU-01 layout, HU-10–HU-17 pages, HU-18–HU-22 signature, brg-38 error pages | Every page on staging at parity with the prototype; 0 axe violations | Bridge content still placeholders (register) |
 | P5 Leads | HU-23–HU-25 forms, HU-26 notifications, HU-27 inbox, HU-28 retention | A quote with files reaches the inbox and both emails arrive | Mail provider (ADR #7), retention period (ADR #2), 4.3 validation |
 | P6 Hardening | HU-29 SEO, HU-30 consent + GA4, brg-40 a11y/parity audit, brg-41 performance, brg-42 security, brg-43 observability | R1 accepted by the owner on staging | GA4 property (owner) |
@@ -110,4 +110,5 @@ GitHub Issues is the operational source of truth; the current key map is in [`ke
 2. ~~Load the board.~~ Done 2026-10-16 (`BRG-4`…`BRG-57`).
 3. ~~Start P1 with brg-31 / `BRG-5`.~~ P1 closed 2026-10-19; brg-33 carried forward, non-blocking, due before P6 ([`phase-01.md`](sprints/phase-01.md) *Carry-over*).
 4. ~~P2 ([`phase-02.md`](sprints/phase-02.md)).~~ Closed 2026-10-19; brg-33 carried again.
-5. P3 ([`phase-03.md`](sprints/phase-03.md)): HU-02 / `BRG-13` first.
+5. ~~P3 ([`phase-03.md`](sprints/phase-03.md)).~~ Closed 2026-10-19; brg-33 carried again.
+6. P4 ([`phase-04.md`](sprints/phase-04.md)): brg-39 / `BRG-49` (browser harness) first; page stories wait for the owner's design approval.

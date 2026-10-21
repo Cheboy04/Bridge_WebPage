@@ -8,7 +8,8 @@
   // result on every change and swap, so watching the result catches both without touching the checker.
   document.querySelectorAll('[data-r2-pair]').forEach((pair) => {
     const checker = pair.closest('section')?.querySelector('[data-lc]');
-    if (!checker) return;
+    const result = checker?.querySelector('[data-lc-result]');
+    if (!result) return;
     const from = pair.querySelector('[data-r2-from]'), to = pair.querySelector('[data-r2-to]');
     const name = (select) => select.selectedOptions[0]?.textContent.toLocaleLowerCase('es') ?? '';
     const update = () => {
@@ -17,13 +18,14 @@
       [from.textContent, to.textContent] = next;
       if (!reducedMotion.matches) pair.animate([{ opacity: 0.35, transform: 'translateY(0.4rem)' }, { opacity: 1, transform: 'none' }], { duration: 200, easing: 'cubic-bezier(.2,0,0,1)' });
     };
-    new MutationObserver(update).observe(checker.querySelector('[data-lc-result]'), { childList: true, subtree: true, characterData: true });
+    new MutationObserver(update).observe(result, { childList: true, subtree: true, characterData: true });
     checker.addEventListener('change', update);
   });
 
   // Index tabs: ARIA tabs with automatic activation. Without JS the tablist stays hidden and every panel shows.
   document.querySelectorAll('[data-r2-tabs]').forEach((root) => {
     const list = root.querySelector('[data-r2-tablist]');
+    if (!list) return;
     const tabs = [...list.querySelectorAll('[data-r2-tab]')];
     const panel = (tab) => document.getElementById(tab.getAttribute('aria-controls'));
     const select = (index, focus) => {
@@ -57,7 +59,9 @@
   // Sticky sheet: the step in the middle of the viewport sets the sheet's state. Reduced motion keeps the last step.
   if (reducedMotion.matches) return;
   document.querySelectorAll('[data-r2-sheet]').forEach((sheet) => {
-    const steps = sheet.closest('[data-list-object="sticky-sheet"]').querySelectorAll('[data-r2-step]');
+    const steps = sheet.closest('[data-list-object="sticky-sheet"]')?.querySelectorAll('[data-r2-step]') ?? [];
+    if (!steps.length) return;
+    sheet.dataset.step = '1'; // the story starts from the request; the HTML keeps the complete sheet for no-JS
     const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
       if (entry.isIntersecting) sheet.dataset.step = entry.target.dataset.r2Step;
     }), { rootMargin: '-45% 0px -45% 0px' });

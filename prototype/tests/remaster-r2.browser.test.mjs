@@ -27,30 +27,39 @@ const open = async (page, { width = 1440, motion = 'reduce', javaScriptEnabled =
 };
 
 test('decorations stay inside their section and amber stays on Tinta', async () => {
-  for (const page of ['index', 'traduccion-certificada']) for (const width of [1440, 390]) {
-    const tab = await open(page, { width });
-    const problems = await tab.evaluate(() => {
+  // twice: at rest (reduced motion) and mid-motion, each element measured once scrolled to the middle of the viewport
+  for (const motion of ['reduce', 'no-preference']) for (const page of ['index', 'traduccion-certificada']) for (const width of [1440, 390]) {
+    const tab = await open(page, { width, motion });
+    const problems = await tab.evaluate(async () => {
       const amber = '#e3a148';
+      const settle = (el) => { el.scrollIntoView({ block: 'center', behavior: 'instant' }); return new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))); };
       const shown = [...document.querySelectorAll('.r2-seam, .r2-cross, .r2-stop, [data-r2-pair], [data-r2-sheet]')]
         .filter((el) => getComputedStyle(el).display !== 'none');
       if (shown.length < 3) return ['fewer than three R2 decorations rendered'];
+      const out = [];
       // chapters clip horizontally, so check.mjs cannot see text pushed past their edge
-      const clipped = [...document.querySelectorAll('[data-remaster-beat] :is(p, h2, h3, dd, dt, li)')]
-        .filter((el) => !el.closest('[role="tablist"], [aria-hidden="true"]') && el.getClientRects().length)
-        .filter((el) => el.getBoundingClientRect().right > document.documentElement.clientWidth + 1)
-        .map((el) => `${el.tagName} "${el.textContent.trim().slice(0, 30)}" is clipped`);
-      return clipped.concat(shown.flatMap((el) => {
-          const section = el.closest('[data-remaster-beat]');
-          if (!section) return [`${el.className}: outside any chapter`];
-          const d = el.getBoundingClientRect(), s = section.getBoundingClientRect();
-          const out = [];
-          if (d.top < s.top - 1 || d.bottom > s.bottom + 1 || d.left < s.left - 1 || d.right > s.right + 1) out.push(`${el.className}: escapes ${section.dataset.remasterBeat}`);
-          const trail = getComputedStyle(el).getPropertyValue('--trail').trim().toLowerCase();
-          if (el.matches('.r2-seam, .r2-stop') && trail === amber && section.dataset.ground !== 'tinta') out.push(`${el.className}: amber on ${section.dataset.ground}`);
-          return out;
-        }));
+      for (const el of document.querySelectorAll('[data-remaster-beat] :is(p, h2, h3, dd, dt, li, summary, .r2-wall-name)')) {
+        if (el.closest('[role="tablist"]') || !el.getClientRects().length || el.closest('[hidden]')) continue;
+        if (el.getBoundingClientRect().right > document.documentElement.clientWidth + 1) out.push(`${el.tagName} "${el.textContent.trim().slice(0, 30)}" is clipped`);
+      }
+      // the halftone's disclosure must stay readable while the image moves
+      for (const caption of document.querySelectorAll('[data-remaster-beat] figcaption')) {
+        await settle(caption);
+        const r = caption.getBoundingClientRect();
+        if (!caption.contains(document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2))) out.push('figcaption is covered');
+      }
+      for (const el of shown) {
+        const section = el.closest('[data-remaster-beat]');
+        if (!section) { out.push(`${el.className}: outside any chapter`); continue; }
+        await settle(el);
+        const d = el.getBoundingClientRect(), s = section.getBoundingClientRect();
+        if (d.top < s.top - 1 || d.bottom > s.bottom + 1 || d.left < s.left - 1 || d.right > s.right + 1) out.push(`${el.className}: escapes ${section.dataset.remasterBeat}`);
+        const trail = getComputedStyle(el).getPropertyValue('--trail').trim().toLowerCase();
+        if (el.matches('.r2-seam, .r2-stop') && trail === amber && section.dataset.ground !== 'tinta') out.push(`${el.className}: amber on ${section.dataset.ground}`);
+      }
+      return out;
     });
-    assert.deepEqual(problems, [], `${page} @${width}`);
+    assert.deepEqual(problems, [], `${page} @${width}, motion ${motion}`);
     await tab.context().close();
   }
 });

@@ -50,7 +50,7 @@ This spec turns the approved R2 synthesis (A–D) and story v2 into a testable c
 
 ### 3.3 Monuments and list objects
 
-- Every chapter after the arrival has a real `h2` with class `r2-monument` (≥ ~6vw on desktop, scaled down at 390 and 320). The arrival and the shared close keep their R1 monuments. In the languages chapter the `h2` carries a visually hidden, stable name ("Su combinación de idiomas") and shows the live pair `[data-r2-pair]` (`aria-hidden`); the checker's own heading drops to `h3`. A monument's final full stop may be a trail dot (`.r2-stop`, `aria-hidden`) with a visually hidden period kept for screen readers.
+- Every chapter after the arrival has a real `h2` with class `r2-monument` (≥ ~6vw on desktop, scaled down at 390 and 320). The arrival and the shared close keep their R1 monuments. In the languages chapter the `h2` carries a visible, stable kicker that is its accessible name ("Su combinación de idiomas") and shows the live pair `[data-r2-pair]` (`aria-hidden`); the checker's own heading drops to `h3`. A monument's final full stop may be a trail dot (`.r2-stop`, `aria-hidden`) with a visually hidden period kept for screen readers.
 - List objects (`data-list-object`):
   - Home document-proof: `active-rows` (three services at monument scale; the row under hover or focus is ink, the rest muted; each row is a link).
   - Home proof-process and Certified process: `sticky-sheet`.
@@ -63,7 +63,7 @@ This spec turns the approved R2 synthesis (A–D) and story v2 into a testable c
 
 - **Live pair headline** (both pages, languages chapter): an `aria-hidden` monument `[data-r2-pair]` shows the selected origin and target names joined by trail dots. It updates on the checker's `change` and on swap. The checker's own `role="status"` result stays the accessible output; the checker component is not edited.
 - **Index tabs** (Certified fit-proof): `role="tablist"` with four `role="tab"` buttons and `role="tabpanel"` panels. Arrow keys, Home and End move between tabs (automatic activation); `aria-selected`, `tabindex` and `hidden` follow. Without JavaScript the tablist is hidden and every panel is visible as a list with its heading.
-- **Sticky sheet** (both process chapters): `[data-r2-sheet]` sets `data-step` from the step in the middle of the viewport (IntersectionObserver). The sheet is `aria-hidden` (the steps carry the meaning). Without JavaScript, or under reduced motion, `data-step` is the last step (complete sheet).
+- **Sticky sheet** (both process chapters): `[data-r2-sheet]` sets `data-step` from the step in the middle of the viewport (IntersectionObserver). The sheet is `aria-hidden` (the steps carry the meaning). Without JavaScript, or under reduced motion, `data-step` is the last step (complete sheet). With motion allowed the script starts the sheet at step 1, so the story builds forward.
 - The script runs once per page, makes no network requests, and adds no global other than an idempotence flag.
 
 ### 3.5 Imagery
@@ -126,5 +126,6 @@ BRG-68 tests 1–11 keep running (`npm test`); test 2 changes per §3.9.
 
 ## 6. Spec change log
 
+- `2026-10-21` — independent review (1 blocker, 5 should-fix, 3 nits), one fix batch: the halftone's parallax painted over its disclosure caption (only the image frame clips now; test 9 runs a second pass with motion allowed and checks that the caption is not covered, proven red on the old markup); the sheet starts at step 1 when motion is allowed; the plate nudge uses `transform` so the reveal's `translate` no longer cancels it; the tab stack renders (`isolation`), the selected tab joins its panel and carries a 3px trail rule; the script guards missing elements; the type wall says its target languages are examples and the dropped document names are back in the sentence under it; the languages kicker is visible (this section updated). DIRECTION §2 records the blue border token as #6F9BD0.
 - `2026-10-21` — implemented: 22/22 cases green (`npm test`, BRG-68 and BRG-81); `check.mjs index traduccion-certificada` green at 320/390/1440. Visual pass on the after captures found two phone defects the gates missed: the fit-proof column was widened by the tab row and clipped by the chapter, and the crossed band covered most of the monument. Both fixed; test 9 now fails on clipped chapter text (proven red before the fix). Test 8 accepts `:is(.page-home-r1, .page-certified-r1)` as the page root. Home's trust strip include is replaced by the facts line (the client-logo placeholder line is dropped; it is in the placeholder register and returns with real permissions).
 - `2026-10-21` — created and approved by the agent under mode C after the owner approved synthesis A–D and story v2.

@@ -146,6 +146,10 @@
 /* Cabina: the halftone booth crossed by the monument (words over the image stay Bruma) */
 :is(.page-home-r1, .page-certified-r1) .r2-booth {
   margin: 1.5rem 0 0;
+}
+
+/* only the image frame clips, so the parallax never paints over the caption */
+:is(.page-home-r1, .page-certified-r1) .r2-booth-frame {
   overflow: clip;
 }
 
@@ -311,7 +315,7 @@
   gap: 0.75rem;
   padding-block: 2rem;
   border-top: 1px solid var(--border);
-  transition: translate var(--dur-base) var(--ease-out);
+  transition: transform var(--dur-base) var(--ease-out);
 }
 
 :is(.page-home-r1, .page-certified-r1) .r2-plate h3 {
@@ -416,16 +420,18 @@
 }
 
 .page-certified-r1 .r2-tabs[data-enhanced] .r2-tablist {
+  position: relative;
+  z-index: 1;
   display: flex;
   gap: 0.25rem;
-  overflow-x: auto;
+  margin-bottom: -1px;
+  overflow: auto hidden;
 }
 
 .page-certified-r1 .r2-tablist [role="tab"] {
   min-height: 2.75rem;
   padding: 0.75rem 1.25rem;
   border: 1px solid var(--border-strong);
-  border-bottom: 0;
   border-radius: var(--radius-sm) var(--radius-sm) 0 0;
   background: var(--surface-raised);
   color: var(--text-muted);
@@ -435,17 +441,16 @@
 }
 
 .page-certified-r1 .r2-tablist [role="tab"][aria-selected="true"] {
-  position: relative;
-  z-index: 1;
-  margin-bottom: -1px;
-  padding-bottom: calc(0.75rem + 1px);
+  border-bottom-color: var(--surface);
   background: var(--surface);
+  box-shadow: inset 0 3px 0 var(--trail);
   color: var(--text);
 }
 
 .page-certified-r1 .r2-tabs[data-enhanced] .r2-panel {
   position: relative;
-  min-height: 15rem;
+  isolation: isolate;
+  min-height: 12rem;
   margin-bottom: 1rem;
   padding: clamp(1.5rem, 3vw, 2.25rem);
   border: 1px solid var(--border-strong);
@@ -690,7 +695,7 @@
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   :is(.page-home-r1, .page-certified-r1) .r2-plate:is(:hover, :focus-within) {
-    translate: 0.5rem 0;
+    transform: translateX(0.5rem);
   }
 }
 

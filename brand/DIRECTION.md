@@ -69,7 +69,7 @@ Cabina needs a lighter accent because Bridge blue on Tinta is only 2.50:1. Raise
 
 Amber on white is 2.22:1 and amber on Bridge blue is 2.81:1, so amber never appears on a light or blue surface.
 
-**Bridge ground (R2 pages, `.mode-bridge`, approved 2026-10-21, `BRG-81`).** On Home and Traducción certificada one chapter per page may sit on Bridge blue as a whole ground. Roles: surface #1C61AD; text #FFFFFF (6.25:1); text-muted #F4F6F9 (5.77:1); accent (button fill) #FFFFFF with on-accent #1C61AD (6.25:1); focus ring and trail #FFFFFF; border #FFFFFF at 40% (decorative only). Tinta on blue is 2.50:1 and amber 2.81:1: neither is used on it. Forms never sit on blue. Border-strong on Cabina raised fails 3:1, so controls in Cabina sit on surface, not on raised.
+**Bridge ground (R2 pages, `.mode-bridge`, approved 2026-10-21, `BRG-81`).** On Home and Traducción certificada one chapter per page may sit on Bridge blue as a whole ground. Roles: surface #1C61AD; text #FFFFFF (6.25:1); text-muted #F4F6F9 (5.77:1); accent (button fill) #FFFFFF with on-accent #1C61AD (6.25:1); focus ring and trail #FFFFFF; border #6F9BD0 (decorative only, 2.16:1; never the only cue for a control). Tinta on blue is 2.50:1 and amber 2.81:1: neither is used on it. Forms never sit on blue. Border-strong on Cabina raised fails 3:1, so controls in Cabina sit on surface, not on raised.
 
 ## 3. Typography
 

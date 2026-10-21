@@ -50,7 +50,7 @@ This spec turns the approved R2 synthesis (A–D) and story v2 into a testable c
 
 ### 3.3 Monuments and list objects
 
-- Every chapter after the arrival has a real `h2` with class `r2-monument` (≥ ~6vw on desktop, scaled down at 390 and 320). The arrival keeps R1's monument. A monument's final full stop may be a trail dot (`.r2-stop`, `aria-hidden`) with a visually hidden period kept for screen readers.
+- Every chapter after the arrival has a real `h2` with class `r2-monument` (≥ ~6vw on desktop, scaled down at 390 and 320). The arrival and the shared close keep their R1 monuments. In the languages chapter the `h2` carries a visually hidden, stable name ("Su combinación de idiomas") and shows the live pair `[data-r2-pair]` (`aria-hidden`); the checker's own heading drops to `h3`. A monument's final full stop may be a trail dot (`.r2-stop`, `aria-hidden`) with a visually hidden period kept for screen readers.
 - List objects (`data-list-object`):
   - Home document-proof: `active-rows` (three services at monument scale; the row under hover or focus is ink, the rest muted; each row is a link).
   - Home proof-process and Certified process: `sticky-sheet`.
@@ -102,9 +102,9 @@ Runner: `node:test` on source and built `dist/` (contract), Playwright with the 
 
 | # | Test (file::case) | Asserts | Proven red (C3) by |
 | --- | --- | --- | --- |
-| 1 | `tests/remaster-r2.test.mjs::only Home and Certified opt into R2` | `data-remaster-round="r2"` on exactly the two pages | Adding the attribute to another page |
+| 1 | `tests/remaster-r2.test.mjs::only Home and Certified opt into R2` | `data-remaster-round="r2"`, `remaster-r2.js` and `@view-transition` on exactly the two pages | Adding the attribute to another page |
 | 2 | `…::grounds follow the story and never repeat` | Exact `data-ground` sequences per page; no adjacent repeat; ≤ 1 blue | Swapping two grounds |
-| 3 | `…::every chapter heading is a monument` | Built pages: each beat after the arrival has an `h2.r2-monument` | Removing the class from one heading |
+| 3 | `…::every chapter heading is a monument` | Built pages: each beat except the arrival and the close has an `h2.r2-monument` | Removing the class from one heading |
 | 4 | `…::list objects match the story and alternate` | `data-list-object` values and order per page; no adjacent repeat | Changing `type-wall` to `active-rows` next to the FAQ |
 | 5 | `…::Home shows the booth as a disclosed halftone` | One `<img>`, halftone srcset, alt, caption disclosure; no `cabina-*.webp`; Certified has no photo; both halftone files exist | Pointing the img back to the webp |
 | 6 | `…::one crossed word, decorations hidden from AT` | Exactly one `.r2-cross` on Certified, none on Home; every `.r2-seam`, `.r2-cross`, `.r2-stop`, `[data-r2-pair]`, `[data-r2-sheet]` is `aria-hidden="true"` | Dropping `aria-hidden` from one seam |

@@ -67,7 +67,9 @@ Cabina needs a lighter accent because Bridge blue on Tinta is only 2.50:1. Raise
 | C success / warning / error on surface | 8.11 / 8.72 / 6.84 |
 | C success / warning / error on raised | 6.65 / 7.15 / 5.61 |
 
-Amber on white is 2.22:1 and amber on Bridge blue is 2.81:1, so amber never appears on a light or blue surface. Border-strong on Cabina raised fails 3:1, so controls in Cabina sit on surface, not on raised.
+Amber on white is 2.22:1 and amber on Bridge blue is 2.81:1, so amber never appears on a light or blue surface.
+
+**Bridge ground (R2 pages, `.mode-bridge`, approved 2026-10-21, `BRG-81`).** On Home and Traducción certificada one chapter per page may sit on Bridge blue as a whole ground. Roles: surface #1C61AD; text #FFFFFF (6.25:1); text-muted #F4F6F9 (5.77:1); accent (button fill) #FFFFFF with on-accent #1C61AD (6.25:1); focus ring and trail #FFFFFF; border #FFFFFF at 40% (decorative only). Tinta on blue is 2.50:1 and amber 2.81:1: neither is used on it. Forms never sit on blue. Border-strong on Cabina raised fails 3:1, so controls in Cabina sit on surface, not on raised.
 
 ## 3. Typography
 
@@ -90,7 +92,7 @@ Scale: mobile 16px base, ratio 1.2; desktop 18px base, ratio 1.25. Display and h
 
 Label and eyebrow are the same role: sentence case, never uppercase-tracked, at most one per section, only to name a mode or service ("Interpretación simultánea"). No weight above 700 in the UI (800 is the wordmark only); never 900. Minimum text is 14px.
 
-**Monument role (BRG-68 remaster, approved 2026-10-19).** On the R1 pages (Home and Traducción certificada) one truthful service phrase per chapter may be set as an object: the Home H1 ("Del original a la firma.", `clamp(3.2rem, 11vw, 10rem)`), the Certified H1 (`clamp(3rem, 7vw, 7rem)`, line-height 0.94), the Cabina chapter heading (`clamp(3rem, 8vw, 7.5rem)`) and the shared close line "original → traducción → firma" (`clamp(3rem, 10vw, 9rem)`, on Tinta, arrows in the trail colour). Rules: the monument is always the section's real heading, never a decorative duplicate; at most one per chapter; never on body copy, controls or a language name; at 320px it drops to 2.8rem. Pages that have not passed a remaster gate keep the display/h1 rows above.
+**Monument role (BRG-68 remaster, approved 2026-10-19).** On the R1 pages (Home and Traducción certificada) one truthful service phrase per chapter may be set as an object: the Home H1 ("Del original a la firma.", `clamp(3.2rem, 11vw, 10rem)`), the Certified H1 (`clamp(3rem, 7vw, 7rem)`, line-height 0.94), the Cabina chapter heading (`clamp(3rem, 8vw, 7.5rem)`) and the shared close line "original → traducción → firma" (`clamp(3rem, 10vw, 9rem)`, on Tinta, arrows in the trail colour). Rules: the monument is always the section's real heading, never a decorative duplicate; at most one per chapter; never on body copy, controls or a language name; at 320px it drops to 2.8rem. **R2 (`BRG-81`, approved 2026-10-21):** on Home and Traducción certificada every chapter heading after the arrival is a monument (`clamp(2.6rem, 6.4vw, 6.5rem)`, line-height 0.95, still the chapter's real `h2`), and its final full stop may be a trail dot (the period stays in the text for screen readers). Exactly one crossed word per page at most: a monument crossed by a band carrying its translation, decorative and `aria-hidden`. Pages that have not passed a remaster gate keep the display/h1 rows above.
 
 **Line length:** body 60 to 70ch (cap 68ch); h1 and display 24ch; lead paragraph 52ch.
 
@@ -101,7 +103,7 @@ Label and eyebrow are the same role: sentence case, never uppercase-tracked, at 
 Round dots on a straight or arced path, one direction: source to target.
 
 - **Size:** dot diameter 4px (UI), 6px (section connectors, steps), 8px (hero, seal ring). Pitch is always 3 times the diameter. The target end gets one dot at 1.5 times the size.
-- **Where:** (0, R1 pages) the Home arrival connector between source and target, the Certified hero sheet's horizontal run, and one horizontal run under the close line (amber, on Tinta). Each sits inside its own composition, never positioned against the page; (1) one connector per section boundary, vertical, 48 to 96px, aligned to the text left edge; (2) process steps, linking step markers, source to target; (3) language switcher, between current and target code (ES ··· EN); (4) loaders, 5 dots lighting in sequence; (5) seal ring on the certification stamp (Documento only), dot count = circumference / pitch.
+- **Where:** (0, R1 pages) the Home arrival connector between source and target, the Certified hero sheet's horizontal run, and one horizontal run under the close line (amber, on Tinta). Each sits inside its own composition, never positioned against the page; (1) one connector per section boundary, vertical, 48 to 96px, aligned to the text left edge; (2) process steps, linking step markers, source to target; (3) language switcher, between current and target code (ES ··· EN); (4) loaders, 5 dots lighting in sequence; (5) seal ring on the certification stamp (Documento only), dot count = circumference / pitch; (6, R2 pages) **seam bands**: one row of dots inside a chapter at a ground change, drawn left to right as it enters, in that chapter's trail colour, and the **monument full stop**.
 - **Color:** blue (#1C61AD) on light surfaces; amber (#E3A148) on Tinta and #17325A only; white on Bridge blue fills and on photo scrims.
 - **Must not appear:** as dividers or table rules, list bullets, form field borders, underlines, inside ordinary cards (signature stages may use it), behind body text, on more than one connector per viewport, on photos without a scrim, with a second globe or map, or as a carrier of information without a text equivalent.
 
@@ -110,6 +112,7 @@ Round dots on a straight or arced path, one direction: source to target.
 - **Spacing:** 4px base. Scale 4, 8, 12, 16, 24, 32, 48, 64, 96, 128. Gap between sections (64 mobile / 128 desktop) is at least twice the largest gap inside one.
 - **Radius (revised 2026-10-15, client asked for less boxy components):** the brand is built on circles (globe, dots), so shapes lean round. `--radius-sm` 8px inputs and tags · `--radius-md` 14px cards, dialogs, photos · `--radius-lg` 24px signature stages (see `SIGNATURE-COMPONENTS.md`) · `--radius-full` buttons, chips, the WhatsApp button and segmented controls, echoing the dots. Never mix two radii on nested edges; an inner element is the outer radius minus the padding.
 - **R1 de-boxing (Home and Traducción certificada, 2026-10-19):** signature stages and service rows on these pages are square-edged paper and ruled rows (radius 0, 1px rules) instead of raised `--radius-lg` panels: the arrival crossing, the before/after stage and sheets, the Certified hero sheet and the Home service lists. Controls keep their radii. Grounds rotate hard between white, Bruma and Tinta; the close is always Tinta.
+- **R2 grounds and list objects (Home and Traducción certificada, 2026-10-21):** four grounds, white, Bruma, Bridge blue (at most one chapter per page) and Tinta, and no two adjacent chapters share one. A list of four or more items takes one object form, never two of the same form adjacent: **type wall** (names at monument scale with their target-language name), **index tabs** (folder tabs, ARIA tabs, every panel listed without JS), **sticky sheet** (one document held while numbered steps scroll), **active-row list** (rows at heading scale; the focused or hovered row is ink, the rest muted, never by opacity) and **plates** (full-width rows with a serif title).
 - **Fewer boxes:** a repeated grid of identical bordered cards is a last resort. Prefer open lists with dividers, sticky stage layouts, full-bleed moments and asymmetric two-column compositions. Max one boxed card grid per page.
 - **Border and elevation:** 1px border or a tone step, never both on the same edge. No shadow at rest. Floating layers only (menus, dialogs): `0 8px 24px rgba(14,36,64,.14)` in Documento; in Cabina no shadow, use surface-raised plus border.
 - **Grid:** 12 columns, container 1200px, margins 16 / 24 / 32 (mobile / tablet / desktop), gutters 16 / 24 / 32. Photos may bleed to 1440. Prose column 68ch. Breakpoints 640, 1024, 1280.
@@ -127,6 +130,8 @@ Round dots on a straight or arced path, one direction: source to target.
 **Crops:** 3:2 and 4:5 only, plus 21:9 desktop / 4:5 mobile for hero. The one-time globe crop window is hero-only, once per page (shape owned by the logo workstream).
 
 **Banned:** AI images with invented logos or slogans (three exist in the inventory), stock handshakes, flags, hand-holds-globe, map-arc-on-navy "call center" renders, black drop shadows, emoji, stickers on photos, third-party banners left in frame (Nature's Sunshine, FGE).
+
+**Halftone (R2 pages, approved 2026-10-21):** on Home the booth photo is shown only as a halftone of trail dots (amber on Tinta), generated from the source by `prototype/tools/halftone.py`; every dot comes from a source pixel and nothing is invented. Caption: "Fotografía provisional tratada como trama de puntos de la marca." Words that cross the image stay Bruma, never amber. When Bridge supplies its own shoot the same treatment applies and the caption drops "provisional".
 
 **Sourcing to-do:** commission a shoot at a real Bridge booth event (booth, receivers, interpreters at work, setup); photograph real certified documents with the stamp, redacted (names, ID numbers, folios), on a desk, for Documento parity; keep `interpeting booth 2.png` as the interim Cabina hero after removing the pasted globe; confirm the licence of `Interpreting Booth Hero image.png` or drop it.
 
@@ -155,10 +160,11 @@ Needed (about 16): file-check (certified translation), stamp (notarial), scale (
 
 1. Motion explains the service: the trail draws source to target, and the signature components (`SIGNATURE-COMPONENTS.md`) show a translation, a channel or a certification happening. Nothing moves only to decorate. One signature moment per page.
 2. Transform and opacity only; never animate surface color across modes.
-3. One thing moves at a time; no scroll-jacking or parallax.
+3. Parallax and concurrent motion are allowed (owner decision, 2026-10-21, `BRG-81`), built with CSS scroll-driven animations or small vanilla JS (ADR D3.7: no animation library). No wheel or scroll hijacking, no smooth-scroll override. One *signature* moment per page still names the page's main interaction.
 4. Feedback is instant, transitions are brief.
+5. Everything is complete and readable at rest: without JS, without scroll-timeline support and under reduced motion. A reveal never hides text from assistive technology.
 
-Tokens: `--dur-instant 120ms`, `--dur-base 200ms`, `--dur-slow 320ms`, `--dur-trail 600ms` (trail draw, dots staggered 40ms, max 12). Easing: `--ease-out cubic-bezier(.2,0,0,1)` for entering, `--ease-in cubic-bezier(.4,0,1,1)` for leaving. **Reduced motion:** trails render complete and static, loaders become static dots plus the text "Cargando…", entrances are removed (content visible immediately), no autoplay video.
+Tokens: `--dur-instant 120ms`, `--dur-base 200ms`, `--dur-slow 320ms`, `--dur-trail 600ms` (trail draw, dots staggered 40ms, max 12). Easing: `--ease-out cubic-bezier(.2,0,0,1)` for entering, `--ease-in cubic-bezier(.4,0,1,1)` for leaving. **Reduced motion:** parallax and scroll-driven reveals stop at their end state, sticky stages show their final step, trails render complete and static, loaders become static dots plus the text "Cargando…", entrances are removed (content visible immediately), no autoplay video.
 
 ## 10. Trust kit
 

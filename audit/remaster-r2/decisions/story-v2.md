@@ -2,7 +2,7 @@
 
 *Direction lead, 2026-10-21 (`BRG-81`). Builds on [`../../remaster-r1/decisions/story-v1.md`](../../remaster-r1/decisions/story-v1.md) and applies the approved [`r2-synthesis.md`](r2-synthesis.md) (A–D). Scope: Home and Traducción certificada only.*
 
-**Status:** draft for owner approval.
+**Status:** approved by the owner on 2026-10-21 ("Approved, go ahead and build it").
 
 ## The idea
 
@@ -72,7 +72,7 @@ Ground sequence: white · Tinta · white · Bruma · blue · white · Bruma · w
 1. Monument text is the chapter's real heading in the CMS, never a decorative copy; crossed bands are the only decorative duplicates and are `aria-hidden`.
 2. Lists render from data; caps above, never hand-placed.
 3. No number typed into a template: years, counts and prices stay `[por confirmar]` until Settings holds them.
-4. The halftone is generated from the source photo at build time; the source stays untouched in `assets/photo/`.
+4. The halftone is generated from the source photo by the committed script `prototype/tools/halftone.py` (rerun when the photo changes; the build does not need Python); the source stays untouched in `assets/photo/`.
 5. The blue ground appears at most once per page; amber never on blue.
 6. Seam bands and decorations live inside their own section (`section > .seam`), never positioned against the page (R1 lesson).
 

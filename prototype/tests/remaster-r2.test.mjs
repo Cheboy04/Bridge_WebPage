@@ -147,7 +147,7 @@ test('R2 styles are scoped, tokenised and motion-safe', () => {
   assert.ok(css.length > 0);
   const rules = stripBlocks(css, '@keyframes');
   for (const line of rules.split('\n').map((line) => line.trim()).filter((line) => /[{,]$/.test(line) && !line.startsWith('@'))) {
-    assert.match(line, /^\.page-(?:home|certified)-r1\b/, line);
+    assert.match(line, /^(?:\.page-(?:home|certified)-r1\b|:is\(\.page-home-r1, \.page-certified-r1\))/, line);
   }
   assert.doesNotMatch(css, /#[\da-f]{3,8}\b/i);
   assert.doesNotMatch(css, /font-family\s*:\s*["']?(?:Literata|Manrope)/i);

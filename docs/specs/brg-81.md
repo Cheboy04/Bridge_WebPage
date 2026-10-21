@@ -73,9 +73,9 @@ This spec turns the approved R2 synthesis (A–D) and story v2 into a testable c
 
 ### 3.6 Crossed word and seams
 
-- Certified transformation: the `h2` monument "Fiel al original." is crossed by an `aria-hidden` band (`.r2-cross`) carrying `lang="en"` "Faithful to the original." Exactly one crossed band per page; none on Home.
+- Certified transformation: the `h2` monument "Fiel al original." is crossed by an `aria-hidden` band (`.r2-cross`) carrying `lang="en"` "Faithful to the original." Exactly one crossed band per page; none on Home. Below 64rem the band sits under the monument instead of across it, so the heading stays whole at phone sizes.
 - Seam bands (`.r2-seam`, `aria-hidden`) sit inside the section they belong to, take that section's trail colour, and never render amber on a non-Tinta ground.
-- The slider's sheets stay white on the Tinta chapter (`.mode-documento` on the stage only); its contract (BRG-68 §3.3, `SIGNATURE-COMPONENTS.md` #4) is unchanged.
+- The slider's sheets stay white on the Tinta chapter: `remaster-r2.css` re-points the stage's colour roles to the Documento tokens (the shared component is not edited, so no class is added to it); its contract (BRG-68 §3.3, `SIGNATURE-COMPONENTS.md` #4) is unchanged.
 
 ### 3.7 Motion
 
@@ -110,7 +110,7 @@ Runner: `node:test` on source and built `dist/` (contract), Playwright with the 
 | 6 | `…::one crossed word, decorations hidden from AT` | Exactly one `.r2-cross` on Certified, none on Home; every `.r2-seam`, `.r2-cross`, `.r2-stop`, `[data-r2-pair]`, `[data-r2-sheet]` is `aria-hidden="true"` | Dropping `aria-hidden` from one seam |
 | 7 | `…::the blue ground meets contrast` | Parses `.mode-bridge` from `app.css`; text/surface, muted/surface and on-accent/accent ≥ 4.5:1; trail is not amber | Setting muted to `#A9B8CC` |
 | 8 | `…::R2 styles are scoped, tokenised and motion-safe` | `remaster-r2.css` imported; every selector rooted at a page class; no hex; a reduced-motion block; scroll-driven rules inside `@supports` | Unscoping one rule |
-| 9 | `tests/remaster-r2.browser.test.mjs::decorations stay inside their section and amber stays on Tinta` | At 1440 and 390 every R2 decoration's box is inside its section; no amber seam on a non-Tinta ground | Giving a seam a page-relative position |
+| 9 | `tests/remaster-r2.browser.test.mjs::decorations stay inside their section and amber stays on Tinta` | At 1440 and 390 every R2 decoration's box is inside its section; no amber seam on a non-Tinta ground; no chapter text is pushed past the viewport (chapters clip horizontally, so `check.mjs` cannot see it) | Giving a seam a page-relative position |
 | 10 | `…::the pair headline follows the checker` | Choosing francés → español and pressing swap updates `[data-r2-pair]` | Removing the change listener |
 | 11 | `…::institution tabs work by keyboard` | ArrowRight / End move selection and panels; one panel visible | Not updating `hidden` on key press |
 | 12 | `…::the sheet follows the steps, and is complete at rest` | Motion allowed: scrolling to step 3 sets `data-step="3"`; reduced motion: `data-step` is the last step and no animation runs | Leaving `data-step` at 1 under reduced motion |
@@ -126,4 +126,5 @@ BRG-68 tests 1–11 keep running (`npm test`); test 2 changes per §3.9.
 
 ## 6. Spec change log
 
+- `2026-10-21` — implemented: 22/22 cases green (`npm test`, BRG-68 and BRG-81); `check.mjs index traduccion-certificada` green at 320/390/1440. Visual pass on the after captures found two phone defects the gates missed: the fit-proof column was widened by the tab row and clipped by the chapter, and the crossed band covered most of the monument. Both fixed; test 9 now fails on clipped chapter text (proven red before the fix). Test 8 accepts `:is(.page-home-r1, .page-certified-r1)` as the page root. Home's trust strip include is replaced by the facts line (the client-logo placeholder line is dropped; it is in the placeholder register and returns with real permissions).
 - `2026-10-21` — created and approved by the agent under mode C after the owner approved synthesis A–D and story v2.

@@ -34,7 +34,12 @@ test('decorations stay inside their section and amber stays on Tinta', async () 
       const shown = [...document.querySelectorAll('.r2-seam, .r2-cross, .r2-stop, [data-r2-pair], [data-r2-sheet]')]
         .filter((el) => getComputedStyle(el).display !== 'none');
       if (shown.length < 3) return ['fewer than three R2 decorations rendered'];
-      return shown.flatMap((el) => {
+      // chapters clip horizontally, so check.mjs cannot see text pushed past their edge
+      const clipped = [...document.querySelectorAll('[data-remaster-beat] :is(p, h2, h3, dd, dt, li)')]
+        .filter((el) => !el.closest('[role="tablist"], [aria-hidden="true"]') && el.getClientRects().length)
+        .filter((el) => el.getBoundingClientRect().right > document.documentElement.clientWidth + 1)
+        .map((el) => `${el.tagName} "${el.textContent.trim().slice(0, 30)}" is clipped`);
+      return clipped.concat(shown.flatMap((el) => {
           const section = el.closest('[data-remaster-beat]');
           if (!section) return [`${el.className}: outside any chapter`];
           const d = el.getBoundingClientRect(), s = section.getBoundingClientRect();
@@ -43,7 +48,7 @@ test('decorations stay inside their section and amber stays on Tinta', async () 
           const trail = getComputedStyle(el).getPropertyValue('--trail').trim().toLowerCase();
           if (el.matches('.r2-seam, .r2-stop') && trail === amber && section.dataset.ground !== 'tinta') out.push(`${el.className}: amber on ${section.dataset.ground}`);
           return out;
-        });
+        }));
     });
     assert.deepEqual(problems, [], `${page} @${width}`);
     await tab.context().close();

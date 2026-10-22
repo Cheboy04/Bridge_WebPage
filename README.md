@@ -122,12 +122,13 @@ Step 5, the public UI check (axe, no overflow at 390 and 1440 px), runs locally 
 
 ## Prototype
 
-`prototype/` is the static reference implementation the Blade pages are ported from. Leave it unchanged; see `CLAUDE.md` §5.
+`prototype/` is the static reference implementation the Blade pages are ported from. It changes only to fix a drift or in an owner-approved remaster round; see `CLAUDE.md` §5.
 
 ```bash
 cd prototype
 npm install && npm run build    # build into dist/
 npm run serve                   # http://localhost:4173
+npm test                        # build, then run the prototype tests (node --test)
 node check.mjs <page …>         # axe-core, overflow at 390/1440, console errors, screenshots
 ```
 

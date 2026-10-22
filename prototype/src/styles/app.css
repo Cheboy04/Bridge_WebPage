@@ -2,6 +2,7 @@
 @import "./sig-documento.css";
 @import "./sig-cabina.css";
 @import "./remaster-r1.css";
+@import "./remaster-r2.css";
 @source "../components";
 @source "../pages";
 
@@ -113,8 +114,27 @@
     --warning: #f2b84b;
     --error: #ff8a80;
   }
+  /* BRG-81: Bridge blue as a whole chapter ground on the R2 pages only. White 6.25:1, Bruma 5.77:1; no amber, no Tinta text. */
+  .mode-bridge {
+    --surface: #1c61ad;
+    --surface-raised: #12489f;
+    --text: #ffffff;
+    --text-muted: #f4f6f9;
+    --border: #6f9bd0;
+    --border-strong: #dbe6f3;
+    --accent: #ffffff;
+    --accent-contrast: #1c61ad;
+    --accent-hover: #f4f6f9;
+    --link: #ffffff;
+    --focus: #ffffff;
+    --trail: #ffffff;
+    --success: #ffffff;
+    --warning: #ffffff;
+    --error: #ffffff;
+  }
   .mode-documento,
-  .mode-cabina {
+  .mode-cabina,
+  .mode-bridge {
     background-color: var(--surface);
     color: var(--text);
   }

@@ -3,15 +3,17 @@
 <html lang="es">
 <head>
 <!-- @include head title="Bridge Traducciones | Traducción certificada e interpretación simultánea, desde Quito" description="Traducción certificada e interpretación simultánea, desde Quito. Documentos exactos. Voz en vivo." -->
+<!-- BRG-81: cross-document transition between Home and Certified only (spec §3.7) -->
+<style>@view-transition { navigation: auto; }</style>
 </head>
-<body class="page-home-r1" data-remaster-page="home">
+<body class="page-home-r1" data-remaster-page="home" data-remaster-round="r2">
 <a class="skip-link" href="#main">Saltar al contenido</a>
 <!-- @include icons -->
 <!-- @include header -->
 
 <main id="main">
   <!-- ARRIVAL / PROMISE (Documento) -->
-  <section class="r1-arrival bg-surface text-fg" data-remaster-beat="arrival" data-signature-moment="home-crossing" data-arrival data-arrival-state="complete" aria-labelledby="hero-title">
+  <section class="r1-arrival bg-surface text-fg" data-remaster-beat="arrival" data-ground="white" data-signature-moment="home-crossing" data-arrival data-arrival-state="complete" aria-labelledby="hero-title">
     <div class="wrap r1-arrival-grid">
       <div class="r1-arrival-copy">
         <p class="label">Bridge Traducciones · Quito</p>
@@ -43,154 +45,151 @@
     </div>
   </section>
 
-  <section class="sec bg-raised text-fg" id="idiomas" data-remaster-beat="relevance" aria-label="Comprobar combinación de idiomas">
+  <!-- YOUR CROSSING: the visitor's pair as the chapter's image (Bruma) -->
+  <section class="r2-chapter r2-languages sec bg-raised text-fg" id="idiomas" data-remaster-beat="relevance" data-ground="bruma" aria-labelledby="pair-title-home">
     <div class="wrap">
-      <!-- @include sig-lang-checker uid="home" level="2" -->
-    </div>
-  </section>
-
-  <!-- @include trust-strip years="[año]" -->
-
-  <!-- TRADUCCIÓN (Documento) -->
-  <section id="traduccion" class="r1-document-proof sec relative bg-surface text-fg" data-remaster-beat="document-proof" aria-labelledby="t-title">
-    <div class="wrap grid gap-y-12 lg:grid-cols-12 lg:items-start lg:gap-x-8">
-      <div class="lg:sticky lg:top-8 lg:col-span-5">
-        <!-- @include section-heading label="Traducción" id="t-title" title="Documentos exactos, traducidos y certifi&shy;cados" lead="Traducimos y certificamos documentos personales, académicos, corporativos y legales. Usted nos envía el original; nosotros coordinamos el resto." -->
-        <div class="mt-8"><!-- @include button label="Ver servicios de traducción" href="#" title="No incluido en el prototipo" variant="secondary" icon="arrow-right" --></div>
+      <h2 id="pair-title-home" class="r2-monument r2-pair-title"><span class="r2-kicker">Su combinación de idiomas</span><span class="r2-pair" data-r2-pair aria-hidden="true"><span data-r2-from>español</span> <i>···</i> <span data-r2-to>inglés</span></span></h2>
+      <div class="r2-languages-body">
+        <!-- @include sig-lang-checker uid="home" level="3" -->
       </div>
-      <div class="svc-list lg:col-span-7">
-        <!-- @include service-card open="1" icon="file-check" title="Traducción certificada" text="Su documento traducido y certificado por un traductor, con la declaración de fidelidad al original." href="traduccion-certificada.html" meta="Plazo de entrega: [por confirmar]" -->
-        <!-- @include service-card open="1" icon="scale" title="Traducción legal" text="Contratos, sentencias, poderes y demás documentos jurídicos, con terminología consistente en cada versión." href="#" note="No incluido en el prototipo" meta="Plazo de entrega: [por confirmar]" -->
-        <!-- @include service-card open="1" icon="stamp" title="Traducción notariada" text="Traducción certificada con el trámite notarial que su caso requiera. Le indicamos los pasos antes de empezar." href="#" note="No incluido en el prototipo" meta="Plazo de entrega: [por confirmar]" -->
-      </div>
-    </div>
-    <span class="trail-v absolute bottom-0" style="--n:2;left:var(--edge)" aria-hidden="true"></span>
-  </section>
-
-  <!-- INTERPRETACIÓN (Cabina) -->
-  <section id="interpretacion" class="r1-cabina-handoff sec mode-cabina relative" data-remaster-beat="cabina-handoff" aria-labelledby="i-title">
-    <span class="trail-v target absolute top-0" style="--n:2;left:var(--edge)" aria-hidden="true"></span>
-    <div class="wrap grid gap-y-12 lg:grid-cols-12 lg:items-start lg:gap-x-8">
-      <div class="lg:col-span-6 lg:col-start-7 lg:row-start-1">
-        <!-- @include section-heading label="Interpretación" id="i-title" title="Voz en vivo, en la cabina y en la sala" lead="Interpretación simultánea y consecutiva para congresos, reuniones y audiencias, con equipos y cabinas cuando el evento lo requiere." -->
-        <div class="mt-8"><!-- @include button label="Ver servicios de interpretación" href="#" title="No incluido en el prototipo" variant="secondary" icon="arrow-right" --></div>
-        <figure class="mt-12">
-          <div class="grade-cabina aspect-[3/2]">
-            <img src="assets/photo/cabina-800.webp" srcset="assets/photo/cabina-800.webp 800w, assets/photo/cabina-1600.webp 1600w" sizes="(min-width:1280px) 560px, (min-width:1024px) 46vw, 100vw" width="1600" height="1289" loading="lazy" decoding="async" style="object-position:left 35%" alt="Intérpretes con auriculares y micrófonos trabajando en una cabina de interpretación simultánea durante un evento">
-          </div>
-          <figcaption class="mt-3 t-small text-muted">Cabina de interpretación en un evento. Fotografía provisional, a reemplazar por una sesión propia.</figcaption>
-        </figure>
-      </div>
-      <div class="svc-list lg:col-span-6 lg:col-start-1 lg:row-start-1">
-        <!-- @include service-card open="1" icon="headphones" title="Interpretación simultánea" text="Interpretación en tiempo real para congresos y reuniones con varios idiomas, mediante cabinas y receptores." href="interpretacion-simultanea.html" meta="Cotización según fecha, duración e idiomas" linklabel="Ver servicio de interpretación" -->
-        <!-- @include service-card open="1" icon="mic" title="Interpretación consecutiva" text="El intérprete traduce tras cada intervención. Útil en reuniones, entrevistas, audiencias y visitas." href="#" note="No incluido en el prototipo" meta="Cotización según fecha, duración e idiomas" linklabel="Ver servicio de interpretación" -->
-        <!-- @include service-card open="1" icon="radio" title="Equipos y cabinas" text="Cabinas, consolas, micrófonos y receptores para su evento, con instalación y soporte técnico durante la jornada." href="#" note="No incluido en el prototipo" meta="Cotización según número de asistentes e idiomas" linklabel="Ver equipos y cabinas" -->
-      </div>
-    </div>
-    <span class="trail-v absolute bottom-0" style="--n:2;left:var(--edge)" aria-hidden="true"></span>
-  </section>
-
-  <!-- CÓMO FUNCIONA (Documento) -->
-  <section class="r1-proof-process sec relative bg-surface text-fg" data-remaster-beat="proof-process" aria-labelledby="c-title">
-    <span class="trail-v target absolute top-0" style="--n:2;left:var(--edge)" aria-hidden="true"></span>
-    <div class="wrap">
-      <!-- @include section-heading id="c-title" title="Cómo trabajamos" lead="Una misma secuencia para un documento o para un evento." -->
-      <ol class="process mt-14 grid lg:mt-20 lg:grid-cols-3 lg:gap-x-8">
-        <li class="grid grid-cols-[1.5rem_1fr] gap-x-4 lg:grid-cols-1 lg:gap-x-0">
-          <div class="flex flex-col items-center gap-2 lg:mb-6 lg:h-6 lg:flex-row lg:gap-4 lg:pr-8">
-            <span class="step-dot" aria-hidden="true"></span>
-            <span class="trail-v lg:hidden" style="--n:5" aria-hidden="true"></span>
-            <span class="trail-h hidden flex-1 lg:block" aria-hidden="true"></span>
-          </div>
-          <div class="pb-10 lg:pb-0">
-            <h3 class="t-h4">Envíenos su solicitud</h3>
-            <p class="mt-2 max-w-[38ch] text-muted">Cuéntenos qué necesita: adjunte sus documentos o indíquenos fecha, lugar y combinación de idiomas del evento.</p>
-          </div>
-        </li>
-        <li class="grid grid-cols-[1.5rem_1fr] gap-x-4 lg:grid-cols-1 lg:gap-x-0">
-          <div class="flex flex-col items-center gap-2 lg:mb-6 lg:h-6 lg:flex-row lg:gap-4 lg:pr-8">
-            <span class="step-dot" aria-hidden="true"></span>
-            <span class="trail-v lg:hidden" style="--n:5" aria-hidden="true"></span>
-            <span class="trail-h hidden flex-1 lg:block" aria-hidden="true"></span>
-          </div>
-          <div class="pb-10 lg:pb-0">
-            <h3 class="t-h4">Reciba su cotización por escrito</h3>
-            <p class="mt-2 max-w-[38ch] text-muted">Le respondemos con el alcance, el plazo y el valor antes de empezar. Usted confirma y nosotros programamos.</p>
-          </div>
-        </li>
-        <li class="grid grid-cols-[1.5rem_1fr] gap-x-4 lg:grid-cols-1 lg:gap-x-0">
-          <div class="flex flex-col items-center gap-2 lg:mb-6 lg:h-6 lg:flex-row lg:gap-4">
-            <span class="step-dot target" aria-hidden="true"></span>
-          </div>
-          <div>
-            <h3 class="t-h4">Reciba su traducción o cuente con su equipo en sala</h3>
-            <p class="mt-2 max-w-[38ch] text-muted">Entregamos la traducción certificada en el formato acordado, o instalamos cabinas e intérpretes en su evento.</p>
-          </div>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- POR QUÉ BRIDGE -->
-  <section class="sec bg-raised text-fg" aria-labelledby="w-title">
-    <div class="wrap grid gap-y-12 lg:grid-cols-12 lg:gap-x-8">
-      <div class="lg:sticky lg:top-8 lg:col-span-4 lg:self-start">
-        <!-- @include section-heading id="w-title" title="Por qué Bridge" lead="Lo que puede comprobar antes de contratarnos." -->
-      </div>
-      <dl class="lg:col-span-7 lg:col-start-6">
-        <div class="grid gap-x-8 gap-y-2 border-t border-line py-7 sm:grid-cols-[13rem_1fr]">
-          <dt class="t-h4">Dos servicios, un equipo</dt>
-          <dd class="max-w-[52ch]">Traducción de documentos e interpretación de eventos se solicitan y coordinan en un solo lugar, desde Quito.</dd>
-        </div>
-        <div class="grid gap-x-8 gap-y-2 border-t border-line py-7 sm:grid-cols-[13rem_1fr]">
-          <dt class="t-h4">Membresía ATA</dt>
-          <dd class="max-w-[52ch]">Somos miembros de la <span lang="en" class="[hyphens:manual]">American Translators Association</span> (ATA). [Alcance exacto por confirmar con Bridge.]</dd>
-        </div>
-        <div class="grid gap-x-8 gap-y-2 border-t border-line py-7 sm:grid-cols-[13rem_1fr]">
-          <dt class="t-h4">Cotización por escrito</dt>
-          <dd class="max-w-[52ch]">Antes de empezar recibe el alcance, el plazo y el valor, para que decida con la información completa.</dd>
-        </div>
-        <div class="grid gap-x-8 gap-y-2 border-y border-line py-7 sm:grid-cols-[13rem_1fr]">
-          <dt class="t-h4">Sus archivos, protegidos</dt>
-          <dd class="max-w-[52ch]">Los documentos que nos envía se guardan en un espacio privado y se eliminan automáticamente al cumplirse el plazo que indica nuestra política de privacidad.</dd>
-        </div>
+      <dl class="r2-facts-line" aria-label="Respaldo">
+        <div><dt class="label">Credenciales</dt><dd>Miembro de la <span lang="en" class="[hyphens:manual]">American Translators Association</span> (ATA)</dd></div>
+        <div><dt class="label">Trayectoria</dt><dd>Desde <span class="num">[año]</span> <span class="t-small text-muted">(dato por confirmar con Bridge)</span></dd></div>
+        <div><dt class="label">Sede</dt><dd>Quito, Ecuador</dd></div>
       </dl>
     </div>
   </section>
 
-  <!-- BLOG -->
-  <section class="sec bg-surface text-fg" aria-labelledby="b-title">
+  <!-- TRADUCCIÓN: active-row list (Documento) -->
+  <section id="traduccion" class="r2-chapter r2-docproof sec bg-surface text-fg" data-remaster-beat="document-proof" data-ground="white" aria-labelledby="t-title">
     <div class="wrap">
-      <div class="flex flex-wrap items-end justify-between gap-6">
-        <!-- @include section-heading id="b-title" title="Guías para sus trámites y eventos" -->
-        <a class="link inline-flex min-h-11 items-center gap-2 font-semibold" href="#" title="No incluido en el prototipo">Ver todas las entradas<svg class="icon icon-20" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
-      </div>
-      <div class="mt-12 grid gap-x-8 gap-y-12 lg:mt-16 lg:grid-cols-12">
-        <article class="lg:col-span-7">
-          <p class="label"><span>Traducción</span> · <span class="num">[fecha de publicación]</span></p>
-          <h3 class="mt-3 max-w-[22ch]"><a class="no-underline hover:underline" href="#" title="No incluido en el prototipo">Traducción certificada, notariada y apostillada: qué pide cada trámite</a></h3>
-          <p class="mt-4 max-w-[52ch] text-muted">Una guía para distinguir qué tipo de traducción necesita su documento antes de presentarlo ante una notaría, un consulado o una universidad.</p>
-        </article>
-        <article class="lg:col-span-4 lg:col-start-9">
-          <p class="label"><span>Interpretación</span> · <span class="num">[fecha de publicación]</span></p>
-          <h3 class="mt-3 text-[length:var(--text-h4)] !font-bold !font-sans leading-snug"><a class="no-underline hover:underline" href="#" title="No incluido en el prototipo">Interpretación simultánea: equipos e intérpretes que necesita su evento</a></h3>
-          <p class="mt-4 text-muted">Cuántos intérpretes, qué cabinas y con qué anticipación conviene reservar según la duración y el número de idiomas.</p>
-        </article>
+      <p class="label">Traducción</p>
+      <h2 id="t-title" class="r2-monument">Documentos exactos<span class="sr-only">.</span><span class="r2-stop" aria-hidden="true"></span></h2>
+      <p class="lead r2-lead">Traducimos y certificamos documentos personales, académicos, corporativos y legales. Usted nos envía el original; nosotros coordinamos el resto.</p>
+      <ul class="r2-rows" data-list-object="active-rows">
+        <li class="r2-row">
+          <h3 class="r2-row-title"><a href="traduccion-certificada.html"><span class="sr-only">Traducción </span>Certificada</a></h3>
+          <div class="r2-row-detail"><p>Su documento traducido y certificado por un traductor, con la declaración de fidelidad al original.</p><p class="t-small text-muted">Plazo de entrega: [por confirmar]</p></div>
+        </li>
+        <li class="r2-row">
+          <h3 class="r2-row-title"><a href="#" title="No incluido en el prototipo"><span class="sr-only">Traducción </span>Legal</a></h3>
+          <div class="r2-row-detail"><p>Contratos, sentencias, poderes y demás documentos jurídicos, con terminología consistente en cada versión.</p><p class="t-small text-muted">Plazo de entrega: [por confirmar]</p></div>
+        </li>
+        <li class="r2-row">
+          <h3 class="r2-row-title"><a href="#" title="No incluido en el prototipo"><span class="sr-only">Traducción </span>Notariada</a></h3>
+          <div class="r2-row-detail"><p>Traducción certificada con el trámite notarial que su caso requiera. Le indicamos los pasos antes de empezar.</p><p class="t-small text-muted">Plazo de entrega: [por confirmar]</p></div>
+        </li>
+      </ul>
+      <div class="mt-10"><!-- @include button label="Ver servicios de traducción" href="#" title="No incluido en el prototipo" variant="secondary" icon="arrow-right" --></div>
+    </div>
+  </section>
+
+  <!-- INTERPRETACIÓN: halftone booth (Cabina) -->
+  <section id="interpretacion" class="r2-chapter r2-cabina sec mode-cabina" data-remaster-beat="cabina-handoff" data-ground="tinta" aria-labelledby="i-title">
+    <span class="r2-seam" aria-hidden="true"></span>
+    <div class="wrap">
+      <p class="label">Interpretación</p>
+      <figure class="r2-booth">
+        <figcaption class="t-small text-muted">Fotografía provisional tratada como trama de puntos de la marca.</figcaption>
+        <div class="r2-booth-frame"><img src="assets/photo/cabina-halftone-800.png" srcset="assets/photo/cabina-halftone-800.png 800w, assets/photo/cabina-halftone-1600.png 1600w" sizes="(min-width:1280px) 1200px, 100vw" width="1600" height="900" loading="lazy" decoding="async" alt="Intérpretes con auriculares y micrófonos trabajando en una mesa de conferencia, dibujados con la trama de puntos de la marca"></div>
+      </figure>
+      <h2 id="i-title" class="r2-monument r2-booth-title">Voz en vivo, en la sala<span class="sr-only">.</span><span class="r2-stop" aria-hidden="true"></span></h2>
+      <p class="lead r2-lead">Interpretación simultánea y consecutiva para congresos, reuniones y audiencias, con equipos y cabinas cuando el evento lo requiere.</p>
+      <ol class="r2-numbered">
+        <li><span class="r2-num" aria-hidden="true">01</span><div><h3 class="t-h4"><a href="interpretacion-simultanea.html">Interpretación simultánea</a></h3><p class="text-muted">Interpretación en tiempo real para congresos y reuniones con varios idiomas, mediante cabinas y receptores.</p></div></li>
+        <li><span class="r2-num" aria-hidden="true">02</span><div><h3 class="t-h4"><a href="#" title="No incluido en el prototipo">Interpretación consecutiva</a></h3><p class="text-muted">El intérprete traduce tras cada intervención. Útil en reuniones, entrevistas, audiencias y visitas.</p></div></li>
+        <li><span class="r2-num" aria-hidden="true">03</span><div><h3 class="t-h4"><a href="#" title="No incluido en el prototipo">Equipos y cabinas</a></h3><p class="text-muted">Cabinas, consolas, micrófonos y receptores para su evento, con instalación y soporte técnico durante la jornada.</p></div></li>
+      </ol>
+      <p class="t-small text-muted mt-6">Cotización según fecha, duración, idiomas y número de asistentes.</p>
+      <div class="mt-10"><!-- @include button label="Ver servicios de interpretación" href="#" title="No incluido en el prototipo" variant="secondary" icon="arrow-right" --></div>
+    </div>
+  </section>
+
+  <!-- CÓMO TRABAJAMOS: a written quote fills in as the steps pass (Bruma) -->
+  <section class="r2-chapter r2-process sec bg-raised text-fg" data-remaster-beat="proof-process" data-ground="bruma" aria-labelledby="c-title">
+    <div class="wrap">
+      <h2 id="c-title" class="r2-monument">Cómo trabajamos<span class="sr-only">.</span><span class="r2-stop" aria-hidden="true"></span></h2>
+      <p class="lead r2-lead">Una misma secuencia para un documento o para un evento.</p>
+      <div class="r2-sheet-grid" data-list-object="sticky-sheet">
+        <div class="r2-sheet-col">
+          <div class="r2-sheet" data-r2-sheet data-step="3" aria-hidden="true">
+            <p class="r2-sheet-kicker">Solicitud</p>
+            <p class="r2-sheet-title">Traducción certificada</p>
+            <dl class="r2-sheet-rows">
+              <div><dt>Original</dt><dd>Contrato, 4 páginas (PDF)</dd></div>
+              <div><dt>Idiomas</dt><dd>inglés → español</dd></div>
+            </dl>
+            <div class="r2-sheet-part" data-r2-from-step="2">
+              <p class="r2-sheet-kicker num">Cotización por escrito · Folio N.º [0000]</p>
+              <dl class="r2-sheet-rows">
+                <div><dt>Alcance</dt><dd>Documento completo</dd></div>
+                <div><dt>Plazo</dt><dd>[por confirmar]</dd></div>
+                <div><dt>Valor</dt><dd>[por confirmar]</dd></div>
+              </dl>
+            </div>
+            <div class="r2-sheet-part r2-sheet-foot" data-r2-from-step="3">
+              <p class="num">Entregado · Quito, [fecha]</p>
+              <!-- @include seal uid="home-sheet" size="88" -->
+            </div>
+          </div>
+        </div>
+        <ol class="process r2-steps">
+          <li data-r2-step="1"><span class="r2-step-num" aria-hidden="true">01</span><h3>Envíenos su solicitud</h3><p class="text-muted">Cuéntenos qué necesita: adjunte sus documentos o indíquenos fecha, lugar y combinación de idiomas del evento.</p></li>
+          <li data-r2-step="2"><span class="r2-step-num" aria-hidden="true">02</span><h3>Reciba su cotización por escrito</h3><p class="text-muted">Le respondemos con el alcance, el plazo y el valor antes de empezar. Usted confirma y nosotros programamos.</p></li>
+          <li data-r2-step="3"><span class="r2-step-num" aria-hidden="true">03</span><h3>Reciba su traducción o cuente con su equipo en sala</h3><p class="text-muted">Entregamos la traducción certificada en el formato acordado, o instalamos cabinas e intérpretes en su evento.</p></li>
+        </ol>
       </div>
     </div>
   </section>
 
-  <div data-remaster-beat="close">
+  <!-- POR QUÉ BRIDGE: the one blue ground (spec §3.2) -->
+  <section class="r2-chapter r2-why sec mode-bridge" data-remaster-beat="why" data-ground="blue" aria-labelledby="w-title">
+    <span class="r2-seam" aria-hidden="true"></span>
+    <div class="wrap">
+      <h2 id="w-title" class="r2-monument">Por qué Bridge<span class="sr-only">.</span><span class="r2-stop" aria-hidden="true"></span></h2>
+      <p class="lead r2-lead">Lo que puede comprobar antes de contratarnos.</p>
+      <dl class="r2-ledger r2-ledger-4">
+        <div><dt>Dos servicios, un equipo</dt><dd>Traducción de documentos e interpretación de eventos se solicitan y coordinan en un solo lugar, desde Quito.</dd></div>
+        <div><dt>Membresía ATA</dt><dd>Somos miembros de la <span lang="en" class="[hyphens:manual]">American Translators Association</span> (ATA). [Alcance exacto por confirmar con Bridge.]</dd></div>
+        <div><dt>Cotización por escrito</dt><dd>Antes de empezar recibe el alcance, el plazo y el valor, para que decida con la información completa.</dd></div>
+        <div><dt>Sus archivos, protegidos</dt><dd>Los documentos que nos envía se guardan en un espacio privado y se eliminan automáticamente al cumplirse el plazo que indica nuestra política de privacidad.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- GUÍAS: editorial plates (Documento) -->
+  <section class="r2-chapter r2-guides sec bg-surface text-fg" data-remaster-beat="guides" data-ground="white" aria-labelledby="b-title">
+    <div class="wrap">
+      <h2 id="b-title" class="r2-monument">Guías para sus trámites y eventos</h2>
+      <ul class="r2-plates" data-list-object="plates">
+        <li class="r2-plate">
+          <p class="label"><span>Traducción</span> · <span class="num">[fecha de publicación]</span></p>
+          <h3><a href="#" title="No incluido en el prototipo">Traducción certificada, notariada y apostillada: qué pide cada trámite</a></h3>
+          <p class="text-muted">Una guía para distinguir qué tipo de traducción necesita su documento antes de presentarlo ante una notaría, un consulado o una universidad.</p>
+        </li>
+        <li class="r2-plate">
+          <p class="label"><span>Interpretación</span> · <span class="num">[fecha de publicación]</span></p>
+          <h3><a href="#" title="No incluido en el prototipo">Interpretación simultánea: equipos e intérpretes que necesita su evento</a></h3>
+          <p class="text-muted">Cuántos intérpretes, qué cabinas y con qué anticipación conviene reservar según la duración y el número de idiomas.</p>
+        </li>
+      </ul>
+      <a class="link mt-8 inline-flex min-h-11 items-center gap-2 font-semibold" href="#" title="No incluido en el prototipo">Ver todas las entradas<svg class="icon icon-20" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+    </div>
+  </section>
+
+  <div class="r2-close mode-cabina" data-remaster-beat="close" data-ground="tinta">
+    <span class="r2-seam" aria-hidden="true"></span>
     <!-- @include remaster-close -->
   </div>
 
   <!-- CONTACTO -->
-  <section class="sec bg-raised text-fg" aria-labelledby="k-title">
+  <section class="r2-chapter sec bg-raised text-fg" data-remaster-beat="contact" data-ground="bruma" aria-labelledby="k-title">
     <div class="wrap grid gap-y-12 lg:grid-cols-12 lg:gap-x-8">
-      <div class="lg:col-span-5">
-        <!-- @include section-heading id="k-title" title="Cuéntenos qué necesita" lead="Escríbanos por WhatsApp, llámenos o solicite una cotización con sus archivos adjuntos. Le respondemos con el alcance y el plazo." -->
+      <div class="lg:col-span-6">
+        <h2 id="k-title" class="r2-monument r2-monument-sm">Cuéntenos qué necesita<span class="sr-only">.</span><span class="r2-stop" aria-hidden="true"></span></h2>
+        <p class="lead mt-6">Escríbanos por WhatsApp, llámenos o solicite una cotización con sus archivos adjuntos. Le respondemos con el alcance y el plazo.</p>
       </div>
-      <div class="lg:col-span-6 lg:col-start-7">
+      <div class="lg:col-span-5 lg:col-start-8">
         <!-- @include contact-block message="Hola%2C%20quisiera%20cotizar%20un%20servicio%20de%20Bridge%20Traducciones" -->
       </div>
     </div>
@@ -200,5 +199,6 @@
 <!-- @include footer -->
 <!-- @include whatsapp message="Hola%2C%20quisiera%20cotizar%20un%20servicio%20de%20Bridge%20Traducciones" -->
 <script defer src="assets/js/remaster-home.js"></script>
+<script defer src="assets/js/remaster-r2.js"></script>
 </body>
 </html>

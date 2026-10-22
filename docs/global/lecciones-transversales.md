@@ -18,6 +18,8 @@ Format: the trap, the symptom and what to do.
 - **An assertion on a null value can produce an *error* instead of a *failure*.** Assert the type first.
 - **The runner may classify as "error" what the C3 script looks for as "failed".** The script that counts red mutations must count both states.
 - **The runner's compact summary can hide which tests failed.** For the C3 review, use a detailed report (JUnit or similar) in a git-ignored path.
+- **Never undo a mutation with `git checkout -- <file>`.** It also wipes uncommitted fixes in that file (BRG-81). The C3 script keeps the original text and writes it back, or C3 runs only on a clean tree.
+- **A clipping container hides overflow from overflow checks.** `overflow-x: clip` on a chapter keeps `scrollWidth` green while text is cut off; assert that text stays inside the viewport, with motion on as well as off (BRG-81).
 
 ## Contracts and boundaries (C4)
 

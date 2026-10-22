@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>R2 lab</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400..700&family=Manrope:wght@400..800&display=swap">
+<style>
+:root{--white:#fff;--bruma:#F4F6F9;--tinta:#0E2440;--raised:#17325A;--blue:#1C61AD;--profundo:#12489F;--amber:#E3A148;--grafito:#556274;--muted-d:#A9B8CC;--rule:#D8E0EA;
+--serif:Literata,Georgia,serif;--sans:Manrope,system-ui,sans-serif;--ease:cubic-bezier(.2,0,0,1)}
+*{box-sizing:border-box;margin:0}
+body{background:var(--white);color:var(--tinta);font:400 1.125rem/1.6 var(--sans)}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px;position:relative}
+.tag{font:600 .875rem/1.3 var(--sans);letter-spacing:.01em;color:var(--grafito)}
+.lab-label{position:absolute;top:16px;right:16px;font:600 12px var(--sans);background:var(--tinta);color:var(--bruma);padding:4px 10px;border-radius:99px;z-index:5}
+section{position:relative;overflow:clip}
+
+/* C. page-long trail, drawn by scroll (CSS scroll-driven; static fallback) */
+@property --p{syntax:'<percentage>';inherits:false;initial-value:100%}
+.trail{position:fixed;left:max(16px,calc(50vw - 600px - 8px));top:0;bottom:0;width:8px;pointer-events:none;z-index:4;
+background:radial-gradient(circle,var(--blue) 3px,transparent 3.5px) 0 0/8px 24px repeat-y;
+mask:linear-gradient(#000,#000) 0 0/100% var(--p) no-repeat}
+@supports (animation-timeline:scroll()){
+ .trail{animation:draw linear both;animation-timeline:scroll(root)}
+ @keyframes draw{from{--p:0%}to{--p:100%}}
+}
+
+/* A. type wall: the document list as the image */
+.wall{padding:128px 0 96px}
+.wall h2{font:600 clamp(2rem,4vw,3.4rem)/1.05 var(--serif);max-width:16ch;margin:16px 0 64px}
+.row{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:24px;border-top:1px solid var(--rule);padding:18px 0 14px}
+.row:last-child{border-bottom:1px solid var(--rule)}
+.row b{font:600 clamp(2.4rem,6.4vw,6rem)/.95 var(--serif);letter-spacing:-.035em}
+.row span{font:500 1rem/1.4 var(--sans);color:var(--grafito);text-align:right}
+.row span i{font-style:normal;color:var(--blue)}
+@supports (animation-timeline:view()){
+ .row b{animation:in linear both;animation-timeline:view();animation-range:entry 0% cover 35%}
+ @keyframes in{from{opacity:.15;transform:translateX(-4vw)}to{opacity:1;transform:none}}
+}
+
+/* B. sticky sheet: the process fills one document */
+.proc{background:var(--bruma);padding:128px 0}
+.proc .grid{display:grid;grid-template-columns:5fr 6fr;gap:64px}
+.sheet{position:sticky;top:12vh;height:72vh;background:var(--white);border:1px solid var(--rule);padding:40px;display:flex;flex-direction:column;gap:14px}
+.sheet .line{height:10px;background:var(--rule)}
+.sheet .line.t{background:var(--blue);width:0;transition:width .6s var(--ease)}
+.sheet .folio{font:700 .875rem var(--sans);font-variant-numeric:tabular-nums;color:var(--grafito);opacity:0;transition:opacity .32s}
+.sheet .seal{margin-top:auto;align-self:flex-end;width:96px;height:96px;border-radius:50%;
+background:radial-gradient(circle,var(--blue) 2.5px,transparent 3px) 0 0/12px 12px;mask:radial-gradient(circle,transparent 34px,#000 35px,#000 47px,transparent 48px);opacity:0;transform:scale(1.3);transition:opacity .32s var(--ease),transform .32s var(--ease)}
+.proc:not([data-step="1"]) .folio{opacity:1}
+.proc[data-step="3"] .line.t,.proc[data-step="4"] .line.t{width:var(--w)}
+.proc[data-step="4"] .seal{opacity:1;transform:none}
+.steps{padding:0}
+.steps li{list-style:none;min-height:60vh;display:flex;flex-direction:column;justify-content:center;border-top:1px solid var(--rule)}
+.steps .n{font:600 clamp(5rem,12vw,10rem)/.8 var(--serif);color:var(--blue);letter-spacing:-.05em}
+.steps h3{font:600 1.75rem/1.2 var(--serif);margin:16px 0 8px}
+.steps p{color:var(--grafito);max-width:40ch}
+
+/* D. colour field: Bridge blue chapter (white on #1C61AD 6.25:1) */
+.blue{background:var(--blue);color:var(--white);padding:128px 0}
+.blue h2{font:600 clamp(3rem,9vw,8.5rem)/.86 var(--serif);letter-spacing:-.05em;max-width:9ch}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:96px;border-top:1px solid rgba(255,255,255,.4);padding-top:32px}
+.facts b{display:block;font:700 1.25rem/1.3 var(--sans);margin-bottom:8px}
+.facts p{font-size:1rem}
+
+/* E. halftone booth crossed by the monument */
+.cab{background:var(--tinta);color:var(--bruma);padding:96px 0 128px}
+.cab .stage{margin-top:24px}
+.cab img{display:block;width:100%;height:auto}
+.cab h2{position:relative;z-index:2;font:600 clamp(3.2rem,11vw,10rem)/.84 var(--serif);letter-spacing:-.055em;margin-top:-.42em}
+.cab h2 em{font-style:normal;color:var(--amber)}
+.cab p{max-width:52ch;margin-top:32px}
+.cab .cap{font-size:.875rem;color:var(--muted-d);margin-top:12px}
+
+@media (max-width:760px){
+ .wrap{padding:0 16px}.row{grid-template-columns:1fr}.row span{text-align:left}
+ .proc .grid{grid-template-columns:1fr;gap:24px}.sheet{top:8px;height:34vh;z-index:3}
+ .facts{grid-template-columns:1fr 1fr}
+ .trail{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+ .trail,.row b{animation:none!important}
+ *{transition:none!important}
+}
+</style>
+</head>
+<body>
+<div class="trail" aria-hidden="true"></div>
+
+<section class="wall"><span class="lab-label">A · type wall</span><div class="wrap">
+<span class="tag">Documentos que traducimos con frecuencia</span>
+<h2>Si existe en papel, lo llevamos al otro idioma.</h2>
+<div class="row"><b>Partida de nacimiento</b><span lang="en">Birth certificate <i>···</i></span></div>
+<div class="row"><b>Título universitario</b><span lang="fr">Diplôme universitaire <i>···</i></span></div>
+<div class="row"><b>Antecedentes penales</b><span lang="de">Führungszeugnis <i>···</i></span></div>
+<div class="row"><b>Poder notarial</b><span lang="it">Procura notarile <i>···</i></span></div>
+<div class="row"><b>Estados financieros</b><span lang="pt">Demonstrações financeiras <i>···</i></span></div>
+</div></section>
+
+<section class="proc" data-step="1"><span class="lab-label">B · sticky sheet</span><div class="wrap grid">
+<div><div class="sheet" aria-hidden="true">
+ <span class="folio">Folio N.º 0000 · Cotización por escrito</span>
+ <div class="line" style="width:70%"></div><div class="line" style="width:90%"></div><div class="line" style="width:55%"></div>
+ <div class="line t" style="--w:72%"></div><div class="line t" style="--w:88%"></div><div class="line t" style="--w:60%"></div><div class="line t" style="--w:80%"></div>
+ <div class="seal"></div>
+</div></div>
+<ol class="steps">
+ <li data-s="1"><span class="n">01</span><h3>Envíe su documento</h3><p>Un escaneo o una foto legible, y el idioma de destino.</p></li>
+ <li data-s="2"><span class="n">02</span><h3>Reciba su cotización por escrito</h3><p>Alcance, plazo y valor antes de empezar.</p></li>
+ <li data-s="3"><span class="n">03</span><h3>Traducción y certificación</h3><p>Un traductor firma la declaración de fidelidad.</p></li>
+ <li data-s="4"><span class="n">04</span><h3>Entrega digital o física</h3><p>En PDF o impreso, según lo pida la institución.</p></li>
+</ol>
+</div></section>
+
+<section class="blue"><span class="lab-label">D · blue field</span><div class="wrap">
+<h2>Por qué Bridge.</h2>
+<div class="facts">
+ <div><b>Dos servicios, un equipo</b><p>Documentos y eventos se coordinan en un solo lugar, desde Quito.</p></div>
+ <div><b>Membresía ATA</b><p>[Alcance por confirmar con Bridge.]</p></div>
+ <div><b>Cotización por escrito</b><p>Alcance, plazo y valor antes de empezar.</p></div>
+ <div><b>Archivos protegidos</b><p>Espacio privado y borrado automático.</p></div>
+</div>
+</div></section>
+
+<section class="cab"><span class="lab-label">E · halftone booth</span><div class="wrap">
+<span class="tag" style="color:var(--muted-d)">Interpretación</span>
+<div class="stage"><img src="booth-ht-amber-v2.png" alt="Intérpretes en una mesa de conferencia con micrófonos, en trama de puntos." width="1600" height="900"></div>
+<h2>Voz en vivo, <em>en la sala.</em></h2>
+<p>Interpretación simultánea y consecutiva para congresos, reuniones y audiencias.</p>
+<p class="cap">Fotografía provisional tratada como trama de puntos de la marca.</p>
+</div></section>
+
+<script>
+// B: the step in the middle of the viewport sets the sheet's state
+const proc = document.querySelector('.proc');
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) proc.dataset.step = e.target.dataset.s; }), { rootMargin: '-45% 0px -45% 0px' });
+document.querySelectorAll('.steps li').forEach(li => io.observe(li));
+</script>
+</body>
+</html>

@@ -42,7 +42,8 @@ test('Home follows the approved story with one signature moment', () => {
   assert.ok(home.indexOf('data-remaster-beat="document-proof"') < home.indexOf('data-remaster-beat="cabina-handoff"'));
   assert.equal(occurrences(home, '@include sig-lang-checker'), 1);
   assert.equal(occurrences(home, '<img'), 1, 'Home uses the booth image once');
-  assert.match(home, /srcset="assets\/photo\/cabina-800\.webp 800w, assets\/photo\/cabina-1600\.webp 1600w"/);
+  // BRG-81 §3.9: the booth is shown as the halftone since R2 (remaster-r2.test.mjs test 5 owns the detail)
+  assert.match(home, /srcset="assets\/photo\/cabina-halftone-800\.png 800w, assets\/photo\/cabina-halftone-1600\.png 1600w"/);
 });
 
 test('Certified Translation is document led with one signature moment', () => {

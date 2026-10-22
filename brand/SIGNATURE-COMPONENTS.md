@@ -9,7 +9,7 @@ Status: approved by client 2026-10-15 (all six). **Owns the behaviour layer** (A
 1. **Complete at rest.** Without JS or with `prefers-reduced-motion: reduce`, every component shows its final, meaningful state (translated text, chosen channel, full trail). Animation only plays *from* the original state when motion is allowed. Never `opacity: 0` waiting for an observer.
 2. **One signature moment per page.** Home: the hero. Traducción certificada: before/after. Interpretación simultánea: event planner. The living trail and the footer are system-wide and quiet.
 3. **Accessible controls.** Native elements first (`button`, `input type=range`, `select`, `fieldset`). Tabs follow the ARIA tabs pattern. Visible focus. Targets of at least 44px. Live regions only announce user-triggered changes, never auto-cycling content.
-4. **No libraries** beyond Alpine (already loaded). CSS scroll-driven animations (`animation-timeline: view()`) inside `@supports` and `prefers-reduced-motion: no-preference`; otherwise static. Transform and opacity only.
+4. **No libraries** beyond Alpine (already loaded). CSS scroll-driven animations (`animation-timeline: view()`) inside `@supports` and `prefers-reduced-motion: no-preference`; otherwise static. Transform and opacity only. Parallax and concurrent motion are allowed since 2026-10-21 (DIRECTION.md §9).
 5. **Data is real or labelled.** Rules and numbers not confirmed by Bridge carry a visible "[regla de ejemplo, validar con Bridge]" or "[por confirmar]".
 6. **Ports to Laravel.** Each one is a Blade component later; data comes from the CMS (Language model, Settings) or config. Prefill uses query parameters, which Livewire reads with `#[Url]`.
 7. **Radius:** stages use `--radius-lg` (24px), controls `--radius-full`. See DIRECTION.md §5. On the R1 pages (Home, Traducción certificada) stages are square-edged (DIRECTION.md §5, R1 de-boxing).
@@ -169,6 +169,22 @@ Pages opt in with `body.page-home-r1` / `body.page-certified-r1`; styles live in
 | Cabina handoff | hard edge into a full Tinta chapter, monument heading, booth photo once; no animation of its own (not a second signature moment) | — |
 | Close | shared include `remaster-close.html`: "original → traducción → firma" on Tinta with one amber trail run under it, then the page's contact block and footer | static |
 | Decorations | `.r1-crossing-decor`, always `aria-hidden`, positioned only inside its own composition; hidden at ≤ 320px | — |
+
+### R2 remaster (Home and Traducción certificada, BRG-81, 2026-10-21)
+
+Pages also carry `data-remaster-round="r2"` on `<body>`; styles live in `prototype/src/styles/remaster-r2.css` (every selector rooted at an R1 opt-in class), behaviour in `prototype/src/assets/js/remaster-r2.js`. None of the pieces below is a second signature moment: the Home arrival and the Certified before/after keep that role.
+
+| Element | Behaviour | Value |
+| --- | --- | --- |
+| Live pair monument `[data-r2-pair]` | writes the checker's origin and target names as "origen ··· destino" at monument scale; updates on the selects' `change` and on swap; `aria-hidden` (the checker's own result stays the accessible output) | re-set: opacity 0.35→1, translateY 0.4rem→0, `dur-base`, `ease-out` |
+| Index tabs (Certified, institutions) | ARIA tabs, automatic activation; ←/→ wrap, Home/End jump; only the selected panel visible | without JS: no tablist, every panel listed with its heading |
+| Sticky sheet `[data-r2-sheet]` (both process chapters) | one document held while the numbered steps scroll; the step in the middle of the viewport (IntersectionObserver, root margin −45 %) sets `data-step`; folio, translated lines and seal arrive with later steps; `aria-hidden` | parts: `dur-slow`, `ease-out`; without JS or under reduced motion `data-step` = last step |
+| Seam band `.r2-seam` | one dot row inside a chapter at a ground change, drawn left → right as it enters | `view()` entry 0 % → cover 30 %; static and complete at rest |
+| Reading reveals | monuments, rows and ledger lines rise into place as they enter; on phones rise only (no sideways slide) | `view()` entry 0 % → cover 30 %, start opacity ≥ 0.15 |
+| Parallax | arrival sheets, the halftone booth and the tab stack move at different rates from the type | ≤ 8vh, `view()` / `scroll()` timelines, transform only |
+| Page transition | cross-document View Transition between Home and Traducción certificada; others navigate normally | CSS `@view-transition { navigation: auto }` in those two pages only |
+
+All of it runs only inside `@supports (animation-timeline: view())` (or with JS for the sheet and tabs) and `prefers-reduced-motion: no-preference`; otherwise every piece is at its final state.
 
 ---
 

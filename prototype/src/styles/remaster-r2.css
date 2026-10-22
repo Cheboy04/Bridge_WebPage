@@ -440,6 +440,11 @@
   cursor: pointer;
 }
 
+/* the row clips overflow, so the ring is drawn inside the tab */
+.page-certified-r1 .r2-tablist [role="tab"]:focus-visible {
+  outline-offset: -4px;
+}
+
 .page-certified-r1 .r2-tablist [role="tab"][aria-selected="true"] {
   border-bottom-color: var(--surface);
   background: var(--surface);

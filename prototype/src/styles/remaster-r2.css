@@ -14,14 +14,14 @@
 /* Monument: every chapter heading (DIRECTION.md §3, R2) */
 :is(.page-home-r1, .page-certified-r1) .r2-monument {
   max-width: 16ch;
-  font: 600 clamp(2.6rem, 6.4vw, 6.5rem) / 0.95 var(--font-serif);
+  font: 600 clamp(2.2rem, 4.4vw, var(--type-monument-max)) / 0.95 var(--font-serif);
   letter-spacing: -0.04em;
   text-wrap: balance;
   hyphens: manual;
 }
 
 :is(.page-home-r1, .page-certified-r1) .r2-monument-sm {
-  font-size: clamp(2.4rem, 4.8vw, 4.5rem);
+  font-size: clamp(2rem, 3.6vw, 3.25rem);
 }
 
 :is(.page-home-r1, .page-certified-r1) .r2-stop {
@@ -116,7 +116,7 @@
 }
 
 :is(.page-home-r1, .page-certified-r1) .r2-row-title {
-  font: 600 clamp(2.6rem, 7vw, 7rem) / 0.95 var(--font-serif);
+  font: 600 clamp(2.4rem, 5vw, var(--type-monument-max)) / 0.95 var(--font-serif);
   letter-spacing: -0.045em;
   transition: color var(--dur-base) var(--ease-out);
 }
@@ -170,7 +170,7 @@
   z-index: 1;
   max-width: 12ch;
   margin-top: -0.5em;
-  font-size: clamp(2.8rem, 9vw, 8.5rem);
+  font-size: clamp(2.4rem, 6vw, var(--type-monument-max));
   line-height: 0.9;
   color: var(--text);
 }
@@ -276,7 +276,7 @@
 }
 
 :is(.page-home-r1, .page-certified-r1) .r2-step-num {
-  font: 600 clamp(4.5rem, 11vw, 10rem) / 0.8 var(--font-serif);
+  font: 600 clamp(2.6rem, 6vw, var(--type-monument-max)) / 0.9 var(--font-serif);
   letter-spacing: -0.05em;
   color: var(--trail);
 }
@@ -341,7 +341,7 @@
 
 .page-certified-r1 .r2-crossed .r2-monument {
   max-width: none;
-  font-size: clamp(3rem, 11vw, 10rem);
+  font-size: clamp(2.6rem, 6vw, var(--type-monument-max));
   line-height: 0.9;
 }
 
@@ -491,7 +491,7 @@
 }
 
 .page-certified-r1 .r2-wall-name {
-  font: 600 clamp(2rem, 5.2vw, 5rem) / 1 var(--font-serif);
+  font: 600 clamp(2rem, 4vw, var(--type-monument-max)) / 1 var(--font-serif);
   letter-spacing: -0.035em;
   hyphens: manual;
 }

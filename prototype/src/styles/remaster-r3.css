@@ -1,0 +1,25 @@
+/* BRG-84 (R3): rhythm, type ceiling and the R3 pieces. Tokens only (spec §3.1). */
+
+/* the booth image is a band, not a full screen, so its heading stays in the first viewport */
+@media (min-width: 64rem) {
+  :is(.page-home-r1, .page-certified-r1) .r2-booth img {
+    aspect-ratio: 5 / 2;
+    object-fit: cover;
+    object-position: 50% 40%;
+  }
+}
+
+/* heroes start under the header: the copy no longer centres against a taller demo column */
+:is(.page-home-r1 .r1-arrival-grid, .page-certified-r1 .r1-certified-arrival-grid) {
+  align-items: start;
+}
+
+.page-home-r1 .r1-arrival .lead {
+  max-width: 38ch;
+}
+
+@media (min-width: 64rem) {
+  .page-home-r1 .r1-crossing {
+    margin-top: 0;
+  }
+}

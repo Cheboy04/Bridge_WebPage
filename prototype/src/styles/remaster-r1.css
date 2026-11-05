@@ -2,14 +2,13 @@
    Absolute decorations are positioned against their own composition only (spec §3.5), never by a page-wide selector. */
 
 .page-home-r1 .r1-arrival {
-  min-height: calc(100svh - 5rem);
-  padding-block: clamp(3rem, 8vw, 8rem);
+  padding-block: clamp(2rem, 4vw, 3.5rem);
   overflow: hidden;
 }
 
 .page-home-r1 .r1-arrival-grid {
   display: grid;
-  gap: clamp(3rem, 7vw, 7rem);
+  gap: clamp(2rem, 4vw, 4rem);
   align-items: center;
 }
 
@@ -21,7 +20,7 @@
 }
 
 .page-home-r1 .r1-monument {
-  font: 600 clamp(3.2rem, 11vw, 10rem) / 0.84 var(--font-serif);
+  font: 600 clamp(2.6rem, 5vw, var(--type-hero-max)) / 0.9 var(--font-serif);
   letter-spacing: -0.055em;
   text-wrap: balance;
 }
@@ -141,7 +140,7 @@
 
 .page-home-r1 .r1-cabina-handoff h2 {
   max-width: 9ch;
-  font-size: clamp(3rem, 8vw, 7.5rem);
+  font-size: clamp(2.4rem, 5vw, var(--type-monument-max));
   line-height: 0.92;
   letter-spacing: -0.045em;
 }
@@ -166,9 +165,8 @@
 }
 
 .page-certified-r1 .r1-certified-arrival-grid {
-  min-height: min(54rem, calc(100svh - 5rem));
   align-items: center;
-  padding-block: clamp(3rem, 7vw, 7rem);
+  padding-block: clamp(2rem, 4vw, 3.5rem);
 }
 
 .page-certified-r1 .r1-certified-arrival-copy {
@@ -178,7 +176,7 @@
 
 .page-certified-r1 .r1-certified-title {
   max-width: 12ch;
-  font-size: clamp(3rem, 7vw, 7rem);
+  font-size: clamp(2.6rem, 5vw, var(--type-hero-max));
   line-height: 0.94;
   letter-spacing: -0.04em;
 }
@@ -258,7 +256,7 @@
   align-items: center;
   gap: 0.15em 0.3em;
   max-width: none;
-  font-size: clamp(3rem, 10vw, 9rem);
+  font-size: clamp(2.4rem, 6vw, var(--type-monument-max));
   line-height: 0.9;
   letter-spacing: -0.05em;
 }

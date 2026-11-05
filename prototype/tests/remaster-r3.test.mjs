@@ -39,7 +39,7 @@ test('T1 type and section spacing never exceed the R3 ceiling', () => {
   assert.ok(clamps.length > 5, 'font clamps found');
   for (const [name, sel, max] of clamps) {
     // only the hero heading itself may reach the hero ceiling
-    const limit = /\.r1-monument$/.test(sel) ? 4.5 : 4;
+    const limit = /\.(r1-monument|r1-certified-title)$/.test(sel) ? 4.5 : 4;
     assert.ok(rem(max) <= limit, `${name} "${sel}" clamp max ${max.trim()} exceeds ${limit}rem`);
   }
 });

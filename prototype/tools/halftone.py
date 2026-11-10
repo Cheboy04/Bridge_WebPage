@@ -3,7 +3,12 @@
 Every dot comes from a source pixel; nothing is generated. Rerun when the photo changes:
   python tools/halftone.py            (needs Pillow; not a project dependency, use a throwaway venv)
 Writes src/assets/photo/cabina-halftone-{800,1600}.png, amber dots on a transparent ground (for Tinta).
+
+BRG-84: python tools/halftone.py --poster <frame.jpg> writes video-poster-{800,1600}.png from the
+institutional video's frame (https://i.ytimg.com/vi/himqflZxhNs/maxresdefault.jpg, Bridge's own video):
+the presenter only, left of the old logo and above the subtitle band; the near-white studio wall gets no dots.
 """
+import sys
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageOps
@@ -16,14 +21,22 @@ SCALE = 4  # render oversampled, then downsample for round edges
 AMBER = (0xE3, 0xA1, 0x48, 255)  # Rastro, the trail on Tinta
 
 
-def halftone(width: int) -> Image.Image:
-    tone = ImageOps.equalize(ImageOps.grayscale(Image.open(SOURCE).crop(CROP)))
+POSTER_CROP = (40, 70, 600, 575)  # presenter in the 1280x720 frame
+WALL = 222  # source grey at or above this is the studio wall: no dot
+POSTER_PITCH = 4  # the crop is small; a finer grid keeps the face legible
+
+
+def halftone(width: int, source: Path = SOURCE, crop=CROP, wall: int = 256, pitch: int = PITCH) -> Image.Image:
+    grey = ImageOps.grayscale(Image.open(source).crop(crop))
+    tone = ImageOps.equalize(grey)
     w, h = tone.size
     canvas = Image.new("RGBA", (w * SCALE, h * SCALE), (0, 0, 0, 0))
     draw = ImageDraw.Draw(canvas)
-    for y in range(PITCH // 2, h, PITCH):
-        for x in range(PITCH // 2, w, PITCH):
-            radius = (tone.getpixel((x, y)) / 255) ** 0.6 * PITCH / 2 * SCALE
+    for y in range(pitch // 2, h, pitch):
+        for x in range(pitch // 2, w, pitch):
+            if grey.getpixel((x, y)) >= wall:
+                continue
+            radius = (tone.getpixel((x, y)) / 255) ** 0.6 * pitch / 2 * SCALE
             if radius >= SCALE * 0.5:
                 cx, cy = x * SCALE, y * SCALE
                 draw.ellipse((cx - radius, cy - radius, cx + radius, cy + radius), fill=AMBER)
@@ -32,6 +45,16 @@ def halftone(width: int) -> Image.Image:
 
 
 if __name__ == "__main__":
+    if sys.argv[1:2] == ["--poster"]:
+        frame = Path(sys.argv[2])
+        for width in (800, 1600):
+            out = ROOT / f"video-poster-{width}.png"
+            # the crop is 560 px wide, so the 1600 output is upsampled dots, still one dot per source cell
+            image = halftone(width, frame, POSTER_CROP, WALL, POSTER_PITCH)
+            image.save(out, optimize=True)
+            assert image.size[0] == width and image.getbbox(), out
+            print(out.name, image.size, out.stat().st_size // 1024, "KB")
+        sys.exit()
     for width in (800, 1600):
         out = ROOT / f"cabina-halftone-{width}.png"
         image = halftone(width)

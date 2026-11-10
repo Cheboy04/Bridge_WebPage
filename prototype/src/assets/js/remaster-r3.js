@@ -15,4 +15,19 @@
     motion.addEventListener('change', sync);
     sync();
   });
+
+  // Video facade: the link is the no-JS fallback; a click swaps in the privacy-enhanced player and hands it focus.
+  document.querySelectorAll('[data-r3-video]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      const frame = document.createElement('iframe');
+      frame.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(link.dataset.r3Video)}?autoplay=1`;
+      frame.title = 'Bridge Traducciones: video institucional';
+      frame.allow = 'autoplay; encrypted-media; picture-in-picture';
+      frame.allowFullscreen = true;
+      frame.className = 'r3-video';
+      link.replaceWith(frame);
+      frame.focus();
+    });
+  });
 })();

@@ -245,3 +245,80 @@ a.r3-tile:hover .r3-tile-name {
 @keyframes r3-drift-x {
   to { transform: translateX(calc(-50% - 0.375rem)); }
 }
+
+/* Video chapter (spec §3.4): text first, a 16:9 player frame on Tinta */
+.r3-video-grid {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 64rem) {
+  .r3-video-grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 4rem;
+    align-items: center;
+  }
+}
+
+.r3-video-frame {
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--surface-raised);
+}
+
+.r3-video {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.r3-video img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: 85% 100%;
+}
+
+.r3-video-play {
+  position: absolute;
+  left: 1.5rem;
+  bottom: 1.5rem;
+  display: grid;
+  place-items: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: var(--radius-full);
+  background: var(--accent);
+  color: var(--accent-contrast);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.r3-video-label {
+  display: none;
+  position: absolute;
+  left: 6.5rem;
+  bottom: 2.6rem;
+  font: 600 var(--text-h4) / 1.2 var(--font-serif);
+}
+
+/* on phones the label would sit on the face; the button and its accessible name carry it */
+@media (min-width: 40rem) {
+  .r3-video-label { display: block; }
+}
+
+a.r3-video:is(:hover, :focus-visible) .r3-video-play {
+  transform: scale(1.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a.r3-video .r3-video-play {
+    transition: none;
+  }
+}

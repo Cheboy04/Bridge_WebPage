@@ -21,7 +21,7 @@ const chapters = (html) => html.split(/(?=<[^>]*data-remaster-beat=")/).slice(1)
 
 const story = {
   home: [
-    ['arrival', 'white'], ['relevance', 'bruma'], ['document-proof', 'white'], ['cabina-handoff', 'tinta'],
+    ['arrival', 'white'], ['video', 'tinta'], ['relevance', 'bruma'], ['document-proof', 'white'], ['cabina-handoff', 'tinta'], // video: BRG-84 §3.9
     ['proof-process', 'bruma'], ['why', 'blue'], ['guides', 'white'], ['close', 'tinta'], ['contact', 'bruma'],
   ],
   certified: [

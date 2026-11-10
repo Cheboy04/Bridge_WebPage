@@ -1,0 +1,7 @@
+<!-- Click-to-load video (BRG-84 §3.4). params: id (YouTube id), title. Without JS it is a plain link to the YouTube page.
+     remaster-r3.js swaps in a youtube-nocookie iframe on click: no request to a Google host before the visitor asks (ADR D8.5). -->
+<a class="r3-video" href="https://www.youtube.com/watch?v={{id}}" data-r3-video="{{id}}" aria-label="Reproducir video: {{title}}">
+  <img src="assets/photo/video-poster-800.png" srcset="assets/photo/video-poster-800.png 800w, assets/photo/video-poster-1600.png 1600w" sizes="(min-width: 64rem) 45vw, 100vw" width="800" height="721" loading="lazy" decoding="async" alt="">
+  <span class="r3-video-play" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M8 5.5v13l10.5-6.5z"/></svg></span>
+  <span class="r3-video-label" aria-hidden="true">Conozca Bridge</span>
+</a>

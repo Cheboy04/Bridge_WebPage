@@ -66,3 +66,19 @@ test('T2 each section shows its heading and first content in one 1440x900 viewpo
   }
   assert.deepEqual(problems, []);
 });
+
+test('T5 idioma=otro preselects Otro; unknown values are ignored', async () => {
+  const cases = [['otro', 'otro'], ['xyz', ''], ['%3Cb%3Ex', '']];
+  for (const [query, value] of cases) {
+    const tab = await open(`cotizacion-traduccion.html?idioma=${query}`);
+    assert.equal(await tab.locator('#idioma-origen').inputValue(), value, `?idioma=${query}`);
+    if (!value) assert.ok(await tab.locator('#prefill-nota').isHidden(), `?idioma=${query} shows no note`);
+    assert.equal(await tab.locator('#prefill-nota b, #prefill-nota img').count(), 0, `?idioma=${query} injects no markup`);
+    await tab.context().close();
+  }
+  for (const page of ['index.html', 'traduccion-certificada.html']) {
+    const tab = await open(page, { javaScriptEnabled: false });
+    assert.ok(await tab.locator('[data-list-object="lang-band"] li').count() > 0, `${page}: band renders without JS`);
+    await tab.context().close();
+  }
+});

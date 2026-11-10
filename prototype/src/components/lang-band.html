@@ -1,0 +1,27 @@
+<!-- Language band (BRG-84 §3.2). params: uid (unique per page), level (ask heading level, default 3).
+     Static copy of assets/data/languages.json minus Spanish; T3 keeps it in sync. Complete without JS. -->
+<div class="r3-lang-band">
+  <ul class="r3-lang-list" data-list-object="lang-band" aria-label="Idiomas que traducimos desde y hacia el español">
+    <li><span class="r3-lang-name">Inglés</span><span class="r3-lang-native" lang="en">English</span></li>
+    <li><span class="r3-lang-name">Francés</span><span class="r3-lang-native" lang="fr">Français</span></li>
+    <li><span class="r3-lang-name">Portugués</span><span class="r3-lang-native" lang="pt">Português</span></li>
+    <li><span class="r3-lang-name">Alemán</span><span class="r3-lang-native" lang="de">Deutsch</span></li>
+    <li><span class="r3-lang-name">Italiano</span><span class="r3-lang-native" lang="it">Italiano</span></li>
+    <li><span class="r3-lang-name">Chino</span><span class="r3-lang-native" lang="zh">中文</span></li>
+    <li><span class="r3-lang-name">Japonés</span><span class="r3-lang-native" lang="ja">日本語</span></li>
+    <li><span class="r3-lang-name">Ruso</span><span class="r3-lang-native" lang="ru">Русский</span></li>
+    <li><span class="r3-lang-name">Árabe</span><span class="r3-lang-native" lang="ar" dir="rtl">العربية</span></li>
+    <li><span class="r3-lang-name">Coreano</span><span class="r3-lang-native" lang="ko">한국어</span></li>
+    <li><span class="r3-lang-name">Neerlandés</span><span class="r3-lang-native" lang="nl">Nederlands</span></li>
+    <li><span class="r3-lang-name">Griego</span><span class="r3-lang-native" lang="el">Ελληνικά</span></li>
+    <li><span class="r3-lang-name">Kichwa</span><span class="r3-lang-native" lang="qu">Runa shimi</span></li>
+  </ul>
+  <div class="r3-lang-ask" role="group" aria-labelledby="lang-ask-{{uid}}">
+    <h{{level|3}} id="lang-ask-{{uid}}" class="t-h4">¿No ve su idioma?</h{{level|3}}>
+    <p class="text-muted">Escríbanos. Coordinamos otras combinaciones con traductores aliados. [validar con Bridge]</p>
+    <div class="flex flex-wrap gap-3">
+      <a class="btn btn-secondary" data-lang-ask="whatsapp" href="https://wa.me/593990000000?text=Hola%2C%20%C2%BFtrabajan%20con%20el%20idioma%20%E2%80%A6%3F" target="_blank" rel="noopener">Preguntar por WhatsApp<span class="sr-only"> (abre una pestaña nueva)</span></a>
+      <a class="link min-h-11 inline-flex items-center font-semibold" data-lang-ask="quote" href="cotizacion-traduccion.html?idioma=otro">Pedir cotización con «Otro» idioma</a>
+    </div>
+  </div>
+</div>

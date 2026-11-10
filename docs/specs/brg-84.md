@@ -118,6 +118,9 @@ Runner: `node --test` (`npm test` builds first). Contract tests in `prototype/te
 
 (Filled during implementation: the calls the agent took alone.)
 
+- **T1:** the Certified hero `h1` is `.r1-certified-title`; it shares the hero ceiling with `.r1-monument`. The booth image is capped to a 5:2 band at ≥ 64rem and both heroes are top-aligned (owner point 1).
+- **T3:** the band's chapter heading is "Traducimos su idioma" (monument with the `Idiomas` kicker); the ask heading takes the `level` param. Kichwa's native name is "Runa shimi" (example data). The dead checker code went with it: `sig-lang-checker.html`, the checker half of `sig-documento.js`/`.css` (the before/after half stays), the R2 live-pair JS and CSS. `?idioma=` only fills the origin select; `?origen=` still wins when both are present.
+
 ## 6. Spec change log
 
 - `2026-11-05` — created from the approved R3 design.

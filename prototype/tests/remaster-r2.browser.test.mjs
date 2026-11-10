@@ -64,21 +64,7 @@ test('decorations stay inside their section and amber stays on Tinta', async () 
   }
 });
 
-test('the pair headline follows the checker', async () => {
-  for (const page of ['index', 'traduccion-certificada']) {
-    const tab = await open(page);
-    const pair = tab.locator('[data-r2-pair]');
-    const origin = tab.locator('[data-lc-origen]');
-    await tab.waitForSelector('[data-lc-origen]:enabled');
-    assert.match(await pair.innerText(), /español\s*·+\s*inglés/i, `${page}: static pair`);
-    await origin.selectOption('fr');
-    await tab.locator('[data-lc-destino]').selectOption('es');
-    await tab.waitForFunction(() => /francés[\s·]+español/i.test(document.querySelector('[data-r2-pair]').textContent));
-    await tab.locator('[data-lc-swap]').click();
-    await tab.waitForFunction(() => /español[\s·]+francés/i.test(document.querySelector('[data-r2-pair]').textContent));
-    await tab.context().close();
-  }
-});
+// 'the pair headline follows the checker' was superseded by the R3 language band (BRG-84 §3.9).
 
 test('institution tabs work by keyboard', async () => {
   const tab = await open('traduccion-certificada');

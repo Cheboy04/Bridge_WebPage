@@ -141,20 +141,22 @@
     e.preventDefault(); const el = $(a.dataset.field); el.focus(); el.scrollIntoView({ block: 'center' });
   });
 
-  // ---- prefill from the URL: ?origen=xx&destino=yy&servicio=zz (language checker CTA, service pages). Unknown values are ignored. ----
+  // ---- prefill from the URL: ?origen=xx&destino=yy&servicio=zz (service pages), ?idioma=otro (language band). Unknown values are ignored. ----
   (() => {
     const q = new URLSearchParams(location.search), done = [];
-    const apply = (id, v) => {
+    // the options are the whitelist (languages.json codes plus "otro"); values are set with .value, never markup
+    const apply = (id, v, otro = false) => {
       const el = $(id);
-      if (!v || v === 'otro' || ![...el.options].some((o) => o.value === v)) return false;
+      if (!v || (v === 'otro' && !otro) || ![...el.options].some((o) => o.value === v)) return false;
       el.value = v; return true;
     };
-    const o = apply('idioma-origen', q.get('origen')), d = apply('idioma-destino', q.get('destino'));
+    const o = apply('idioma-origen', q.get('origen')) || apply('idioma-origen', q.get('idioma'), true), d = apply('idioma-destino', q.get('destino'));
     if (o && d && $('idioma-origen').value === $('idioma-destino').value) { $('idioma-destino').value = ''; }   // same language: keep origin only
     const s = apply('servicio', q.get('servicio'));
     const pair = o && $('idioma-destino').value;
     const note = $('prefill-nota');
-    if (o || d) note.querySelector('span').textContent = pair ? 'Hemos completado el par de idiomas que eligió. Puede cambiarlo si lo necesita.' : 'Hemos completado el idioma que eligió. Falta indicar el otro.';
+    if (o && $('idioma-origen').value === 'otro') note.querySelector('span').textContent = 'Marcamos «Otro». Indique el idioma en el mensaje y le respondemos.';
+    else if (o || d) note.querySelector('span').textContent = pair ? 'Hemos completado el par de idiomas que eligió. Puede cambiarlo si lo necesita.' : 'Hemos completado el idioma que eligió. Falta indicar el otro.';
     if (!(o || d) && s) note.querySelector('span').textContent = 'Hemos completado el servicio que eligió. Puede cambiarlo si lo necesita.';
     note.hidden = !(o || d || s);
   })();

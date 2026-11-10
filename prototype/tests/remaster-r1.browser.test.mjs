@@ -50,7 +50,8 @@ test('Certified slider is operable by drag label, buttons and keyboard', async (
   assert.ok(await tab.locator('[data-ba-howto]').isVisible(), 'how-to visible in slider mode');
 
   await range.focus();
-  await tab.keyboard.press('ArrowRight');
+  // ArrowLeft: the intro sweep may have parked the value at 100, where ArrowRight fires no input (BRG-84 deflake)
+  await tab.keyboard.press('ArrowLeft');
   assert.equal(await tab.getByText('Deslice', { exact: true }).isVisible(), false, 'label collapses after the first keyboard use');
 
   await tab.getByRole('button', { name: 'Original', exact: true }).click();

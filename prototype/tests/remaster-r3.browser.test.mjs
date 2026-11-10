@@ -132,3 +132,28 @@ test('T7 tiles move, pause on hover, focus and button, and stand still under red
     await still.context().close();
   }
 });
+
+test('T9 no YouTube request before the click; nocookie iframe after it', async () => {
+  const tab = await open('index.html');
+  const google = /youtube|ytimg|googlevideo|doubleclick/;
+  const hits = [];
+  tab.on('request', (r) => { if (google.test(r.url())) hits.push(r.url()); });
+  await tab.route(google, (route) => route.abort()); // hermetic: the iframe never really loads
+  await tab.reload();
+  const video = tab.locator('a.r3-video');
+  await video.scrollIntoViewIfNeeded();
+  await tab.waitForTimeout(300);
+  assert.deepEqual(hits, [], 'no request before the click');
+  await video.click();
+  const frame = tab.locator('[data-remaster-beat="video"] iframe');
+  assert.equal(await frame.count(), 1);
+  assert.match(await frame.getAttribute('src'), /^https:\/\/www\.youtube-nocookie\.com\/embed\/himqflZxhNs\?autoplay=1/);
+  assert.equal(await frame.getAttribute('title'), 'Bridge Traducciones: video institucional');
+  assert.ok(await frame.evaluate((el) => document.activeElement === el), 'focus moves to the player');
+  assert.ok(hits.every((u) => u.startsWith('https://www.youtube-nocookie.com/')), `only the nocookie host: ${hits}`);
+  await tab.context().close();
+
+  const still = await open('index.html', { javaScriptEnabled: false });
+  assert.equal(await still.locator('a.r3-video').getAttribute('href'), 'https://www.youtube.com/watch?v=himqflZxhNs');
+  await still.context().close();
+});

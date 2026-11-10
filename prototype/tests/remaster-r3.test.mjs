@@ -106,3 +106,20 @@ test('T6 hero holds six distinct tiles; copies are hidden and inert', () => {
   assert.doesNotMatch(hero, /class="r1-crossing"/, 'the crossing left the hero');
   assert.match(chapterOf(home, 'document-proof'), /class="r1-crossing"/, 'the crossing sits in Documentos exactos');
 });
+
+// ---- Task 5: video facade (spec §3.4) ----
+test('T8 video beat follows the hero, text first and poster second', () => {
+  const home = read('dist/index.html');
+  const beats = [...home.matchAll(/data-remaster-beat="([^"]+)"/g)].map(([, b]) => b);
+  assert.equal(beats[1], 'video', 'second beat is the video');
+  const video = chapterOf(home, 'video');
+  const link = video.match(/<a\b[^>]*class="r3-video"[^>]*>/)?.[0] ?? '';
+  assert.match(link, /href="https:\/\/www\.youtube\.com\/watch\?v=himqflZxhNs"/);
+  assert.match(link, /data-r3-video="himqflZxhNs"/);
+  assert.match(link, /aria-label="Reproducir video: Bridge Traducciones"/);
+  assert.ok(video.indexOf('<h2') < video.indexOf('class="r3-video"'), 'text block comes first');
+  const poster = video.slice(video.indexOf('class="r3-video"')).match(/<img\b[^>]*src="([^"]+)"/)?.[1] ?? '';
+  assert.match(poster, /^assets\/photo\/video-poster-\d+\.png$/, 'poster is local');
+  assert.match(video, /\[texto de Bridge\]/, 'copy is marked as a placeholder');
+  assert.doesNotMatch(video, /<iframe/, 'no iframe before the click');
+});

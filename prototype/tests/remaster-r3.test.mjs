@@ -71,3 +71,38 @@ test('T4 unknown-language asks route to WhatsApp and to the quote form with Otro
     assert.match(html, /<a[^>]*(?:data-lang-ask="quote"[^>]*href="cotizacion-traduccion\.html\?idioma=otro"|href="cotizacion-traduccion\.html\?idioma=otro"[^>]*data-lang-ask="quote")/, `${page}: quote ask`);
   }
 });
+
+// ---- Task 4: hero tiles (spec §3.3) ----
+const chapterOf = (html, beat) => html.split(/(?=<[^>]*data-remaster-beat=")/).find((c) => c.includes(`data-remaster-beat="${beat}"`)) ?? '';
+
+test('T6 hero holds six distinct tiles; copies are hidden and inert', () => {
+  const home = read('dist/index.html');
+  const hero = chapterOf(home, 'arrival');
+  assert.equal((home.match(/data-signature-moment="home-tiles"/g) ?? []).length, 1, 'tiles are the signature moment');
+  assert.match(hero, /class="r3-tiles"[^>]*data-r3-tiles|data-r3-tiles[^>]*class="r3-tiles"/);
+  assert.doesNotMatch(home, /data-signature-moment="home-crossing"/);
+
+  const tiles = [...hero.matchAll(/<(a|div)\b[^>]*\bclass="r3-tile\b[^"]*"[^>]*>/g)].map(([tag, name]) => ({ tag, name }));
+  const real = tiles.filter(({ tag }) => !/data-tile-copy/.test(tag));
+  const kind = (tag) => tag.match(/data-tile="([^"]+)"/)?.[1];
+  assert.deepEqual(real.map(({ tag }) => kind(tag)).sort(), ['certificacion', 'ia', 'interpretacion', 'profesionales', 'traduccion', 'volumen']);
+  for (const { tag, name } of real) {
+    const k = kind(tag);
+    if (k === 'traduccion') assert.match(tag, /^<a[^>]*href="traduccion-certificada\.html"/, k);
+    else if (k === 'interpretacion') assert.match(tag, /^<a[^>]*href="interpretacion-simultanea\.html"/, k);
+    else assert.equal(name, 'div', `${k} is not a link`);
+  }
+  const copies = tiles.filter(({ tag }) => /data-tile-copy/.test(tag));
+  assert.ok(copies.length >= 6, 'the loop has copies');
+  for (const { tag } of copies) {
+    assert.match(tag, /aria-hidden="true"/, tag);
+    assert.match(tag, /\binert\b/, tag);
+  }
+  for (const { tag } of tiles) {
+    const grounds = (tag.match(/class="([^"]*)"/)[1].match(/\b(?:bg-[\w-]+|mode-[\w-]+)/g) ?? []);
+    assert.equal(grounds.length, 1, `one ground per tile: ${tag}`);
+    assert.match(grounds[0], /^(?:bg-surface|bg-raised|mode-cabina|mode-bridge)$/, tag);
+  }
+  assert.doesNotMatch(hero, /class="r1-crossing"/, 'the crossing left the hero');
+  assert.match(chapterOf(home, 'document-proof'), /class="r1-crossing"/, 'the crossing sits in Documentos exactos');
+});

@@ -82,3 +82,53 @@ test('T5 idioma=otro preselects Otro; unknown values are ignored', async () => {
     await tab.context().close();
   }
 });
+
+test('T7 tiles move, pause on hover, focus and button, and stand still under reduced motion', async () => {
+  const cols = (tab) => tab.locator('.r3-tiles-col').evaluateAll((els) => els.map((el) => getComputedStyle(el)));
+  const states = (tab) => tab.locator('.r3-tiles-col').evaluateAll((els) => els.map((el) => getComputedStyle(el).animationPlayState));
+  const real = '.r3-tile:not([data-tile-copy])';
+
+  const tab = await open('index.html', { motion: 'no-preference' });
+  const pause = tab.locator('[data-r3-tiles-pause]');
+  assert.ok(await pause.isVisible(), 'pause button shown with JS and motion');
+  assert.ok((await tab.locator('.r3-tiles-col').evaluateAll((els) => els.map((el) => getComputedStyle(el).animationName))).every((n) => n !== 'none'), 'columns animate');
+  assert.ok((await states(tab)).every((s) => s === 'running'), 'running at rest');
+  await tab.locator(`${real}[data-tile="ia"]`).hover();
+  assert.ok((await states(tab)).every((s) => s === 'paused'), 'hover pauses');
+  await tab.mouse.move(5, 890);
+  await tab.locator(`${real}[data-tile="traduccion"]`).focus();
+  assert.ok((await states(tab)).every((s) => s === 'paused'), 'focus pauses');
+  await tab.evaluate(() => document.activeElement.blur());
+  assert.ok((await states(tab)).every((s) => s === 'running'), 'running again');
+  await pause.click();
+  await tab.mouse.move(5, 890);
+  await tab.evaluate(() => document.activeElement.blur());
+  assert.equal(await pause.getAttribute('aria-pressed'), 'true');
+  assert.ok((await states(tab)).every((s) => s === 'paused'), 'the button pauses');
+
+  // keyboard: each real tile link once, never a copy
+  await tab.locator('#hero-title').evaluate((el) => { el.tabIndex = -1; el.focus(); });
+  const reached = [];
+  for (let i = 0; i < 12; i++) {
+    await tab.keyboard.press('Tab');
+    const info = await tab.evaluate(() => {
+      const el = document.activeElement;
+      return { inHero: !!el.closest('[data-remaster-beat="arrival"]'), tile: el.dataset.tile ?? null, copy: el.closest('[data-tile-copy]') !== null };
+    });
+    if (!info.inHero) break;
+    assert.equal(info.copy, false, 'a copy took focus');
+    if (info.tile) reached.push(info.tile);
+  }
+  assert.deepEqual(reached, ['traduccion', 'interpretacion']);
+  await tab.context().close();
+
+  for (const [label, options] of [['reduced motion', { motion: 'reduce' }], ['no JS', { motion: 'no-preference', javaScriptEnabled: false }]]) {
+    const still = await open('index.html', options);
+    assert.ok((await cols(still)).every((s) => s.animationName === 'none'), `${label}: no animation`);
+    for (const t of await still.locator(real).all()) assert.ok(await t.isVisible(), `${label}: ${await t.getAttribute('data-tile')} visible`);
+    assert.equal(await still.locator(real).count(), 6);
+    assert.equal(await still.locator('[data-tile-copy]').first().isVisible(), false, `${label}: copies hidden`);
+    if (label === 'no JS') assert.equal(await still.locator('[data-r3-tiles-pause]').isVisible(), false, 'no pause button without JS');
+    await still.context().close();
+  }
+});

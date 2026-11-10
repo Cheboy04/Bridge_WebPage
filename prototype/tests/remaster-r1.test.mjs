@@ -38,7 +38,9 @@ test('Home follows the approved story with one signature moment', () => {
     'data-remaster-beat="proof-process"',
     'data-remaster-beat="close"',
   ]));
-  assert.equal(occurrences(home, 'data-signature-moment="home-crossing"'), 1);
+  // BRG-84 §3.9: the hero tiles are Home's signature moment; the crossing is a chapter element
+  assert.equal(occurrences(read('src/components/hero-tiles.html'), 'data-signature-moment="home-tiles"'), 1);
+  assert.equal(occurrences(home, '@include hero-tiles'), 1);
   assert.ok(home.indexOf('data-remaster-beat="document-proof"') < home.indexOf('data-remaster-beat="cabina-handoff"'));
   assert.equal(occurrences(home, '@include lang-band'), 1); // BRG-84 §3.9: the band replaces the pair checker
   assert.equal(occurrences(home, '<img'), 1, 'Home uses the booth image once');
@@ -89,24 +91,7 @@ test('R1 styles stay page scoped and support reflow', () => {
   assert.doesNotMatch(css, /font-family\s*:\s*["']?(?:Literata|Manrope)/i);
 });
 
-test('Home arrival progressively enhances to a static accessible end state', () => {
-  const js = read('src/assets/js/remaster-home.js');
-  const css = read('src/styles/remaster-r1.css');
-  assert.equal(occurrences(home, 'assets/js/remaster-home.js'), 1);
-  assert.match(home, /data-arrival-state="complete"/);
-  assert.match(home, /<button[^>]*type="button"[^>]*data-arrival-skip/);
-  assert.match(home, /<button[^>]*type="button"[^>]*data-arrival-replay/);
-  assert.match(js, /bridge-remaster-arrival-seen/);
-  assert.match(js, /prefers-reduced-motion:\s*reduce/);
-  assert.match(js, /replay\.hidden = reducedMotion\.matches/);
-  assert.match(js, /replay\.hidden \? fallback : replay/);
-  assert.match(js, /\.focus\(\)/);
-  assert.match(css, /@media \(prefers-reduced-motion: reduce\)/);
-  const keyframes = css.match(/@keyframes r1-arrival[\s\S]*?\n\}/)?.[0] ?? '';
-  assert.match(keyframes, /opacity/);
-  assert.match(keyframes, /transform/);
-  assert.doesNotMatch(keyframes, /(?:width|height|top|left|margin|padding)\s*:/);
-});
+// 'Home arrival progressively enhances…' was superseded: the crossing replay left with the crossing (BRG-84 §3.9).
 
 test('built remaster keeps semantic and disclosure safeguards', () => {
   for (const [name, built] of [['Home', read('dist/index.html')], ['Certified', read('dist/traduccion-certificada.html')]]) {

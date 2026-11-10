@@ -18,9 +18,30 @@
   max-width: 38ch;
 }
 
+/* the crossing left the hero for "Documentos exactos" (spec §3.3): it sits beside the rows, not over the hero copy */
+.r3-docproof-grid {
+  display: grid;
+  gap: 2.5rem;
+}
+
 @media (min-width: 64rem) {
+  /* the tiles take half the hero; the R1 7/5 split was sized for the crossing */
+  .page-home-r1 .r1-arrival-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .page-home-r1 .r3-ledger-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .r3-docproof-grid {
+    grid-template-columns: minmax(0, 7fr) minmax(20rem, 5fr);
+    gap: 4rem;
+    align-items: start;
+  }
+
   .page-home-r1 .r1-crossing {
-    margin-top: 0;
+    margin: 0;
   }
 }
 
@@ -71,4 +92,156 @@
   gap: 0.75rem;
   max-width: 46rem;
   margin-top: 2.5rem;
+}
+
+/* Hero tiles (spec §3.3). At rest: a static grid of the six tiles, copies hidden.
+   remaster-r3.js sets [data-r3-moving] when motion is allowed: copies show and each column (a row below 64rem) loops. */
+.r3-tiles {
+  display: grid;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.r3-tiles-track {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.r3-tiles-col {
+  display: grid;
+  gap: 0.75rem;
+  align-content: start;
+}
+
+.r3-tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 9.5rem;
+  padding: 1.25rem;
+  border-radius: var(--radius-card);
+  color: var(--text);
+  text-decoration: none;
+  overflow: hidden;
+}
+
+.r3-tile.bg-raised {
+  background-color: var(--surface-raised);
+}
+
+.r3-tile[data-tile-copy] {
+  display: none;
+}
+
+.r3-tile-name {
+  font: 600 var(--text-h4) / 1.25 var(--font-serif);
+  text-wrap: balance;
+}
+
+a.r3-tile .r3-tile-name {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+a.r3-tile:hover .r3-tile-name {
+  text-decoration-thickness: 2px;
+}
+
+/* brand marks in place of photos (spec §5): text pair, dot field, halftone booth, dotted seal ring, stacked sheets */
+.r3-tile-mark {
+  display: block;
+  min-height: 3rem;
+  font: 700 var(--text-small) / 1 var(--font-sans);
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+[data-tile="ia"] .r3-tile-mark {
+  background: radial-gradient(circle at 4px 4px, var(--trail) 2px, transparent 2.5px) 0 0 / 12px 12px;
+  mask-image: linear-gradient(to right, var(--text), transparent 70%);
+}
+
+[data-tile="interpretacion"] .r3-tile-mark {
+  min-height: 4rem;
+  margin: -1.25rem -1.25rem 0;
+  background: url("photo/cabina-halftone-800.png") 50% 45% / cover no-repeat;
+}
+
+[data-tile="certificacion"] .r3-tile-mark {
+  width: 3rem;
+  border: 3px dotted var(--trail);
+  border-radius: var(--radius-full);
+}
+
+[data-tile="volumen"] .r3-tile-mark {
+  width: 2.25rem;
+  min-height: 2.75rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  box-shadow: 0.35rem -0.35rem 0 -1px var(--surface), 0.35rem -0.35rem 0 0 var(--border-strong), 0.7rem -0.7rem 0 -1px var(--surface), 0.7rem -0.7rem 0 0 var(--border-strong);
+  margin-top: 0.7rem;
+}
+
+.r3-tiles-pause {
+  justify-self: start;
+}
+
+.r3-tiles-pause[hidden] {
+  display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .r3-tiles[data-r3-moving] .r3-tile[data-tile-copy] {
+    display: flex;
+  }
+
+  .r3-tiles[data-r3-moving] .r3-tiles-track {
+    grid-template-columns: minmax(0, 1fr);
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, var(--text) 6%, var(--text) 94%, transparent);
+  }
+
+  /* below 64rem each column is a row drifting sideways */
+  .r3-tiles[data-r3-moving] .r3-tiles-col {
+    grid-auto-flow: column;
+    grid-auto-columns: 11.5rem;
+    width: max-content;
+    animation: r3-drift-x 36s linear infinite;
+  }
+
+  .r3-tiles[data-r3-moving] .r3-tiles-col + .r3-tiles-col {
+    animation-duration: 44s;
+    animation-direction: reverse;
+  }
+
+  .r3-tiles[data-r3-moving]:is(:hover, :focus-within, [data-paused]) .r3-tiles-col {
+    animation-play-state: paused;
+  }
+
+  @media (min-width: 64rem) {
+    .r3-tiles[data-r3-moving] .r3-tiles-track {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      height: 33rem;
+      mask-image: linear-gradient(transparent, var(--text) 7%, var(--text) 93%, transparent);
+    }
+
+    .r3-tiles[data-r3-moving] .r3-tiles-col {
+      grid-auto-flow: row;
+      grid-auto-columns: auto;
+      width: auto;
+      animation-name: r3-drift-y;
+    }
+  }
+}
+
+/* a column holds its tiles twice; moving it by half (plus half a gap) lands the copies exactly where the originals were */
+@keyframes r3-drift-y {
+  to { transform: translateY(calc(-50% - 0.375rem)); }
+}
+
+@keyframes r3-drift-x {
+  to { transform: translateX(calc(-50% - 0.375rem)); }
 }

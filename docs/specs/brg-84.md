@@ -86,6 +86,8 @@ Superseded assertions are edited in the same commit as the code that supersedes 
 - BRG-81 language-pair assertions (`[data-r2-pair]`, `sig-lang-checker`): replaced by §3.2.
 - R1/R2 monument `clamp()` maxima above the §3.1 ceiling.
 - BRG-81 `listObjects.certified`: `samples` added; language band replaces the pair.
+- BRG-81 browser test "the pair headline follows the checker": removed with the checker (Task 3).
+- BRG-68 `home-crossing` signature moment, "Home arrival progressively enhances…" and the arrival-state browser check: replaced by the tiles (Task 4).
 
 ## 4. Acceptance criteria → tests
 
@@ -120,6 +122,7 @@ Runner: `node --test` (`npm test` builds first). Contract tests in `prototype/te
 
 - **T1:** the Certified hero `h1` is `.r1-certified-title`; it shares the hero ceiling with `.r1-monument`. The booth image is capped to a 5:2 band at ≥ 64rem and both heroes are top-aligned (owner point 1).
 - **T3:** the band's chapter heading is "Traducimos su idioma" (monument with the `Idiomas` kicker); the ask heading takes the `level` param. Kichwa's native name is "Runa shimi" (example data). The dead checker code went with it: `sig-lang-checker.html`, the checker half of `sig-documento.js`/`.css` (the before/after half stays), the R2 live-pair JS and CSS. `?idioma=` only fills the origin select; `?origen=` still wins when both are present.
+- **T6–T7:** the tiles carry brand marks on Bridge grounds instead of stock photos (design §4.2 allows "photo or brand mark"; the agent's stock search tools were blocked or returned noise, and the client's own photos replace either). Interpretación reuses the booth halftone. Below 64rem each column becomes a row drifting sideways (two rows, opposite directions) rather than one row. The hero splits 6/6 at ≥ 64rem. The crossing is static in "Documentos exactos"; its replay (`remaster-home.js`, skip/replay buttons, `r1-arrival` keyframes) was removed with it, so Home has one signature moment. "Por qué Bridge" drops "Dos servicios, un equipo" (the hero lead and the tiles say it); the ATA item stays because the tile shows only the mark.
 
 ## 6. Spec change log
 

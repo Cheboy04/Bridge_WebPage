@@ -78,9 +78,5 @@ test('reduced motion shows both sheets and no drag instruction', async () => {
   assert.equal(await tab.locator('[data-ba-jump]').first().isVisible(), false);
   assert.equal(await tab.locator('[data-ba-howto]').isVisible(), false);
   await tab.context().close();
-
-  const home = await open('index');
-  assert.equal(await home.locator('[data-arrival]').getAttribute('data-arrival-state'), 'complete');
-  assert.equal(await home.locator('[data-arrival-skip]').isVisible(), false);
-  await home.context().close();
+  // the Home arrival replay checks were superseded with the crossing's move (BRG-84 §3.9)
 });

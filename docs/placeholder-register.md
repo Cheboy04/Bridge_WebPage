@@ -54,7 +54,7 @@ It merges and replaces three earlier lists: the open items of the old `docs/ARCH
 | 32 | Text of the six hero tiles (translation, interpretation, AI, certification and notarisation, large-volume projects, certified professionals) | `[texto de Bridge]` | CMS | P4 | Open (client writes it) |
 | 33 | Text beside the institutional video; a video with the refreshed logo | `[texto de Bridge]`; current video shows the old logo | CMS / Bridge's YouTube channel | P4 (text), P7 (video) | Open |
 | 34 | Redacted certified-translation samples (2–3) | three drawn placeholder sheets `[muestra de Bridge, documento anonimizado]` | media library | P4 | Open |
-| 35 | Photos for the hero tiles and the Interpretation hero | free-licence stock photos (sources listed in `prototype/src/assets/photo/CREDITS.md`) | media library | P7 | Open |
+| 35 | Photos for the hero tiles and the Interpretation hero | hero tiles: brand marks on Bridge grounds, Interpretación reuses the booth halftone (BRG-84 §5, no stock photos); Interpretation hero: see BRG-84 Task 7 | media library | P7 | Open |
 | 36 | Blog posts, FAQ answers (translation, quotes) | placeholder posts and answers | CMS | P4 (content load) | Open |
 | 37 | Contact page: map link, hours, address | static map placeholder + rows #5, #6 | `Settings` | P7 | Open |
 

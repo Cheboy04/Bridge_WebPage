@@ -93,7 +93,7 @@ test('T7 tiles move, pause on hover, focus and button, and stand still under red
   assert.ok(await pause.isVisible(), 'pause button shown with JS and motion');
   assert.ok((await tab.locator('.r3-tiles-col').evaluateAll((els) => els.map((el) => getComputedStyle(el).animationName))).every((n) => n !== 'none'), 'columns animate');
   assert.ok((await states(tab)).every((s) => s === 'running'), 'running at rest');
-  await tab.locator(`${real}[data-tile="ia"]`).hover();
+  await tab.locator(`${real}[data-tile="ia"]`).hover({ force: true }); // a moving tile is never "stable"
   assert.ok((await states(tab)).every((s) => s === 'paused'), 'hover pauses');
   await tab.mouse.move(5, 890);
   await tab.locator(`${real}[data-tile="traduccion"]`).focus();

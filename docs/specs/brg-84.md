@@ -86,6 +86,7 @@ Superseded assertions are edited in the same commit as the code that supersedes 
 - BRG-81 language-pair assertions (`[data-r2-pair]`, `sig-lang-checker`): replaced by §3.2.
 - R1/R2 monument `clamp()` maxima above the §3.1 ceiling.
 - BRG-81 `listObjects.certified`: `samples` added; language band replaces the pair.
+- BRG-81 `story.certified`: `samples` (white) added after `documents` (Task 6).
 - BRG-81 browser test "the pair headline follows the checker": removed with the checker (Task 3).
 - BRG-81 `story.home`: `video` (Tinta) added after `arrival` (Task 5).
 - BRG-68 `home-crossing` signature moment, "Home arrival progressively enhances…" and the arrival-state browser check: replaced by the tiles (Task 4).

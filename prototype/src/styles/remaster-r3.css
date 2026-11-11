@@ -322,3 +322,33 @@ a.r3-video:is(:hover, :focus-visible) .r3-video-play {
     transition: none;
   }
 }
+
+/* certified samples (spec §3.5): three small sheets, stacked on phones, a row from 64rem */
+.r3-samples-grid {
+  display: grid;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.r3-sample {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.page-certified-r1 .r3-sample-sheet {
+  min-height: 0;
+}
+
+@media (min-width: 64rem) {
+  /* subgrid: the three sheets share one height and the captions one baseline */
+  .r3-samples-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: auto auto;
+  }
+
+  .r3-sample {
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+  }
+}

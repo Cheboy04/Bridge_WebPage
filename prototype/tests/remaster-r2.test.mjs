@@ -25,13 +25,13 @@ const story = {
     ['proof-process', 'bruma'], ['why', 'blue'], ['guides', 'white'], ['close', 'tinta'], ['contact', 'bruma'],
   ],
   certified: [
-    ['arrival', 'white'], ['transformation', 'tinta'], ['fit-proof', 'white'], ['documents', 'bruma'], ['price', 'blue'],
+    ['arrival', 'white'], ['transformation', 'tinta'], ['fit-proof', 'white'], ['documents', 'bruma'], ['samples', 'white'], ['price', 'blue'], // samples: BRG-84 §3.5
     ['languages', 'white'], ['faq', 'bruma'], ['related', 'white'], ['process', 'bruma'], ['close', 'tinta'], ['contact', 'white'],
   ],
 };
 const listObjects = {
   home: ['active-rows', 'sticky-sheet', 'plates'],
-  certified: ['index-tabs', 'type-wall', 'active-rows', 'plates', 'sticky-sheet'],
+  certified: ['index-tabs', 'type-wall', 'samples', 'active-rows', 'plates', 'sticky-sheet'],
 };
 
 // WCAG 2.x relative luminance and contrast

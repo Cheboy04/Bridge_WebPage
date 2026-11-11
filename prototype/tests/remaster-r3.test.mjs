@@ -153,3 +153,52 @@ test('T11 interpretation drops the comparison and FAQ, keeps the planner, links 
   assert.match(hero, /src="assets\/photo\/interpretacion-800\.webp"/, 'hero is the new photo');
   assert.match(hero, /alt="[^"]+"/, 'hero photo has alt text');
 });
+
+// ---- Task 8: quote flow (spec §3.7) ----
+const optionValues = (html, id) => [...(html.match(new RegExp(`<select[^>]*id="${id}"[^>]*>([\\s\\S]*?)</select>`))?.[1] ?? '').matchAll(/<option value='?"?([^'">]*)/g)].map(([, v]) => v);
+const quotePages = ['cotizacion.html', 'cotizacion-traduccion.html', 'cotizacion-interpretacion.html', 'cotizacion-gracias.html'];
+
+test('T12 both forms offer the languages.json list', () => {
+  const codes = languages().map((l) => l.code);
+  const tr = read('dist/cotizacion-traduccion.html');
+  for (const id of ['idioma-origen', 'idioma-destino']) assert.deepEqual(optionValues(tr, id), ['', ...codes, 'otro'], id);
+  const ev = read('dist/cotizacion-interpretacion.html');
+  const fieldset = ev.match(/<fieldset[^>]*id="lenguas"[\s\S]*?<\/fieldset>/)?.[0] ?? '';
+  const checks = [...fieldset.matchAll(/<input[^>]*type="checkbox"[^>]*>/g)].map(([tag]) => tag.match(/value="([^"]*)"/)?.[1]);
+  assert.deepEqual(checks, [...codes.filter((c) => c !== 'es'), 'otro']);
+});
+
+test('T13 event form has no language count; the language fieldset is required', () => {
+  const ev = read('dist/cotizacion-interpretacion.html');
+  assert.ok(ev.includes('id="quote-form"'), 'page built');
+  assert.doesNotMatch(ev, /<select[^>]*id="idiomas"/);
+  assert.match(ev, /<fieldset[^>]*id="lenguas"/);
+  assert.match(ev, /id="lenguas-err"/, 'the fieldset has an error slot');
+});
+
+test('T14 translation service list has no notarised option; volume is optional', () => {
+  const tr = read('dist/cotizacion-traduccion.html');
+  assert.deepEqual(optionValues(tr, 'servicio'), ['', 'certificada', 'legal', 'escrita', 'orientacion']);
+  const volumen = tr.match(/<(?:input|textarea)[^>]*id="volumen"[^>]*>/)?.[0];
+  assert.ok(volumen, '#volumen exists');
+  assert.doesNotMatch(volumen, /\brequired\b/);
+});
+
+test('T15 forms share one aside style and token radii', () => {
+  const aside = (html) => html.match(/<section[^>]*aria-labelledby="aside-title"[^>]*>\s*<div class="([^"]+)"/)?.[1];
+  const tr = aside(read('dist/cotizacion-traduccion.html')), ev = aside(read('dist/cotizacion-interpretacion.html'));
+  assert.ok(tr, 'translation aside found');
+  assert.equal(ev, tr);
+  for (const page of quotePages) assert.doesNotMatch(read(`src/pages/${page}`), /rounded-\[var\(/, page);
+  const consent = read('dist/cotizacion-interpretacion.html').match(/<label[^>]*for="consentimiento"[\s\S]*?<\/label>/)?.[0] ?? '';
+  assert.ok(consent, 'consent label found');
+  assert.doesNotMatch(consent, /archivos/);
+});
+
+test('T17 chooser offers a quieter third route to Contacto', () => {
+  const html = read('dist/cotizacion.html');
+  const link = html.match(/<a\b[^>]*href="contacto\.html"[^>]*>([\s\S]*?)<\/a>/);
+  assert.ok(link, 'link to contacto.html');
+  assert.match(link[1].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' '), /¿Proyecto grande o con IA\? Escríbanos/);
+  assert.doesNotMatch(link[0], /svc-link/, 'not a service card');
+});

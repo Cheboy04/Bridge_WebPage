@@ -157,3 +157,41 @@ test('T9 no YouTube request before the click; nocookie iframe after it', async (
   assert.equal(await still.locator('a.r3-video').getAttribute('href'), 'https://www.youtube.com/watch?v=himqflZxhNs');
   await still.context().close();
 });
+
+// ---- Task 8: quote flow (spec §3.7) ----
+test('T13 event form needs at least one language; two languages pass', async () => {
+  const fill = async (tab) => {
+    await tab.fill('#nombre', 'Ana Prueba'); await tab.fill('#email', 'ana@example.com');
+    await tab.selectOption('#servicio', 'simultanea'); await tab.selectOption('#modalidad', 'presencial');
+    await tab.selectOption('#duracion', 'jornada'); await tab.fill('#asistentes', '80'); await tab.check('#consentimiento');
+  };
+  let tab = await open('cotizacion-interpretacion.html');
+  await fill(tab);
+  await tab.click('#enviar');
+  assert.ok(await tab.locator('#error-summary').isVisible(), 'summary shows');
+  assert.deepEqual(await tab.locator('#error-summary-list a').evaluateAll((as) => as.map((a) => a.dataset.field)), ['lenguas']);
+  await tab.context().close();
+  tab = await open('cotizacion-interpretacion.html');
+  await fill(tab);
+  await tab.check('#lang-en'); await tab.check('#lang-fr');
+  await Promise.all([tab.waitForURL(/cotizacion-gracias\.html\?servicio=interpretacion$/), tab.click('#enviar')]);
+  await tab.context().close();
+});
+
+test('T16 thank-you text follows the service; unknown values fall back', async () => {
+  const text = async (query) => {
+    const tab = await open(`cotizacion-gracias.html${query}`);
+    const out = { body: await tab.locator('main').innerText(), imgs: await tab.locator('main img').count() };
+    await tab.context().close();
+    return out;
+  };
+  const ev = await text('?servicio=interpretacion');
+  assert.match(ev.body, /su evento/); assert.doesNotMatch(ev.body, /documentos que adjuntó/);
+  const tr = await text('?servicio=traduccion');
+  assert.match(tr.body, /documentos/);
+  const generic = await text('');
+  const hostile = await text('?servicio=%3Cimg%20src%3Dx%3E');
+  assert.equal(hostile.body, generic.body, 'unknown value shows the generic text');
+  assert.equal(hostile.imgs, generic.imgs, 'no markup injected');
+  assert.doesNotMatch(generic.body, /documentos que adjuntó|su evento/, 'generic text names neither service');
+});

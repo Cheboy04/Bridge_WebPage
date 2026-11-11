@@ -123,3 +123,19 @@ test('T8 video beat follows the hero, text first and poster second', () => {
   assert.match(video, /\[texto de Bridge\]/, 'copy is marked as a placeholder');
   assert.doesNotMatch(video, /<iframe/, 'no iframe before the click');
 });
+
+// ---- Task 6: certified samples (spec §3.5) ----
+test('T10 certified page shows three marked sample documents', () => {
+  const cert = read('dist/traduccion-certificada.html');
+  const beats = [...cert.matchAll(/data-remaster-beat="([^"]+)"/g)].map(([, b]) => b);
+  assert.equal(beats[beats.indexOf('documents') + 1], 'samples', 'samples follow documents');
+  const figures = [...chapterOf(cert, 'samples').matchAll(/<figure\b[^>]*data-certified-sample[^>]*>([\s\S]*?)<\/figure>/g)].map(([, body]) => body);
+  assert.equal(figures.length, 3);
+  for (const body of figures) {
+    assert.match(body, /aria-label="Sello de certificación/, 'each sample carries the seal');
+    assert.match(body.match(/<figcaption[^>]*>([\s\S]*?)<\/figcaption>/)?.[1] ?? '', /\[muestra de Bridge, documento anonimizado\]/);
+    const text = body.replace(/<[^>]+>/g, ' ');
+    const runs = (text.match(/\d{3,}/g) ?? []).filter((r) => r !== '0000');
+    assert.deepEqual(runs, [], 'no real-looking numbers in a sample');
+  }
+});

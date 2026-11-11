@@ -150,13 +150,11 @@ a.r3-tile:hover .r3-tile-name {
   text-decoration-thickness: 2px;
 }
 
-/* brand marks in place of photos (spec §5): text pair, dot field, halftone booth, dotted seal ring, stacked sheets */
+/* tile marks (spec §5): halftone photos used as masks, so the dots take each ground's --trail
+   (blue on Bruma, amber on Tinta, white on blue); IA keeps the brand dot field. Sources: placeholder register #35 */
 .r3-tile-mark {
   display: block;
   min-height: 3rem;
-  font: 700 var(--text-small) / 1 var(--font-sans);
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
 }
 
 [data-tile="ia"] .r3-tile-mark {
@@ -164,26 +162,18 @@ a.r3-tile:hover .r3-tile-name {
   mask-image: linear-gradient(to right, var(--text), transparent 70%);
 }
 
-[data-tile="interpretacion"] .r3-tile-mark {
-  min-height: 4rem;
+.r3-tile:not([data-tile="ia"]) .r3-tile-mark {
+  min-height: 5.5rem;
   margin: -1.25rem -1.25rem 0;
-  background: url("photo/cabina-halftone-800.png") 50% 45% / cover no-repeat;
+  background-color: var(--trail);
+  mask: var(--tile-photo) 50% 50% / cover no-repeat;
 }
 
-[data-tile="certificacion"] .r3-tile-mark {
-  width: 3rem;
-  border: 3px dotted var(--trail);
-  border-radius: var(--radius-full);
-}
-
-[data-tile="volumen"] .r3-tile-mark {
-  width: 2.25rem;
-  min-height: 2.75rem;
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-sm);
-  box-shadow: 0.35rem -0.35rem 0 -1px var(--surface), 0.35rem -0.35rem 0 0 var(--border-strong), 0.7rem -0.7rem 0 -1px var(--surface), 0.7rem -0.7rem 0 0 var(--border-strong);
-  margin-top: 0.7rem;
-}
+[data-tile="traduccion"] { --tile-photo: url("photo/tile-traduccion-600.png"); }
+[data-tile="interpretacion"] { --tile-photo: url("photo/tile-interpretacion-600.png"); }
+[data-tile="certificacion"] { --tile-photo: url("photo/tile-certificacion-600.png"); }
+[data-tile="volumen"] { --tile-photo: url("photo/tile-volumen-600.png"); }
+[data-tile="profesionales"] { --tile-photo: url("photo/tile-profesionales-600.png"); }
 
 .r3-tiles-pause {
   justify-self: start;

@@ -54,13 +54,14 @@ It merges and replaces three earlier lists: the open items of the old `docs/ARCH
 | 32 | Text of the six hero tiles (translation, interpretation, AI, certification and notarisation, large-volume projects, certified professionals) | `[texto de Bridge]` | CMS | P4 | Open (client writes it) |
 | 33 | Text beside the institutional video; a video with the refreshed logo | `[texto de Bridge]`; current video shows the old logo | CMS / Bridge's YouTube channel | P4 (text), P7 (video) | Open |
 | 34 | Redacted certified-translation samples (2–3) | three drawn placeholder sheets `[muestra de Bridge, documento anonimizado]` | media library | P4 | Open |
-| 35 | Photos for the hero tiles and the Interpretation hero | hero tiles: brand marks on Bridge grounds, Interpretación reuses the booth halftone (BRG-84 §5, no stock photos); Interpretation hero: "Interpretation booth at the 2018 G7 Environment Ministers Meeting in Halifax", Indrid Cold, Wikimedia Commons, CC BY-SA 2.0 (credit in the figcaption; derivative crops stay CC BY-SA) | media library | P7 | Open |
+| 35 | Photos for the hero tiles and the Interpretation hero | hero tiles: halftone masks of free Unsplash photos — Traducción `333oj7zFsdg` (lilartsy), Certificación `7PMGUqYQpYc` (Markus Spiske), Volumen `snNHKZ-mGfE` (Wesley Tingey), Profesionales `wR56AUlEsE4` (Andreea Avramescu), Interpretación = the Commons photo below; IA keeps the brand dot field; Interpretation hero: "Interpretation booth at the 2018 G7 Environment Ministers Meeting in Halifax", Indrid Cold, Wikimedia Commons, CC BY-SA 2.0 (credit in the figcaption; derivative crops stay CC BY-SA) | media library | P7 | Open |
 | 36 | Blog posts, FAQ answers (translation, quotes) | placeholder posts and answers | CMS | P4 (content load) | Open |
 | 37 | Contact page: map link, hours, address | static map placeholder + rows #5, #6 | `Settings` | P7 | Open |
 
 ## Change log
 
 - `2026-11-11` — row #35: Interpretation hero is a CC BY-SA 2.0 Commons photo (BRG-84 Task 7); replace with Bridge's own photos before P7.
+- `2026-11-11` — row #35: hero tiles get halftone stock photos (Unsplash License, ids in the row).
 - `2026-11-05` — rows #31–#37 added (BRG-84 R3: hero message, tiles, video, samples, stock photos, blog/FAQ, contact page).
 - `2026-10-19` — rows #14 and #30 answered by the owner: 90 days for leads and attachments.
 - `2026-10-19` — row #30 added (brg-36 ERD, `docs/erd/modelo-leads-settings.md` §9 Q-B).

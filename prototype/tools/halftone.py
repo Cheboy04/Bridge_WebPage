@@ -55,6 +55,17 @@ if __name__ == "__main__":
             assert image.size[0] == width and image.getbbox(), out
             print(out.name, image.size, out.stat().st_size // 1024, "KB")
         sys.exit()
+    if sys.argv[1:2] == ["--tile"]:
+        # BRG-84 hero tiles: python tools/halftone.py --tile <photo> <name> <x0> <y0> <x1> <y1>
+        # writes tile-<name>-600.png; the page uses it as a CSS mask, so the dot colour follows the tile's --trail
+        photo, name = Path(sys.argv[2]), sys.argv[3]
+        crop = tuple(int(v) for v in sys.argv[4:8])
+        out = ROOT / f"tile-{name}-600.png"
+        image = halftone(600, photo, crop, pitch=max(4, (crop[2] - crop[0]) // 150))  # ~150 dots across, as fine as the booth halftone
+        image.save(out, optimize=True)
+        assert image.size[0] == 600 and image.getbbox(), out
+        print(out.name, image.size, out.stat().st_size // 1024, "KB")
+        sys.exit()
     for width in (800, 1600):
         out = ROOT / f"cabina-halftone-{width}.png"
         image = halftone(width)

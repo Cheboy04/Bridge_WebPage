@@ -139,3 +139,17 @@ test('T10 certified page shows three marked sample documents', () => {
     assert.deepEqual(runs, [], 'no real-looking numbers in a sample');
   }
 });
+
+// ---- Task 7: interpretation trims and photo (spec §3.6) ----
+test('T11 interpretation drops the comparison and FAQ, keeps the planner, links to the FAQ page', () => {
+  const page = read('dist/interpretacion-simultanea.html');
+  const h2s = [...page.matchAll(/<h2\b[^>]*>([\s\S]*?)<\/h2>/g)].map(([, t]) => t);
+  assert.ok(h2s.length > 0, 'page built');
+  assert.ok(!h2s.some((t) => /consecutiva/i.test(t)), 'no simultaneous-vs-consecutive section');
+  assert.doesNotMatch(page, /class="[^"]*\bfaq\b|<details\b/, 'no FAQ accordion');
+  assert.match(page, /id="planificador"/);
+  assert.match(page, /href="preguntas-frecuentes\.html#interpretacion"/);
+  const hero = page.match(/<img\b[^>]*fetchpriority="high"[^>]*>/)?.[0] ?? '';
+  assert.match(hero, /src="assets\/photo\/interpretacion-800\.webp"/, 'hero is the new photo');
+  assert.match(hero, /alt="[^"]+"/, 'hero photo has alt text');
+});

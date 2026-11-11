@@ -134,7 +134,7 @@
     }
     summary.hidden = true;
     submitBtn.disabled = true; submitBtn.querySelector('span').textContent = 'Enviando…'; status.textContent = 'Enviando su solicitud…';
-    setTimeout(() => { location.href = 'cotizacion-gracias.html'; }, 700);   // prototype: simulated success
+    setTimeout(() => { location.href = 'cotizacion-gracias.html?servicio=traduccion'; }, 700);   // prototype: simulated success
   });
   summary.addEventListener('click', (e) => {
     const a = e.target.closest('a[data-field]'); if (!a) return;

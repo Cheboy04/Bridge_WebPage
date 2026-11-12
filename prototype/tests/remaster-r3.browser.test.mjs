@@ -178,6 +178,37 @@ test('T13 event form needs at least one language; two languages pass', async () 
   await tab.context().close();
 });
 
+test('T13 leaving the language group empty shows its error on every checkbox', async () => {
+  const tab = await open('cotizacion-interpretacion.html');
+  await tab.evaluate(() => [...document.querySelectorAll('#lenguas input')].pop().focus());
+  await tab.keyboard.press('Tab');
+  assert.match(await tab.locator('#lenguas-err').innerText(), /al menos un idioma/, 'error on leaving the group');
+  const boxes = await tab.locator('#lenguas input').evaluateAll((is) => is.map((i) => [i.getAttribute('aria-invalid'), i.getAttribute('aria-describedby')]));
+  for (const [invalid, describedby] of boxes) {
+    assert.equal(invalid, 'true');
+    assert.match(describedby, /\blenguas-err\b/);
+  }
+  await tab.check('#lang-en');
+  assert.equal(await tab.locator('#lenguas-err').innerText(), '', 'cleared by a check');
+  await tab.uncheck('#lang-en');
+  assert.match(await tab.locator('#lenguas-err').innerText(), /al menos un idioma/, 'back on uncheck');
+  await tab.context().close();
+});
+
+// ---- Task 9: contact form (spec §3.8) ----
+test('T19 contact form checks required fields and confirms in place', async () => {
+  const tab = await open('contacto.html');
+  await tab.click('#contact-form button[type="submit"]');
+  assert.ok(await tab.locator('#contact-form').isVisible(), 'empty form stays');
+  assert.ok(await tab.locator('#contact-sent').isHidden());
+  await tab.fill('#nombre', 'Ana Prueba'); await tab.fill('#mensaje', 'Hola'); await tab.check('#consentimiento');
+  await tab.click('#contact-form button[type="submit"]');
+  assert.ok(await tab.locator('#contact-sent').isVisible(), 'confirmation shows');
+  assert.equal(await tab.evaluate(() => document.activeElement.id), 'contact-sent', 'focus moves to it');
+  assert.match(tab.url(), /\/contacto\.html$/, 'never leaves the page');
+  await tab.context().close();
+});
+
 test('T16 thank-you text follows the service; unknown values fall back', async () => {
   const text = async (query) => {
     const tab = await open(`cotizacion-gracias.html${query}`);

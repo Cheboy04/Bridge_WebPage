@@ -4,12 +4,12 @@
     "note": "[DATOS DE EJEMPLO, validar con Bridge] Mirrors the CMS Language model (code, name, native, dir, services[], featured). Single language list (BRG-84): the language band in src/components/lang-band.html and the quote-form options are static copies kept in sync by tests/remaster-r3.test.mjs (T3, T12)."
   },
   "languages": [
-    { "code": "es", "name": "Español", "native": "Español", "services": ["certificada", "legal"], "featured": true },
-    { "code": "en", "name": "Inglés", "native": "English", "services": ["certificada", "legal"], "featured": true },
-    { "code": "fr", "name": "Francés", "native": "Français", "services": ["certificada", "legal"], "featured": true },
-    { "code": "pt", "name": "Portugués", "native": "Português", "services": ["certificada", "legal"], "featured": true },
-    { "code": "de", "name": "Alemán", "native": "Deutsch", "services": ["certificada", "legal"], "featured": true },
-    { "code": "it", "name": "Italiano", "native": "Italiano", "services": ["certificada", "legal"], "featured": true },
+    { "code": "es", "name": "Español", "native": "Español", "services": ["certificada", "legal", "notariada"], "featured": true },
+    { "code": "en", "name": "Inglés", "native": "English", "services": ["certificada", "legal", "notariada"], "featured": true },
+    { "code": "fr", "name": "Francés", "native": "Français", "services": ["certificada", "legal", "notariada"], "featured": true },
+    { "code": "pt", "name": "Portugués", "native": "Português", "services": ["certificada", "legal", "notariada"], "featured": true },
+    { "code": "de", "name": "Alemán", "native": "Deutsch", "services": ["certificada", "legal", "notariada"], "featured": true },
+    { "code": "it", "name": "Italiano", "native": "Italiano", "services": ["certificada", "legal", "notariada"], "featured": true },
     { "code": "zh", "name": "Chino", "native": "中文", "services": ["certificada", "legal"], "featured": false },
     { "code": "ja", "name": "Japonés", "native": "日本語", "services": ["certificada", "legal"], "featured": false },
     { "code": "ru", "name": "Ruso", "native": "Русский", "services": ["certificada", "legal"], "featured": false },

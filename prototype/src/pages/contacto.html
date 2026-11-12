@@ -49,7 +49,8 @@
             // P5 builds the real form with the D3.1 error summary and inline messages, like the quote forms.
             document.getElementById('contact-form').addEventListener('submit', (e) => {
               e.preventDefault();
-              const form = e.currentTarget;
+              const form = e.currentTarget, email = document.getElementById('email'), tel = document.getElementById('telefono');
+              email.setCustomValidity(email.value.trim() || tel.value.trim() ? '' : 'Indique un correo o un teléfono para responderle.');
               if (!form.reportValidity()) return;
               const sent = document.getElementById('contact-sent');
               form.hidden = true; sent.hidden = false; sent.focus();

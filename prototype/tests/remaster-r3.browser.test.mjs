@@ -83,6 +83,22 @@ test('T5 idioma=otro preselects Otro; unknown values are ignored', async () => {
   }
 });
 
+test('T6 tile names never split a word on a phone, still or moving', async () => {
+  for (const motion of ['reduce', 'no-preference']) for (const width of [320, 390]) {
+    const tab = await open('index.html', { width, motion });
+    const split = await tab.evaluate(() => [...document.querySelectorAll('.r3-tile:not([data-tile-copy]) .r3-tile-name')].flatMap((el) => {
+      const t = el.firstChild, out = [];
+      for (const m of t.textContent.matchAll(/\S+/g)) {
+        const r = document.createRange(); r.setStart(t, m.index); r.setEnd(t, m.index + m[0].length);
+        if (new Set([...r.getClientRects()].map((q) => Math.round(q.top))).size > 1) out.push(m[0]);
+      }
+      return out;
+    }));
+    assert.deepEqual(split, [], `${motion} @${width}`);
+    await tab.context().close();
+  }
+});
+
 test('T7 tiles move, pause on hover, focus and button, and stand still under reduced motion', async () => {
   const cols = (tab) => tab.locator('.r3-tiles-col').evaluateAll((els) => els.map((el) => getComputedStyle(el)));
   const states = (tab) => tab.locator('.r3-tiles-col').evaluateAll((els) => els.map((el) => getComputedStyle(el).animationPlayState));
@@ -202,6 +218,9 @@ test('T19 contact form checks required fields and confirms in place', async () =
   assert.ok(await tab.locator('#contact-form').isVisible(), 'empty form stays');
   assert.ok(await tab.locator('#contact-sent').isHidden());
   await tab.fill('#nombre', 'Ana Prueba'); await tab.fill('#mensaje', 'Hola'); await tab.check('#consentimiento');
+  await tab.click('#contact-form button[type="submit"]');
+  assert.ok(await tab.locator('#contact-sent').isHidden(), 'needs an email or a phone to answer');
+  await tab.fill('#telefono', '+593 99 000 0000');
   await tab.click('#contact-form button[type="submit"]');
   assert.ok(await tab.locator('#contact-sent').isVisible(), 'confirmation shows');
   assert.equal(await tab.evaluate(() => document.activeElement.id), 'contact-sent', 'focus moves to it');

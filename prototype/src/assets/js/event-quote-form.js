@@ -68,8 +68,8 @@
   Object.keys(V).forEach((id) => {
     const el = $(id);
     if (el.tagName === 'FIELDSET') {
-      // a fieldset never blurs: validate when focus leaves the group, and on every change inside it
-      el.addEventListener('focusout', (e) => { if (!el.contains(e.relatedTarget)) { touched.add(id); V[id](); } });
+      // a fieldset never blurs: validate when focus moves to another control outside the group (a label click has no relatedTarget), and on every change inside it
+      el.addEventListener('focusout', (e) => { if (e.relatedTarget && !el.contains(e.relatedTarget)) { touched.add(id); V[id](); } });
       el.addEventListener('change', () => { touched.add(id); V[id](); });
       el.querySelectorAll('input').forEach((i) => i.setAttribute('aria-describedby', `${i.getAttribute('aria-describedby') ?? ''} ${id}-err`.trim()));
       return;

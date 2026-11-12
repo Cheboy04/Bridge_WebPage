@@ -19,7 +19,7 @@
           <h1 id="f-title">Cotizar interpretación para su evento</h1>
           <p class="lead mt-5">Cuéntenos cómo será su evento. Le respondemos con el alcance, los equipos y el valor.</p>
 
-          <p id="prefill-note" class="mt-6 flex items-start gap-2 t-small text-muted" hidden><svg class="icon icon-20 mt-0.5 shrink-0" aria-hidden="true"><use href="#i-info"/></svg><span>Completamos estos datos con el resumen de su evento. Revíselos y cámbielos si hace falta.</span></p>
+          <p id="prefill-note" class="mt-6 flex items-start gap-2 t-small text-muted" hidden><svg class="icon icon-20 mt-0.5 shrink-0" aria-hidden="true"><use href="#i-info"/></svg><span>Completamos estos datos con el resumen de su evento. Revíselos y marque los idiomas que necesita.</span></p>
           <p id="estado-aviso" class="mt-6 flex items-start gap-2 rounded-control bg-raised p-3 t-small" hidden><svg class="icon icon-20 mt-0.5 shrink-0" aria-hidden="true"><use href="#i-info"/></svg><span>Vista de revisión: errores de ejemplo, como los devolvería el servidor. Quite <code>?estado=errores</code> de la dirección para ver el formulario limpio.</span></p>
 
           <div id="error-summary" tabindex="-1" aria-labelledby="error-summary-title" hidden class="mt-8 rounded-card border border-err p-5 sm:p-6">
@@ -62,7 +62,7 @@
 
               <!-- @include field-text id="asistentes" name="asistentes" type="number" label="Cantidad de asistentes" required="1" hint="Aproximada. Entre 1 y 5000." autocomplete="off" -->
 
-              <fieldset id="lenguas" class="m-0 min-w-0 border-0 p-0" aria-describedby="idi-hint lenguas-err">
+              <fieldset id="lenguas" class="m-0 min-w-0 border-0 p-0" aria-describedby="idi-hint">
                 <legend class="field-label mb-1 p-0">Idiomas que necesita además del español<span class="font-normal text-muted"> (obligatorio)</span></legend>
                 <p id="idi-hint" class="t-small text-muted">Marque al menos uno. La cantidad de intérpretes depende de cuántos marque.</p>
                 <div class="mt-2 grid sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3">

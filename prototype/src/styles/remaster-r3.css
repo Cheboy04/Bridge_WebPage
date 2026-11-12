@@ -140,6 +140,21 @@
   text-wrap: balance;
 }
 
+/* two static columns on a phone leave ~110–145px per name: smaller type so no word splits at 320 (measured, BRG-84 review) */
+@media (max-width: 39.99rem) {
+  .r3-tile {
+    padding: 0.875rem;
+  }
+
+  .r3-tile:not([data-tile="ia"]) .r3-tile-mark {
+    margin: -0.875rem -0.875rem 0;
+  }
+
+  .r3-tile-name {
+    font-size: 0.9rem;
+  }
+}
+
 a.r3-tile .r3-tile-name {
   text-decoration: underline;
   text-decoration-thickness: 1px;
@@ -166,7 +181,6 @@ a.r3-tile:hover .r3-tile-name {
   min-height: 5.5rem;
   margin: -1.25rem -1.25rem 0;
   background-color: var(--trail);
-  -webkit-mask: var(--tile-photo) 50% 50% / cover no-repeat; /* WebKit before 15.4 */
   mask: var(--tile-photo) 50% 50% / cover no-repeat;
 }
 

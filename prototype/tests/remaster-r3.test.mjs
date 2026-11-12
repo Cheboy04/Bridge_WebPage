@@ -109,7 +109,7 @@ test('T6 hero holds six distinct tiles; copies are hidden and inert', () => {
 
 test('T6 photo tiles paint a halftone photo mask in the ground trail colour', () => {
   const css = read('src/styles/remaster-r3.css');
-  const rule = css.match(/\.r3-tile:not\(\[data-tile="ia"\]\) \.r3-tile-mark\s*\{([^}]*)\}/)?.[1] ?? '';
+  const rule = [...css.matchAll(/\.r3-tile:not\(\[data-tile="ia"\]\) \.r3-tile-mark\s*\{([^}]*)\}/g)].map((m) => m[1]).join(';');
   assert.match(rule, /background-color:\s*var\(--trail\)/, 'dots take the ground trail token');
   assert.match(rule, /\bmask:\s*var\(--tile-photo\)/, 'the photo is a mask, not a background image');
   for (const k of ['traduccion', 'interpretacion', 'certificacion', 'volumen', 'profesionales']) {

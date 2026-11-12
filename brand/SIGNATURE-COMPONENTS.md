@@ -188,16 +188,18 @@ Pages also carry `data-remaster-round="r2"` on `<body>`; styles live in `prototy
 
 All of it runs only inside `@supports (animation-timeline: view())` (or with JS for the sheet and tabs) and `prefers-reduced-motion: no-preference`; otherwise every piece is at its final state.
 
-### R3 remaster (Home and Traducción certificada, BRG-84, 2026-11-10)
+### R3 remaster (Home, Traducción certificada and Interpretación, BRG-84, 2026-11-10)
 
 Styles in `prototype/src/styles/remaster-r3.css` (tokens only), behaviour in `prototype/src/assets/js/remaster-r3.js`. Spec: `docs/specs/brg-84.md`.
 
 | Element | Behaviour | Value |
 | --- | --- | --- |
-| Hero tiles `[data-r3-tiles]` (Home signature moment) | six service tiles on Bridge grounds (blue, Tinta, Bruma) with a brand mark; Traducción and Interpretación link to their pages. Two columns drift vertically in opposite directions at ≥ 64rem; below, each column is a row drifting sideways. Each column holds its tiles twice; the copies are `aria-hidden` and `inert`, so assistive tech and the keyboard meet each tile once | `transform` loop, 36 s and 44 s, linear; moves by 50 % minus half a gap |
+| Hero tiles `[data-r3-tiles]` (Home signature moment) | six service tiles on Bridge grounds (blue, Tinta, Bruma); five carry a halftone stock photo used as a CSS mask, so the dots take the ground's `--trail` (Inteligencia artificial keeps the brand dot field; credits in placeholder register #35); Traducción and Interpretación link to their pages. Two columns drift vertically in opposite directions at ≥ 64rem; below, each column is a row drifting sideways. Each column holds its tiles twice; the copies are `aria-hidden` and `inert`, so assistive tech and the keyboard meet each tile once | `transform` loop, 36 s and 44 s, linear; moves by 50 % minus half a gap |
 | Pausing | hover and focus-within pause in CSS; "Pausar movimiento" (`aria-pressed`) pauses until pressed again (WCAG 2.2.2) | `animation-play-state` |
 | Reduced motion / no JS | static grid of the six tiles, copies hidden, no pause button; motion needs JS (`data-r3-moving`) and `prefers-reduced-motion: no-preference` | — |
 | Language band `lang-band.html` (Home, Certified) | every language of `languages.json` except Spanish, once: Spanish name over the native name with its `lang` (and `dir="rtl"` for Arabic). "¿No ve su idioma?" asks by WhatsApp or opens the translation quote with `?idioma=otro` | static |
+| Video facade `video-facade.html` (Home, not a signature moment) | text left, 16:9 poster right (halftone of the presenter on Tinta, `tools/halftone.py --poster`); the poster is a link to the YouTube page, so it works without JS. On click, JS swaps in an `iframe` from `youtube-nocookie.com` with autoplay; no request to any YouTube host before the click | static until clicked |
+| Certified samples `certified-sample.html` (Certified) | three anonymised sample sheets with the seal and the `[muestra de Bridge, documento anonimizado]` caption; at ≥ 64rem a subgrid aligns the sheets and captions | static |
 
 ---
 

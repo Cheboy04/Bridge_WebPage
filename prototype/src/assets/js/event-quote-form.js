@@ -20,6 +20,8 @@
     if (!el || !out) return;
     if (msg) { errors.set(id, msg); el.setAttribute('aria-invalid', 'true'); out.innerHTML = ICON + '<span>' + escapeHtml(msg) + '</span>'; }
     else { errors.delete(id); el.removeAttribute('aria-invalid'); out.innerHTML = ''; }
+    // a group (fieldset#lenguas): its checkboxes carry the state too, since the summary link focuses the first one
+    if (el.tagName === 'FIELDSET') el.querySelectorAll('input').forEach((i) => (msg ? i.setAttribute('aria-invalid', 'true') : i.removeAttribute('aria-invalid')));
     if (!summary.hidden) renderSummary();
   }
   function renderSummary() {
@@ -65,6 +67,13 @@
 
   Object.keys(V).forEach((id) => {
     const el = $(id);
+    if (el.tagName === 'FIELDSET') {
+      // a fieldset never blurs: validate when focus leaves the group, and on every change inside it
+      el.addEventListener('focusout', (e) => { if (!el.contains(e.relatedTarget)) { touched.add(id); V[id](); } });
+      el.addEventListener('change', () => { touched.add(id); V[id](); });
+      el.querySelectorAll('input').forEach((i) => i.setAttribute('aria-describedby', `${i.getAttribute('aria-describedby') ?? ''} ${id}-err`.trim()));
+      return;
+    }
     el.addEventListener('blur', () => { touched.add(id); V[id](); });
     if (el.tagName === 'SELECT' || el.type === 'checkbox' || el.type === 'date') el.addEventListener('change', () => { touched.add(id); V[id](); });
     else el.addEventListener('input', () => { if (errors.has(id)) V[id](); });

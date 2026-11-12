@@ -166,6 +166,7 @@ a.r3-tile:hover .r3-tile-name {
   min-height: 5.5rem;
   margin: -1.25rem -1.25rem 0;
   background-color: var(--trail);
+  -webkit-mask: var(--tile-photo) 50% 50% / cover no-repeat; /* WebKit before 15.4 */
   mask: var(--tile-photo) 50% 50% / cover no-repeat;
 }
 

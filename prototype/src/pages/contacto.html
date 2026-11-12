@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- PROTOTYPE, BRG-84 R3 §3.8. Contact (Documento). PLACEHOLDER contact data, hours, address and map (register #5, #6, #37; Settings in the real site). Static map image + link: no map embed before consent. The form is static (P5 builds the real one); it posts to the generic thank-you view. Draft Spanish (usted). -->
+<!-- PROTOTYPE, BRG-84 R3 §3.8. Contact (Documento). PLACEHOLDER contact data, hours, address and map (register #5, #6, #37; Settings in the real site). Static map image + link: no map embed before consent. The form is static (P5 builds the real one): native required checks, then an in-place confirmation; nothing is sent. Draft Spanish (usted). -->
 <html lang="es">
 <head>
 <!-- @include head title="Contacto | Bridge Traducciones" description="Escriba, llame o visite a Bridge Traducciones en Quito. WhatsApp, teléfono, correo, horario y dirección." -->
@@ -33,7 +33,7 @@
 
         <div class="lg:col-span-6 lg:col-start-7">
           <h2 class="t-h3">Escríbanos</h2>
-          <form id="contact-form" class="mt-6 grid gap-6" action="cotizacion-gracias.html?servicio=contacto" method="post" novalidate>
+          <form id="contact-form" class="mt-6 grid gap-6" action="contacto.html" method="post" novalidate>
             <!-- @include field-text id="nombre" name="nombre" label="Nombre y apellido" required="1" autocomplete="name" -->
             <div class="grid gap-6 sm:grid-cols-2">
               <!-- @include field-text id="email" name="email" type="email" label="Correo electrónico" autocomplete="email" hint="Opcional si indica un teléfono." -->
@@ -43,6 +43,18 @@
             <!-- @include field-check id="consentimiento" name="consentimiento" required="1" label="Acepto la <a class='link' href='#' title='No incluido en el prototipo'>política de privacidad</a> (obligatorio). <span class='block t-small text-muted'>Sus datos se borran 90 días después de recibirlos [plazo por confirmar].</span>" -->
             <div><!-- @include button label="Enviar mensaje" tag="button" type="submit" icon="arrow-right" --></div>
           </form>
+          <p id="contact-sent" class="mt-6 flex items-start gap-2 font-semibold text-ok" tabindex="-1" hidden><svg class="icon icon-20 mt-0.5 shrink-0" aria-hidden="true"><use href="#i-check"/></svg><span>Gracias, recibimos su mensaje. Le respondemos por el medio que nos indicó en [tiempo de respuesta por confirmar].</span></p>
+          <script>
+            // ponytail: prototype stand-in. Native required checks (browser bubbles), then an in-place confirmation; nothing is sent.
+            // P5 builds the real form with the D3.1 error summary and inline messages, like the quote forms.
+            document.getElementById('contact-form').addEventListener('submit', (e) => {
+              e.preventDefault();
+              const form = e.currentTarget;
+              if (!form.reportValidity()) return;
+              const sent = document.getElementById('contact-sent');
+              form.hidden = true; sent.hidden = false; sent.focus();
+            });
+          </script>
         </div>
       </div>
     </div>

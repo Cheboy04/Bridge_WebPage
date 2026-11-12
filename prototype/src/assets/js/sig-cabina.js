@@ -42,7 +42,7 @@
     $('plan-remoto').hidden = r.room;
     const idi = `español y ${s.idiomas} ${plural(s.idiomas, 'idioma', 'idiomas')}`;
     $('plan-resumen').textContent = `${MOD[s.modalidad]} · ${DUR[s.duracion]}${s.duracion === 'varios' ? ` (${s.dias})` : ''} · ${idi} · ${s.asistentes} asistentes`;
-    const qs = new URLSearchParams({ modalidad: s.modalidad, duracion: s.duracion, dias: s.dias, idiomas: s.idiomas, asistentes: s.asistentes });
+    const qs = new URLSearchParams({ modalidad: s.modalidad, duracion: s.duracion, dias: s.dias, asistentes: s.asistentes });
     el.cta.href = 'cotizacion-interpretacion.html?' + qs;
     el.rng.style.setProperty('--p', ((Math.min(1000, Math.max(20, s.asistentes)) - 20) / 980 * 100).toFixed(1) + '%');
     el.rng.setAttribute('aria-valuetext', `${s.asistentes} asistentes`);

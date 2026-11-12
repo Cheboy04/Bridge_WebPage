@@ -1,0 +1,16 @@
+<!-- BRG-84 §3.5: one anonymised certified-translation sample. Placeholder until Bridge supplies real, anonymised sheets (register #34). params: uid, lang, kind, title, r1k, r1v, r2k, r2v, caption -->
+<figure class="r3-sample" data-certified-sample>
+  <div class="r2-sheet r3-sample-sheet" lang="{{lang}}">
+    <p class="r2-sheet-kicker">{{kind}}</p>
+    <p class="r2-sheet-title">{{title}}</p>
+    <dl class="r2-sheet-rows">
+      <div><dt>{{r1k}}</dt><dd>{{r1v}}</dd></div>
+      <div><dt>{{r2k}}</dt><dd>{{r2v}}</dd></div>
+    </dl>
+    <div class="r2-sheet-foot">
+      <p class="num">N.º [0000] · [fecha]</p>
+      <!-- @include seal uid="{{uid}}" size="64" -->
+    </div>
+  </div>
+  <figcaption class="t-small text-muted">{{caption}} [muestra de Bridge, documento anonimizado]</figcaption>
+</figure>

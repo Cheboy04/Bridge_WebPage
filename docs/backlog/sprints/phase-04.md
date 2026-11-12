@@ -52,7 +52,7 @@ Each Story follows its checklist in the issue body. Cross-cutting rules for ever
 
 - `CLAUDE.md` §5 updated with P4's scope (2026-10-19, with this document).
 - P3's carry-over is recorded ([`phase-03.md`](phase-03.md)).
-- **Pending (owner):** approve the prototype design the page stories port (the remastered Home and Certified Translation, and the pages not yet remastered). Remaster round 2 (`BRG-81`, 2026-10-21) redesigns Home and Certified Translation all the way through; the approval covers the R2 result ([`brg-81.md`](../../specs/brg-81.md)).
+- **Pending (owner):** approve the prototype design the page stories port (the remastered Home and Certified Translation, and the pages not yet remastered). Remaster round 2 (`BRG-81`, 2026-10-21) redesigns Home and Certified Translation all the way through; the approval covers the R2 result ([`brg-81.md`](../../specs/brg-81.md)). Remaster round 3 (`BRG-84`, 2026-11-05) tightens the rhythm, applies the client's comments and adds Blog, FAQ and Contacto; the approval now covers the R3 result, every menu page ([`brg-84.md`](../../specs/brg-84.md)).
 
 ### Close
 

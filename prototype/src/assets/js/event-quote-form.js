@@ -1,11 +1,11 @@
 // Event quote form (prototype): same validation pattern as quote-form.js (blur + submit, error summary), plus prefill from the event planner.
-// Rules mirror ARCHITECTURE §6: email OR phone. Query params (Livewire #[Url] later): modalidad, duracion, dias, idiomas, asistentes. Invalid values are ignored.
+// Rules mirror ARCHITECTURE §6: email OR phone. Query params (Livewire #[Url] later): modalidad, duracion, dias, asistentes (the planner's idiomas count is ignored: the checked languages are the count, BRG-84). Invalid values are ignored.
 (() => {
   const form = document.getElementById('quote-form');
   if (!form) return;
   const $ = (id) => document.getElementById(id);
   const summary = $('error-summary'), summaryList = $('error-summary-list');
-  const ORDER = ['nombre', 'email', 'telefono', 'servicio', 'fecha', 'fecha-fin', 'modalidad', 'duracion', 'dias', 'idiomas', 'asistentes', 'consentimiento'];
+  const ORDER = ['nombre', 'email', 'telefono', 'servicio', 'fecha', 'fecha-fin', 'modalidad', 'duracion', 'dias', 'asistentes', 'lenguas', 'consentimiento'];
   const errors = new Map();
   const touched = new Set();
   const ICON = '<svg class="icon icon-20" aria-hidden="true"><use href="#i-circle-alert"/></svg>';
@@ -20,6 +20,8 @@
     if (!el || !out) return;
     if (msg) { errors.set(id, msg); el.setAttribute('aria-invalid', 'true'); out.innerHTML = ICON + '<span>' + escapeHtml(msg) + '</span>'; }
     else { errors.delete(id); el.removeAttribute('aria-invalid'); out.innerHTML = ''; }
+    // a group (fieldset#lenguas): its checkboxes carry the state too, since the summary link focuses the first one
+    if (el.tagName === 'FIELDSET') el.querySelectorAll('input').forEach((i) => (msg ? i.setAttribute('aria-invalid', 'true') : i.removeAttribute('aria-invalid')));
     if (!summary.hidden) renderSummary();
   }
   function renderSummary() {
@@ -55,7 +57,7 @@
     modalidad: () => setError('modalidad', $('modalidad').value ? '' : 'Seleccione cómo será el evento: presencial, híbrido o remoto.'),
     duracion: () => { setError('duracion', $('duracion').value ? '' : 'Seleccione cuánto dura el evento.'); },
     dias: () => setError('dias', $('dias-wrap').hidden || intIn($('dias'), 2, 30) ? '' : 'Indique cuántos días dura el evento, de 2 a 30.'),
-    idiomas: () => setError('idiomas', $('idiomas').value ? '' : 'Seleccione cuántos idiomas necesita además del español.'),
+    lenguas: () => setError('lenguas', $('lenguas').querySelector('input:checked') ? '' : 'Marque al menos un idioma que necesita además del español.'),
     asistentes: () => setError('asistentes', intIn($('asistentes'), 1, 5000) ? '' : 'Indique cuántas personas asistirán, con un número entre 1 y 5000.'),
     consentimiento: () => setError('consentimiento', $('consentimiento').checked ? '' : 'Para enviar la solicitud debe aceptar la política de privacidad.'),
   };
@@ -65,6 +67,13 @@
 
   Object.keys(V).forEach((id) => {
     const el = $(id);
+    if (el.tagName === 'FIELDSET') {
+      // a fieldset never blurs: validate when focus moves to another control outside the group (a label click has no relatedTarget), and on every change inside it
+      el.addEventListener('focusout', (e) => { if (e.relatedTarget && !el.contains(e.relatedTarget)) { touched.add(id); V[id](); } });
+      el.addEventListener('change', () => { touched.add(id); V[id](); });
+      el.querySelectorAll('input').forEach((i) => i.setAttribute('aria-describedby', `${i.getAttribute('aria-describedby') ?? ''} ${id}-err`.trim()));
+      return;
+    }
     el.addEventListener('blur', () => { touched.add(id); V[id](); });
     if (el.tagName === 'SELECT' || el.type === 'checkbox' || el.type === 'date') el.addEventListener('change', () => { touched.add(id); V[id](); });
     else el.addEventListener('input', () => { if (errors.has(id)) V[id](); });
@@ -81,7 +90,6 @@
   const durOk = pick('duracion', dur, ['medio', 'jornada', 'varios'].includes(dur));
   syncDays();
   if (durOk && dur === 'varios') pick('dias', qs.get('dias'), /^\d+$/.test(qs.get('dias') || '') && +qs.get('dias') >= 2 && +qs.get('dias') <= 30);
-  pick('idiomas', qs.get('idiomas'), ['1', '2', '3', '4'].includes(qs.get('idiomas')));
   pick('asistentes', qs.get('asistentes'), /^\d+$/.test(qs.get('asistentes') || '') && +qs.get('asistentes') >= 1 && +qs.get('asistentes') <= 5000);
   if (['presencial', 'hibrido', 'remoto'].includes(mod)) {   // equipment the planner's rules would add
     const room = mod !== 'remoto', online = mod !== 'presencial';
@@ -92,7 +100,7 @@
   // ---- submit ----
   function validateAll() {
     touched.add('email'); touched.add('telefono');
-    ['nombre', 'email', 'servicio', 'fecha', 'modalidad', 'duracion', 'dias', 'idiomas', 'asistentes', 'consentimiento'].forEach((id) => V[id]());
+    ['nombre', 'email', 'servicio', 'fecha', 'modalidad', 'duracion', 'dias', 'asistentes', 'lenguas', 'consentimiento'].forEach((id) => V[id]());
   }
   const submitBtn = $('enviar'), status = $('submit-status');
   form.addEventListener('submit', (e) => {
@@ -102,11 +110,11 @@
     if (errors.size) { renderSummary(); summary.focus(); summary.scrollIntoView({ block: 'center' }); return; }
     summary.hidden = true;
     submitBtn.disabled = true; submitBtn.querySelector('span').textContent = 'Enviando…'; status.textContent = 'Enviando su solicitud…';
-    setTimeout(() => { location.href = 'cotizacion-gracias.html'; }, 700);
+    setTimeout(() => { location.href = 'cotizacion-gracias.html?servicio=interpretacion'; }, 700);
   });
   summary.addEventListener('click', (e) => {
     const a = e.target.closest('a[data-field]'); if (!a) return;
-    e.preventDefault(); const el = $(a.dataset.field); el.focus(); el.scrollIntoView({ block: 'center' });
+    e.preventDefault(); const field = $(a.dataset.field), el = field.matches('fieldset') ? field.querySelector('input') : field; el.focus(); el.scrollIntoView({ block: 'center' });
   });
 
   // ---- review toggle: ?estado=errores ----
@@ -118,7 +126,7 @@
     ['email', 'telefono'].forEach((id) => touched.add(id));
     errors.clear();
     setError('nombre', 'Escriba su nombre completo.');
-    vContact(); V.servicio(); vFechas(); V.dias(); V.idiomas(); V.asistentes(); V.consentimiento();
+    vContact(); V.servicio(); vFechas(); V.dias(); V.asistentes(); V.lenguas(); V.consentimiento();
     renderSummary();
   }
 })();

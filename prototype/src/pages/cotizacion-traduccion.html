@@ -2,7 +2,7 @@
 <!-- PROTOTYPE, stage B3. Translation quote form (Documento, always). PLACEHOLDER: contact data, response time, 90-day retention [plazo por confirmar]. Service options mock the CMS. Draft Spanish (usted). Logic in assets/js/quote-form.js. -->
 <html lang="es">
 <head>
-<!-- @include head title="Cotizar traducción | Bridge Traducciones" description="Solicite una cotización de traducción certificada, legal, notariada o escrita. Adjunte sus documentos y le respondemos con precio y plazo." -->
+<!-- @include head title="Cotizar traducción | Bridge Traducciones" description="Solicite una cotización de traducción certificada, legal o escrita. Adjunte sus documentos y le respondemos con precio y plazo." -->
 </head>
 <body>
 <a class="skip-link" href="#main">Saltar al contenido</a>
@@ -27,7 +27,7 @@
             <ul id="error-summary-list" class="mt-4 grid list-none gap-1 p-0 [&_a]:inline-flex [&_a]:min-h-11 [&_a]:items-center"></ul>
           </div>
 
-          <form id="quote-form" class="mt-10 grid gap-12" action="cotizacion-gracias.html" method="post" enctype="multipart/form-data" novalidate>
+          <form id="quote-form" class="mt-10 grid gap-12" action="cotizacion-gracias.html?servicio=traduccion" method="post" enctype="multipart/form-data" novalidate>
 
             <fieldset class="m-0 grid min-w-0 gap-6 border-0 p-0">
               <legend class="mb-6 p-0 font-serif text-[length:var(--text-h3)] font-medium leading-tight">Sus datos</legend>
@@ -43,12 +43,12 @@
             <hr class="m-0 border-0 border-t border-line">
             <fieldset class="m-0 grid min-w-0 gap-6 border-0 p-0">
               <legend class="mb-6 p-0 font-serif text-[length:var(--text-h3)] font-medium leading-tight">Su documento</legend>
-              <!-- @include field-select id="servicio" name="servicio" label="Servicio" required="1" options="<option value=''>Seleccione un servicio</option><option value='certificada'>Traducción certificada</option><option value='legal'>Traducción legal</option><option value='notariada'>Traducción notariada</option><option value='escrita'>Traducción escrita</option><option value='orientacion'>No estoy seguro, necesito orientación</option>" -->
+              <!-- @include field-select id="servicio" name="servicio" label="Servicio" required="1" options="<option value=''>Seleccione un servicio</option><option value='certificada'>Traducción certificada</option><option value='legal'>Traducción legal</option><option value='escrita'>Traducción escrita</option><option value='orientacion'>No estoy seguro, necesito orientación</option>" -->
 
               <div class="grid items-start gap-4 sm:grid-cols-[1fr_auto_1fr] sm:gap-3">
-                <!-- @include field-select id="idioma-origen" name="idioma_origen" label="Idioma del documento" required="1" options="<option value=''>Seleccione</option><option value='es'>Español</option><option value='en'>Inglés</option><option value='fr'>Francés</option><option value='de'>Alemán</option><option value='it'>Italiano</option><option value='pt'>Portugués</option><option value='ru'>Ruso</option><option value='zh'>Chino</option><option value='ja'>Japonés</option><option value='ar'>Árabe</option><option value='nl'>Neerlandés</option><option value='ko'>Coreano</option><option value='el'>Griego</option><option value='qu'>Kichwa</option><option value='otro'>Otro (indíquelo en el mensaje)</option>" -->
+                <!-- @include field-select id="idioma-origen" name="idioma_origen" label="Idioma del documento" required="1" options="<option value=''>Seleccione</option><option value='es'>Español</option><option value='en'>Inglés</option><option value='fr'>Francés</option><option value='pt'>Portugués</option><option value='de'>Alemán</option><option value='it'>Italiano</option><option value='zh'>Chino</option><option value='ja'>Japonés</option><option value='ru'>Ruso</option><option value='ar'>Árabe</option><option value='ko'>Coreano</option><option value='nl'>Neerlandés</option><option value='el'>Griego</option><option value='qu'>Kichwa</option><option value='otro'>Otro (indíquelo en el mensaje)</option>" -->
                 <button type="button" id="swap-idiomas" class="btn btn-secondary justify-self-start sm:mt-[1.525rem]" aria-label="Intercambiar idiomas"><svg class="icon icon-20 rotate-90 sm:rotate-0" aria-hidden="true" viewBox="0 0 24 24"><path d="M8 3 4 7l4 4M4 7h16M16 21l4-4-4-4M20 17H4"/></svg><span class="sm:hidden">Intercambiar</span></button>
-                <!-- @include field-select id="idioma-destino" name="idioma_destino" label="Traducir a" required="1" options="<option value=''>Seleccione</option><option value='es'>Español</option><option value='en'>Inglés</option><option value='fr'>Francés</option><option value='de'>Alemán</option><option value='it'>Italiano</option><option value='pt'>Portugués</option><option value='ru'>Ruso</option><option value='zh'>Chino</option><option value='ja'>Japonés</option><option value='ar'>Árabe</option><option value='nl'>Neerlandés</option><option value='ko'>Coreano</option><option value='el'>Griego</option><option value='qu'>Kichwa</option><option value='otro'>Otro (indíquelo en el mensaje)</option>" -->
+                <!-- @include field-select id="idioma-destino" name="idioma_destino" label="Traducir a" required="1" options="<option value=''>Seleccione</option><option value='es'>Español</option><option value='en'>Inglés</option><option value='fr'>Francés</option><option value='pt'>Portugués</option><option value='de'>Alemán</option><option value='it'>Italiano</option><option value='zh'>Chino</option><option value='ja'>Japonés</option><option value='ru'>Ruso</option><option value='ar'>Árabe</option><option value='ko'>Coreano</option><option value='nl'>Neerlandés</option><option value='el'>Griego</option><option value='qu'>Kichwa</option><option value='otro'>Otro (indíquelo en el mensaje)</option>" -->
               </div>
               <p id="swap-status" class="sr-only" role="status"></p>
               <p id="prefill-nota" class="-mt-2 flex items-start gap-2 t-small text-muted" hidden><svg class="icon icon-20 mt-0.5 shrink-0" aria-hidden="true"><use href="#i-info"/></svg><span></span></p>
@@ -62,6 +62,8 @@
                   <!-- @include field-check id="need-apo" name="necesita[]" label="Apostilla o legalización <span class='block t-small text-muted'>Para usar el documento en otro país.</span>" -->
                 </div>
               </fieldset>
+
+              <!-- @include field-text id="volumen" name="volumen" label="Volumen aproximado (opcional)" hint="Páginas o palabras, si lo sabe. Para proyectos grandes nos ayuda a darle un plazo realista." autocomplete="off" -->
 
               <!-- @include field-file id="archivos" name="archivos[]" label="Documentos a traducir (opcional)" hint="Puede enviarlos ahora o por WhatsApp después. Máximo 5 archivos de 20 MB: PDF, JPG, PNG o DOCX." -->
             </fieldset>

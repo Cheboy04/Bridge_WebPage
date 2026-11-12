@@ -12,13 +12,13 @@
 <!-- @include header -->
 
 <main id="main">
-  <!-- ARRIVAL / PROMISE (Documento) -->
-  <section class="r1-arrival bg-surface text-fg" data-remaster-beat="arrival" data-ground="white" data-signature-moment="home-crossing" data-arrival data-arrival-state="complete" aria-labelledby="hero-title">
+  <!-- ARRIVAL / PROMISE: message left, moving service tiles right (BRG-84 §3.3) -->
+  <section class="r1-arrival bg-surface text-fg" data-remaster-beat="arrival" data-ground="white" aria-labelledby="hero-title">
     <div class="wrap r1-arrival-grid">
       <div class="r1-arrival-copy">
         <p class="label">Bridge Traducciones · Quito</p>
         <h1 id="hero-title" class="r1-monument"><span>Del original</span> <span>a la firma.</span></h1>
-        <p class="lead">Traducimos y certificamos sus documentos, y llevamos intérpretes, equipos y cabinas a su congreso o reunión. Dos servicios, un mismo equipo.</p>
+        <p class="lead">Traducimos y certificamos sus documentos, y llevamos intérpretes, equipos y cabinas a su congreso o reunión. Dos servicios, un mismo equipo. <span class="text-muted">[mensaje principal de Bridge]</span></p>
         <p class="r1-service-line">Traducción certificada e interpretación simultánea en Quito</p>
         <div class="flex flex-wrap gap-3">
           <!-- @include button label="Solicitar cotización" href="cotizacion.html" icon="arrow-right" -->
@@ -26,31 +26,33 @@
         </div>
       </div>
 
-      <div class="r1-crossing" aria-label="Ejemplo demostrativo de una traducción certificada">
-        <span class="r1-crossing-decor trail-v target" aria-hidden="true"></span>
-        <p class="r1-source"><span class="label">Original · inglés</span><span lang="en">The parties agree to the terms of this contract.</span></p>
-        <p class="r1-target"><span class="label">Traducción · español</span><span>Las partes acuerdan los términos del presente contrato.</span></p>
-        <div class="r1-signed">
-          <p class="label">Resultado demostrativo</p>
-          <p class="font-serif">Traducción firmada</p>
-          <p class="num t-small text-muted">Firma · Folio [N.º 0000] · Quito, [fecha]</p>
-          <!-- @include seal uid="home-arrival" size="104" -->
-        </div>
-        <div class="r1-arrival-controls" data-arrival-controls hidden>
-          <button class="link min-h-11 font-semibold" type="button" data-arrival-skip>Omitir animación</button>
-          <button class="link min-h-11 font-semibold" type="button" data-arrival-replay>Repetir recorrido</button>
-        </div>
-        <p class="sr-only" role="status" aria-live="polite" data-arrival-status></p>
+      <div class="grid min-w-0 gap-2">
+        <!-- @include hero-tiles -->
+        <p class="t-small text-muted">Fotos de los mosaicos: Unsplash. Interpretación: <a class="link" href="https://commons.wikimedia.org/wiki/File:Interpretation_booth_at_the_2018_G7_Environment_Ministers_Meeting_in_Halifax.jpg">Indrid Cold</a>, <a class="link" href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA 2.0</a>, adaptada en semitono. Fotografías provisionales.</p>
       </div>
     </div>
   </section>
 
-  <!-- YOUR CROSSING: the visitor's pair as the chapter's image (Bruma) -->
-  <section class="r2-chapter r2-languages sec bg-raised text-fg" id="idiomas" data-remaster-beat="relevance" data-ground="bruma" aria-labelledby="pair-title-home">
+  <!-- VIDEO: text first, click-to-load player (Tinta), BRG-84 §3.4 -->
+  <section class="r2-chapter sec mode-cabina" data-remaster-beat="video" data-ground="tinta" aria-labelledby="v-title">
+    <div class="wrap r3-video-grid">
+      <div>
+        <p class="label">Video</p>
+        <h2 id="v-title" class="r2-monument">Bridge en video<span class="sr-only">.</span><span class="r2-stop" aria-hidden="true"></span></h2>
+        <p class="lead r2-lead">Quiénes somos y cómo trabajamos, contado por nuestro equipo. [texto de Bridge]</p>
+        <div class="mt-8"><!-- @include button label="Solicitar cotización" href="cotizacion.html" icon="arrow-right" --></div>
+      </div>
+      <div class="r3-video-frame"><!-- @include video-facade id="himqflZxhNs" title="Bridge Traducciones" --></div>
+    </div>
+  </section>
+
+  <!-- IDIOMAS: language band with the ask path (Bruma) -->
+  <section class="r2-chapter r2-languages sec bg-raised text-fg" id="idiomas" data-remaster-beat="relevance" data-ground="bruma" aria-labelledby="lang-title-home">
     <div class="wrap">
-      <h2 id="pair-title-home" class="r2-monument r2-pair-title"><span class="r2-kicker">Su combinación de idiomas</span><span class="r2-pair" data-r2-pair aria-hidden="true"><span data-r2-from>español</span> <i>···</i> <span data-r2-to>inglés</span></span></h2>
+      <h2 id="lang-title-home" class="r2-monument"><span class="r2-kicker">Idiomas</span>Traducimos su idioma<span class="sr-only">.</span><span class="r2-stop" aria-hidden="true"></span></h2>
+      <p class="lead r2-lead">Del español a estos idiomas, y de estos idiomas al español. [lista de ejemplo, validar con Bridge]</p>
       <div class="r2-languages-body">
-        <!-- @include sig-lang-checker uid="home" level="3" -->
+        <!-- @include lang-band uid="home" level="3" -->
       </div>
       <dl class="r2-facts-line" aria-label="Respaldo">
         <div><dt class="label">Credenciales</dt><dd>Miembro de la <span lang="en" class="[hyphens:manual]">American Translators Association</span> (ATA)</dd></div>
@@ -65,21 +67,37 @@
     <div class="wrap">
       <p class="label">Traducción</p>
       <h2 id="t-title" class="r2-monument">Documentos exactos<span class="sr-only">.</span><span class="r2-stop" aria-hidden="true"></span></h2>
-      <p class="lead r2-lead">Traducimos y certificamos documentos personales, académicos, corporativos y legales. Usted nos envía el original; nosotros coordinamos el resto.</p>
-      <ul class="r2-rows" data-list-object="active-rows">
-        <li class="r2-row">
-          <h3 class="r2-row-title"><a href="traduccion-certificada.html"><span class="sr-only">Traducción </span>Certificada</a></h3>
-          <div class="r2-row-detail"><p>Su documento traducido y certificado por un traductor, con la declaración de fidelidad al original.</p><p class="t-small text-muted">Plazo de entrega: [por confirmar]</p></div>
-        </li>
-        <li class="r2-row">
-          <h3 class="r2-row-title"><a href="#" title="No incluido en el prototipo"><span class="sr-only">Traducción </span>Legal</a></h3>
-          <div class="r2-row-detail"><p>Contratos, sentencias, poderes y demás documentos jurídicos, con terminología consistente en cada versión.</p><p class="t-small text-muted">Plazo de entrega: [por confirmar]</p></div>
-        </li>
-        <li class="r2-row">
-          <h3 class="r2-row-title"><a href="#" title="No incluido en el prototipo"><span class="sr-only">Traducción </span>Notariada</a></h3>
-          <div class="r2-row-detail"><p>Traducción certificada con el trámite notarial que su caso requiera. Le indicamos los pasos antes de empezar.</p><p class="t-small text-muted">Plazo de entrega: [por confirmar]</p></div>
-        </li>
-      </ul>
+      <div class="r3-docproof-grid">
+        <div>
+          <p class="lead r2-lead">Traducimos y certificamos documentos personales, académicos, corporativos y legales. Usted nos envía el original; nosotros coordinamos el resto.</p>
+          <ul class="r2-rows" data-list-object="active-rows">
+            <li class="r2-row">
+              <h3 class="r2-row-title"><a href="traduccion-certificada.html"><span class="sr-only">Traducción </span>Certificada</a></h3>
+              <div class="r2-row-detail"><p>Su documento traducido y certificado por un traductor, con la declaración de fidelidad al original.</p><p class="t-small text-muted">Plazo de entrega: [por confirmar]</p></div>
+            </li>
+            <li class="r2-row">
+              <h3 class="r2-row-title"><a href="#" title="No incluido en el prototipo"><span class="sr-only">Traducción </span>Legal</a></h3>
+              <div class="r2-row-detail"><p>Contratos, sentencias, poderes y demás documentos jurídicos, con terminología consistente en cada versión.</p><p class="t-small text-muted">Plazo de entrega: [por confirmar]</p></div>
+            </li>
+            <li class="r2-row">
+              <h3 class="r2-row-title"><a href="#" title="No incluido en el prototipo"><span class="sr-only">Traducción </span>Notariada</a></h3>
+              <div class="r2-row-detail"><p>Traducción certificada con el trámite notarial que su caso requiera. Le indicamos los pasos antes de empezar.</p><p class="t-small text-muted">Plazo de entrega: [por confirmar]</p></div>
+            </li>
+          </ul>
+        </div>
+        <!-- BRG-84: the crossing moved here from the hero; it proves this chapter's point -->
+        <div class="r1-crossing" aria-label="Ejemplo demostrativo de una traducción certificada">
+          <span class="r1-crossing-decor trail-v target" aria-hidden="true"></span>
+          <p class="r1-source"><span class="label">Original · inglés</span><span lang="en">The parties agree to the terms of this contract.</span></p>
+          <p class="r1-target"><span class="label">Traducción · español</span><span>Las partes acuerdan los términos del presente contrato.</span></p>
+          <div class="r1-signed">
+            <p class="label">Resultado demostrativo</p>
+            <p class="font-serif">Traducción firmada</p>
+            <p class="num t-small text-muted">Firma · Folio [N.º 0000] · Quito, [fecha]</p>
+            <!-- @include seal uid="home-crossing" size="104" -->
+          </div>
+        </div>
+      </div>
       <div class="mt-10"><!-- @include button label="Ver servicios de traducción" href="#" title="No incluido en el prototipo" variant="secondary" icon="arrow-right" --></div>
     </div>
   </section>
@@ -148,8 +166,8 @@
     <div class="wrap">
       <h2 id="w-title" class="r2-monument">Por qué Bridge<span class="sr-only">.</span><span class="r2-stop" aria-hidden="true"></span></h2>
       <p class="lead r2-lead">Lo que puede comprobar antes de contratarnos.</p>
-      <dl class="r2-ledger r2-ledger-4">
-        <div><dt>Dos servicios, un equipo</dt><dd>Traducción de documentos e interpretación de eventos se solicitan y coordinan en un solo lugar, desde Quito.</dd></div>
+      <!-- BRG-84: "Dos servicios, un equipo" left; the hero lead and the tiles say it -->
+      <dl class="r2-ledger r2-ledger-4 r3-ledger-3">
         <div><dt>Membresía ATA</dt><dd>Somos miembros de la <span lang="en" class="[hyphens:manual]">American Translators Association</span> (ATA). [Alcance exacto por confirmar con Bridge.]</dd></div>
         <div><dt>Cotización por escrito</dt><dd>Antes de empezar recibe el alcance, el plazo y el valor, para que decida con la información completa.</dd></div>
         <div><dt>Sus archivos, protegidos</dt><dd>Los documentos que nos envía se guardan en un espacio privado y se eliminan automáticamente al cumplirse el plazo que indica nuestra política de privacidad.</dd></div>
@@ -164,16 +182,16 @@
       <ul class="r2-plates" data-list-object="plates">
         <li class="r2-plate">
           <p class="label"><span>Traducción</span> · <span class="num">[fecha de publicación]</span></p>
-          <h3><a href="#" title="No incluido en el prototipo">Traducción certificada, notariada y apostillada: qué pide cada trámite</a></h3>
+          <h3><a href="blog-articulo.html">Traducción certificada, notariada y apostillada: qué pide cada trámite</a></h3>
           <p class="text-muted">Una guía para distinguir qué tipo de traducción necesita su documento antes de presentarlo ante una notaría, un consulado o una universidad.</p>
         </li>
         <li class="r2-plate">
           <p class="label"><span>Interpretación</span> · <span class="num">[fecha de publicación]</span></p>
-          <h3><a href="#" title="No incluido en el prototipo">Interpretación simultánea: equipos e intérpretes que necesita su evento</a></h3>
+          <h3><a href="blog-articulo.html">Interpretación simultánea: equipos e intérpretes que necesita su evento</a></h3>
           <p class="text-muted">Cuántos intérpretes, qué cabinas y con qué anticipación conviene reservar según la duración y el número de idiomas.</p>
         </li>
       </ul>
-      <a class="link mt-8 inline-flex min-h-11 items-center gap-2 font-semibold" href="#" title="No incluido en el prototipo">Ver todas las entradas<svg class="icon icon-20" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+      <a class="link mt-8 inline-flex min-h-11 items-center gap-2 font-semibold" href="blog.html">Ver todas las entradas<svg class="icon icon-20" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
     </div>
   </section>
 
@@ -198,7 +216,7 @@
 
 <!-- @include footer -->
 <!-- @include whatsapp message="Hola%2C%20quisiera%20cotizar%20un%20servicio%20de%20Bridge%20Traducciones" -->
-<script defer src="assets/js/remaster-home.js"></script>
 <script defer src="assets/js/remaster-r2.js"></script>
+<script defer src="assets/js/remaster-r3.js"></script>
 </body>
 </html>

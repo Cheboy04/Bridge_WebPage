@@ -1,0 +1,551 @@
+/* BRG-84 (R3): rhythm, type ceiling and the R3 pieces. Tokens only (spec §3.1). */
+
+/* the booth image is a band, not a full screen, so its heading stays in the first viewport */
+@media (min-width: 64rem) {
+  :is(.page-home-r1, .page-certified-r1) .r2-booth img {
+    aspect-ratio: 5 / 2;
+    object-fit: cover;
+    object-position: 50% 40%;
+  }
+}
+
+/* heroes start under the header: the copy no longer centres against a taller demo column */
+:is(.page-home-r1 .r1-arrival-grid, .page-certified-r1 .r1-certified-arrival-grid) {
+  align-items: start;
+}
+
+.page-home-r1 .r1-arrival .lead {
+  max-width: 38ch;
+}
+
+/* the crossing left the hero for "Documentos exactos" (spec §3.3): it sits beside the rows, not over the hero copy */
+.r3-docproof-grid {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 64rem) {
+  /* the tiles take half the hero; the R1 7/5 split was sized for the crossing */
+  .page-home-r1 .r1-arrival-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .page-home-r1 .r3-ledger-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .r3-docproof-grid {
+    grid-template-columns: minmax(0, 7fr) minmax(20rem, 5fr);
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .page-home-r1 .r1-crossing {
+    margin: 0;
+  }
+}
+
+/* Language band (spec §3.2): every language once, Spanish name over its native name */
+.r3-lang-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 40rem) {
+  .r3-lang-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (min-width: 64rem) {
+  .r3-lang-list { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+
+.r3-lang-list li {
+  display: grid;
+  gap: 0.25rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+  min-width: 0;
+}
+
+.r3-lang-name {
+  font: 600 var(--text-body) / 1.3 var(--font-sans);
+}
+
+.r3-lang-native {
+  font: 400 var(--text-h4) / 1.35 var(--font-serif);
+  color: var(--text-muted);
+  overflow-wrap: anywhere;
+}
+
+/* RTL text sits on the same start edge as its neighbours */
+.r3-lang-native[dir="rtl"] {
+  text-align: end;
+  justify-self: start;
+}
+
+.r3-lang-ask {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 46rem;
+  margin-top: 2.5rem;
+}
+
+/* Hero tiles (spec §3.3). At rest: a static grid of the six tiles, copies hidden.
+   remaster-r3.js sets [data-r3-moving] when motion is allowed: copies show and each column (a row below 64rem) loops. */
+.r3-tiles {
+  display: grid;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.r3-tiles-track {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.r3-tiles-col {
+  display: grid;
+  gap: 0.75rem;
+  align-content: start;
+}
+
+.r3-tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 9.5rem;
+  padding: 1.25rem;
+  border-radius: var(--radius-card);
+  color: var(--text);
+  text-decoration: none;
+  overflow: hidden;
+}
+
+.r3-tile.bg-raised {
+  background-color: var(--surface-raised);
+}
+
+.r3-tile[data-tile-copy] {
+  display: none;
+}
+
+.r3-tile-name {
+  font: 600 var(--text-h4) / 1.25 var(--font-serif);
+  text-wrap: balance;
+}
+
+/* two static columns on a phone leave ~110–145px per name: smaller type so no word splits at 320 (measured, BRG-84 review) */
+@media (max-width: 39.99rem) {
+  .r3-tile {
+    padding: 0.875rem;
+  }
+
+  .r3-tile:not([data-tile="ia"]) .r3-tile-mark {
+    margin: -0.875rem -0.875rem 0;
+  }
+
+  .r3-tile-name {
+    font-size: 0.9rem;
+  }
+}
+
+a.r3-tile .r3-tile-name {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+a.r3-tile:hover .r3-tile-name {
+  text-decoration-thickness: 2px;
+}
+
+/* tile marks (spec §5): halftone photos used as masks, so the dots take each ground's --trail
+   (blue on Bruma, amber on Tinta, white on blue); IA keeps the brand dot field. Sources: placeholder register #35 */
+.r3-tile-mark {
+  display: block;
+  min-height: 3rem;
+}
+
+[data-tile="ia"] .r3-tile-mark {
+  background: radial-gradient(circle at 4px 4px, var(--trail) 2px, transparent 2.5px) 0 0 / 12px 12px;
+  mask-image: linear-gradient(to right, var(--text), transparent 70%);
+}
+
+.r3-tile:not([data-tile="ia"]) .r3-tile-mark {
+  min-height: 5.5rem;
+  margin: -1.25rem -1.25rem 0;
+  background-color: var(--trail);
+  mask: var(--tile-photo) 50% 50% / cover no-repeat;
+}
+
+[data-tile="traduccion"] { --tile-photo: url("photo/tile-traduccion-600.png"); }
+[data-tile="interpretacion"] { --tile-photo: url("photo/tile-interpretacion-600.png"); }
+[data-tile="certificacion"] { --tile-photo: url("photo/tile-certificacion-600.png"); }
+[data-tile="volumen"] { --tile-photo: url("photo/tile-volumen-600.png"); }
+[data-tile="profesionales"] { --tile-photo: url("photo/tile-profesionales-600.png"); }
+
+.r3-tiles-pause {
+  justify-self: start;
+}
+
+.r3-tiles-pause[hidden] {
+  display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .r3-tiles[data-r3-moving] .r3-tile[data-tile-copy] {
+    display: flex;
+  }
+
+  .r3-tiles[data-r3-moving] .r3-tiles-track {
+    grid-template-columns: minmax(0, 1fr);
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, var(--text) 6%, var(--text) 94%, transparent);
+  }
+
+  /* below 64rem each column is a row drifting sideways */
+  .r3-tiles[data-r3-moving] .r3-tiles-col {
+    grid-auto-flow: column;
+    grid-auto-columns: 11.5rem;
+    width: max-content;
+    animation: r3-drift-x 36s linear infinite;
+  }
+
+  .r3-tiles[data-r3-moving] .r3-tiles-col + .r3-tiles-col {
+    animation-duration: 44s;
+    animation-direction: reverse;
+  }
+
+  .r3-tiles[data-r3-moving]:is(:hover, :focus-within, [data-paused]) .r3-tiles-col {
+    animation-play-state: paused;
+  }
+
+  @media (min-width: 64rem) {
+    .r3-tiles[data-r3-moving] .r3-tiles-track {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      height: 33rem;
+      mask-image: linear-gradient(transparent, var(--text) 7%, var(--text) 93%, transparent);
+    }
+
+    .r3-tiles[data-r3-moving] .r3-tiles-col {
+      grid-auto-flow: row;
+      grid-auto-columns: auto;
+      width: auto;
+      animation-name: r3-drift-y;
+    }
+  }
+}
+
+/* a column holds its tiles twice; moving it by half (plus half a gap) lands the copies exactly where the originals were */
+@keyframes r3-drift-y {
+  to { transform: translateY(calc(-50% - 0.375rem)); }
+}
+
+@keyframes r3-drift-x {
+  to { transform: translateX(calc(-50% - 0.375rem)); }
+}
+
+/* Video chapter (spec §3.4): text first, a 16:9 player frame on Tinta */
+.r3-video-grid {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 64rem) {
+  .r3-video-grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 4rem;
+    align-items: center;
+  }
+}
+
+.r3-video-frame {
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--surface-raised);
+}
+
+.r3-video {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.r3-video img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: 85% 100%;
+}
+
+.r3-video-play {
+  position: absolute;
+  left: 1.5rem;
+  bottom: 1.5rem;
+  display: grid;
+  place-items: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: var(--radius-full);
+  background: var(--accent);
+  color: var(--accent-contrast);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.r3-video-label {
+  display: none;
+  position: absolute;
+  left: 6.5rem;
+  bottom: 2.6rem;
+  font: 600 var(--text-h4) / 1.2 var(--font-serif);
+}
+
+/* on phones the label would sit on the face; the button and its accessible name carry it */
+@media (min-width: 40rem) {
+  .r3-video-label { display: block; }
+}
+
+a.r3-video:is(:hover, :focus-visible) .r3-video-play {
+  transform: scale(1.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a.r3-video .r3-video-play {
+    transition: none;
+  }
+}
+
+/* certified samples (spec §3.5): three small sheets, stacked on phones, a row from 64rem */
+.r3-samples-grid {
+  display: grid;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.r3-sample {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.page-certified-r1 .r3-sample-sheet {
+  min-height: 0;
+}
+
+@media (min-width: 64rem) {
+  /* subgrid: the three sheets share one height and the captions one baseline */
+  .r3-samples-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: auto auto;
+  }
+
+  .r3-sample {
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+  }
+}
+
+/* ---- Task 9: blog, FAQ, contact (spec §3.8) ---- */
+.r3-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.r3-cats a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding-inline: 1rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-full);
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.r3-cats a:hover {
+  border-color: var(--link);
+  color: var(--link);
+}
+
+.r3-cats a[aria-current="page"] {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--surface);
+}
+
+.r3-post-featured {
+  position: relative;
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  border-radius: var(--radius-card);
+}
+
+.r3-post-featured-title {
+  font-size: clamp(1.6rem, 1.1rem + 2vw, 2.75rem);
+  line-height: 1.12;
+  max-width: 28ch;
+  text-wrap: balance;
+}
+
+.r3-post-featured .lead {
+  max-width: 60ch;
+}
+
+.r3-post-grid {
+  display: grid;
+  gap: 0 2rem;
+  margin-top: 1.5rem;
+}
+
+.r3-post-card {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 0.75rem;
+  padding-block: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.r3-post-card:hover h3 a,
+.r3-post-card:focus-within h3 a {
+  color: var(--link);
+}
+
+@media (min-width: 40rem) {
+  .r3-post-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 64rem) {
+  .r3-post-featured {
+    padding: 3.5rem;
+  }
+
+  .r3-post-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.r3-prose-head,
+.r3-prose {
+  max-width: 68ch;
+  margin-inline: auto;
+}
+
+.r3-prose-head {
+  padding-top: 2rem;
+}
+
+.r3-prose {
+  margin-top: 2.5rem;
+}
+
+.r3-prose > * + * {
+  margin-top: 1.25rem;
+}
+
+.r3-prose h2 {
+  margin-top: 3rem;
+  font-size: var(--text-h3);
+  line-height: 1.2;
+}
+
+.r3-prose blockquote {
+  margin-block: 2.5rem;
+  margin-inline: 0;
+  padding-left: 1.5rem;
+  border-left: 3px solid var(--link);
+  font: 500 var(--text-h4) / 1.45 var(--font-serif);
+}
+
+.r3-quote-by {
+  margin-top: 0.75rem;
+  font: 400 var(--text-small) / 1.4 var(--font-sans);
+  color: var(--text-muted);
+}
+
+.r3-prose figure {
+  display: grid;
+  gap: 0.75rem;
+  margin-block: 2.5rem;
+  margin-inline: 0;
+}
+
+.r3-prose figure img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-card);
+}
+
+.r3-prose-cta {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  border-radius: var(--radius-card);
+}
+
+.r3-prose-cta h2 {
+  margin-top: 0;
+}
+
+.r3-faq-group {
+  padding-block: 2.5rem;
+  border-top: 1px solid var(--border);
+  scroll-margin-top: 1rem;
+}
+
+@media (min-width: 64rem) {
+  .r3-faq-group {
+    padding-block: 3.5rem;
+  }
+}
+
+.r3-map {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.r3-map img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.r3-map-label {
+  position: absolute;
+  left: 0.75rem;
+  bottom: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding-inline: 1rem;
+  border-radius: var(--radius-full);
+  background: var(--surface);
+  font-weight: 600;
+}
+
+.r3-map:hover .r3-map-label {
+  color: var(--link);
+}

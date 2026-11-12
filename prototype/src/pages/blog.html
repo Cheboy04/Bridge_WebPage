@@ -1,0 +1,55 @@
+<!doctype html>
+<!-- PROTOTYPE, BRG-84 R3 §3.8. Blog index (Documento). PLACEHOLDER posts, dates and categories (register #36); the real list comes from the CMS. Draft Spanish (usted). Category links are static in the prototype (no filtering, so none is marked current; the CMS port filters). -->
+<html lang="es">
+<head>
+<!-- @include head title="Blog | Bridge Traducciones" description="Guías sobre traducción certificada, interpretación de eventos y cómo preparar una cotización." -->
+</head>
+<body>
+<a class="skip-link" href="#main">Saltar al contenido</a>
+<!-- @include icons -->
+<!-- @include header active="blog" -->
+
+<main id="main">
+  <section class="bg-surface text-fg" aria-labelledby="b-title">
+    <div class="wrap pb-12 pt-12 lg:pb-16 lg:pt-20">
+      <p class="label mb-3">Blog</p>
+      <h1 id="b-title">Guías para sus trámites y eventos</h1>
+      <p class="lead mt-5 max-w-[60ch]">Lo que conviene saber antes de traducir un documento o de contratar intérpretes. [texto de Bridge]</p>
+      <nav class="mt-8" aria-label="Categorías">
+        <ul class="r3-cats">
+          <li><a href="blog.html">Todas</a></li>
+          <li><a href="blog.html?categoria=traduccion">Traducción</a></li>
+          <li><a href="blog.html?categoria=interpretacion">Interpretación</a></li>
+          <li><a href="blog.html?categoria=cotizacion">Cotización</a></li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  <section class="bg-surface pb-16 text-fg lg:pb-24" aria-labelledby="feat-title">
+    <div class="wrap">
+      <h2 id="feat-title" class="sr-only">Entrada destacada</h2>
+      <article class="r3-post-featured bg-raised" data-post="featured">
+        <p class="label"><span>Interpretación</span> · <span class="num">[fecha de publicación]</span></p>
+        <h3 class="r3-post-featured-title"><a class="text-fg no-underline after:absolute after:inset-0 hover:underline" href="blog-articulo.html">Interpretación simultánea: equipos e intérpretes que necesita su evento</a></h3>
+        <p class="lead">Cuántos intérpretes, qué cabinas y con qué anticipación conviene reservar según la duración y el número de idiomas.</p>
+        <p class="inline-flex items-center gap-2 font-semibold text-link" aria-hidden="true">Leer la guía<svg class="icon icon-20"><use href="#i-arrow-right"/></svg></p>
+      </article>
+
+      <h2 class="t-h3 mt-16 lg:mt-20">Todas las entradas</h2>
+      <div class="r3-post-grid">
+        <!-- @include post-card cat="Traducción" title="Traducción certificada, notariada y apostillada: qué pide cada trámite" excerpt="Una guía para distinguir qué tipo de traducción necesita su documento antes de presentarlo ante una notaría, un consulado o una universidad." -->
+        <!-- @include post-card cat="Traducción" title="Cómo preparar sus documentos para estudiar en el exterior" excerpt="Títulos, notas y certificados: qué traducir, en qué orden y cuánto tiempo reservar antes de la fecha de postulación." -->
+        <!-- @include post-card cat="Interpretación" title="Simultánea o consecutiva: cuál conviene a su reunión" excerpt="El tamaño del grupo, los idiomas y el ritmo del programa deciden la modalidad. Le explicamos cómo elegir." -->
+        <!-- @include post-card cat="Interpretación" title="Eventos híbridos: cómo llegan los intérpretes a quienes asisten en línea" excerpt="Canales de idioma, plataformas y pruebas técnicas para que el público remoto escuche con la misma calidad." -->
+        <!-- @include post-card cat="Cotización" title="Qué datos enviar para recibir su cotización el mismo día" excerpt="Idiomas, fechas, número de páginas o de asistentes: lo mínimo que necesitamos para darle precio y plazo." -->
+        <!-- @include post-card cat="Traducción" title="Proyectos de gran volumen: plazos realistas y control de calidad" excerpt="Cómo organizamos equipos, glosarios y revisiones cuando el encargo supera cientos de páginas." -->
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- @include footer -->
+<!-- @include whatsapp -->
+</body>
+</html>

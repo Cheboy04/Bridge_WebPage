@@ -4,24 +4,6 @@
   window.__bridgeR2 = true;
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 
-  // Live pair: mirrors the checker's selects into the aria-hidden monument. The checker re-renders its
-  // result on every change and swap, so watching the result catches both without touching the checker.
-  document.querySelectorAll('[data-r2-pair]').forEach((pair) => {
-    const checker = pair.closest('section')?.querySelector('[data-lc]');
-    const result = checker?.querySelector('[data-lc-result]');
-    if (!result) return;
-    const from = pair.querySelector('[data-r2-from]'), to = pair.querySelector('[data-r2-to]');
-    const name = (select) => select.selectedOptions[0]?.textContent.toLocaleLowerCase('es') ?? '';
-    const update = () => {
-      const next = [name(checker.querySelector('[data-lc-origen]')), name(checker.querySelector('[data-lc-destino]'))];
-      if (from.textContent === next[0] && to.textContent === next[1]) return;
-      [from.textContent, to.textContent] = next;
-      if (!reducedMotion.matches) pair.animate([{ opacity: 0.35, transform: 'translateY(0.4rem)' }, { opacity: 1, transform: 'none' }], { duration: 200, easing: 'cubic-bezier(.2,0,0,1)' });
-    };
-    new MutationObserver(update).observe(result, { childList: true, subtree: true, characterData: true });
-    checker.addEventListener('change', update);
-  });
-
   // Index tabs: ARIA tabs with automatic activation. Without JS the tablist stays hidden and every panel shows.
   document.querySelectorAll('[data-r2-tabs]').forEach((root) => {
     const list = root.querySelector('[data-r2-tablist]');

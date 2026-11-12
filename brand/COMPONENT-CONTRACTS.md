@@ -163,6 +163,8 @@ Props: none. Data: the demo sentence in ES/EN/FR/PT from `config('site.hero.sent
 
 ### LangChecker
 
+> **Superseded by the language band (BRG-84 R3, 2026-11-10):** `lang-band.html` lists `Language::published()` (code, name, native, dir) and links "¿No ve su idioma?" to WhatsApp and to `quote.translation` with `idioma=otro`. The contract below is history until the P4 page story writes the band's contract.
+
 `<x-sig-lang-checker>` · `sig-lang-checker.html` + `resources/js/sig-documento.js` · Documento.
 
 | Prop | Type | Default | Notes |

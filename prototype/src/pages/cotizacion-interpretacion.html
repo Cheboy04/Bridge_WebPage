@@ -19,16 +19,16 @@
           <h1 id="f-title">Cotizar interpretación para su evento</h1>
           <p class="lead mt-5">Cuéntenos cómo será su evento. Le respondemos con el alcance, los equipos y el valor.</p>
 
-          <p id="prefill-note" class="mt-6 flex items-start gap-2 t-small text-muted" hidden><svg class="icon icon-20 mt-0.5 shrink-0" aria-hidden="true"><use href="#i-info"/></svg><span>Completamos estos datos con el resumen de su evento. Revíselos y cámbielos si hace falta.</span></p>
-          <p id="estado-aviso" class="mt-6 flex items-start gap-2 rounded-[var(--radius-sm,8px)] bg-raised p-3 t-small" hidden><svg class="icon icon-20 mt-0.5 shrink-0" aria-hidden="true"><use href="#i-info"/></svg><span>Vista de revisión: errores de ejemplo, como los devolvería el servidor. Quite <code>?estado=errores</code> de la dirección para ver el formulario limpio.</span></p>
+          <p id="prefill-note" class="mt-6 flex items-start gap-2 t-small text-muted" hidden><svg class="icon icon-20 mt-0.5 shrink-0" aria-hidden="true"><use href="#i-info"/></svg><span>Completamos estos datos con el resumen de su evento. Revíselos y marque los idiomas que necesita.</span></p>
+          <p id="estado-aviso" class="mt-6 flex items-start gap-2 rounded-control bg-raised p-3 t-small" hidden><svg class="icon icon-20 mt-0.5 shrink-0" aria-hidden="true"><use href="#i-info"/></svg><span>Vista de revisión: errores de ejemplo, como los devolvería el servidor. Quite <code>?estado=errores</code> de la dirección para ver el formulario limpio.</span></p>
 
-          <div id="error-summary" tabindex="-1" aria-labelledby="error-summary-title" hidden class="mt-8 rounded-[var(--radius-md,14px)] border border-err p-5 sm:p-6">
+          <div id="error-summary" tabindex="-1" aria-labelledby="error-summary-title" hidden class="mt-8 rounded-card border border-err p-5 sm:p-6">
             <h2 id="error-summary-title" class="flex items-center gap-2 font-sans text-[length:var(--text-h4)] font-bold leading-tight text-err"></h2>
             <p class="mt-2 t-small text-muted">Corrija estos datos y vuelva a enviar. Lo que ya escribió se conserva.</p>
             <ul id="error-summary-list" class="mt-4 grid list-none gap-1 p-0 [&_a]:inline-flex [&_a]:min-h-11 [&_a]:items-center"></ul>
           </div>
 
-          <form id="quote-form" class="mt-10 grid gap-12" action="cotizacion-gracias.html" method="post" novalidate>
+          <form id="quote-form" class="mt-10 grid gap-12" action="cotizacion-gracias.html?servicio=interpretacion" method="post" novalidate>
 
             <fieldset class="m-0 grid min-w-0 gap-6 border-0 p-0">
               <legend class="mb-6 p-0 font-serif text-[length:var(--text-h3)] font-medium leading-tight">Sus datos</legend>
@@ -60,22 +60,28 @@
                 <!-- @include field-text id="dias" name="dias" type="number" label="Cantidad de días" hint="De 2 a 30 días." autocomplete="off" -->
               </div>
 
-              <div class="grid gap-6 sm:grid-cols-2">
-                <!-- @include field-select id="idiomas" name="idiomas" label="Idiomas además del español" required="1" options="<option value=''>Seleccione</option><option value='1'>1 idioma</option><option value='2'>2 idiomas</option><option value='3'>3 idiomas</option><option value='4'>4 idiomas</option>" -->
-                <!-- @include field-text id="asistentes" name="asistentes" type="number" label="Cantidad de asistentes" required="1" hint="Aproximada. Entre 1 y 5000." autocomplete="off" -->
-              </div>
+              <!-- @include field-text id="asistentes" name="asistentes" type="number" label="Cantidad de asistentes" required="1" hint="Aproximada. Entre 1 y 5000." autocomplete="off" -->
 
-              <fieldset class="m-0 min-w-0 border-0 p-0" aria-describedby="idi-hint">
-                <legend class="field-label mb-1 p-0">¿Cuáles idiomas? (opcional)</legend>
-                <p id="idi-hint" class="t-small text-muted">Marque los que ya conoce. Si falta alguno, indíquelo en el mensaje.</p>
-                <div class="mt-2 grid sm:grid-cols-2 sm:gap-x-6">
-                  <!-- @include field-check id="lang-en" name="lenguas[]" label="Inglés" -->
-                  <!-- @include field-check id="lang-fr" name="lenguas[]" label="Francés" -->
-                  <!-- @include field-check id="lang-pt" name="lenguas[]" label="Portugués" -->
-                  <!-- @include field-check id="lang-de" name="lenguas[]" label="Alemán" -->
-                  <!-- @include field-check id="lang-it" name="lenguas[]" label="Italiano" -->
-                  <!-- @include field-check id="lang-otro" name="lenguas[]" label="Otro" -->
+              <fieldset id="lenguas" class="m-0 min-w-0 border-0 p-0" aria-describedby="idi-hint">
+                <legend class="field-label mb-1 p-0">Idiomas que necesita además del español<span class="font-normal text-muted"> (obligatorio)</span></legend>
+                <p id="idi-hint" class="t-small text-muted">Marque al menos uno. La cantidad de intérpretes depende de cuántos marque.</p>
+                <div class="mt-2 grid sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3">
+                  <!-- @include field-check id="lang-en" name="lenguas[]" value="en" label="Inglés" -->
+                  <!-- @include field-check id="lang-fr" name="lenguas[]" value="fr" label="Francés" -->
+                  <!-- @include field-check id="lang-pt" name="lenguas[]" value="pt" label="Portugués" -->
+                  <!-- @include field-check id="lang-de" name="lenguas[]" value="de" label="Alemán" -->
+                  <!-- @include field-check id="lang-it" name="lenguas[]" value="it" label="Italiano" -->
+                  <!-- @include field-check id="lang-zh" name="lenguas[]" value="zh" label="Chino" -->
+                  <!-- @include field-check id="lang-ja" name="lenguas[]" value="ja" label="Japonés" -->
+                  <!-- @include field-check id="lang-ru" name="lenguas[]" value="ru" label="Ruso" -->
+                  <!-- @include field-check id="lang-ar" name="lenguas[]" value="ar" label="Árabe" -->
+                  <!-- @include field-check id="lang-ko" name="lenguas[]" value="ko" label="Coreano" -->
+                  <!-- @include field-check id="lang-nl" name="lenguas[]" value="nl" label="Neerlandés" -->
+                  <!-- @include field-check id="lang-el" name="lenguas[]" value="el" label="Griego" -->
+                  <!-- @include field-check id="lang-qu" name="lenguas[]" value="qu" label="Kichwa" -->
+                  <!-- @include field-check id="lang-otro" name="lenguas[]" value="otro" label="Otro (indíquelo en el mensaje)" -->
                 </div>
+                <p id="lenguas-err" class="field-msg err"></p>
               </fieldset>
             </fieldset>
 
@@ -97,7 +103,7 @@
 
             <hr class="m-0 border-0 border-t border-line">
             <div class="grid gap-6">
-              <!-- @include field-check id="consentimiento" name="consentimiento" required="1" label="Acepto la <a class='link' href='#' title='No incluido en el prototipo'>política de privacidad</a> (obligatorio). <span class='block t-small text-muted'>Sus datos y archivos se borran 90 días después de recibirlos [plazo por confirmar].</span>" -->
+              <!-- @include field-check id="consentimiento" name="consentimiento" required="1" label="Acepto la <a class='link' href='#' title='No incluido en el prototipo'>política de privacidad</a> (obligatorio). <span class='block t-small text-muted'>Sus datos se borran 90 días después de recibirlos [plazo por confirmar].</span>" -->
 
               <div aria-hidden="true" class="sr-only"><label>No complete este campo <input type="text" id="web" name="web" tabindex="-1" autocomplete="off"></label></div>
 
@@ -110,7 +116,7 @@
         </div>
 
         <section class="lg:col-span-4 lg:col-start-9" aria-labelledby="aside-title">
-          <div class="grid gap-10 border-t border-line pt-8 lg:sticky lg:top-6">
+          <div class="grid gap-10 rounded-card bg-raised p-6 lg:sticky lg:top-6 lg:p-8">
             <div>
               <h2 id="aside-title" class="font-sans text-[length:var(--text-h4)] font-bold leading-tight">Qué pasa después</h2>
               <ol class="mt-5 grid list-none gap-5 p-0">

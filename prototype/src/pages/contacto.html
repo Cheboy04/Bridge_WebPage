@@ -1,0 +1,68 @@
+<!doctype html>
+<!-- PROTOTYPE, BRG-84 R3 §3.8. Contact (Documento). PLACEHOLDER contact data, hours, address and map (register #5, #6, #37; Settings in the real site). Static map image + link: no map embed before consent. The form is static (P5 builds the real one): native required checks, then an in-place confirmation; nothing is sent. Draft Spanish (usted). -->
+<html lang="es">
+<head>
+<!-- @include head title="Contacto | Bridge Traducciones" description="Escriba, llame o visite a Bridge Traducciones en Quito. WhatsApp, teléfono, correo, horario y dirección." -->
+</head>
+<body>
+<a class="skip-link" href="#main">Saltar al contenido</a>
+<!-- @include icons -->
+<!-- @include header active="contacto" -->
+
+<main id="main">
+  <section class="bg-surface text-fg" aria-labelledby="c-title">
+    <div class="wrap pb-16 pt-12 lg:pb-24 lg:pt-20">
+      <h1 id="c-title">Contacto</h1>
+      <p class="lead mt-5 max-w-[60ch]">Escríbanos para un proyecto grande, un trabajo con inteligencia artificial o cualquier consulta. Para cotizar un documento o un evento, use el <a class="link" href="cotizacion.html">cotizador</a>: le pide solo los datos necesarios.</p>
+
+      <div class="mt-12 grid gap-y-14 lg:mt-16 lg:grid-cols-12 lg:gap-x-8">
+        <div class="lg:col-span-5">
+          <h2 class="t-h3">Hablemos</h2>
+          <div class="mt-6"><!-- @include contact-block message="Hola%2C%20quisiera%20hacer%20una%20consulta%20a%20Bridge%20Traducciones" --></div>
+
+          <h2 class="t-h3 mt-14">Visítenos</h2>
+          <address class="mt-6 not-italic">
+            <p>[Dirección de la oficina]<br>Quito, Ecuador</p>
+            <p class="mt-3 inline-flex items-start gap-3 text-muted"><svg class="icon icon-20 mt-0.5 shrink-0" aria-hidden="true"><use href="#i-clock"/></svg><span>Horario: [lunes a viernes, por confirmar]</span></p>
+          </address>
+          <a class="r3-map mt-6" href="https://www.google.com/maps/search/?api=1&amp;query=Quito%2C+Ecuador">
+            <img src="assets/img/mapa-quito.svg" width="800" height="500" loading="lazy" data-map alt="Mapa de ejemplo con la ubicación de la oficina en Quito [ubicación por confirmar]">
+            <span class="r3-map-label">Abrir en Google Maps<span class="sr-only"> (sitio externo)</span><svg class="icon icon-16" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+          </a>
+        </div>
+
+        <div class="lg:col-span-6 lg:col-start-7">
+          <h2 class="t-h3">Escríbanos</h2>
+          <form id="contact-form" class="mt-6 grid gap-6" action="contacto.html" method="post" novalidate>
+            <!-- @include field-text id="nombre" name="nombre" label="Nombre y apellido" required="1" autocomplete="name" -->
+            <div class="grid gap-6 sm:grid-cols-2">
+              <!-- @include field-text id="email" name="email" type="email" label="Correo electrónico" autocomplete="email" hint="Opcional si indica un teléfono." -->
+              <!-- @include field-text id="telefono" name="telefono" type="tel" label="Teléfono o WhatsApp" autocomplete="tel" hint="Opcional si indica un correo." placeholder="+593 99 000 0000" -->
+            </div>
+            <!-- @include field-textarea id="mensaje" name="mensaje" label="Mensaje" required="1" hint="Cuéntenos en pocas líneas qué necesita." -->
+            <!-- @include field-check id="consentimiento" name="consentimiento" required="1" label="Acepto la <a class='link' href='#' title='No incluido en el prototipo'>política de privacidad</a> (obligatorio). <span class='block t-small text-muted'>Sus datos se borran 90 días después de recibirlos [plazo por confirmar].</span>" -->
+            <div><!-- @include button label="Enviar mensaje" tag="button" type="submit" icon="arrow-right" --></div>
+          </form>
+          <p id="contact-sent" class="mt-6 flex items-start gap-2 font-semibold text-ok" tabindex="-1" hidden><svg class="icon icon-20 mt-0.5 shrink-0" aria-hidden="true"><use href="#i-check"/></svg><span>Gracias, recibimos su mensaje. Le respondemos por el medio que nos indicó en [tiempo de respuesta por confirmar].</span></p>
+          <script>
+            // ponytail: prototype stand-in. Native required checks (browser bubbles), then an in-place confirmation; nothing is sent.
+            // P5 builds the real form with the D3.1 error summary and inline messages, like the quote forms.
+            document.getElementById('contact-form').addEventListener('submit', (e) => {
+              e.preventDefault();
+              const form = e.currentTarget, email = document.getElementById('email'), tel = document.getElementById('telefono');
+              email.setCustomValidity(email.value.trim() || tel.value.trim() ? '' : 'Indique un correo o un teléfono para responderle.');
+              if (!form.reportValidity()) return;
+              const sent = document.getElementById('contact-sent');
+              form.hidden = true; sent.hidden = false; sent.focus();
+            });
+          </script>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- @include footer -->
+<!-- @include whatsapp -->
+</body>
+</html>

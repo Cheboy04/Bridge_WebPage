@@ -82,6 +82,7 @@ Full list (one row per ticket):
 | --- | ---- | ----- | ------------------------- |
 | `BRG-68` | Task | Evidence-led visual remaster: direction and gated two-page prototype | 2026-10-19 owner request; remaster round 1 |
 | `BRG-81` | Task | Evidence-led visual remaster R2: home and certified translation | 2026-10-21 owner request; remaster round 2 |
+| `BRG-84` | Task | Remaster R3: rhythm, client changes and the remaining pages | 2026-11-05 owner and client review; remaster round 3 |
 
 ## Historical keys that are not reused
 

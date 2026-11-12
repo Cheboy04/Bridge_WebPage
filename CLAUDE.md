@@ -50,7 +50,7 @@ Before writing a spec or a test, or proposing an implementation:
 /
 ├── CLAUDE.md                       ← agent rules (stack in §7)
 ├── brand/                          ← brand system: DIRECTION.md, SIGNATURE-COMPONENTS.md, logo/ (owners per ADR D3.8)
-├── prototype/                      ← static reference implementation (8 pages, 6 signature components)
+├── prototype/                      ← static reference implementation (12 pages)
 ├── audit/                          ← brand/UX audits (captures with real data are git-ignored)
 ├── docs/
 │   ├── ARCHITECTURE.md             ← site overview: sitemap, content-model draft, lead forms (decisions → ADR)

@@ -32,6 +32,8 @@ Status: approved by client 2026-10-15 (all six). **Owns the behaviour layer** (A
 
 ## 2. Language-pair checker (home + Traducción certificada)
 
+> **Superseded on Home and Traducción certificada by the R3 language band (BRG-84, 2026-11-10)**, see "R3 remaster" below. The prototype no longer ships the checker; this section stays as history.
+
 "¿De qué idioma a qué idioma?" Two native selects (origen, destino) with a swap button.
 
 **Result panel** (updates on change; polite live region):
@@ -162,9 +164,9 @@ Pages opt in with `body.page-home-r1` / `body.page-certified-r1`; styles live in
 
 | Element | Behaviour | Value |
 | --- | --- | --- |
-| Home arrival (signature moment) | source phrase → target phrase → signed result, stacked and offset; trail connector between source and target | target and signed block: opacity 0→1, translateY 0.75rem→0, `dur-slow` (320ms), `ease-out`, delays 320ms / 820ms; complete at 1600ms |
-| Arrival controls | native "Omitir animación" / "Repetir recorrido" buttons, shown only when JS runs; skip announces "Recorrido completado…" politely and moves focus to "Repetir recorrido" (or the CTA under reduced motion) | — |
-| Repeat visits | plays once; `localStorage['bridge-remaster-arrival-seen']` (try/catch) shows the end state directly | — |
+| Home arrival (signature moment; **superseded by the R3 hero tiles, BRG-84**: the crossing is now a static element of "Documentos exactos") | source phrase → target phrase → signed result, stacked and offset; trail connector between source and target | target and signed block: opacity 0→1, translateY 0.75rem→0, `dur-slow` (320ms), `ease-out`, delays 320ms / 820ms; complete at 1600ms |
+| Arrival controls (removed in R3) | native "Omitir animación" / "Repetir recorrido" buttons, shown only when JS runs; skip announces "Recorrido completado…" politely and moves focus to "Repetir recorrido" (or the CTA under reduced motion) | — |
+| Repeat visits (removed in R3) | plays once; `localStorage['bridge-remaster-arrival-seen']` (try/catch) shows the end state directly | — |
 | Reduced motion / no JS | the signed end state is the HTML; no sequence, no "Repetir recorrido" | — |
 | Cabina handoff | hard edge into a full Tinta chapter, monument heading, booth photo once; no animation of its own (not a second signature moment) | — |
 | Close | shared include `remaster-close.html`: "original → traducción → firma" on Tinta with one amber trail run under it, then the page's contact block and footer | static |
@@ -176,7 +178,7 @@ Pages also carry `data-remaster-round="r2"` on `<body>`; styles live in `prototy
 
 | Element | Behaviour | Value |
 | --- | --- | --- |
-| Live pair monument `[data-r2-pair]` | writes the checker's origin and target names as "origen ··· destino" at monument scale; updates on the selects' `change` and on swap; `aria-hidden` (the checker's own result stays the accessible output) | re-set: opacity 0.35→1, translateY 0.4rem→0, `dur-base`, `ease-out` |
+| Live pair monument `[data-r2-pair]` (removed in R3 with the checker) | writes the checker's origin and target names as "origen ··· destino" at monument scale; updates on the selects' `change` and on swap; `aria-hidden` (the checker's own result stays the accessible output) | re-set: opacity 0.35→1, translateY 0.4rem→0, `dur-base`, `ease-out` |
 | Index tabs (Certified, institutions) | ARIA tabs, automatic activation; ←/→ wrap, Home/End jump; only the selected panel visible | without JS: no tablist, every panel listed with its heading |
 | Sticky sheet `[data-r2-sheet]` (both process chapters) | one document held while the numbered steps scroll; the step in the middle of the viewport (IntersectionObserver, root margin −45 %) sets `data-step`; folio, translated lines and seal arrive with later steps; `aria-hidden` | parts: `dur-slow`, `ease-out`; without JS or under reduced motion `data-step` = last step |
 | Seam band `.r2-seam` | one dot row inside a chapter at a ground change, drawn left → right as it enters | `view()` entry 0 % → cover 30 %; static and complete at rest |
@@ -185,6 +187,19 @@ Pages also carry `data-remaster-round="r2"` on `<body>`; styles live in `prototy
 | Page transition | cross-document View Transition between Home and Traducción certificada; others navigate normally | CSS `@view-transition { navigation: auto }` in those two pages only |
 
 All of it runs only inside `@supports (animation-timeline: view())` (or with JS for the sheet and tabs) and `prefers-reduced-motion: no-preference`; otherwise every piece is at its final state.
+
+### R3 remaster (Home, Traducción certificada and Interpretación, BRG-84, 2026-11-10)
+
+Styles in `prototype/src/styles/remaster-r3.css` (tokens only), behaviour in `prototype/src/assets/js/remaster-r3.js`. Spec: `docs/specs/brg-84.md`.
+
+| Element | Behaviour | Value |
+| --- | --- | --- |
+| Hero tiles `[data-r3-tiles]` (Home signature moment) | six service tiles on Bridge grounds (blue, Tinta, Bruma); five carry a halftone stock photo used as a CSS mask, so the dots take the ground's `--trail` (Inteligencia artificial keeps the brand dot field; credits in placeholder register #35); Traducción and Interpretación link to their pages. Two columns drift vertically in opposite directions at ≥ 64rem; below, each column is a row drifting sideways. Each column holds its tiles twice; the copies are `aria-hidden` and `inert`, so assistive tech and the keyboard meet each tile once | `transform` loop, 36 s and 44 s, linear; moves by 50 % minus half a gap |
+| Pausing | hover and focus-within pause in CSS; "Pausar movimiento" (`aria-pressed`) pauses until pressed again (WCAG 2.2.2) | `animation-play-state` |
+| Reduced motion / no JS | static grid of the six tiles, copies hidden, no pause button; motion needs JS (`data-r3-moving`) and `prefers-reduced-motion: no-preference` | — |
+| Language band `lang-band.html` (Home, Certified) | every language of `languages.json` except Spanish, once: Spanish name over the native name with its `lang` (and `dir="rtl"` for Arabic). "¿No ve su idioma?" asks by WhatsApp or opens the translation quote with `?idioma=otro` | static |
+| Video facade `video-facade.html` (Home, not a signature moment) | text left, 16:9 poster right (halftone of the presenter on Tinta, `tools/halftone.py --poster`); the poster is a link to the YouTube page, so it works without JS. On click, JS swaps in an `iframe` from `youtube-nocookie.com` with autoplay; no request to any YouTube host before the click | static until clicked |
+| Certified samples `certified-sample.html` (Certified) | three anonymised sample sheets with the seal and the `[muestra de Bridge, documento anonimizado]` caption; at ≥ 64rem a subgrid aligns the sheets and captions | static |
 
 ---
 

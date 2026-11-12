@@ -20,6 +20,8 @@ Format: the trap, the symptom and what to do.
 - **The runner's compact summary can hide which tests failed.** For the C3 review, use a detailed report (JUnit or similar) in a git-ignored path.
 - **Never undo a mutation with `git checkout -- <file>`.** It also wipes uncommitted fixes in that file (BRG-81). The C3 script keeps the original text and writes it back, or C3 runs only on a clean tree.
 - **A clipping container hides overflow from overflow checks.** `overflow-x: clip` on a chapter keeps `scrollWidth` green while text is cut off; assert that text stays inside the viewport, with motion on as well as off (BRG-81).
+- **Whole-page axe with motion allowed reports false contrast failures** on pages whose scroll reveals hold text at partial opacity until it enters the viewport. Scroll each flagged node into view, let it settle, and re-run axe on that node before treating it as real (BRG-84).
+- **A markup test that takes the first match on the page breaks when shared chrome gains the same link.** Scope page-content assertions to `<main>` (BRG-84, T17 after the header linked `contacto.html`).
 
 ## Contracts and boundaries (C4)
 
@@ -54,6 +56,7 @@ Format: the trap, the symptom and what to do.
 ## Environment and deployment
 
 - **Debug mode in staging or production** exposes SQL and values in errors. Verify it is off in every deployed environment.
+- **`pkill -f <pattern>` kills its own shell** when the pattern also appears in the command line that runs it, aborting the rest of a chained command. Stop a local server by port (`fuser -k 4173/tcp`).
 - **Non-POSIX shells** (fish, PowerShell) interpret redirection and flags after an argument differently. Put flags before the name, and read secrets with the shell's hidden-input command, never pasted on the command line.
 
 ## Management and documentation

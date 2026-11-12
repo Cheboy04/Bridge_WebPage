@@ -50,7 +50,8 @@ test('Certified slider is operable by drag label, buttons and keyboard', async (
   assert.ok(await tab.locator('[data-ba-howto]').isVisible(), 'how-to visible in slider mode');
 
   await range.focus();
-  await tab.keyboard.press('ArrowRight');
+  // ArrowLeft: the intro sweep may have parked the value at 100, where ArrowRight fires no input (BRG-84 deflake)
+  await tab.keyboard.press('ArrowLeft');
   assert.equal(await tab.getByText('Deslice', { exact: true }).isVisible(), false, 'label collapses after the first keyboard use');
 
   await tab.getByRole('button', { name: 'Original', exact: true }).click();
@@ -77,9 +78,5 @@ test('reduced motion shows both sheets and no drag instruction', async () => {
   assert.equal(await tab.locator('[data-ba-jump]').first().isVisible(), false);
   assert.equal(await tab.locator('[data-ba-howto]').isVisible(), false);
   await tab.context().close();
-
-  const home = await open('index');
-  assert.equal(await home.locator('[data-arrival]').getAttribute('data-arrival-state'), 'complete');
-  assert.equal(await home.locator('[data-arrival-skip]').isVisible(), false);
-  await home.context().close();
+  // the Home arrival replay checks were superseded with the crossing's move (BRG-84 §3.9)
 });

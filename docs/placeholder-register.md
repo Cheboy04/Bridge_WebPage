@@ -50,9 +50,19 @@ It merges and replaces three earlier lists: the open items of the old `docs/ARCH
 | 28 | Licence of `Interpreting Booth Hero image.png`, or drop it | not used | — | P4 | Open |
 | 29 | Legal-entity name for the footer © line | "© [año] Bridge Traducciones" | `Settings` | P7 | Open |
 | 30 | Retention period of lead **records** (names, emails, phones), separate from the attachments' 90 days (#14) | none: rows are kept | a scheduled job in P5 + `/privacidad` | P5 (privacy text), P7 | answered 2026-10-19 by the owner → 90 days, same as the attachments (ADR D7.1) |
+| 31 | Home main message (headline + lead) | `[mensaje principal de Bridge]` | `lang/es` / CMS | P4 | Open (client writes it) |
+| 32 | Text of the six hero tiles (translation, interpretation, AI, certification and notarisation, large-volume projects, certified professionals) | `[texto de Bridge]` | CMS | P4 | Open (client writes it) |
+| 33 | Text beside the institutional video; a video with the refreshed logo | `[texto de Bridge]`; current video shows the old logo | CMS / Bridge's YouTube channel | P4 (text), P7 (video) | Open |
+| 34 | Redacted certified-translation samples (2–3) | three drawn placeholder sheets `[muestra de Bridge, documento anonimizado]` | media library | P4 | Open |
+| 35 | Photos for the hero tiles and the Interpretation hero | hero tiles: halftone masks of free Unsplash photos — Traducción `333oj7zFsdg` (lilartsy), Certificación `7PMGUqYQpYc` (Markus Spiske), Volumen `snNHKZ-mGfE` (Wesley Tingey), Profesionales `wR56AUlEsE4` (Andreea Avramescu), Interpretación = the Commons photo below; IA keeps the brand dot field; Interpretation hero: "Interpretation booth at the 2018 G7 Environment Ministers Meeting in Halifax", Indrid Cold, Wikimedia Commons, CC BY-SA 2.0 (credit in the figcaption; derivative crops stay CC BY-SA) | media library | P7 | Open |
+| 36 | Blog posts, FAQ answers (translation, quotes) | placeholder posts and answers | CMS | P4 (content load) | Open |
+| 37 | Contact page: map link, hours, address | static map placeholder + rows #5, #6 | `Settings` | P7 | Open |
 
 ## Change log
 
+- `2026-11-11` — row #35: Interpretation hero is a CC BY-SA 2.0 Commons photo (BRG-84 Task 7); replace with Bridge's own photos before P7.
+- `2026-11-11` — row #35: hero tiles get halftone stock photos (Unsplash License, ids in the row).
+- `2026-11-05` — rows #31–#37 added (BRG-84 R3: hero message, tiles, video, samples, stock photos, blog/FAQ, contact page).
 - `2026-10-19` — rows #14 and #30 answered by the owner: 90 days for leads and attachments.
 - `2026-10-19` — row #30 added (brg-36 ERD, `docs/erd/modelo-leads-settings.md` §9 Q-B).
 - `2026-10-16` — created in P0 from ARCHITECTURE §12, DIRECTION §11 and HANDOFF_v1 §8 (seed list), plus the open labels found in the prototype.

@@ -202,3 +202,73 @@ test('T17 chooser offers a quieter third route to Contacto', () => {
   assert.match(link[1].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' '), /¿Proyecto grande o con IA\? Escríbanos/);
   assert.doesNotMatch(link[0], /svc-link/, 'not a service card');
 });
+
+// ---- Task 9: blog, FAQ, contact and menus (spec §3.8) ----
+const builtPages = ['index', 'traduccion-certificada', 'interpretacion-simultanea', 'cotizacion', 'cotizacion-traduccion', 'cotizacion-interpretacion', 'cotizacion-gracias', 'componentes', 'blog', 'blog-articulo', 'preguntas-frecuentes', 'contacto'];
+const menuLinks = ['blog.html', 'preguntas-frecuentes.html', 'contacto.html'];
+const block = (html, tag) => html.match(new RegExp(`<${tag}\\b[\\s\\S]*?</${tag}>`))?.[0] ?? '';
+const navs = (html) => [...html.matchAll(/<nav\b[\s\S]*?<\/nav>/g)].map((m) => m[0]);
+
+test('T18 menus link the real pages and Nosotros is gone', () => {
+  for (const page of builtPages) {
+    const html = read(`dist/${page}.html`);
+    const header = block(html, 'header'), footer = block(html, 'footer');
+    assert.ok(header && footer, `${page}: header and footer built`);
+    for (const [name, part] of [['header', header], ['footer', footer]]) {
+      assert.doesNotMatch(part, />\s*Nosotros\s*</, `${page} ${name}: no Nosotros`);
+      for (const href of menuLinks) assert.match(part, new RegExp(`href="${href}"`), `${page} ${name}: links ${href}`);
+    }
+    // header menus (desktop + mobile) and the footer "Empresa" menu
+    const menus = [...navs(header), ...navs(footer).filter((n) => n.includes('aria-label="Empresa"'))];
+    assert.equal(menus.length, 3, `${page}: three menus`);
+    for (const nav of menus) assert.doesNotMatch(nav, /href="#"/, `${page}: no dead menu link`);
+  }
+  for (const [page, label] of [['blog', 'Blog'], ['preguntas-frecuentes', 'Preguntas frecuentes'], ['contacto', 'Contacto']]) {
+    const current = [...block(read(`dist/${page}.html`), 'header').matchAll(/<a\b[^>]*aria-current="page"[^>]*>([^<]+)</g)].map((m) => m[1].trim());
+    assert.deepEqual(current, [label, label], `${page}: own item current in desktop and mobile menus`);
+  }
+});
+
+test('T19 new pages carry their structure', () => {
+  const blog = read('dist/blog.html');
+  assert.equal((blog.match(/data-post="featured"/g) ?? []).length, 1, 'one featured post');
+  const cards = [...blog.matchAll(/<article class="r3-post-card[^"]*"[\s\S]*?<\/article>/g)].map((m) => m[0]);
+  assert.ok(cards.length >= 3, 'three or more post cards');
+  for (const c of cards) assert.match(c, /href="blog-articulo\.html"/);
+
+  const art = read('dist/blog-articulo.html');
+  const prose = art.match(/<div class="r3-prose"[\s\S]*?<!-- \/r3-prose -->/)?.[0] ?? '';
+  assert.ok(prose, 'article body found');
+  const ch = read('src/styles/remaster-r3.css').match(/\.r3-prose\s*\{[^}]*max-width:\s*([\d.]+)ch/)?.[1];
+  assert.ok(ch && Number(ch) <= 70, `.r3-prose max-width ${ch}ch ≤ 70ch`);
+  assert.equal((art.match(/<h1\b/g) ?? []).length, 1, 'one h1');
+  assert.ok((prose.match(/<h2\b/g) ?? []).length >= 2, 'two or more h2 in the body');
+  assert.match(prose, /<blockquote\b/);
+  assert.match(prose, /<figure\b/);
+  assert.match(block(art, 'main'), /<a\b[^>]*href="cotizacion\.html"/, 'quote CTA');
+  assert.match(art, /aria-labelledby="related-title"[\s\S]*?class="r3-post-card/, 'related posts');
+
+  const faq = read('dist/preguntas-frecuentes.html');
+  const groups = faq.split(/(?=<section\b)/);
+  for (const id of ['traduccion', 'interpretacion', 'cotizacion']) {
+    const g = groups.find((s) => s.startsWith('<section') && new RegExp(`^<section[^>]*\\bid="${id}"`).test(s));
+    assert.ok(g, `#${id} group`);
+    const details = (g.match(/<details\b/g) ?? []).length;
+    assert.ok(details >= 2, `#${id} has items`);
+    assert.equal((g.match(/<summary\b/g) ?? []).length, details, `#${id}: each item has a summary`);
+    if (id === 'interpretacion') assert.match(g, /<summary>[\s\S]*?[Ss]imultánea[\s\S]*?consecutiva[\s\S]*?<\/summary>/, 'simultaneous vs consecutive answer');
+  }
+
+  const contact = block(read('dist/contacto.html'), 'main');
+  assert.match(contact, /href="tel:\+593/, 'phone');
+  assert.match(contact, /href="https:\/\/wa\.me\/593/, 'WhatsApp');
+  assert.match(contact, /href="mailto:/, 'email');
+  assert.match(contact, /Horario/, 'hours');
+  assert.match(contact, /<address\b/, 'address');
+  assert.match(contact, /<a\b[^>]*>\s*<img\b[^>]*data-map/, 'map image inside a link');
+  assert.doesNotMatch(contact, /<iframe\b/, 'no map embed');
+  const form = block(contact, 'form');
+  assert.match(form, /^<form\b[^>]*\bnovalidate\b/, 'static novalidate form');
+  assert.ok((form.match(/class="field"/g) ?? []).length >= 3, 'built from field components');
+  assert.match(contact, /<a\b[^>]*href="cotizacion\.html"/, 'link to the quote form');
+});

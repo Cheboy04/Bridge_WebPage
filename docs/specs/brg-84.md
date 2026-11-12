@@ -134,7 +134,7 @@ Runner: `node --test` (`npm test` builds first). Contract tests in `prototype/te
 - **T18:** "no dead menu link" covers the header menus (desktop and mobile) and the footer's "Bridge" menu. The footer's service stubs (legal, notariada, consecutiva, equipos) and the privacy link stay `#`: those pages are outside the prototype. The header's Traducción and Interpretación now link the two service pages; Home's "Guías" link the blog. T17 now reads only `<main>`, because the header links `contacto.html` first.
 - **T19:** the article reuses the Commons interpretation photo with its credit. The map is a local SVG placeholder (`assets/img/mapa-quito.svg`) inside a link to a Google Maps search: no request to Google before the click. The contact form is static: native required checks, then an in-place confirmation; nothing is sent. P5 builds the real one with the D3.1 error summary. Placeholders: register #36 (posts, FAQ answers) and #37 (map, hours, address).
 
-**C3 (2026-11-11).** Runner: apply one mutation, build, run the one test, restore the original text in a `finally` (no `git checkout`). 17 mutations; every one turned its test red.
+**C3 (2026-11-11).** Runner: apply one mutation, build, run the one test, restore the original text in a `finally` (no `git checkout`). 19 mutations; every one turned its test red.
 
 | Test | Mutation | Result |
 | --- | --- | --- |
@@ -155,8 +155,10 @@ Runner: `node --test` (`npm test` builds first). Contract tests in `prototype/te
 | T13 (browser) | review fix: checkboxes lose `aria-invalid` | red |
 | T19 (browser) | review fix: drop the contact required check | red |
 | T19 (browser) | review fix: contact form posts again | red |
+| T19 (browser) | delta fix: drop the email-or-phone rule | red |
+| T6 (browser) | delta fix: drop the phone tile-name size | red |
 
-**T20 gate (2026-11-11, after the review batch):** `npm test` 43/43; `check.mjs` on all 12 pages at 1440/390/320 with reduced motion: 0 axe violations, no overflow, 0 console errors.
+**T20 gate (2026-11-11, after the review batch):** `npm test` 44/44; `check.mjs` on all 12 pages at 1440/390/320 with reduced motion: 0 axe violations, no overflow, 0 console errors.
 
 **Independent review (2026-11-11, `/code-review high` on the branch, 10 findings).** Fixed in `404ddd1`:
 1. The contact form posted to a static page (405 on the dev server) and skipped its required fields → it now confirms in place after native required checks.
@@ -165,12 +167,26 @@ Runner: `node --test` (`npm test` builds first). Contract tests in `prototype/te
 4. The `lenguas` fieldset never blurs, so it gave no error on leaving it, and its checkboxes carried no invalid state → validates on `focusout` from the group and on every change; its checkboxes get `aria-invalid` and `aria-describedby` → `lenguas-err`.
 6. The planner still sent the ignored `idiomas` count → removed from the CTA (static and JS).
 7. "Todas" was always `aria-current` while the category links don't filter → no current state until the CMS port filters.
-8. `notariada` survived in `languages.json` services and the gallery select → removed.
-9. No `-webkit-mask` fallback for the photo tiles → added.
+8. `notariada` survived in `languages.json` services and the gallery select → removed in `404ddd1`, **reverted** in `aebe711` (see the delta review): notarisation is still offered on Home, in the footer and as a quote add-on.
+9. No `-webkit-mask` fallback for the photo tiles → no change needed: the Tailwind/Lightning CSS build already prefixes `mask`. The hand-written line was removed in `aebe711`.
 
 Justified, not changed:
 5. Every post card opens the one article: the prototype has a single article template, and T19 asserts the cards link it. The real routes come from the CMS (register #36).
 10. Home's guide plates repeat two posts' copy: they are the R2 "plates" list object, not post cards. In the site both read the same CMS records, so the duplication ends at the port.
+
+**Delta review (`/code-review medium 404ddd1`, 9 findings).** Fixed in `aebe711`:
+- The contact form confirmed with no way to reply → it needs an email or a phone, as the quote forms do (ARCHITECTURE §6).
+- The group error was read twice (fieldset and checkboxes) → only the checkboxes reference `lenguas-err`.
+- A label click (no `relatedTarget`) flashed the group error → `focusout` validates only when focus moves to another control outside the group.
+- The tile credit sat inside the "Nuestros servicios" group → moved out, under the tiles, in `index.html`.
+- The planner CTA implied the languages carry over → the prefill note asks the visitor to mark them.
+- The hand-written `-webkit-mask` duplicated the build's prefix → removed.
+- Also found while checking the credit at 390: tile names split mid-word ("Interpretació/n") in the static phone grid → names are 0.9rem below 40rem. A new browser test measures it at 320/390 with motion on and off.
+
+Justified, not changed:
+- Without JS the contact form still POSTs to a static page (405 on the dev server). The quote forms behave the same, because the static prototype has no server. P5 posts to Laravel.
+- The contact stand-in uses native validation bubbles in an inline script, not the D3.1 summary in a module. This is deliberate and marked `ponytail:` in the page: P5 builds the real form with the D3.1 pattern, and the prototype only shows the layout.
+- `notariada`: the first review wanted it out of the data, the delta review wanted it kept. Whether notarised translation is a service of its own is a business call, so it goes to the owner. Data and gallery are back as on `develop`.
 
 **Known limits.**
 - With motion allowed, a whole-page axe run on Home and Certified reports colour contrast on 44–58 nodes. Every one passes once scrolled into view and settled: the R2 scroll reveals hold text at partial opacity until it enters the viewport. This is not a real contrast failure. `check.mjs` stays on reduced motion, and the motion pass is checked element by element.

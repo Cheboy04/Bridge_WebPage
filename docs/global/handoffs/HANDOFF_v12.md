@@ -15,7 +15,7 @@
 
 ## 2. GitHub Issues
 
-- PR: see the PR list for `feature/BRG-84-remaster-r3` → `develop` (opened this session). Issue #84 closes when it reaches `main`.
+- PR [#85](https://github.com/Cheboy04/Bridge_WebPage/pull/85): `feature/BRG-84-remaster-r3` → `develop`. Issue #84 closes when it reaches `main`.
 - Carried: #43 milestone (owner); local PHP ≥ 8.5.12.
 
 ## 3. Decisions of the session (agent; spec `docs/specs/brg-84.md` §5)

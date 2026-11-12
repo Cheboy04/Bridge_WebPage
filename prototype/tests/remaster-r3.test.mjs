@@ -1,6 +1,6 @@
 // BRG-84 (R3) spec tests: contract checks on src/ and dist/. Browser behaviour is in remaster-r3.browser.test.mjs; check.mjs is T20.
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { test } from 'node:test';
 
 const read = (path) => {
@@ -105,6 +105,17 @@ test('T6 hero holds six distinct tiles; copies are hidden and inert', () => {
   }
   assert.doesNotMatch(hero, /class="r1-crossing"/, 'the crossing left the hero');
   assert.match(chapterOf(home, 'document-proof'), /class="r1-crossing"/, 'the crossing sits in Documentos exactos');
+});
+
+test('T6 photo tiles paint a halftone photo mask in the ground trail colour', () => {
+  const css = read('src/styles/remaster-r3.css');
+  const rule = css.match(/\.r3-tile:not\(\[data-tile="ia"\]\) \.r3-tile-mark\s*\{([^}]*)\}/)?.[1] ?? '';
+  assert.match(rule, /background-color:\s*var\(--trail\)/, 'dots take the ground trail token');
+  assert.match(rule, /\bmask:\s*var\(--tile-photo\)/, 'the photo is a mask, not a background image');
+  for (const k of ['traduccion', 'interpretacion', 'certificacion', 'volumen', 'profesionales']) {
+    const url = css.match(new RegExp(`\\[data-tile="${k}"\\]\\s*\\{\\s*--tile-photo:\\s*url\\("([^"]+)"\\)`))?.[1];
+    assert.ok(existsSync(new URL(`../dist/assets/${url}`, import.meta.url)), `${k}: ${url} is built`);
+  }
 });
 
 // ---- Task 5: video facade (spec §3.4) ----

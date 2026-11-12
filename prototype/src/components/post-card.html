@@ -1,0 +1,6 @@
+<!-- BRG-84 §3.8: one blog post card. params: title, cat, date, excerpt, href(blog-articulo.html), tag(h3). Placeholder posts until the CMS (register #36). -->
+<article class="r3-post-card">
+  <p class="label"><span>{{cat}}</span> · <span class="num">{{date|[fecha de publicación]}}</span></p>
+  <{{tag|h3}} class="t-h4"><a class="text-fg no-underline after:absolute after:inset-0 hover:underline" href="{{href|blog-articulo.html}}">{{title}}</a></{{tag|h3}}>
+  <p class="text-muted">{{excerpt}}</p>
+</article>

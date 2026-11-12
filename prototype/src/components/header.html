@@ -1,4 +1,4 @@
-<!-- params: active (traduccion|interpretacion|nosotros|blog|faq|contacto), mode(documento|cabina), lockup(light|dark), uid.
+<!-- params: active (traduccion|interpretacion|blog|faq|contacto), mode(documento|cabina), lockup(light|dark), uid.
      Mobile menu: Alpine, focus trap, Esc closes, focus returns to the toggle. Desktop nav from 1280px. -->
 <header class="mode-{{mode|documento}} bg-surface text-fg" x-data="{open:false,
   close(){this.open=false;this.$nextTick(()=>this.$refs.toggle.focus())},
@@ -19,12 +19,11 @@
   <div class="wrap flex items-center justify-between gap-6 py-4 xl:py-5">
     <a href="index.html" class="block shrink-0" aria-label="Bridge Traducciones, ir al inicio"><img src="assets/logo/bridge-lockup-es-{{lockup|light}}.svg" alt="" width="200" height="79" class="h-auto w-[150px] sm:w-[180px] xl:w-[200px]"></a>
     <nav aria-label="{{navlabel|Principal}}" class="hidden items-center gap-7 xl:flex">
-      <a class="nav-link" href="#" title="No incluido en el prototipo" {{active==traduccion|aria-current="page"}}>Traducción</a>
-      <a class="nav-link" href="#" title="No incluido en el prototipo" {{active==interpretacion|aria-current="page"}}>Interpretación</a>
-      <a class="nav-link" href="#" title="No incluido en el prototipo" {{active==nosotros|aria-current="page"}}>Nosotros</a>
-      <a class="nav-link" href="#" title="No incluido en el prototipo" {{active==blog|aria-current="page"}}>Blog</a>
-      <a class="nav-link" href="#" title="No incluido en el prototipo" {{active==faq|aria-current="page"}}>Preguntas frecuentes</a>
-      <a class="nav-link" href="#" title="No incluido en el prototipo" {{active==contacto|aria-current="page"}}>Contacto</a>
+      <a class="nav-link" href="traduccion-certificada.html" {{active==traduccion|aria-current="page"}}>Traducción</a>
+      <a class="nav-link" href="interpretacion-simultanea.html" {{active==interpretacion|aria-current="page"}}>Interpretación</a>
+      <a class="nav-link" href="blog.html" {{active==blog|aria-current="page"}}>Blog</a>
+      <a class="nav-link" href="preguntas-frecuentes.html" {{active==faq|aria-current="page"}}>Preguntas frecuentes</a>
+      <a class="nav-link" href="contacto.html" {{active==contacto|aria-current="page"}}>Contacto</a>
     </nav>
     <div class="hidden xl:block"><!-- @include button label="Solicitar cotización" href="cotizacion.html" --></div>
     <button type="button" x-ref="toggle" @click="open=true" :aria-expanded="open" aria-controls="{{uid|m}}-menu" class="btn btn-secondary xl:hidden">
@@ -43,12 +42,11 @@
     <div class="wrap pb-12 pt-4">
       <nav aria-label="{{navlabel|Principal}} (móvil)">
         <ul class="grid">
-          <li><a class="flex min-h-14 items-center border-b border-line text-[length:var(--text-h4)] font-bold no-underline" href="#" title="No incluido en el prototipo" {{active==traduccion|aria-current="page"}}>Traducción</a></li>
-          <li><a class="flex min-h-14 items-center border-b border-line text-[length:var(--text-h4)] font-bold no-underline" href="#" title="No incluido en el prototipo" {{active==interpretacion|aria-current="page"}}>Interpretación</a></li>
-          <li><a class="flex min-h-14 items-center border-b border-line text-[length:var(--text-h4)] font-bold no-underline" href="#" title="No incluido en el prototipo" {{active==nosotros|aria-current="page"}}>Nosotros</a></li>
-          <li><a class="flex min-h-14 items-center border-b border-line text-[length:var(--text-h4)] font-bold no-underline" href="#" title="No incluido en el prototipo" {{active==blog|aria-current="page"}}>Blog</a></li>
-          <li><a class="flex min-h-14 items-center border-b border-line text-[length:var(--text-h4)] font-bold no-underline" href="#" title="No incluido en el prototipo" {{active==faq|aria-current="page"}}>Preguntas frecuentes</a></li>
-          <li><a class="flex min-h-14 items-center border-b border-line text-[length:var(--text-h4)] font-bold no-underline" href="#" title="No incluido en el prototipo" {{active==contacto|aria-current="page"}}>Contacto</a></li>
+          <li><a class="flex min-h-14 items-center border-b border-line text-[length:var(--text-h4)] font-bold no-underline" href="traduccion-certificada.html" {{active==traduccion|aria-current="page"}}>Traducción</a></li>
+          <li><a class="flex min-h-14 items-center border-b border-line text-[length:var(--text-h4)] font-bold no-underline" href="interpretacion-simultanea.html" {{active==interpretacion|aria-current="page"}}>Interpretación</a></li>
+          <li><a class="flex min-h-14 items-center border-b border-line text-[length:var(--text-h4)] font-bold no-underline" href="blog.html" {{active==blog|aria-current="page"}}>Blog</a></li>
+          <li><a class="flex min-h-14 items-center border-b border-line text-[length:var(--text-h4)] font-bold no-underline" href="preguntas-frecuentes.html" {{active==faq|aria-current="page"}}>Preguntas frecuentes</a></li>
+          <li><a class="flex min-h-14 items-center border-b border-line text-[length:var(--text-h4)] font-bold no-underline" href="contacto.html" {{active==contacto|aria-current="page"}}>Contacto</a></li>
         </ul>
       </nav>
       <div class="mt-8"><!-- @include button label="Solicitar cotización" href="cotizacion.html" icon="arrow-right" --></div>

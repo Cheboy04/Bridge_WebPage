@@ -196,7 +196,7 @@ test('T15 forms share one aside style and token radii', () => {
 });
 
 test('T17 chooser offers a quieter third route to Contacto', () => {
-  const html = read('dist/cotizacion.html');
+  const html = read('dist/cotizacion.html').match(/<main\b[\s\S]*?<\/main>/)?.[0] ?? ''; // the header menu also links contacto.html
   const link = html.match(/<a\b[^>]*href="contacto\.html"[^>]*>([\s\S]*?)<\/a>/);
   assert.ok(link, 'link to contacto.html');
   assert.match(link[1].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' '), /¿Proyecto grande o con IA\? Escríbanos/);

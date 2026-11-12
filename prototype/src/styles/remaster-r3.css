@@ -342,3 +342,195 @@ a.r3-video:is(:hover, :focus-visible) .r3-video-play {
     grid-template-rows: subgrid;
   }
 }
+
+/* ---- Task 9: blog, FAQ, contact (spec §3.8) ---- */
+.r3-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.r3-cats a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding-inline: 1rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-full);
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.r3-cats a:hover {
+  border-color: var(--link);
+  color: var(--link);
+}
+
+.r3-cats a[aria-current="page"] {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--surface);
+}
+
+.r3-post-featured {
+  position: relative;
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  border-radius: var(--radius-card);
+}
+
+.r3-post-featured-title {
+  font-size: clamp(1.6rem, 1.1rem + 2vw, 2.75rem);
+  line-height: 1.12;
+  max-width: 28ch;
+  text-wrap: balance;
+}
+
+.r3-post-featured .lead {
+  max-width: 60ch;
+}
+
+.r3-post-grid {
+  display: grid;
+  gap: 0 2rem;
+  margin-top: 1.5rem;
+}
+
+.r3-post-card {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 0.75rem;
+  padding-block: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.r3-post-card:hover h3 a,
+.r3-post-card:focus-within h3 a {
+  color: var(--link);
+}
+
+@media (min-width: 40rem) {
+  .r3-post-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 64rem) {
+  .r3-post-featured {
+    padding: 3.5rem;
+  }
+
+  .r3-post-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.r3-prose-head,
+.r3-prose {
+  max-width: 68ch;
+  margin-inline: auto;
+}
+
+.r3-prose-head {
+  padding-top: 2rem;
+}
+
+.r3-prose {
+  margin-top: 2.5rem;
+}
+
+.r3-prose > * + * {
+  margin-top: 1.25rem;
+}
+
+.r3-prose h2 {
+  margin-top: 3rem;
+  font-size: var(--text-h3);
+  line-height: 1.2;
+}
+
+.r3-prose blockquote {
+  margin-block: 2.5rem;
+  margin-inline: 0;
+  padding-left: 1.5rem;
+  border-left: 3px solid var(--link);
+  font: 500 var(--text-h4) / 1.45 var(--font-serif);
+}
+
+.r3-quote-by {
+  margin-top: 0.75rem;
+  font: 400 var(--text-small) / 1.4 var(--font-sans);
+  color: var(--text-muted);
+}
+
+.r3-prose figure {
+  display: grid;
+  gap: 0.75rem;
+  margin-block: 2.5rem;
+  margin-inline: 0;
+}
+
+.r3-prose figure img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-card);
+}
+
+.r3-prose-cta {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  border-radius: var(--radius-card);
+}
+
+.r3-prose-cta h2 {
+  margin-top: 0;
+}
+
+.r3-faq-group {
+  padding-block: 2.5rem;
+  border-top: 1px solid var(--border);
+  scroll-margin-top: 1rem;
+}
+
+@media (min-width: 64rem) {
+  .r3-faq-group {
+    padding-block: 3.5rem;
+  }
+}
+
+.r3-map {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.r3-map img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.r3-map-label {
+  position: absolute;
+  left: 0.75rem;
+  bottom: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding-inline: 1rem;
+  border-radius: var(--radius-full);
+  background: var(--surface);
+  font-weight: 600;
+}
+
+.r3-map:hover .r3-map-label {
+  color: var(--link);
+}
